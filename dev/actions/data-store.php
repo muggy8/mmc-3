@@ -9,7 +9,7 @@
 
 	    protected function __clone(){}
 
-		public static function connect(&$db_server, &$db_user, &$db_pass, &$db_name){
+		public static function connect($db_server, $db_user, $db_pass, $db_name){
 			if (self::$conn){
 				return;
 			}
@@ -28,27 +28,32 @@
 	    	return $id;
 		}
 
-		protected static function getObjectDefinition($type){
+		public static function getObjectDefinition($type){
 			$statement = self::$conn->prepare("Select * from `mmc_3_types` where `mmc_3_types`.`type` = ?");
 			$statement->bind_param("s", $type);
 			if (!$statement->execute()){
 				die("failed to get object definition");
 			}
 			$res = $statement->get_result();
-			$resRows = mysqli_fetch_all($res);
+			$resRows = mysqli_fetch_all($res, MYSQLI_ASSOC);
 			$resRowsCount = count($resRows);
 			mysqli_free_result($res);
 			if (!$resRowsCount){
 				return null;
 			}
 			if ($resRowsCount === 1){
-				return $resRows[0];
+				return (object)$resRows[0];
 			}
 			return null;
 		}
 
 		public static function createObjectDefinition($type){
-			self::$conn
+			$statement = self::$conn->prepare("Insert into `mmc_3_types` (id, name, type, begins) values (?, ?, ?, ?)");
+			$newId = self::generateId(64);
+			$statement->bind_param("ssss", $newId, $type, $type, $type);
+			if (!$statement->execute()){
+				die("failed to create object definition");
+			}
 		}
 
 		public static function storeObject($type, $obj){
@@ -62,4 +67,5 @@
 	}
 
 	storage::connect(db_server, db_user, db_pass, db_name);
-	print_r(storage::createObjectDefinition("user"));
+	//print_r(storage::createObjectDefinition("user"));
+	print_r(storage::getObjectDefinition("user"));
