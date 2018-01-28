@@ -1,2 +1,2 @@
 <?php
-	$configs = file_get_contents("./configs.php");
+	include_once("./configs.php");
