@@ -28,7 +28,7 @@
 	    	return $id;
 		}
 
-		public static function getObjectDefinition($type){
+		protected static function getObjectDefinition($type){
 			$statement = self::$conn->prepare("Select * from `mmc_3_types` where `mmc_3_types`.`type` = ?");
 			$statement->bind_param("s", $type);
 			if (!$statement->execute()){
@@ -47,7 +47,7 @@
 			return null;
 		}
 
-		public static function createObjectDefinition($type){
+		protected static function createObjectDefinition($type){
 			$statement = self::$conn->prepare("Insert into `mmc_3_types` (id, name, type, begins) values (?, ?, ?, ?)");
 			$newId = self::generateId(64);
 			$statement->bind_param("ssss", $newId, $type, $type, $type);
@@ -56,16 +56,19 @@
 			}
 		}
 
-		public static function storeObject($type, $obj){
+		public static function storeObject(string $type, stdClass $obj){
 			self::$conn;
 			$objectDefinition = self::getObjectDefinition($type);
 			if (!$objectDefinition){
 				self::createObjectDefinition($type);
 				$objectDefinition = self::getObjectDefinition($type);
 			}
+			foreach($obj as $key => &$val){
+				
+			}
 		}
 	}
 
 	storage::connect(db_server, db_user, db_pass, db_name);
 	//print_r(storage::createObjectDefinition("user"));
-	print_r(storage::getObjectDefinition("user"));
+	//print_r(storage::getObjectDefinition("user"));
