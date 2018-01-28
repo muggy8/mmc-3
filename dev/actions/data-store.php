@@ -8,14 +8,14 @@
 	    die("Connection failed: " . $conn->connect_error);
 	}
 
-	$allowedCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
-
-	function generateId($length = 16){
-    	$id = allowedCharacters[random_int(0, 51)];
+	function generateId($length = 32){
+		$allowedCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
+    	$id = $allowedCharacters[random_int(0, 51)];
     	for($i = 1; $i < $length; $i++){
-        	$id .= allowedCharacters[random_int(0, 62)];
+        	$id = $id . $allowedCharacters[random_int(0, 62)];
     	}
     	return $id;
 	}
 
-	echo generateId();
+	//print_r($allowedCharacters[random_int(0, 51)]);
+	print_r(generateId());
