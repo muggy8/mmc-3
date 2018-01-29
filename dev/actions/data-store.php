@@ -111,18 +111,18 @@
 
 	storage::connect(db_server, db_user, db_pass, db_name);
 
-	$demoObject = (object)[
-		"name" => "muggy8",
-		"age" => 9001,
-		"accountActivated" => true,
-		"winRate" => 48.22,
-		"auth" => (object)[
-			"reddit" => storage::generateId(32),
-			"facebook" => "",
-			"google" => storage::generateId(32)
-		]
-	];
-	storage::storeObject("user", $demoObject);
+	// $demoObject = (object)[
+	// 	"name" => "muggy8",
+	// 	"age" => 9001,
+	// 	"accountActivated" => true,
+	// 	"winRate" => 48.22,
+	// 	"auth" => (object)[
+	// 		"reddit" => storage::generateId(32),
+	// 		"facebook" => "",
+	// 		"google" => storage::generateId(32)
+	// 	]
+	// ];
+	// storage::storeObject("user", $demoObject);
 
 	// $uname = "muggy8";
 	// print_r(storage::saveKeyVal("123abc", "user.name", $uname));
