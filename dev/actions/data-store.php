@@ -117,7 +117,7 @@
 		"accountActivated" => true,
 		"winRate" => 48.22,
 		"auth" => (object)[
-			"reddit" => storage::generateId(35),
+			"reddit" => storage::generateId(32),
 			"facebook" => "",
 			"google" => storage::generateId(32)
 		]
