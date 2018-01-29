@@ -89,11 +89,41 @@
 				$objectDefinition = self::getObjectDefinition($type);
 			}
 
-			
+			$instanceId = self::generateId(64);
+			$storageQueue = (object)[];
+			$storageQueue->{$objectDefinition->begins} = $objToStore;
+
+			foreach($storageQueue as $objectName => $obj){
+				foreach($obj as $key => &$val){
+					if (is_object($val)){
+						$storageQueue->{"$objectName.$key"} = $val;
+					}
+				}
+			}
+
+			foreach($storageQueue as $objectName => $obj){
+				foreach($obj as $key => &$val){
+					$needsRecursion = self::saveKeyVal($instanceId, "$objectName.$key", $val);
+				}
+			}
 		}
 	}
 
 	storage::connect(db_server, db_user, db_pass, db_name);
+
+	$demoObject = (object)[
+		"name" => "muggy8",
+		"age" => 9001,
+		"accountActivated" => true,
+		"winRate" => 48.22,
+		"auth" => (object)[
+			"reddit" => storage::generateId(35),
+			"facebook" => "",
+			"google" => storage::generateId(32)
+		]
+	];
+	storage::storeObject("user", $demoObject);
+
 	// $uname = "muggy8";
 	// print_r(storage::saveKeyVal("123abc", "user.name", $uname));
 	// $num = 158;
