@@ -56,19 +56,50 @@
 			}
 		}
 
-		public static function storeObject(string $type, stdClass $obj){
-			self::$conn;
+		public static function saveKeyVal($id, $key, &$val){
+			if (is_string($val)){
+				$statement = self::$conn->prepare("Insert into `mmc_3` (`id`, `data_key`, `data_string`) values (?, ?, ?)");
+				$statement->bind_param("sss", $id, $key, $val);
+			}
+			else if (is_int($val)){
+				$statement = self::$conn->prepare("Insert into `mmc_3` (`id`, `data_key`, `data_num`) values (?, ?, ?)");
+				$statement->bind_param("ssi", $id, $key, $val);
+			}
+			else if (is_float($val)){
+				$statement = self::$conn->prepare("Insert into `mmc_3` (`id`, `data_key`, `data_num`) values (?, ?, ?)");
+				$statement->bind_param("ssd", $id, $key, $val);
+			}
+			else if (is_bool($val)){
+				$statement = self::$conn->prepare("Insert into `mmc_3` (`id`, `data_key`, `data_bool`) values (?, ?, ?)");
+				$statement->bind_param("ssi", $id, $key, $val);
+			} else {
+				return $val; // item is an object so we return it and let the store object function handle what to do with it
+			}
+
+			// by the time we get here we already have a statement that's prepaired
+			if (!$statement->execute()){
+				die("failed to store $id: $key");
+			}
+		}
+
+		public static function storeObject($type, $objToStore){
 			$objectDefinition = self::getObjectDefinition($type);
 			if (!$objectDefinition){
 				self::createObjectDefinition($type);
 				$objectDefinition = self::getObjectDefinition($type);
 			}
-			foreach($obj as $key => &$val){
-				
-			}
+
+			
 		}
 	}
 
 	storage::connect(db_server, db_user, db_pass, db_name);
-	//print_r(storage::createObjectDefinition("user"));
+	// $uname = "muggy8";
+	// print_r(storage::saveKeyVal("123abc", "user.name", $uname));
+	// $num = 158;
+	// print_r(storage::saveKeyVal("123abc", "user.int", $num));
+	// $num2 = 15.2;
+	// print_r(storage::saveKeyVal("123abc", "user.float", $num2));
+	// $bool = true;
+	// print_r(storage::saveKeyVal("123abc", "user.bool", $bool));
 	//print_r(storage::getObjectDefinition("user"));
