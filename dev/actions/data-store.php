@@ -56,7 +56,7 @@
 			}
 		}
 
-		public static function saveKeyVal($id, $key, &$val){
+		public static function saveKeyVal($id, $key, &$val, $index = null){
 			if (is_string($val)){
 				$statement = self::$conn->prepare("Insert into `mmc_3` (`id`, `data_key`, `data_string`) values (?, ?, ?)");
 				$statement->bind_param("sss", $id, $key, $val);
@@ -82,6 +82,13 @@
 			}
 		}
 
+		public static function stubSave($id, $key, &$val, $index = null){
+			if (is_object($val)){
+				return;
+			}
+			echo "id = $id, key = $key, val = $val, index = $index \n\n";
+		}
+
 		public static function storeObject($type, $objToStore){
 			$objectDefinition = self::getObjectDefinition($type);
 			if (!$objectDefinition){
@@ -91,38 +98,87 @@
 
 			$instanceId = self::generateId(64);
 			$storageQueue = (object)[];
-			$storageQueue->{$objectDefinition->begins} = $objToStore;
+			//$storageQueue->{$objectDefinition->begins} = $objToStore;
 
-			foreach($storageQueue as $objectName => $obj){
-				foreach($obj as $key => &$val){
-					if (is_object($val)){
-						$storageQueue->{"$objectName.$key"} = $val;
+			$recursiveFlattenData = function($prependName, &$objectToTraverse) use (&$storageQueue, &$recursiveFlattenData){
+				$objIsArray = is_array($objectToTraverse);
+				print_r($objectToTraverse);
+				foreach($objectToTraverse as $propName => &$propVal){
+					$valKey = $objIsArray ? $prependName . "[" . $propName . "]" : "$prependName.$propName";
+					if (is_string($propVal) || is_numeric($propVal)|| is_bool($propVal)){
+						$storageQueue->{$valKey} = $propVal;
+					}
+					else {
+						$recursiveFlattenData($valKey, $propVal);
 					}
 				}
-			}
+			};
 
-			foreach($storageQueue as $objectName => $obj){
-				foreach($obj as $key => &$val){
-					$needsRecursion = self::saveKeyVal($instanceId, "$objectName.$key", $val);
-				}
-			}
+			$recursiveFlattenData($objectDefinition->begins, $objToStore);
+
+			print_r($storageQueue);
+
+			// foreach($storageQueue as $objectName => &$obj){
+			// 	foreach($obj as $key => &$val){
+			// 		if (is_array($val)){
+			// 			foreach($val as $index => &$item){
+			// 				$storageQueue->{"$objectName.$key.$index"} = $item;
+			// 			}
+			// 		}
+			// 		else if (is_object($val)){
+			// 			$storageQueue->{"$objectName.$key"} = $val;
+			// 		}
+			// 	}
+			// }
+            //
+			// foreach($storageQueue as $objectName => &$obj){
+			// 	foreach($obj as $key => &$val){
+			// 		$potentialIndex = null;
+			// 		$potentiallyParsedOutIndex = preg_replace_callback("/\.\d+$/", function($matched) use ($potentialIndex){
+			// 			$potentialIndex = $matched;
+			// 		}, $objectName);
+			// 		echo "potentialIndex = $potentialIndex \n\n";
+			// 		self::stubSave($instanceId, "$objectName.$key", $val);
+			// 	}
+			// }
 		}
 	}
 
 	storage::connect(db_server, db_user, db_pass, db_name);
 
-	// $demoObject = (object)[
-	// 	"name" => "muggy8",
-	// 	"age" => 9001,
-	// 	"accountActivated" => true,
-	// 	"winRate" => 48.22,
-	// 	"auth" => (object)[
-	// 		"reddit" => storage::generateId(32),
-	// 		"facebook" => "",
-	// 		"google" => storage::generateId(32)
-	// 	]
-	// ];
-	// storage::storeObject("user", $demoObject);
+	$demoObject = (object)[
+		"name" => "muggy8",
+		"age" => 9001,
+		"accountActivated" => true,
+		"winRate" => 48.22,
+		"auth" => (object)[
+			"reddit" => storage::generateId(32),
+			"facebook" => "",
+			"google" => storage::generateId(32)
+		],
+		"MatchHistory" => [
+			storage::generateId(32),
+			storage::generateId(32),
+			storage::generateId(32),
+			storage::generateId(32)
+		],
+		"friends" => [
+
+		],
+		"teammates" => [
+			(object)[
+				"name" => "user-name",
+				"age" => 200,
+				"accountActivated" => true
+			],
+			(object)[
+				"name" => "other-user-name",
+				"age" => 581,
+				"accountActivated" => true
+			]
+		]
+	];
+	storage::storeObject("user", $demoObject);
 
 	// $uname = "muggy8";
 	// print_r(storage::saveKeyVal("123abc", "user.name", $uname));
