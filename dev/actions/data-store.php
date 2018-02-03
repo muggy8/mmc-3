@@ -101,7 +101,7 @@
 			foreach($objToStore as $key => &$val){
 				if ($didNotStoreSuccessfully = self::stubSave($instanceId, "$type.$key", $val)) {
 					if (is_array($didNotStoreSuccessfully)){
-						$objType = "[".$type."]";
+						$objType = $type.".[$key]";
 					}
 					else {
 						$objType = "$type.$key";
