@@ -56,7 +56,7 @@
 			}
 		}
 
-		public static function saveKeyVal($id, $key, &$val, $index = null){
+		public static function saveKeyVal($id, $key, &$val){
 			if (is_string($val)){
 				$statement = self::$conn->prepare("Insert into `mmc_3` (`id`, `data_key`, `data_string`) values (?, ?, ?)");
 				$statement->bind_param("sss", $id, $key, $val);
@@ -82,11 +82,11 @@
 			}
 		}
 
-		public static function stubSave($id, $key, &$val, $index = null){
-			if (is_object($val)){
-				return;
+		public static function stubSave($id, $key, &$val){
+			if (is_object($val) || is_array($val)){
+				return $val;
 			}
-			echo "id = $id, key = $key, val = $val, index = $index \n\n";
+			echo "id = $id, key = $key, val = $val\n\n";
 		}
 
 		public static function storeObject($type, $objToStore){
@@ -97,26 +97,33 @@
 			}
 
 			$instanceId = self::generateId(64);
-			$storageQueue = (object)[];
-			//$storageQueue->{$objectDefinition->begins} = $objToStore;
 
-			$recursiveFlattenData = function($prependName, &$objectToTraverse) use (&$storageQueue, &$recursiveFlattenData){
-				$objIsArray = is_array($objectToTraverse);
-				print_r($objectToTraverse);
-				foreach($objectToTraverse as $propName => &$propVal){
-					$valKey = $objIsArray ? $prependName . "[" . $propName . "]" : "$prependName.$propName";
-					if (is_string($propVal) || is_numeric($propVal)|| is_bool($propVal)){
-						$storageQueue->{$valKey} = $propVal;
-					}
-					else {
-						$recursiveFlattenData($valKey, $propVal);
-					}
+			foreach($objToStore as $key => &$val){
+				if ($didNotStoreSuccessfully = self::stubSave($instanceId, "$type.$key", $val)) {
+					self::storeObject("$type.$key", $didNotStoreSuccessfully);
 				}
-			};
+			}
 
-			$recursiveFlattenData($objectDefinition->begins, $objToStore);
-
-			print_r($storageQueue);
+			// $storageQueue = (object)[];
+			// //$storageQueue->{$objectDefinition->begins} = $objToStore;
+            //
+			// $recursiveFlattenData = function($prependName, &$objectToTraverse) use (&$storageQueue, &$recursiveFlattenData){
+			// 	$objIsArray = is_array($objectToTraverse);
+			// 	print_r($objectToTraverse);
+			// 	foreach($objectToTraverse as $propName => &$propVal){
+			// 		$valKey = $objIsArray ? $prependName . "[" . $propName . "]" : "$prependName.$propName";
+			// 		if (is_string($propVal) || is_numeric($propVal)|| is_bool($propVal)){
+			// 			$storageQueue->{$valKey} = $propVal;
+			// 		}
+			// 		else {
+			// 			$recursiveFlattenData($valKey, $propVal);
+			// 		}
+			// 	}
+			// };
+            //
+			// $recursiveFlattenData($objectDefinition->begins, $objToStore);
+            //
+			// print_r($storageQueue);
 
 			// foreach($storageQueue as $objectName => &$obj){
 			// 	foreach($obj as $key => &$val){
