@@ -89,7 +89,7 @@
 			echo "id = $id, key = $key, val = $val\n\n";
 		}
 
-		public static function storeObject($type, $objToStore){
+		private static function storeObjectInternally($type, $objToStore){
 			$objectDefinition = self::getObjectDefinition($type);
 			if (!$objectDefinition){
 				self::createObjectDefinition($type);
@@ -99,6 +99,7 @@
 			$instanceId = self::generateId(64);
 
 			foreach($objToStore as $key => &$val){
+				self::validTypeName($key);
 				if ($didNotStoreSuccessfully = self::stubSave($instanceId, "$type.$key", $val)) {
 					if (is_array($didNotStoreSuccessfully)){
 						$objType = $type.".[$key]";
@@ -107,56 +108,23 @@
 						$objType = "$type.$key";
 					}
 
-					$subObjectLink = $objType.':'.self::storeObject($objType, $didNotStoreSuccessfully);
+					$subObjectLink = $objType.':'.self::storeObjectInternally($objType, $didNotStoreSuccessfully);
 					self::stubSave($instanceId, "$type.$key", $subObjectLink);
 				}
 			}
 			return $instanceId;
+		}
 
-			// $storageQueue = (object)[];
-			// //$storageQueue->{$objectDefinition->begins} = $objToStore;
-            //
-			// $recursiveFlattenData = function($prependName, &$objectToTraverse) use (&$storageQueue, &$recursiveFlattenData){
-			// 	$objIsArray = is_array($objectToTraverse);
-			// 	print_r($objectToTraverse);
-			// 	foreach($objectToTraverse as $propName => &$propVal){
-			// 		$valKey = $objIsArray ? $prependName . "[" . $propName . "]" : "$prependName.$propName";
-			// 		if (is_string($propVal) || is_numeric($propVal)|| is_bool($propVal)){
-			// 			$storageQueue->{$valKey} = $propVal;
-			// 		}
-			// 		else {
-			// 			$recursiveFlattenData($valKey, $propVal);
-			// 		}
-			// 	}
-			// };
-            //
-			// $recursiveFlattenData($objectDefinition->begins, $objToStore);
-            //
-			// print_r($storageQueue);
+		private static function validTypeName($type){
+			if (preg_match("/(\[|\]|:|\.)/i", $type)){
+				throw new Exception("The following characters cannot be used in object types. Input was: $type");
+			}
+		}
 
-			// foreach($storageQueue as $objectName => &$obj){
-			// 	foreach($obj as $key => &$val){
-			// 		if (is_array($val)){
-			// 			foreach($val as $index => &$item){
-			// 				$storageQueue->{"$objectName.$key.$index"} = $item;
-			// 			}
-			// 		}
-			// 		else if (is_object($val)){
-			// 			$storageQueue->{"$objectName.$key"} = $val;
-			// 		}
-			// 	}
-			// }
-            //
-			// foreach($storageQueue as $objectName => &$obj){
-			// 	foreach($obj as $key => &$val){
-			// 		$potentialIndex = null;
-			// 		$potentiallyParsedOutIndex = preg_replace_callback("/\.\d+$/", function($matched) use ($potentialIndex){
-			// 			$potentialIndex = $matched;
-			// 		}, $objectName);
-			// 		echo "potentialIndex = $potentialIndex \n\n";
-			// 		self::stubSave($instanceId, "$objectName.$key", $val);
-			// 	}
-			// }
+		public static function storeObject($type, $objToStore){
+			// we only need to validate this onece when the user calls the function
+			self::validTypeName($type);
+			self::storeObjectInternally($type, $objToStore);
 		}
 	}
 
