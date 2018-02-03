@@ -100,9 +100,18 @@
 
 			foreach($objToStore as $key => &$val){
 				if ($didNotStoreSuccessfully = self::stubSave($instanceId, "$type.$key", $val)) {
-					self::storeObject("$type.$key", $didNotStoreSuccessfully);
+					if (is_array($didNotStoreSuccessfully)){
+						$objType = "[".$type."]";
+					}
+					else {
+						$objType = "$type.$key";
+					}
+
+					$subObjectLink = $objType.':'.self::storeObject($objType, $didNotStoreSuccessfully);
+					self::stubSave($instanceId, "$type.$key", $subObjectLink);
 				}
 			}
+			return $instanceId;
 
 			// $storageQueue = (object)[];
 			// //$storageQueue->{$objectDefinition->begins} = $objToStore;
@@ -155,9 +164,9 @@
 
 	$demoObject = (object)[
 		"name" => "muggy8",
-		"age" => 9001,
+		"nextLevelUp" => 48.22,
 		"accountActivated" => true,
-		"winRate" => 48.22,
+		"exp" => 48.22,
 		"auth" => (object)[
 			"reddit" => storage::generateId(32),
 			"facebook" => "",
