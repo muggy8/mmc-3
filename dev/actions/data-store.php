@@ -100,7 +100,7 @@
 
 			foreach($objToStore as $key => &$val){
 				self::validTypeName($key);
-				if ($didNotStoreSuccessfully = self::stubSave($instanceId, "$type.$key", $val)) {
+				if ($didNotStoreSuccessfully = self::saveKeyVal($instanceId, "$type.$key", $val)) {
 					if (is_array($didNotStoreSuccessfully)){
 						$objType = $type.".[$key]";
 					}
@@ -108,11 +108,11 @@
 						$objType = "$type.$key";
 					}
 
-					$subObjectLink = $objType.':'.self::storeObjectInternally($objType, $didNotStoreSuccessfully);
-					self::stubSave($instanceId, "$type.$key", $subObjectLink);
+					$subObjectLink = self::storeObjectInternally($objType, $didNotStoreSuccessfully);
+					self::saveKeyVal($instanceId, "$type.$key", $subObjectLink);
 				}
 			}
-			return $instanceId;
+			return "$type:$instanceId";
 		}
 
 		private static function validTypeName($type){
