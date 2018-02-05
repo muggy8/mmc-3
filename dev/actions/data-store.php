@@ -1,5 +1,5 @@
 <?php
-	include_once("./configs.php"); // defines db settings
+	include_once("../../configs.php"); // defines db settings
 	include_once("./polyfills.php"); // defines db settings
 
 	class storage {
