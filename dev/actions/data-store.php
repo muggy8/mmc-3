@@ -58,8 +58,16 @@
 
 		public static function saveKeyVal($id, $key, &$val){
 			if (is_string($val)){
-				$statement = self::$conn->prepare("Insert into `mmc_3` (`id`, `data_key`, `data_string`) values (?, ?, ?)");
-				$statement->bind_param("sss", $id, $key, $val);
+				$idRegex = '/^([^:]+):(\w|\d|_){64}$/';
+				preg_match($idRegex, $val, $matched);
+				if (!$matched || !$matched[0]){
+					$statement = self::$conn->prepare("Insert into `mmc_3` (`id`, `data_key`, `data_string`) values (?, ?, ?)");
+					$statement->bind_param("sss", $id, $key, $val);
+				}
+				else {
+					$statement = self::$conn->prepare("Insert into `mmc_3` (`id`, `data_key`, `data_link`) values (?, ?, ?)");
+					$statement->bind_param("sss", $id, $key, $matched[2]);
+				}
 			}
 			else if (is_int($val)){
 				$statement = self::$conn->prepare("Insert into `mmc_3` (`id`, `data_key`, `data_num`) values (?, ?, ?)");
