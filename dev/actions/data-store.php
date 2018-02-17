@@ -147,14 +147,14 @@
 			}
 			$rows = $statement->get_result();
 
-			$retrievedObject = (object)[]; // set the default object
-			$retrievedArrayAssumption = true; // when doing the while loop. we check to see that all elements fall under the [name].prop paturn and if so, we can turn this whole thing into an array at the end
+			$retrievedObject = []; // set the default object
 			while($row = $rows->fetch_assoc()){
 				$row = (object)$row;
 				preg_match('/(\[(.+)])?\.([^\.]+)$/', $row->data_key, $propMatch);
 				$propertyName = $propMatch[3];
-				if (!$propMatch[2]){ // if the paturn doesn't hold. this value would be null which means that this isn't an array object if even one of the items doesn't fit. if that's the case something definately went wrong but ya we dont care right now
-					$retrievedArrayAssumption = false;
+
+				if (!$propMatch[2]){ // if the paturn doesn't hold. this value would be null which means that this isn't an array so we cast it here
+					$isObject = true;
 				}
 
 				// set the property value to the approprite value
@@ -170,16 +170,14 @@
 					$propertyValue = self::getObject($row->data_link);
 				}
 
-				$retrievedObject->{$propertyName} = $propertyValue;
+				$retrievedObject[$propertyName] = $propertyValue;
 			}
 
-			// now we can return the output as an array or as an object.
-			if ($retrievedArrayAssumption){
-				return (array)$retrievedObject;
+			if ($isObject){
+				return (object)$retrievedObject;
 			}
-			else {
-				return $retrievedObject;
-			}
+
+			return $retrievedObject;
 		}
 	}
 
