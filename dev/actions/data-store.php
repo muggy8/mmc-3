@@ -28,6 +28,7 @@
 	    	return $id;
 		}
 
+		// Object Definition Functions
 		protected static function getObjectDefinition($type){
 			$statement = self::$conn->prepare("Select * from `mmc_3_types` where `mmc_3_types`.`type` = ?");
 			$statement->bind_param("s", $type);
@@ -56,7 +57,8 @@
 			}
 		}
 
-		public static function saveKeyVal($id, $key, &$val){
+		// Storing Object Functions
+		protected static function saveKeyVal($id, $key, &$val){
 			if (is_string($val)){
 				$idRegex = '/^([^:]+):(\w[\w\d_]{63})$/';
 				preg_match($idRegex, $val, $matched);
@@ -90,14 +92,14 @@
 			}
 		}
 
-		public static function stubSave($id, $key, &$val){
+		protected static function stubSave($id, $key, &$val){
 			if (is_object($val) || is_array($val)){
 				return $val;
 			}
 			echo "id = $id, key = $key, val = $val\n\n";
 		}
 
-		private static function storeObjectInternally($type, $objToStore){
+		protected static function storeObjectInternally($type, $objToStore){
 			$objectDefinition = self::getObjectDefinition($type);
 			if (!$objectDefinition){
 				self::createObjectDefinition($type);
@@ -123,9 +125,9 @@
 			return "$type:$instanceId";
 		}
 
-		private static function validTypeName($type){
+		protected static function validTypeName($type){
 			if (preg_match("/(\[|\]|:|\.)/i", $type)){
-				throw new Exception("The following characters cannot be used in object types. Input was: $type");
+				throw new Exception("The characters ( [, ], :, . ) cannot be used in object types. Type was: $type");
 			}
 		}
 
@@ -134,43 +136,51 @@
 			self::validTypeName($type);
 			self::storeObjectInternally($type, $objToStore);
 		}
+
+		// retrieving Objct Functions
+		public static function getObject($id){
+
+		}
 	}
 
 	storage::connect(db_server, db_user, db_pass, db_name);
 
-	$demoObject = (object)[
-		"name" => "muggy8",
-		"nextLevelUp" => 48.22,
-		"accountActivated" => true,
-		"exp" => 48.22,
-		"auth" => (object)[
-			"reddit" => storage::generateId(32),
-			"facebook" => "",
-			"google" => storage::generateId(32)
-		],
-		"MatchHistory" => [
-			storage::generateId(32),
-			storage::generateId(32),
-			storage::generateId(32),
-			storage::generateId(32)
-		],
-		"friends" => [
+	// $demoObject = (object)[
+	// 	"name" => "muggy8",
+	// 	"nextLevelUp" => 48.22,
+	// 	"accountActivated" => true,
+	// 	"exp" => 48.22,
+	// 	"auth" => (object)[
+	// 		"reddit" => storage::generateId(32),
+	// 		"facebook" => "",
+	// 		"google" => storage::generateId(32)
+	// 	],
+	// 	"MatchHistory" => [
+	// 		storage::generateId(32),
+	// 		storage::generateId(32),
+	// 		storage::generateId(32),
+	// 		storage::generateId(32)
+	// 	],
+	// 	"friends" => [
+    //
+	// 	],
+	// 	"teammates" => [
+	// 		(object)[
+	// 			"name" => "user-name",
+	// 			"age" => 200,
+	// 			"accountActivated" => true
+	// 		],
+	// 		(object)[
+	// 			"name" => "other-user-name",
+	// 			"age" => 581,
+	// 			"accountActivated" => true
+	// 		]
+	// 	]
+	// ];
+	// storage::storeObject("user", $demoObject);
 
-		],
-		"teammates" => [
-			(object)[
-				"name" => "user-name",
-				"age" => 200,
-				"accountActivated" => true
-			],
-			(object)[
-				"name" => "other-user-name",
-				"age" => 581,
-				"accountActivated" => true
-			]
-		]
-	];
-	storage::storeObject("user", $demoObject);
+	// now testing attempts to retrieve data
+	print_r(storage::getObject("jxOq61itie1oVQLeTdbyrokAm2bgoVmYE5vFyMMpdhvxHPqmEzRZBj4EvjxcLZPE"));
 
 	// $uname = "muggy8";
 	// print_r(storage::saveKeyVal("123abc", "user.name", $uname));
