@@ -218,8 +218,8 @@
 	// storage::storeObject("user", $demoObject);
 
 	// now testing attempts to retrieve data
-	var_dump(storage::getObject("jxOq61itie1oVQLeTdbyrokAm2bgoVmYE5vFyMMpdhvxHPqmEzRZBj4EvjxcLZPE"), JSON_PRETTY_PRINT);
-	var_dump($demoObject, JSON_PRETTY_PRINT);
+	// echo json_encode(storage::getObject("jxOq61itie1oVQLeTdbyrokAm2bgoVmYE5vFyMMpdhvxHPqmEzRZBj4EvjxcLZPE"), JSON_PRETTY_PRINT);
+	// echo json_encode($demoObject, JSON_PRETTY_PRINT);
 
 	// $uname = "muggy8";
 	// print_r(storage::saveKeyVal("123abc", "user.name", $uname));
