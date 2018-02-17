@@ -147,14 +147,25 @@
 			}
 			$rows = $statement->get_result();
 
-			$retrievedObject = (object)[];
+			$retrievedObject = (object)[]; // set the default object
+			$retrievedArrayAssumption = true; // when doing the while loop. we check to see that all elements fall under the [name].prop paturn and if so, we can turn this whole thing into an array at the end
 			while($row = $rows->fetch_assoc()){
 				$row = (object)$row;
-				preg_match('/\.([^\.]+)$/', $row->data_key, $propMatch);
-				$propertyName = $propMatch[1];
+				preg_match('/(\[(.+)])?\.([^\.]+)$/', $row->data_key, $propMatch);
+				$propertyName = $propMatch[3];
+				if (!$propMatch[2]){ // if the paturn doesn't hold. this value would be null which means that this isn't an array object if even one of the items doesn't fit. if that's the case something definately went wrong but ya we dont care right now
+					$retrievedArrayAssumption = false;
+				}
 
-				$propertyValue = $row->data_string ?: $row->data_bool ?: $row->data_num;
+				// set the property value to the approprite value
+				if (!is_null($row->data_bool)){
+					$propertyValue = $row->data_bool ? true : false;
+				}
+				else {
+					$propertyValue = $row->data_string ?: $row->data_num;
+				}
 
+				// the last case is that the value is a link and if so we recursively get the child object
 				if (!$propertyValue && $row->data_link){
 					$propertyValue = self::getObject($row->data_link);
 				}
@@ -162,48 +173,55 @@
 				$retrievedObject->{$propertyName} = $propertyValue;
 			}
 
-			return $retrievedObject;
+			// now we can return the output as an array or as an object.
+			if ($retrievedArrayAssumption){
+				return (array)$retrievedObject;
+			}
+			else {
+				return $retrievedObject;
+			}
 		}
 	}
 
 	storage::connect(db_server, db_user, db_pass, db_name);
 
-	// $demoObject = (object)[
-	// 	"name" => "muggy8",
-	// 	"nextLevelUp" => 48.22,
-	// 	"accountActivated" => true,
-	// 	"exp" => 48.22,
-	// 	"auth" => (object)[
-	// 		"reddit" => storage::generateId(32),
-	// 		"facebook" => "",
-	// 		"google" => storage::generateId(32)
-	// 	],
-	// 	"MatchHistory" => [
-	// 		storage::generateId(32),
-	// 		storage::generateId(32),
-	// 		storage::generateId(32),
-	// 		storage::generateId(32)
-	// 	],
-	// 	"friends" => [
-    //
-	// 	],
-	// 	"teammates" => [
-	// 		(object)[
-	// 			"name" => "user-name",
-	// 			"age" => 200,
-	// 			"accountActivated" => true
-	// 		],
-	// 		(object)[
-	// 			"name" => "other-user-name",
-	// 			"age" => 581,
-	// 			"accountActivated" => true
-	// 		]
-	// 	]
-	// ];
+	$demoObject = (object)[
+		"name" => "muggy8",
+		"nextLevelUp" => 48.22,
+		"accountActivated" => true,
+		"exp" => 48.22,
+		"auth" => (object)[
+			"reddit" => storage::generateId(32),
+			"facebook" => "",
+			"google" => storage::generateId(32)
+		],
+		"MatchHistory" => [
+			storage::generateId(32),
+			storage::generateId(32),
+			storage::generateId(32),
+			storage::generateId(32)
+		],
+		"friends" => [
+
+		],
+		"teammates" => [
+			(object)[
+				"name" => "user-name",
+				"age" => 200,
+				"accountActivated" => true
+			],
+			(object)[
+				"name" => "other-user-name",
+				"age" => 581,
+				"accountActivated" => true
+			]
+		]
+	];
 	// storage::storeObject("user", $demoObject);
 
 	// now testing attempts to retrieve data
-	print_r(storage::getObject("jxOq61itie1oVQLeTdbyrokAm2bgoVmYE5vFyMMpdhvxHPqmEzRZBj4EvjxcLZPE"));
+	var_dump(storage::getObject("jxOq61itie1oVQLeTdbyrokAm2bgoVmYE5vFyMMpdhvxHPqmEzRZBj4EvjxcLZPE"), JSON_PRETTY_PRINT);
+	var_dump($demoObject, JSON_PRETTY_PRINT);
 
 	// $uname = "muggy8";
 	// print_r(storage::saveKeyVal("123abc", "user.name", $uname));
