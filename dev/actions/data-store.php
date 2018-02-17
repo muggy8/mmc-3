@@ -139,7 +139,30 @@
 
 		// retrieving Objct Functions
 		public static function getObject($id){
+			$statement = self::$conn->prepare("SELECT * FROM `mmc_3` WHERE `id` = ?");
+			$statement->bind_param("s", $id);
 
+			if (!$statement->execute()){
+				die("failed to store $id: $key");
+			}
+			$rows = $statement->get_result();
+
+			$retrievedObject = (object)[];
+			while($row = $rows->fetch_assoc()){
+				$row = (object)$row;
+				preg_match('/\.([^\.]+)$/', $row->data_key, $propMatch);
+				$propertyName = $propMatch[1];
+
+				$propertyValue = $row->data_string ?: $row->data_bool ?: $row->data_num;
+
+				if (!$propertyValue && $row->data_link){
+					$propertyValue = self::getObject($row->data_link);
+				}
+
+				$retrievedObject->{$propertyName} = $propertyValue;
+			}
+
+			return $retrievedObject;
 		}
 	}
 
