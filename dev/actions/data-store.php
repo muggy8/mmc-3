@@ -171,14 +171,14 @@
 				preg_match('/(\[(.+)])?\.([^\.]+)$/', $row->data_key, $propMatch);
 				$propertyName = $propMatch[3];
 				$expectedKey = "$type.$propertyName";
-				$expectedArrayKey = preg_replace('/[^\.]+$/', "[\\1]", $type) . "." . $propertyName;
+				$expectedArrayKey = preg_replace('/[^\.]+$/', "[\\0]", $type) . "." . $propertyName;
 
 				if (!$propMatch[2]){ // if the property isn't ...[propname].propname then it's not an array so we note it down here for future reference
 					$isObject = true;
 				}
 
 				// we expect a certain key name and if it isn't then this value isn't a part of the selected object
-				if ($type && ($row->data_key != $expectedKey || $row->data_key != $expectedArrayKey)) {
+				if ($type && $row->data_key != $expectedKey && $row->data_key != $expectedArrayKey) {
 					preg_match('/^[^\.]+/', $row->data_key, $typeName);
 					return "$typeName[0]:$id";
 				}
@@ -195,7 +195,7 @@
 				if (!$propertyValue && $row->data_link){
 
 					$propertyValue = $type
-						? self::getObject("$type:$row->data_link", $depth - 1)
+						? self::getObject("$row->data_key:$row->data_link", $depth - 1)
 						: self::getObject($row->data_link, $depth - 1);
 
 					if (!$propertyValue){
