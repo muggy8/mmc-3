@@ -219,10 +219,10 @@
 				$id = $idObj->id;
 				$type = $idObj->type;
 
-				// print_r($currentLair);
-				// echo "DELETE FROM `mmc_3` WHERE `id` = '$id'";
+				print_r($currentLair);
 
 				if (!is_string($currentLair)){
+					echo "DELETE FROM `mmc_3` WHERE `id` = '$id'\n\n";
 					foreach($currentLair as &$potentialSubItem){
 						$subItemIdObj = self::parseCompoundId($potentialSubItem);
 						if ($subItemIdObj){
@@ -231,13 +231,12 @@
 								: self::deleteObject($subItemIdObj->id, $depth-1);
 						}
 					}
-				}
+					$statement = self::$conn->prepare("DELETE FROM `mmc_3` WHERE `id` = ?");
+					$statement->bind_param("s", $id);
 
-				$statement = self::$conn->prepare("DELETE FROM `mmc_3` WHERE `id` = ?");
-				$statement->bind_param("s", $id);
-
-				if (!$statement->execute()){
-					die("failed to delete $id");
+					if (!$statement->execute()){
+						die("failed to delete $id");
+					}
 				}
 			};
 
@@ -294,7 +293,7 @@
 	// echo "$cloneId\n";
 
 	// now testing attempts to retrieve data
-	$previousItem = "Cz3A7bnxnLrejS4XTcsCHzHxdwqwCt593vAGInVgVNk8fav5Wd9Q6S0xRM5YXCr3";
+	$previousItem = "user:lIjBp2IUTnzXFabmWxLAqqlOxz4aKKSBadB7nGQBtkcgvGfAiKv6PQcsa2rv92hD";
 	// echo json_encode(storage::getObject($previousItem), JSON_PRETTY_PRINT);
 	// echo json_encode(storage::getObject("user:$previousItem"), JSON_PRETTY_PRINT);
 	// echo json_encode($demoObject, JSON_PRETTY_PRINT);
