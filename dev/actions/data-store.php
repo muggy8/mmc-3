@@ -77,7 +77,8 @@
 		// Storing Object Functions
 		protected static function saveKeyVal($id, $key, &$val){
 			if (is_string($val)){
-				if ($parsedId = self::parseCompoundId($val)){
+				$parsedId = self::parseCompoundId($val);
+				if ($parsedId && $parsedId->id && $parsedId->type){
 					$statement = self::$conn->prepare("Insert into `mmc_3` (`id`, `data_key`, `data_link`) values (?, ?, ?)");
 					$statement->bind_param("sss", $id, $key, $parsedId->id);
 				}
@@ -143,9 +144,7 @@
 		public static function storeObject($type, $objToStore){
 			// we only need to validate this onece when the user calls the function
 			self::validTypeName($type);
-			return self::parseCompoundId(
-				self::storeObjectInternally($type, $objToStore)
-			)->id;
+			return self::storeObjectInternally($type, $objToStore);
 		}
 
 		// retrieving Objct Functions
@@ -167,14 +166,19 @@
 			$retrievedObject = []; // set the default object
 			while($row = $rows->fetch_assoc()){ // one row represents a property in an object so we loop over the rows (properties) to rebuild the source object and retreiving sub-objects as we go.
 				$row = (object)$row;
+
+				// regex to match the ending name and the item before it if it's an array indicator
 				preg_match('/(\[(.+)])?\.([^\.]+)$/', $row->data_key, $propMatch);
 				$propertyName = $propMatch[3];
+				$expectedKey = "$type.$propertyName";
+				$expectedArrayKey = preg_replace('/[^\.]+$/', "[\\1]", $type) . "." . $propertyName;
 
-				if (!$propMatch[2]){ // if the paturn doesn't hold. this value would be null which means that this isn't an array so we cast it here
+				if (!$propMatch[2]){ // if the property isn't ...[propname].propname then it's not an array so we note it down here for future reference
 					$isObject = true;
 				}
 
-				if ($type && !preg_match('/^'.$type.'/', $row->data_key)) {
+				// we expect a certain key name and if it isn't then this value isn't a part of the selected object
+				if ($type && ($row->data_key != $expectedKey || $row->data_key != $expectedArrayKey)) {
 					preg_match('/^[^\.]+/', $row->data_key, $typeName);
 					return "$typeName[0]:$id";
 				}
@@ -276,15 +280,20 @@
 	// 	]
 	// ];
 	// $newId = storage::storeObject("user", $demoObject);
-	// print_r($newId);
-	// echo json_encode(storage::getObject($newId), JSON_PRETTY_PRINT);
+	// $anotherUser = storage::storeObject("user", $demoObject);
+	// echo "$newId\n";
+	// $clone = storage::getObject("user:$newId");
+	// $clone->name = "clone";
+	// $clone->original = "user:$newId";
+	// $cloneId = storage::storeObject("user", $clone);
+	// echo "$cloneId\n";
 
 	// now testing attempts to retrieve data
-	$previousItem = "user:vvGasYmy44ysuYQ_rUkeevPqJxsUBGNeHNJiiLakc43yhNCV5VsqBBbEoOUKOsKn";
-	// echo json_encode(storage::getObject($previousItem), JSON_PRETTY_PRINT);
-	// echo json_encode(storage::getObject($previousItem, 1), JSON_PRETTY_PRINT);
+	$previousItem = "iesJ7vy1Wh91GpPNglwj9akPC9s5pu0BFnL45LtrtYxlzs6Gy5iU4ltq_g1vu_He";
+	echo json_encode(storage::getObject($previousItem), JSON_PRETTY_PRINT);
+	echo json_encode(storage::getObject("user:$previousItem"), JSON_PRETTY_PRINT);
 	// echo json_encode($demoObject, JSON_PRETTY_PRINT);
-	storage::deleteObject($previousItem);
+	// storage::deleteObject($previousItem);
 
 	// $uname = "muggy8";
 	// print_r(storage::saveKeyVal("123abc", "user.name", $uname));
