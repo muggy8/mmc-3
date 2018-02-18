@@ -213,9 +213,11 @@
 		public static function deleteObject($id, $depth = -1){
 			if ($depth && $currentLair = self::getObject($id, 1)){
 				// we do head recursion because we want to delete stuff that's the depest in the object first
-				foreach($currentLair as &$potentialSubItem){
-					if ($subObjectId = self::parseCompoundId($potentialSubItem)->id){
-						self::deleteObject($potentialSubItem, $depth-1);
+				if (!is_string($currentLair)){
+					foreach($currentLair as &$potentialSubItem){
+						if ($subObjectId = self::parseCompoundId($potentialSubItem)->id){
+							self::deleteObject($potentialSubItem, $depth-1);
+						}
 					}
 				}
 
@@ -240,49 +242,49 @@
 
 	storage::connect(db_server, db_user, db_pass, db_name);
 
-	$demoObject = (object)[
-		"name" => "muggy8",
-		"nextLevelUp" => 48.22,
-		"accountActivated" => true,
-		"exp" => 48.22,
-		"auth" => (object)[
-			"reddit" => storage::generateId(32),
-			"facebook" => "",
-			"google" => storage::generateId(32)
-		],
-		"array" => [
-			storage::generateId(32),
-			storage::generateId(32),
-			storage::generateId(32)
-		],
-		"tasks" => [
-			storage::storeObject("task", (object)[
-				"name" => "task 1",
-				"description" => "This is some worthelss description",
-				"random" => storage::generateId(32)
-			]),
-			storage::storeObject("task", (object)[
-				"name" => "task 2",
-				"description" => "Null is acceptable?",
-				"random" => storage::generateId(32)
-			]),
-			storage::storeObject("task", (object)[
-				"name" => "task 3",
-				"description" => "I really need something better to generate demo data",
-				"random" => storage::generateId(32)
-			])
-		]
-	];
+	// $demoObject = (object)[
+	// 	"name" => "muggy8",
+	// 	"nextLevelUp" => 48.22,
+	// 	"accountActivated" => true,
+	// 	"exp" => 48.22,
+	// 	"auth" => (object)[
+	// 		"reddit" => storage::generateId(32),
+	// 		"facebook" => "",
+	// 		"google" => storage::generateId(32)
+	// 	],
+	// 	"array" => [
+	// 		storage::generateId(32),
+	// 		storage::generateId(32),
+	// 		storage::generateId(32)
+	// 	],
+	// 	"tasks" => [
+	// 		storage::storeObject("task", (object)[
+	// 			"name" => "task 1",
+	// 			"description" => "This is some worthelss description",
+	// 			"random" => storage::generateId(32)
+	// 		]),
+	// 		storage::storeObject("task", (object)[
+	// 			"name" => "task 2",
+	// 			"description" => "Null is acceptable?",
+	// 			"random" => storage::generateId(32)
+	// 		]),
+	// 		storage::storeObject("task", (object)[
+	// 			"name" => "task 3",
+	// 			"description" => "I really need something better to generate demo data",
+	// 			"random" => storage::generateId(32)
+	// 		])
+	// 	]
+	// ];
 	// $newId = storage::storeObject("user", $demoObject);
 	// print_r($newId);
 	// echo json_encode(storage::getObject($newId), JSON_PRETTY_PRINT);
 
 	// now testing attempts to retrieve data
-	$previousItem = "user:IeeDltvhj8MHl3TQSqPflkGhmHCoYtiMMMQRdJF0Aabk_xhBUwklf54PpokzkMXY";
-	echo json_encode(storage::getObject($previousItem), JSON_PRETTY_PRINT);
+	$previousItem = "user:vvGasYmy44ysuYQ_rUkeevPqJxsUBGNeHNJiiLakc43yhNCV5VsqBBbEoOUKOsKn";
+	// echo json_encode(storage::getObject($previousItem), JSON_PRETTY_PRINT);
 	// echo json_encode(storage::getObject($previousItem, 1), JSON_PRETTY_PRINT);
 	// echo json_encode($demoObject, JSON_PRETTY_PRINT);
-	// storage::deleteObject($previousItem);
+	storage::deleteObject($previousItem);
 
 	// $uname = "muggy8";
 	// print_r(storage::saveKeyVal("123abc", "user.name", $uname));
