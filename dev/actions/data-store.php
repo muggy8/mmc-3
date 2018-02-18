@@ -60,15 +60,13 @@
 		// Storing Object Functions
 		protected static function saveKeyVal($id, $key, &$val){
 			if (is_string($val)){
-				$idRegex = '/^([^:]+):(\w[\w\d_]{63})$/';
-				preg_match($idRegex, $val, $matched);
-				if (!$matched || !$matched[0]){
-					$statement = self::$conn->prepare("Insert into `mmc_3` (`id`, `data_key`, `data_string`) values (?, ?, ?)");
-					$statement->bind_param("sss", $id, $key, $val);
+				if ($parsedId = self::parseCompoundId($val)){
+					$statement = self::$conn->prepare("Insert into `mmc_3` (`id`, `data_key`, `data_link`) values (?, ?, ?)");
+					$statement->bind_param("sss", $id, $key, $parsedId->id);
 				}
 				else {
-					$statement = self::$conn->prepare("Insert into `mmc_3` (`id`, `data_key`, `data_link`) values (?, ?, ?)");
-					$statement->bind_param("sss", $id, $key, $matched[2]);
+					$statement = self::$conn->prepare("Insert into `mmc_3` (`id`, `data_key`, `data_string`) values (?, ?, ?)");
+					$statement->bind_param("sss", $id, $key, $val);
 				}
 			}
 			else if (is_int($val)){
@@ -131,6 +129,16 @@
 			}
 		}
 
+		protected static function parseCompoundId($compoundId){
+			if (preg_match('/^(([^:]+):)?(\w[\w\d_]{63})$/', $compoundId, $matches)){
+				return (object)[
+					"id" => $matches[3],
+					"type" => $matches[2]
+				];
+			}
+			return false;
+		}
+
 		public static function storeObject($type, $objToStore){
 			// we only need to validate this onece when the user calls the function
 			self::validTypeName($type);
@@ -138,7 +146,11 @@
 		}
 
 		// retrieving Objct Functions
-		public static function getObject($id){
+		public static function getObject($id, $depth = -1){
+			if (!$depth || !($id = self::parseCompoundId($id)->id)){
+				return;
+			}
+
 			$statement = self::$conn->prepare("SELECT * FROM `mmc_3` WHERE `id` = ?");
 			$statement->bind_param("s", $id);
 
@@ -167,7 +179,11 @@
 
 				// the last case is that the value is a link and if so we recursively get the child object
 				if (!$propertyValue && $row->data_link){
-					$propertyValue = self::getObject($row->data_link);
+					$propertyValue = self::getObject($row->data_link, $depth - 1);
+
+					if (!$propertyValue){
+						$propertyValue = $row->data_key . ":" . $row->id;
+					}
 				}
 
 				$retrievedObject[$propertyName] = $propertyValue;
@@ -178,6 +194,11 @@
 			}
 
 			return $retrievedObject;
+		}
+
+		// update Object Functions
+		public static function updateObject($id, $object){
+
 		}
 	}
 
@@ -215,10 +236,11 @@
 			]
 		]
 	];
-	// storage::storeObject("user", $demoObject);
+	storage::storeObject("user", $demoObject);
 
 	// now testing attempts to retrieve data
 	// echo json_encode(storage::getObject("jxOq61itie1oVQLeTdbyrokAm2bgoVmYE5vFyMMpdhvxHPqmEzRZBj4EvjxcLZPE"), JSON_PRETTY_PRINT);
+	// echo json_encode(storage::getObject("jxOq61itie1oVQLeTdbyrokAm2bgoVmYE5vFyMMpdhvxHPqmEzRZBj4EvjxcLZPE", 1), JSON_PRETTY_PRINT);
 	// echo json_encode($demoObject, JSON_PRETTY_PRINT);
 
 	// $uname = "muggy8";
