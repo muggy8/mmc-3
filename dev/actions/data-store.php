@@ -35,7 +35,7 @@
 			}
 		}
 
-		protected static function parseCompoundId($compoundId){
+		public static function parseCompoundId($compoundId){
 			if (preg_match('/^(([^:]+):)?(\w[\w\d_]{63})$/', $compoundId, $matches)){
 				return (object)[
 					"id" => $matches[3],
@@ -185,7 +185,7 @@
 					$propertyValue = self::getObject($row->data_link, $depth - 1);
 
 					if (!$propertyValue){
-						$propertyValue = $row->data_key . ":" . $row->id;
+						$propertyValue = $row->data_key . ":" . $row->data_link;
 					}
 				}
 
@@ -200,7 +200,25 @@
 		}
 
 		// delete Object Functions
-		public static function deleteObject($id){
+		public static function deleteObject($id, $depth = -1){
+			if ($depth && $currentLair = self::getObject($id, 1)){
+				// we do head recursion because we want to delete stuff that's the depest in the object first
+				foreach($currentLair as &$potentialSubItem){
+					if ($subObjectId = self::parseCompoundId($potentialSubItem)->id){
+						self::deleteObject($potentialSubItem, $depth-1);
+					}
+				}
+
+				$idObj = self::parseCompoundId($id);
+				$deleteTargetId = $idObj->id;
+				$deleteType = $idObj->type;
+				$statement = self::$conn->prepare("DELETE FROM `mmc_3` WHERE `id` = ?");
+				$statement->bind_param("s", $deleteTargetId);
+
+				if (!$statement->execute()){
+					die("failed to delete $id");
+				}
+			};
 
 		}
 
@@ -222,35 +240,39 @@
 			"facebook" => "",
 			"google" => storage::generateId(32)
 		],
-		"MatchHistory" => [
-			storage::generateId(32),
+		"array" => [
 			storage::generateId(32),
 			storage::generateId(32),
 			storage::generateId(32)
 		],
-		"friends" => [
-
-		],
-		"teammates" => [
-			(object)[
-				"name" => "user-name",
-				"age" => 200,
-				"accountActivated" => true
-			],
-			(object)[
-				"name" => "other-user-name",
-				"age" => 581,
-				"accountActivated" => true
-			]
+		"tasks" => [
+			storage::storeObject("task", (object)[
+				"name" => "task 1",
+				"description" => "This is some worthelss description",
+				"random" => storage::generateId(32)
+			]),
+			storage::storeObject("task", (object)[
+				"name" => "task 2",
+				"description" => "Null is acceptable?",
+				"random" => storage::generateId(32)
+			]),
+			storage::storeObject("task", (object)[
+				"name" => "task 3",
+				"description" => "I really need something better to generate demo data",
+				"random" => storage::generateId(32)
+			])
 		]
 	];
 	$newId = storage::storeObject("user", $demoObject);
-	echo json_encode(storage::getObject($newId), JSON_PRETTY_PRINT);
+	// echo json_encode(storage::getObject($newId), JSON_PRETTY_PRINT);
 
 	// now testing attempts to retrieve data
-	// echo json_encode(storage::getObject("jxOq61itie1oVQLeTdbyrokAm2bgoVmYE5vFyMMpdhvxHPqmEzRZBj4EvjxcLZPE"), JSON_PRETTY_PRINT);
-	// echo json_encode(storage::getObject("jxOq61itie1oVQLeTdbyrokAm2bgoVmYE5vFyMMpdhvxHPqmEzRZBj4EvjxcLZPE", 1), JSON_PRETTY_PRINT);
+	$previousItem = "loLSBgu_byK6SG_MeICH7Hq7lszSVAS_NmQ0bZ2AhhOZUubv0XFazPwcJ8i5vF1U";
+	print_r($newId);
+	echo json_encode(storage::getObject($newId), JSON_PRETTY_PRINT);
+	// echo json_encode(storage::getObject($previousItem, 1), JSON_PRETTY_PRINT);
 	// echo json_encode($demoObject, JSON_PRETTY_PRINT);
+	// storage::deleteObject($previousItem);
 
 	// $uname = "muggy8";
 	// print_r(storage::saveKeyVal("123abc", "user.name", $uname));
