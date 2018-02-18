@@ -163,27 +163,26 @@
 			}
 			$rows = $statement->get_result();
 
-			$retrievedObject = []; // set the default object
+			$retrievedObject = [];
 			while($row = $rows->fetch_assoc()){ // one row represents a property in an object so we loop over the rows (properties) to rebuild the source object and retreiving sub-objects as we go.
 				$row = (object)$row;
 
-				// regex to match the ending name and the item before it if it's an array indicator
+				// regex to match the ending name and the item before it to find out if the current object we are assembeling is an array or an object
 				preg_match('/(\[(.+)])?\.([^\.]+)$/', $row->data_key, $propMatch);
 				$propertyName = $propMatch[3];
-				$expectedKey = "$type.$propertyName";
+				$expectedObjKey = "$type.$propertyName";
 				$expectedArrayKey = preg_replace('/[^\.]+$/', "[\\0]", $type) . "." . $propertyName;
 
-				if (!$propMatch[2]){ // if the property isn't ...[propname].propname then it's not an array so we note it down here for future reference
+				if (!$propMatch[2]){ // if the property isn't ...[propname].propname then it's not an array so we note it down here for future reference. because this is in a while loop. any instance of missmatch will trigger this flag for later
 					$isObject = true;
 				}
 
-				// we expect a certain key name and if it isn't then this value isn't a part of the selected object
-				if ($type && $row->data_key != $expectedKey && $row->data_key != $expectedArrayKey) {
+				// if this object has a type, we expect a certain key name and if it isn't then this value isn't a part of the selected object so out liers are just noted down by their complexId instead
+				if ($type && $row->data_key != $expectedObjKey && $row->data_key != $expectedArrayKey) {
 					preg_match('/^[^\.]+/', $row->data_key, $typeName);
 					return "$typeName[0]:$id";
 				}
 
-				// set the property value to the approprite value
 				if (!is_null($row->data_bool)){
 					$propertyValue = $row->data_bool ? true : false;
 				}
@@ -193,8 +192,8 @@
 
 				// the last case is that the value is a link and if so we recursively get the child object
 				if (!$propertyValue && $row->data_link){
-
-					$propertyValue = $type
+					$propertyValue =
+						$type
 						? self::getObject("$row->data_key:$row->data_link", $depth - 1)
 						: self::getObject($row->data_link, $depth - 1);
 
