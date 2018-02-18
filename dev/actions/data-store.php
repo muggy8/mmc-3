@@ -219,10 +219,7 @@
 				$id = $idObj->id;
 				$type = $idObj->type;
 
-				print_r($currentLair);
-
 				if (!is_string($currentLair)){
-					echo "DELETE FROM `mmc_3` WHERE `id` = '$id'\n\n";
 					foreach($currentLair as &$potentialSubItem){
 						$subItemIdObj = self::parseCompoundId($potentialSubItem);
 						if ($subItemIdObj){
@@ -293,11 +290,11 @@
 	// echo "$cloneId\n";
 
 	// now testing attempts to retrieve data
-	$previousItem = "user:lIjBp2IUTnzXFabmWxLAqqlOxz4aKKSBadB7nGQBtkcgvGfAiKv6PQcsa2rv92hD";
+	// $previousItem = "user:lIjBp2IUTnzXFabmWxLAqqlOxz4aKKSBadB7nGQBtkcgvGfAiKv6PQcsa2rv92hD";
 	// echo json_encode(storage::getObject($previousItem), JSON_PRETTY_PRINT);
 	// echo json_encode(storage::getObject("user:$previousItem"), JSON_PRETTY_PRINT);
 	// echo json_encode($demoObject, JSON_PRETTY_PRINT);
-	storage::deleteObject($previousItem);
+	// storage::deleteObject($previousItem);
 
 	// $uname = "muggy8";
 	// print_r(storage::saveKeyVal("123abc", "user.name", $uname));
