@@ -28,6 +28,23 @@
 	    	return $id;
 		}
 
+		// utility functions
+		protected static function validTypeName($type){
+			if (preg_match("/(\[|\]|:|\.)/i", $type)){
+				throw new Exception("The characters ( [, ], :, . ) cannot be used in object types. Type was: $type");
+			}
+		}
+
+		protected static function parseCompoundId($compoundId){
+			if (preg_match('/^(([^:]+):)?(\w[\w\d_]{63})$/', $compoundId, $matches)){
+				return (object)[
+					"id" => $matches[3],
+					"type" => $matches[2]
+				];
+			}
+			return false;
+		}
+
 		// Object Definition Functions
 		protected static function getObjectDefinition($type){
 			$statement = self::$conn->prepare("Select * from `mmc_3_types` where `mmc_3_types`.`type` = ?");
@@ -123,26 +140,12 @@
 			return "$type:$instanceId";
 		}
 
-		protected static function validTypeName($type){
-			if (preg_match("/(\[|\]|:|\.)/i", $type)){
-				throw new Exception("The characters ( [, ], :, . ) cannot be used in object types. Type was: $type");
-			}
-		}
-
-		protected static function parseCompoundId($compoundId){
-			if (preg_match('/^(([^:]+):)?(\w[\w\d_]{63})$/', $compoundId, $matches)){
-				return (object)[
-					"id" => $matches[3],
-					"type" => $matches[2]
-				];
-			}
-			return false;
-		}
-
 		public static function storeObject($type, $objToStore){
 			// we only need to validate this onece when the user calls the function
 			self::validTypeName($type);
-			self::storeObjectInternally($type, $objToStore);
+			return self::parseCompoundId(
+				self::storeObjectInternally($type, $objToStore)
+			)->id;
 		}
 
 		// retrieving Objct Functions
@@ -196,6 +199,11 @@
 			return $retrievedObject;
 		}
 
+		// delete Object Functions
+		public static function deleteObject($id){
+
+		}
+
 		// update Object Functions
 		public static function updateObject($id, $object){
 
@@ -236,7 +244,8 @@
 			]
 		]
 	];
-	storage::storeObject("user", $demoObject);
+	$newId = storage::storeObject("user", $demoObject);
+	echo json_encode(storage::getObject($newId), JSON_PRETTY_PRINT);
 
 	// now testing attempts to retrieve data
 	// echo json_encode(storage::getObject("jxOq61itie1oVQLeTdbyrokAm2bgoVmYE5vFyMMpdhvxHPqmEzRZBj4EvjxcLZPE"), JSON_PRETTY_PRINT);
