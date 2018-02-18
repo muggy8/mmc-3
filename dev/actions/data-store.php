@@ -215,20 +215,26 @@
 		// delete Object Functions
 		public static function deleteObject($id, $depth = -1){
 			if ($depth && $currentLair = self::getObject($id, 1)){
-				// we do head recursion because we want to delete stuff that's the depest in the object first
+				$idObj = self::parseCompoundId($id);
+				$id = $idObj->id;
+				$type = $idObj->type;
+
+				// print_r($currentLair);
+				// echo "DELETE FROM `mmc_3` WHERE `id` = '$id'";
+
 				if (!is_string($currentLair)){
 					foreach($currentLair as &$potentialSubItem){
-						if ($subObjectId = self::parseCompoundId($potentialSubItem)->id){
-							self::deleteObject($potentialSubItem, $depth-1);
+						$subItemIdObj = self::parseCompoundId($potentialSubItem);
+						if ($subItemIdObj){
+							$type
+								? self::deleteObject($potentialSubItem, $depth-1)
+								: self::deleteObject($subItemIdObj->id, $depth-1);
 						}
 					}
 				}
 
-				$idObj = self::parseCompoundId($id);
-				$deleteTargetId = $idObj->id;
-				$deleteType = $idObj->type;
 				$statement = self::$conn->prepare("DELETE FROM `mmc_3` WHERE `id` = ?");
-				$statement->bind_param("s", $deleteTargetId);
+				$statement->bind_param("s", $id);
 
 				if (!$statement->execute()){
 					die("failed to delete $id");
@@ -288,11 +294,11 @@
 	// echo "$cloneId\n";
 
 	// now testing attempts to retrieve data
-	$previousItem = "iesJ7vy1Wh91GpPNglwj9akPC9s5pu0BFnL45LtrtYxlzs6Gy5iU4ltq_g1vu_He";
-	echo json_encode(storage::getObject($previousItem), JSON_PRETTY_PRINT);
-	echo json_encode(storage::getObject("user:$previousItem"), JSON_PRETTY_PRINT);
+	$previousItem = "Cz3A7bnxnLrejS4XTcsCHzHxdwqwCt593vAGInVgVNk8fav5Wd9Q6S0xRM5YXCr3";
+	// echo json_encode(storage::getObject($previousItem), JSON_PRETTY_PRINT);
+	// echo json_encode(storage::getObject("user:$previousItem"), JSON_PRETTY_PRINT);
 	// echo json_encode($demoObject, JSON_PRETTY_PRINT);
-	// storage::deleteObject($previousItem);
+	storage::deleteObject($previousItem);
 
 	// $uname = "muggy8";
 	// print_r(storage::saveKeyVal("123abc", "user.name", $uname));
