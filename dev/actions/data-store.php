@@ -150,9 +150,11 @@
 
 		// retrieving Objct Functions
 		public static function getObject($id, $depth = -1){
-			if (!$depth || !($id = self::parseCompoundId($id)->id)){
+			if (!$depth || !($idObj = self::parseCompoundId($id))){
 				return;
 			}
+			$id = $idObj->id;
+			$type = $idObj->type;
 
 			$statement = self::$conn->prepare("SELECT * FROM `mmc_3` WHERE `id` = ?");
 			$statement->bind_param("s", $id);
@@ -163,13 +165,18 @@
 			$rows = $statement->get_result();
 
 			$retrievedObject = []; // set the default object
-			while($row = $rows->fetch_assoc()){
+			while($row = $rows->fetch_assoc()){ // one row represents a property in an object so we loop over the rows (properties) to rebuild the source object and retreiving sub-objects as we go.
 				$row = (object)$row;
 				preg_match('/(\[(.+)])?\.([^\.]+)$/', $row->data_key, $propMatch);
 				$propertyName = $propMatch[3];
 
 				if (!$propMatch[2]){ // if the paturn doesn't hold. this value would be null which means that this isn't an array so we cast it here
 					$isObject = true;
+				}
+
+				if ($type && !preg_match('/^'.$type.'/', $row->data_key)) {
+					preg_match('/^[^\.]+/', $row->data_key, $typeName);
+					return "$typeName[0]:$id";
 				}
 
 				// set the property value to the approprite value
@@ -182,7 +189,10 @@
 
 				// the last case is that the value is a link and if so we recursively get the child object
 				if (!$propertyValue && $row->data_link){
-					$propertyValue = self::getObject($row->data_link, $depth - 1);
+
+					$propertyValue = $type
+						? self::getObject("$type:$row->data_link", $depth - 1)
+						: self::getObject($row->data_link, $depth - 1);
 
 					if (!$propertyValue){
 						$propertyValue = $row->data_key . ":" . $row->data_link;
@@ -263,13 +273,13 @@
 			])
 		]
 	];
-	$newId = storage::storeObject("user", $demoObject);
+	// $newId = storage::storeObject("user", $demoObject);
+	// print_r($newId);
 	// echo json_encode(storage::getObject($newId), JSON_PRETTY_PRINT);
 
 	// now testing attempts to retrieve data
-	$previousItem = "loLSBgu_byK6SG_MeICH7Hq7lszSVAS_NmQ0bZ2AhhOZUubv0XFazPwcJ8i5vF1U";
-	print_r($newId);
-	echo json_encode(storage::getObject($newId), JSON_PRETTY_PRINT);
+	$previousItem = "user:IeeDltvhj8MHl3TQSqPflkGhmHCoYtiMMMQRdJF0Aabk_xhBUwklf54PpokzkMXY";
+	echo json_encode(storage::getObject($previousItem), JSON_PRETTY_PRINT);
 	// echo json_encode(storage::getObject($previousItem, 1), JSON_PRETTY_PRINT);
 	// echo json_encode($demoObject, JSON_PRETTY_PRINT);
 	// storage::deleteObject($previousItem);
