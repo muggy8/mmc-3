@@ -249,54 +249,55 @@
 
 	storage::connect(db_server, db_user, db_pass, db_name);
 
-	$demoObject = (object)[
-		"name" => "muggy8",
-		"nextLevelUp" => 48.22,
-		"accountActivated" => true,
-		"exp" => 48.22,
-		"auth" => (object)[
-			"reddit" => storage::generateId(32),
-			"facebook" => "",
-			"google" => storage::generateId(32)
-		],
-		"array" => [
-			storage::generateId(32),
-			storage::generateId(32),
-			storage::generateId(32)
-		],
-		"tasks" => [
-			storage::storeObject("task", (object)[
-				"name" => "task 1",
-				"description" => "This is some worthelss description",
-				"random" => storage::generateId(32)
-			]),
-			storage::storeObject("task", (object)[
-				"name" => "task 2",
-				"description" => "Null is acceptable?",
-				"random" => storage::generateId(32)
-			]),
-			storage::storeObject("task", (object)[
-				"name" => "task 3",
-				"description" => "I really need something better to generate demo data",
-				"random" => storage::generateId(32)
-			])
-		]
-	];
-	$newId = storage::storeObject("user", $demoObject);
-	$anotherUser = storage::storeObject("user", $demoObject);
-	echo "$newId\n";
-	$clone = storage::getObject($newId);
-	$clone->name = "clone";
-	$clone->original = $newId;
-	$cloneId = storage::storeObject("user", $clone);
-	echo "$cloneId\n";
+	// $demoObject = (object)[
+	// 	"name" => "muggy8",
+	// 	"nextLevelUp" => 48.22,
+	// 	"accountActivated" => true,
+	// 	"exp" => 48.22,
+	// 	"auth" => (object)[
+	// 		"reddit" => storage::generateId(32),
+	// 		"facebook" => "",
+	// 		"google" => storage::generateId(32)
+	// 	],
+	// 	"array" => [
+	// 		storage::generateId(32),
+	// 		storage::generateId(32),
+	// 		storage::generateId(32)
+	// 	],
+	// 	"tasks" => [
+	// 		storage::storeObject("task", (object)[
+	// 			"name" => "task 1",
+	// 			"description" => "This is some worthelss description",
+	// 			"random" => storage::generateId(32)
+	// 		]),
+	// 		storage::storeObject("task", (object)[
+	// 			"name" => "task 2",
+	// 			"description" => "Null is acceptable?",
+	// 			"random" => storage::generateId(32)
+	// 		]),
+	// 		storage::storeObject("task", (object)[
+	// 			"name" => "task 3",
+	// 			"description" => "I really need something better to generate demo data",
+	// 			"random" => storage::generateId(32)
+	// 		])
+	// 	]
+	// ];
+	// $newId = storage::storeObject("user", $demoObject);
+	// $anotherUser = storage::storeObject("user", $demoObject);
+	// echo "$newId\n";
+	// $clone = storage::getObject($newId);
+	// $clone->name = "clone";
+	// $clone->original = $newId;
+	// $cloneId = storage::storeObject("user", $clone);
+	// echo "$cloneId\n";
 
 
 
 	// now testing attempts to retrieve data
-	// $previousItem = "user:crkY46OIUYbDnnWeUtEFdVYw15L26uZT8WM4bVwc3YffWE_lWqVGxI73e1PtTYa5";
-	echo json_encode(storage::getObject($newId), JSON_PRETTY_PRINT);
-	echo json_encode(storage::getObject($cloneId), JSON_PRETTY_PRINT);
+	$previousNew = "user:thFhzMD50rgbsMpgeVd_21IVlqmkb7VJ1fi25xgI6LPVCpHobl7de7si_7ZQjqia";
+	$previousClone = "aXZfXoZpUgndg6mM8atA5BY9FSDFr8GCO0HISZJ6m0ggDQxOpPRlfduDi4kghtAz";
+	echo json_encode(storage::getObject($previousNew), JSON_PRETTY_PRINT);
+	echo json_encode(storage::getObject($previousClone), JSON_PRETTY_PRINT);
 	// echo json_encode($demoObject, JSON_PRETTY_PRINT);
 	// storage::deleteObject($previousItem);
 
