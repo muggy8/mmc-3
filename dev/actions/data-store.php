@@ -155,6 +155,8 @@
 			$id = $idObj->id;
 			$type = $idObj->type;
 
+			// todo: caching results from DB so we dont overwhelm the db with hundreds of db calls per user reqeust
+
 			$statement = self::$conn->prepare("SELECT * FROM `mmc_3` WHERE `id` = ?");
 			$statement->bind_param("s", $id);
 
