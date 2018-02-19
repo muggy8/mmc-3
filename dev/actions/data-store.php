@@ -116,12 +116,6 @@
 		}
 
 		protected static function storeObjectInternally($type, $objToStore){
-			$objectDefinition = self::getObjectDefinition($type);
-			if (!$objectDefinition){
-				self::createObjectDefinition($type);
-				$objectDefinition = self::getObjectDefinition($type);
-			}
-
 			$instanceId = self::generateId(64);
 
 			foreach($objToStore as $key => &$val){
@@ -243,7 +237,46 @@
 
 		// update Object Functions
 		public static function updateObject($id, $object){
+			$idObj = self::parseCompoundId($id);
+			$id = $idObj->id;
+			$type = $idObj->type;
 
+			$statement = self::$conn->prepare("SELECT * FROM `mmc_3` WHERE `id` = ?");
+			$statement->bind_param("s", $id);
+
+			if (!$statement->execute()){
+				die("failed to store $id: $key");
+			}
+			$rows = $statement->get_result();
+			while($row = $rows->fetch_assoc()){
+				$row = (object)$row;
+				preg_match('/(\[(.+)])?\.([^\.]+)$/', $row->data_key, $propMatch);
+				$propertyName = $propMatch[3];
+
+				// copy chunk from get object to set property value
+				if ($type && $row->data_key != $expectedObjKey && $row->data_key != $expectedArrayKey) {
+					preg_match('/^[^\.]+/', $row->data_key, $typeName);
+					return "$typeName[0]:$id";
+				}
+
+				if (!is_null($row->data_bool)){
+					$propertyValue = $row->data_bool ? true : false;
+				}
+				else {
+					$propertyValue = $row->data_string ?: $row->data_num;
+				}
+
+				if (!$propertyValue){
+					$propertyValue = $row->data_key . ":" . $row->data_link;
+				}
+
+				
+			}
+			// foreach($object as $prop => &$val){
+			// 	if ($currentLair->{$prop} != $val){
+			// 		// sql query to update the prop
+			// 	}
+			// }
 		}
 	}
 
