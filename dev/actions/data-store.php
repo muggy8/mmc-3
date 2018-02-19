@@ -202,7 +202,7 @@
 					$propertyValue = (object)[
 						"id" => $row->id,
 						"key" => $row->data_key,
-						"val" => $propertyValue
+						"value" => $propertyValue
 					];
 				}
 
@@ -245,17 +245,22 @@
 
 		// update Object Functions
 		public static function updateObject($id, $object){
-			$idObj = self::parseCompoundId($id);
-			$id = $idObj->id;
-			$type = $idObj->type;
+			// $idObj = self::parseCompoundId($id);
+			// $id = $idObj->id;
+			// $type = $idObj->type;
 
-			$object = self::getObject($id, 1, true);
+			$currentLair = self::getObject($id, 1, true);
 
 			foreach($object as $prop => &$val){
-				if ($currentLair->{$prop} != $val){
+				if ($object->{$prop} !== $currentLair->{$prop}->value){
 					// sql query to update the prop
+					// remove prop from the currentLair
 				}
 			}
+			// loop through the remaining props in current lair and delete them cuz the new one doesn't have them
+			// foreach($currentLair as $prop => &$val){
+			// 	self::deleteObject("$val->key:$val->id");
+			// }
 		}
 	}
 
