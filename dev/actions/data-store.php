@@ -163,7 +163,17 @@
 
 			if ($idObj->id){
 				foreach($currentLair as &$toDelete){
-					$toDelete ? self::deleteObject($toDelete->key . ":" . $toDelete->id) : '';
+					$deletedExtras = $toDelete ? self::deleteObject($toDelete->key . ":" . $toDelete->id) : true;
+
+					if (!$deletedExtras){
+						// must mean that this isn't a object to delete and instead it is a property so we have to sql query to delete it
+						$statement = self::$conn->prepare("DELETE FROM `mmc_3` WHERE `id` = ? and data_key = ?");
+						$statement->bind_param("ss", $toDelete->id, $toDelete->key);
+
+						if (!$statement->execute()){
+							die("failed to delete $id");
+						}
+					}
 				}
 			}
 			return "$type:$instanceId";
@@ -252,11 +262,9 @@
 
 		// delete Object Functions
 		public static function deleteObject($id, $depth = -1){
-			var_dump($id);
-			var_dump(self::getObject($id, 1));
-			$idObj = self::parseCompoundId($id);
 
 			if ($depth && $currentLair = self::getObject($id, 1)){
+				$idObj = self::parseCompoundId($id);
 				$id = $idObj->id;
 				$type = $idObj->type;
 
@@ -276,8 +284,13 @@
 						die("failed to delete $id");
 					}
 					// echo "select * from `mmc_3` WHERE `id` = '$id' union \n";
+					return true;
 				}
-			};
+				return false;
+			}
+			else {
+				return false;
+			}
 		}
 
 		// update Object Functions
@@ -354,14 +367,14 @@
 	// now testing attempts to retrieve data
 	$previousNew = "user:bXCluFWQ5G6MvqAH9LUQY6uYGu8EDNkEPYTT6GhVWevkM_oGl92hpMbDWY5rlcTr";
 	$previousClone = "user:sSovFjZFPIxUQJjTx_Rc7BFj7uburXsNWVUCqA9n12RsbqeXKdON5SuTd_MUOdn1";
-	$user = storage::getObject($previousNew);
+	// $user = storage::getObject($previousNew);
 	// echo json_encode($user, JSON_PRETTY_PRINT);
 	// $user->auth->facebook = storage::generateId(32);
-	array_splice($user->tasks, 1, 1);
+	// array_splice($user->tasks, 1, 1);
 	// $user->nextLevelUp = 18.22;
-	// $user->weapon = storage::generateId(32);
-	echo json_encode($user, JSON_PRETTY_PRINT);
-	storage::storeObject($previousNew, $user);
+	// unset($user->array);
+	// echo json_encode($user, JSON_PRETTY_PRINT);
+	// storage::storeObject($previousNew, $user);
 
 	// storage::deleteObject($previousClone);
 	echo json_encode($src = storage::getObject($previousNew), JSON_PRETTY_PRINT);
