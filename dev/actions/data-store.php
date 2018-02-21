@@ -186,12 +186,12 @@
 				$row = (object)$row;
 
 				// regex to match the ending name and the item before it to find out if the current object we are assembeling is an array or an object
-				preg_match('/(\[(.+)])?\.([^\.]+)$/', $row->data_key, $propMatch);
-				$propertyName = $propMatch[3];
+				preg_match('/\.(([^\.\[\]]+)|([^\.]+))$/', $row->data_key, $propMatch);
+				$propertyName = $propMatch[2] ?: preg_replace('/\[|\]/', "", $propMatch[3]);
 				$expectedObjKey = "$type.$propertyName";
-				$expectedArrayKey = preg_replace('/[^\.]+$/', "[\\0]", $type) . "." . $propertyName;
+				$expectedArrayKey = "$type.[$propertyName]";
 
-				if (!$propMatch[2]){ // if the property isn't ...[propname].propname then it's not an array so we note it down here for future reference. because this is in a while loop. any instance of missmatch will trigger this flag for later
+				if ($propMatch[2]){ // if the property matches ....propname then it's not an array so we note it down here for future reference. because this is in a while loop. any instance of missmatch will trigger this flag for later
 					$isObject = true;
 				}
 
