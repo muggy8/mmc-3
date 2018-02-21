@@ -88,24 +88,24 @@
 			if (is_string($val)){
 				$parsedId = self::parseCompoundId($val);
 				if ($parsedId && $parsedId->id && $parsedId->type){
-					$statement = self::$conn->prepare("Insert into `mmc_3` (`id`, `data_key`, `data_link`) values (?, ?, ?)");
+					$statement = self::$conn->prepare("replace into `mmc_3` (`id`, `data_key`, `data_link`) values (?, ?, ?)");
 					$statement->bind_param("sss", $id, $key, $parsedId->id);
 				}
 				else {
-					$statement = self::$conn->prepare("Insert into `mmc_3` (`id`, `data_key`, `data_string`) values (?, ?, ?)");
+					$statement = self::$conn->prepare("replace into `mmc_3` (`id`, `data_key`, `data_string`) values (?, ?, ?)");
 					$statement->bind_param("sss", $id, $key, $val);
 				}
 			}
 			else if (is_int($val)){
-				$statement = self::$conn->prepare("Insert into `mmc_3` (`id`, `data_key`, `data_num`) values (?, ?, ?)");
+				$statement = self::$conn->prepare("replace into `mmc_3` (`id`, `data_key`, `data_num`) values (?, ?, ?)");
 				$statement->bind_param("ssi", $id, $key, $val);
 			}
 			else if (is_float($val)){
-				$statement = self::$conn->prepare("Insert into `mmc_3` (`id`, `data_key`, `data_num`) values (?, ?, ?)");
+				$statement = self::$conn->prepare("replace into `mmc_3` (`id`, `data_key`, `data_num`) values (?, ?, ?)");
 				$statement->bind_param("ssd", $id, $key, $val);
 			}
 			else if (is_bool($val)){
-				$statement = self::$conn->prepare("Insert into `mmc_3` (`id`, `data_key`, `data_bool`) values (?, ?, ?)");
+				$statement = self::$conn->prepare("replace into `mmc_3` (`id`, `data_key`, `data_bool`) values (?, ?, ?)");
 				$statement->bind_param("ssi", $id, $key, $val);
 			} else {
 				return $val; // item is an object so we return it and let the store object function handle what to do with it
@@ -113,7 +113,7 @@
 
 			// by the time we get here we already have a statement that's prepaired
 			if (!$statement->execute()){
-				die("failed to store $id: $key");
+				die("failed to store $id: $key = $val");
 			}
 		}
 
@@ -121,7 +121,7 @@
 			if (is_object($val) || is_array($val)){
 				return $val;
 			}
-			echo "id = $id, key = $key, val = $val\n\n";
+			echo "\n\nid = $id, key = $key, val = $val\n\n";
 		}
 
 		protected static function storeObjectInternally($id, $objToStore){
@@ -132,9 +132,8 @@
 			}
 			$instanceId = $idObj->id ?: self::generateId(64);
 
-			if ($idObj->id){
+			if ($idObj->id){ // we know we can get here because type is required or we error so we just need to check there's an id and we'd know that the compound id has a type and id
 				$currentLair = self::getObject($id, 1, true);
-				print_r($currentLair);
 			}
 
 			foreach($objToStore as $key => &$val){
@@ -146,7 +145,10 @@
 						$val
 					)
 				)){
-					$subObjectLink = self::storeObjectInternally("$type.$key", $didNotStoreSuccessfully);
+					$subObjectLink = self::storeObjectInternally(
+						$currentLair->{$key}->value ? $currentLair->{$key}->value: "$type.$key",
+						$didNotStoreSuccessfully
+					);
 
 					self::saveKeyVal(
 						$instanceId,
@@ -155,7 +157,13 @@
 					);
 				}
 				if ($currentLair){
-					unset($currentLair->{$key});
+					is_array($currentLair) ? ($currentLair[$key] = null) : ($currentLair->{$key} = null);
+				}
+			}
+
+			if ($idObj->id){
+				foreach($currentLair as &$toDelete){
+					$toDelete ? self::deleteObject($toDelete->key . ":" . $toDelete->id) : '';
 				}
 			}
 			return "$type:$instanceId";
@@ -202,7 +210,7 @@
 				// if this object has a type, we expect a certain key name and if it isn't then this value isn't a part of the selected object so out liers are just noted down by their complexId instead
 				if ($type && $row->data_key != $expectedObjKey && $row->data_key != $expectedArrayKey) {
 					preg_match('/^[^\.]+/', $row->data_key, $typeName);
-					return "$typeName[0]:$id";
+					return "$typeName[0]:$row->id";
 				}
 
 				if (!is_null($row->data_bool)){
@@ -216,8 +224,8 @@
 				if (!$propertyValue && $row->data_link){
 					$propertyValue =
 						$type
-						? self::getObject("$row->data_key:$row->data_link", $depth - 1)
-						: self::getObject($row->data_link, $depth - 1);
+						? self::getObject("$row->data_key:$row->data_link", $depth - 1, $identify)
+						: self::getObject($row->data_link, $depth - 1, $identify);
 
 					if (!$propertyValue){
 						$propertyValue = $row->data_key . ":" . $row->data_link;
@@ -244,8 +252,11 @@
 
 		// delete Object Functions
 		public static function deleteObject($id, $depth = -1){
+			var_dump($id);
+			var_dump(self::getObject($id, 1));
+			$idObj = self::parseCompoundId($id);
+
 			if ($depth && $currentLair = self::getObject($id, 1)){
-				$idObj = self::parseCompoundId($id);
 				$id = $idObj->id;
 				$type = $idObj->type;
 
@@ -341,19 +352,19 @@
 
 
 	// now testing attempts to retrieve data
-	$previousNew = "user:ofWCneCprHonHv3sdr0_nAjUeNRMUJg9F1cAnWzwLLjmQ9lig5udbeGPpb3U9oln";
-	$previousClone = "S68a5qAaTaKoaKc9RSUe6gK5VAfJPjYDMf9ywpC16vn4nwhGegaBGfkv7ISkhUef";
-	// $user = storage::getObject($previousNew);
+	$previousNew = "user:bXCluFWQ5G6MvqAH9LUQY6uYGu8EDNkEPYTT6GhVWevkM_oGl92hpMbDWY5rlcTr";
+	$previousClone = "user:sSovFjZFPIxUQJjTx_Rc7BFj7uburXsNWVUCqA9n12RsbqeXKdON5SuTd_MUOdn1";
+	$user = storage::getObject($previousNew);
 	// echo json_encode($user, JSON_PRETTY_PRINT);
 	// $user->auth->facebook = storage::generateId(32);
-	// array_splice($user->tasks, 1);
+	array_splice($user->tasks, 1, 1);
 	// $user->nextLevelUp = 18.22;
 	// $user->weapon = storage::generateId(32);
-	// echo json_encode($user, JSON_PRETTY_PRINT);
-	// storage::storeObject($previousNew, $user);
+	echo json_encode($user, JSON_PRETTY_PRINT);
+	storage::storeObject($previousNew, $user);
 
 	// storage::deleteObject($previousClone);
-	// echo json_encode($src = storage::getObject($previousNew), JSON_PRETTY_PRINT);
+	echo json_encode($src = storage::getObject($previousNew), JSON_PRETTY_PRINT);
 	// echo json_encode($clone = storage::getObject($previousClone), JSON_PRETTY_PRINT);
 
 	// $clone->original = storage::storeObject("user", $src);
