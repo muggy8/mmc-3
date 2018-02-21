@@ -283,7 +283,6 @@
 					if (!$statement->execute()){
 						die("failed to delete $id");
 					}
-					// echo "select * from `mmc_3` WHERE `id` = '$id' union \n";
 					return true;
 				}
 				return false;
@@ -292,32 +291,6 @@
 				return false;
 			}
 		}
-
-		// update Object Functions
-		// public static function updateObject($id, $object){
-		// 	$idObj = self::parseCompoundId($id);
-		// 	$currentLair = self::getObject($id, 1, true);
-        //
-		// 	print_r($currentLair);
-        //
-		// 	foreach($object as $prop => &$val){
-		// 		if ($object->{$prop} !== $currentLair->{$prop}->value){
-		// 			// sql query to update the prop
-        //
-		// 			$propName = $currentLair->{$prop}->key;
-		// 			$propId = $currentLair->{$prop}->id ?: self::generateId(64);
-		// 			$newVal = $object->{$prop};
-		// 			if (!is_null($didNotStoreSuccessfully = self::saveKeyVal($propId, $propName, $newVal))){
-		// 				self::updateObject($currentLair->{$prop}->id, $didNotStoreSuccessfully);
-		// 			}
-		// 			// remove prop from the currentLair
-		// 		}
-		// 	}
-		// 	//loop through the remaining props in current lair and delete them cuz the new one doesn't have them
-		// 	foreach($currentLair as $prop => &$val){
-		// 		self::deleteObject("$val->key:$val->id");
-		// 	}
-		// }
 	}
 
 	storage::connect(db_server, db_user, db_pass, db_name);
