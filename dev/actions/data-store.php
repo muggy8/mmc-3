@@ -29,14 +29,15 @@
 		}
 
 		// utility functions
-		protected static function validTypeName($type){
-			if (preg_match("/(\[|\]|:|\.)/i", $type)){
+		protected static function validTypeName($id){
+			$idObj = self::parseCompoundId($id);
+			if ($idObj->type && preg_match("/(\[|\]|:|\.)/i", $idObj->type)){
 				throw new Exception("The characters ( [, ], :, . ) cannot be used in object types. Type was: $type");
 			}
 		}
 
 		public static function parseCompoundId($compoundId){
-			if (preg_match('/^(([^:]+):)?(\w[\w\d_]{63})$/', $compoundId, $matches)){
+			if (preg_match('/^(([^:]+):?)?(\w[\w\d_]{63})?$/', $compoundId, $matches)){
 				return (object)[
 					"id" => $matches[3],
 					"type" => $matches[2]
@@ -76,6 +77,7 @@
 
 		// Storing Object Functions
 		protected static function saveKeyVal($id, $key, &$val){
+			// return self::stubSave($id, $key, $val);
 			if (is_string($val)){
 				$parsedId = self::parseCompoundId($val);
 				if ($parsedId && $parsedId->id && $parsedId->type){
@@ -115,21 +117,41 @@
 			echo "id = $id, key = $key, val = $val\n\n";
 		}
 
-		protected static function storeObjectInternally($type, $objToStore){
-			$instanceId = self::generateId(64);
+		protected static function storeObjectInternally($id, $objToStore){
+			$idObj = self::parseCompoundId($id);
+			$type = $idObj->type;
+			if (!$type){
+				throw new Exception("Type not provided");
+			}
+			$instanceId = $idObj->id ?: self::generateId(64);
+
+			echo "$id\n\n";
+			if ($idObj->id){
+				$currentLair = self::getObject($id, 1, true);
+				print_r($currentLair);
+			}
 
 			foreach($objToStore as $key => &$val){
 				self::validTypeName($key);
-				if ($didNotStoreSuccessfully = self::saveKeyVal($instanceId, "$type.$key", $val)) {
-					if (is_array($didNotStoreSuccessfully)){
-						$objType = $type.".[$key]";
-					}
-					else {
-						$objType = "$type.$key";
-					}
+				if (!is_null(
+					$didNotStoreSuccessfully = self::saveKeyVal(
+						$instanceId,
+						is_array($objToStore) ? "$type.[$key]" : "$type.$key",
+						$val
+					)
+				)){
+					// if (is_array($didNotStoreSuccessfully)){
+					// 	$objType = $type.".[$key]";
+					// }
+					// else {
+					// 	$objType = "$type.$key";
+					// }
 
-					$subObjectLink = self::storeObjectInternally($objType, $didNotStoreSuccessfully);
+					$subObjectLink = self::storeObjectInternally("$type.$key", $didNotStoreSuccessfully);
 					self::saveKeyVal($instanceId, "$type.$key", $subObjectLink);
+				}
+				if ($currentLair){
+					unset($currentLair->{$key});
 				}
 			}
 			return "$type:$instanceId";
@@ -237,6 +259,8 @@
 
 					if (!$statement->execute()){
 						die("failed to delete $id");
+					} else {
+						echo "deleted $id\n\n";
 					}
 				}
 			};
@@ -245,22 +269,28 @@
 
 		// update Object Functions
 		public static function updateObject($id, $object){
-			// $idObj = self::parseCompoundId($id);
-			// $id = $idObj->id;
-			// $type = $idObj->type;
-
+			$idObj = self::parseCompoundId($id);
 			$currentLair = self::getObject($id, 1, true);
+
+			print_r($currentLair);
 
 			foreach($object as $prop => &$val){
 				if ($object->{$prop} !== $currentLair->{$prop}->value){
 					// sql query to update the prop
+
+					$propName = $currentLair->{$prop}->key;
+					$propId = $currentLair->{$prop}->id ?: self::generateId(64);
+					$newVal = $object->{$prop};
+					if (!is_null($didNotStoreSuccessfully = self::saveKeyVal($propId, $propName, $newVal))){
+						self::updateObject($currentLair->{$prop}->id, $didNotStoreSuccessfully);
+					}
 					// remove prop from the currentLair
 				}
 			}
-			// loop through the remaining props in current lair and delete them cuz the new one doesn't have them
-			// foreach($currentLair as $prop => &$val){
-			// 	self::deleteObject("$val->key:$val->id");
-			// }
+			//loop through the remaining props in current lair and delete them cuz the new one doesn't have them
+			foreach($currentLair as $prop => &$val){
+				self::deleteObject("$val->key:$val->id");
+			}
 		}
 	}
 
@@ -311,10 +341,22 @@
 
 
 	// now testing attempts to retrieve data
-	$previousNew = "user:thFhzMD50rgbsMpgeVd_21IVlqmkb7VJ1fi25xgI6LPVCpHobl7de7si_7ZQjqia";
-	$previousClone = "aXZfXoZpUgndg6mM8atA5BY9FSDFr8GCO0HISZJ6m0ggDQxOpPRlfduDi4kghtAz";
-	echo json_encode(storage::getObject($previousNew, -1, true), JSON_PRETTY_PRINT);
-	echo json_encode(storage::getObject($previousClone), JSON_PRETTY_PRINT);
+	$previousNew = "user:ev_d2MVR9NSS41im4wnjxLXeVCJAQtvj10DDUQPbRFj6DAZupARKYae77aTHA_lF";
+	$previousClone = "user:thFhzMD50rgbsMpgeVd_21IVlqmkb7VJ1fi25xgI6LPVCpHobl7de7si_7ZQjqia";
+	$deleteEverythingById = "aXZfXoZpUgndg6mM8atA5BY9FSDFr8GCO0HISZJ6m0ggDQxOpPRlfduDi4kghtAz";
+	$user = storage::getObject($previousNew);
+	echo json_encode($user, JSON_PRETTY_PRINT);
+	// $user->auth->facebook = storage::generateId(32);
+	// array_splice($user->tasks, 1);
+	// $user->nextLevelUp = 18.22;
+	// $user->weapon = storage::generateId(32);
+	// echo json_encode($user, JSON_PRETTY_PRINT);
+	// storage::storeObject($previousNew, $user);
+	// echo json_encode($src = storage::getObject($previousNew), JSON_PRETTY_PRINT);
+	// echo json_encode($clone = storage::getObject($previousClone), JSON_PRETTY_PRINT);
+	storage::deleteObject($deleteEverythingById);
+	// $clone->original = storage::storeObject("user", $src);
+	// storage::storeObject("user", $clone);
 	// echo json_encode($demoObject, JSON_PRETTY_PRINT);
 	// storage::deleteObject($previousItem);
 
