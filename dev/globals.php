@@ -1,2 +1,3 @@
 <?php
-	define("project_root", dirname(__FILE__));
+	const api_root = dirname(__FILE__);
+	include_once("../configs.php");
