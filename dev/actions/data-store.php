@@ -1,6 +1,6 @@
 <?php
-	include_once("../../configs.php"); // defines db settings
-	include_once("./polyfills.php"); // defines db settings
+	include_once("globals.php"); // defines db settings
+	include_once("polyfills.php"); // defines db settings
 
 	class storage {
 		protected static $conn = null;
@@ -338,8 +338,8 @@
 
 
 	// now testing attempts to retrieve data
-	$previousNew = "user:bXCluFWQ5G6MvqAH9LUQY6uYGu8EDNkEPYTT6GhVWevkM_oGl92hpMbDWY5rlcTr";
-	$previousClone = "user:sSovFjZFPIxUQJjTx_Rc7BFj7uburXsNWVUCqA9n12RsbqeXKdON5SuTd_MUOdn1";
+	// $previousNew = "user:bXCluFWQ5G6MvqAH9LUQY6uYGu8EDNkEPYTT6GhVWevkM_oGl92hpMbDWY5rlcTr";
+	// $previousClone = "user:sSovFjZFPIxUQJjTx_Rc7BFj7uburXsNWVUCqA9n12RsbqeXKdON5SuTd_MUOdn1";
 	// $user = storage::getObject($previousNew);
 	// echo json_encode($user, JSON_PRETTY_PRINT);
 	// $user->auth->facebook = storage::generateId(32);
@@ -350,7 +350,7 @@
 	// storage::storeObject($previousNew, $user);
 
 	// storage::deleteObject($previousClone);
-	echo json_encode($src = storage::getObject($previousNew), JSON_PRETTY_PRINT);
+	// echo json_encode($src = storage::getObject($previousNew), JSON_PRETTY_PRINT);
 	// echo json_encode($clone = storage::getObject($previousClone), JSON_PRETTY_PRINT);
 
 	// $clone->original = storage::storeObject("user", $src);
