@@ -219,7 +219,7 @@
 				}
 
 				// if this object has a type, we expect a certain key name and if it isn't then this value isn't a part of the selected object so out liers are just noted down by their complexId instead
-				if ($currentBaseType !== $parentBaseType && $currentBaseType !== $type) {
+				if ($parentBaseType && $currentBaseType !== $parentBaseType) {
 					preg_match('/^[^\.]+/', $row->data_key, $typeName);
 					$requestCache->{$id} = $requestCache->{$id} ?: "$currentBaseType:$row->id";
 					if ($type){
