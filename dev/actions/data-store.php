@@ -186,7 +186,7 @@
 		}
 
 		// retrieving Objct Functions
-		protected static function getObject(&$requestCache, $id, $depth = -1, $identify = false){
+		protected static function getObject(&$requestCache, $id, $depth = -1, $identify = false, $parentBaseType = null){
 			if (!$depth || !($idObj = self::parseCompoundId($id))){
 				return;
 			}
@@ -207,20 +207,24 @@
 			while($row = $rows->fetch_assoc()){ // one row represents a property in an object so we loop over the rows (properties) to rebuild the source object and retreiving sub-objects as we go.
 				$row = (object)$row;
 
+				preg_match('/^[^\.]+/', $row->data_key, $baseNameMatch);
+				$currentBaseType = $baseNameMatch[0];
+
 				// regex to match the ending name and the item before it to find out if the current object we are assembeling is an array or an object
 				preg_match('/\.(([^\.\[\]]+)|([^\.]+))$/', $row->data_key, $propMatch);
 				$propertyName = $propMatch[2] ?: preg_replace('/\[|\]/', "", $propMatch[3]);
-				$expectedObjKey = "$type.$propertyName";
-				$expectedArrayKey = "$type.[$propertyName]";
 
 				if ($propMatch[2]){ // if the property matches ....propname then it's not an array so we note it down here for future reference. because this is in a while loop. any instance of missmatch will trigger this flag for later
 					$isObject = true;
 				}
 
 				// if this object has a type, we expect a certain key name and if it isn't then this value isn't a part of the selected object so out liers are just noted down by their complexId instead
-				if ($type && $row->data_key != $expectedObjKey && $row->data_key != $expectedArrayKey) {
+				if ($currentBaseType !== $parentBaseType && $currentBaseType !== $type) {
 					preg_match('/^[^\.]+/', $row->data_key, $typeName);
-					return "$typeName[0]:$row->id";
+					$requestCache->{$id} = $requestCache->{$id} ?: "$currentBaseType:$row->id";
+					if ($type){
+						return "$currentBaseType:$row->id";
+					}
 				}
 
 				if (!is_null($row->data_bool)){
@@ -234,8 +238,8 @@
 				if (!$propertyValue && $row->data_link){
 					$propertyValue =
 						$type
-						? self::getObject($requestCache, "$row->data_key:$row->data_link", $depth - 1, $identify)
-						: self::getObject($requestCache, $row->data_link, $depth - 1, $identify);
+						? self::getObject($requestCache, "$row->data_key:$row->data_link", $depth - 1, $identify, $currentBaseType)
+						: self::getObject($requestCache, $row->data_link, $depth - 1, $identify, $currentBaseType);
 
 					if (!$propertyValue){
 						$propertyValue = $row->data_key . ":" . $row->data_link;
@@ -254,10 +258,15 @@
 			}
 
 			if ($isObject){
-				return (object)$retrievedObject;
+				$requestCache->{$id} = $requestCache->{$id} ?: (object)$retrievedObject;
+				return (object)$requestCache->{$id};
+			}
+			else {
+				$requestCache->{$id} = $requestCache->{$id} ?: $retrievedObject;
+				return $requestCache->{$id};
 			}
 
-			return $retrievedObject;
+
 		}
 
 		public static function get($id, $depth = -1, $identify = false){
