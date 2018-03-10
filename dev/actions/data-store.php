@@ -186,14 +186,22 @@
 		}
 
 		// retrieving Objct Functions
-		protected static function getObject(&$requestCache, &$id, $depth = -1, $identify = false, &$parentBaseType = null){
+		protected static function getObject(&$requestCache, $recursionBranchHistory, &$id, $depth = -1, $identify = false, &$parentBaseType = null){
 			if (!$depth || !($idObj = self::parseCompoundId($id))){
 				return;
 			}
 			$id = $idObj->id;
 			$type = $idObj->type;
 
-			// todo: caching results from DB so we dont overwhelm the db with hundreds of db calls per user reqeust
+			if ($recursionBranchHistory->{$id}) {
+				return $requestCache->{$id};
+			}
+
+			$recursionBranchHistory->{$id} = true;
+
+			if ($requestCache->{$id}){
+				return $requestCache->{$id};
+			}
 
 			$statement = self::$conn->prepare("SELECT * FROM `mmc_3` WHERE `id` = ?");
 			$statement->bind_param("s", $id);
@@ -235,7 +243,7 @@
 				// the last case is that the value is a link and if so we recursively get the child object
 				if (!$propertyValue && $row->data_link){
 					$childId = $type ? "$row->data_key:$row->data_link" : $row->data_link;
-					$propertyValue = self::getObject($requestCache, $childId , $depth - 1, $identify, $currentBaseType);
+					$propertyValue = self::getObject($requestCache, $recursionBranchHistory, $childId , $depth - 1, $identify, $currentBaseType);
 
 					if (!$propertyValue){
 						$propertyValue = $row->data_key . ":" . $row->data_link;
@@ -268,7 +276,7 @@
 		public static function get($id, $depth = -1, $identify = false){
 			self::validTypeName($id);
 			$requestCache = (object)[];
-			return self::getObject($requestCache, $id, $depth, $identify);
+			return self::getObject($requestCache, (object)[], $id, $depth, $identify);
 		}
 
 		// delete Object Functions
