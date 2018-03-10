@@ -4,12 +4,13 @@
 
 	class storage {
 		protected static $conn = null;
+		protected static $table = null;
 
 		protected function __construct(){}
 
 	    protected function __clone(){}
 
-		public static function connect($db_server, $db_user, $db_pass, $db_name){
+		public static function connect($db_server, $db_user, $db_pass, $db_name, $table_name){
 			if (self::$conn){
 				return;
 			}
@@ -17,6 +18,7 @@
 			if (self::$conn->connect_error) {
 				die("Connection failed: " . $conn->connect_error);
 			}
+			self::$table = $table_name;
 		}
 
 		public static function generateId($length = 32){
@@ -59,24 +61,24 @@
 			if (is_string($val)){
 				$parsedId = self::parseCompoundId($val);
 				if ($parsedId && $parsedId->id && $parsedId->type){
-					$statement = self::$conn->prepare("replace into `mmc_3` (`id`, `data_key`, `data_link`) values (?, ?, ?)");
+					$statement = self::$conn->prepare("replace into `" . self::$table . "` (`id`, `data_key`, `data_link`) values (?, ?, ?)");
 					$statement->bind_param("sss", $id, $key, $parsedId->id);
 				}
 				else {
-					$statement = self::$conn->prepare("replace into `mmc_3` (`id`, `data_key`, `data_string`) values (?, ?, ?)");
+					$statement = self::$conn->prepare("replace into `" . self::$table . "` (`id`, `data_key`, `data_string`) values (?, ?, ?)");
 					$statement->bind_param("sss", $id, $key, $val);
 				}
 			}
 			else if (is_int($val)){
-				$statement = self::$conn->prepare("replace into `mmc_3` (`id`, `data_key`, `data_num`) values (?, ?, ?)");
+				$statement = self::$conn->prepare("replace into `" . self::$table . "` (`id`, `data_key`, `data_num`) values (?, ?, ?)");
 				$statement->bind_param("ssi", $id, $key, $val);
 			}
 			else if (is_float($val)){
-				$statement = self::$conn->prepare("replace into `mmc_3` (`id`, `data_key`, `data_num`) values (?, ?, ?)");
+				$statement = self::$conn->prepare("replace into `" . self::$table . "` (`id`, `data_key`, `data_num`) values (?, ?, ?)");
 				$statement->bind_param("ssd", $id, $key, $val);
 			}
 			else if (is_bool($val)){
-				$statement = self::$conn->prepare("replace into `mmc_3` (`id`, `data_key`, `data_bool`) values (?, ?, ?)");
+				$statement = self::$conn->prepare("replace into `" . self::$table . "` (`id`, `data_key`, `data_bool`) values (?, ?, ?)");
 				$statement->bind_param("ssi", $id, $key, $val);
 			} else {
 				return $val; // item is an object so we return it and let the store object function handle what to do with it
@@ -138,7 +140,7 @@
 
 					if (!$deletedExtras){
 						// must mean that this isn't a object to delete and instead it is a property so we have to sql query to delete it
-						$statement = self::$conn->prepare("DELETE FROM `mmc_3` WHERE `id` = ? and data_key = ?");
+						$statement = self::$conn->prepare("DELETE FROM `" . self::$table . "` WHERE `id` = ? and data_key = ?");
 						$statement->bind_param("ss", $toDelete->id, $toDelete->key);
 
 						if (!$statement->execute()){
@@ -174,7 +176,7 @@
 				return $requestCache->{$id};
 			}
 
-			$statement = self::$conn->prepare("SELECT * FROM `mmc_3` WHERE `id` = ?");
+			$statement = self::$conn->prepare("SELECT * FROM `" . self::$table . "` WHERE `id` = ?");
 			$statement->bind_param("s", $id);
 
 			if (!$statement->execute()){
@@ -267,7 +269,7 @@
 								: self::deleteObject($subItemIdObj->id, $depth-1);
 						}
 					}
-					$statement = self::$conn->prepare("DELETE FROM `mmc_3` WHERE `id` = ?");
+					$statement = self::$conn->prepare("DELETE FROM `" . self::$table . "` WHERE `id` = ?");
 					$statement->bind_param("s", $id);
 
 					if (!$statement->execute()){

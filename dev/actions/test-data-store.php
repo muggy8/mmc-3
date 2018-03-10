@@ -1,6 +1,6 @@
 <?php
 	include_once("data-store.php");
-	storage::connect(db_server, db_user, db_pass, db_name);
+	storage::connect(db_server, db_user, db_pass, db_name, "mmc_3");
 
 	// $demoObject = (object)[
 	// 	"name" => "muggy8",
