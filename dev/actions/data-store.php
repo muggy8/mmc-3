@@ -234,10 +234,8 @@
 
 				// the last case is that the value is a link and if so we recursively get the child object
 				if (!$propertyValue && $row->data_link){
-					$propertyValue =
-						$type
-						? self::getObject($requestCache, "$row->data_key:$row->data_link", $depth - 1, $identify, $currentBaseType)
-						: self::getObject($requestCache, $row->data_link, $depth - 1, $identify, $currentBaseType);
+					$childId = $type ? "$row->data_key:$row->data_link" : $row->data_link;
+					$propertyValue = self::getObject($requestCache, $childId , $depth - 1, $identify, $currentBaseType);
 
 					if (!$propertyValue){
 						$propertyValue = $row->data_key . ":" . $row->data_link;
