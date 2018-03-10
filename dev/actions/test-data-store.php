@@ -45,7 +45,7 @@
 
 
 	// now testing attempts to retrieve data
-	$previousNew = "user:bXCluFWQ5G6MvqAH9LUQY6uYGu8EDNkEPYTT6GhVWevkM_oGl92hpMbDWY5rlcTr";
+	$previousNew = "bXCluFWQ5G6MvqAH9LUQY6uYGu8EDNkEPYTT6GhVWevkM_oGl92hpMbDWY5rlcTr";
 	$previousClone = "user:sSovFjZFPIxUQJjTx_Rc7BFj7uburXsNWVUCqA9n12RsbqeXKdON5SuTd_MUOdn1";
 	$user = storage::get($previousNew);
 	// echo json_encode($user, JSON_PRETTY_PRINT);

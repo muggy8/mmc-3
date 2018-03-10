@@ -186,7 +186,7 @@
 		}
 
 		// retrieving Objct Functions
-		protected static function getObject(&$requestCache, $id, $depth = -1, $identify = false, $parentBaseType = null){
+		protected static function getObject(&$requestCache, &$id, $depth = -1, $identify = false, &$parentBaseType = null){
 			if (!$depth || !($idObj = self::parseCompoundId($id))){
 				return;
 			}
@@ -219,12 +219,10 @@
 				}
 
 				// if this object has a type, we expect a certain key name and if it isn't then this value isn't a part of the selected object so out liers are just noted down by their complexId instead
-				if ($parentBaseType && $currentBaseType !== $parentBaseType) {
+				if ($type && $parentBaseType && $currentBaseType !== $parentBaseType) {
 					preg_match('/^[^\.]+/', $row->data_key, $typeName);
 					$requestCache->{$id} = $requestCache->{$id} ?: "$currentBaseType:$row->id";
-					if ($type){
-						return "$currentBaseType:$row->id";
-					}
+					return "$currentBaseType:$row->id";
 				}
 
 				if (!is_null($row->data_bool)){
