@@ -133,7 +133,7 @@
 			$instanceId = $idObj->id ?: self::generateId(64);
 
 			if ($idObj->id){ // we know we can get here because type is required or we error so we just need to check there's an id and we'd know that the compound id has a type and id
-				$currentLair = self::getObject($id, 1, true);
+				$currentLair = self::get($id, 1, true);
 			}
 
 			foreach($objToStore as $key => &$val){
@@ -186,7 +186,7 @@
 		}
 
 		// retrieving Objct Functions
-		public static function getObject($id, $depth = -1, $identify = false){
+		protected static function getObject(&$requestCache, $id, $depth = -1, $identify = false){
 			if (!$depth || !($idObj = self::parseCompoundId($id))){
 				return;
 			}
@@ -234,8 +234,8 @@
 				if (!$propertyValue && $row->data_link){
 					$propertyValue =
 						$type
-						? self::getObject("$row->data_key:$row->data_link", $depth - 1, $identify)
-						: self::getObject($row->data_link, $depth - 1, $identify);
+						? self::getObject($requestCache, "$row->data_key:$row->data_link", $depth - 1, $identify)
+						: self::getObject($requestCache, $row->data_link, $depth - 1, $identify);
 
 					if (!$propertyValue){
 						$propertyValue = $row->data_key . ":" . $row->data_link;
@@ -259,11 +259,17 @@
 
 			return $retrievedObject;
 		}
+		
+		public static function get($id, $depth = -1, $identify = false){
+			self::validTypeName($id);
+			$requestCache = (object)[];
+			return self::getObject($requestCache, $id, $depth, $identify){
+		}
 
 		// delete Object Functions
 		public static function deleteObject($id, $depth = -1){
 
-			if ($depth && $currentLair = self::getObject($id, 1)){
+			if ($depth && $currentLair = self::get($id, 1)){
 				$idObj = self::parseCompoundId($id);
 				$id = $idObj->id;
 				$type = $idObj->type;
