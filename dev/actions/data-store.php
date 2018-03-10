@@ -194,7 +194,7 @@
 			$type = $idObj->type;
 
 			if ($recursionBranchHistory->{$id}) {
-				return $requestCache->{$id};
+				return $recursionBranchHistory->{$id} . ":" . $id;
 			}
 
 			$recursionBranchHistory->{$id} = true;
@@ -217,6 +217,7 @@
 
 				preg_match('/^[^\.]+/', $row->data_key, $baseNameMatch);
 				$currentBaseType = $baseNameMatch[0];
+				$recursionBranchHistory->{$id} = $currentBaseType;
 
 				// regex to match the ending name and the item before it to find out if the current object we are assembeling is an array or an object
 				preg_match('/\.(([^\.\[\]]+)|([^\.]+))$/', $row->data_key, $propMatch);
@@ -229,8 +230,8 @@
 				// if this object has a type, we expect a certain key name and if it isn't then this value isn't a part of the selected object so out liers are just noted down by their complexId instead
 				if ($type && $parentBaseType && $currentBaseType !== $parentBaseType) {
 					preg_match('/^[^\.]+/', $row->data_key, $typeName);
-					$requestCache->{$id} = $requestCache->{$id} ?: "$currentBaseType:$row->id";
-					return "$currentBaseType:$row->id";
+					$requestCache->{$id} = "$currentBaseType:$row->id";
+					return $requestCache->{$id};
 				}
 
 				if (!is_null($row->data_bool)){
@@ -262,14 +263,13 @@
 			}
 
 			if ($isObject){
-				$requestCache->{$id} = $requestCache->{$id} ?: (object)$retrievedObject;
-				return (object)$requestCache->{$id};
+				$requestCache->{$id} = (object)$retrievedObject;
 			}
 			else {
-				$requestCache->{$id} = $requestCache->{$id} ?: $retrievedObject;
-				return $requestCache->{$id};
+				$requestCache->{$id} = $retrievedObject;
 			}
 
+			return $requestCache->{$id};
 
 		}
 
