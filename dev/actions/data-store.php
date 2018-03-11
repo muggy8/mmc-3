@@ -5,6 +5,21 @@
 	class storage {
 		protected static $conn = null;
 		protected static $table = null;
+		protected static $allowedOpperators = [
+			"between",
+			"=",
+			"!=",
+			"<=>",
+			">",
+			">=",
+			"in",
+			"not in",
+			"<",
+			"<=",
+			"like",
+			"not between",
+			"not like"
+		];
 
 		protected function __construct(){}
 
@@ -281,6 +296,72 @@
 			}
 			else {
 				return false;
+			}
+		}
+
+		// search methods
+		protected static function findInputType(&$input){
+			if (is_string($input)){
+				return 's';
+			}
+			if (is_int($input)){
+				return 'i';
+			}
+			if (is_float($input)){
+				return 'd';
+			}
+			if (is_bool($input)){
+				return 'i';
+			}
+
+			throw new Error ("This type of data cannot be used safely with this sytem. Try using traditional SQL");
+		}
+
+		public static function search($type, $value, $opperator = '='){
+			$lowerCaseOpperator = strtolower($opperator);
+			if (in_array($lowerCaseOpperator, self::$allowedOpperators)){
+				throw new Error("$opperator is an Invalid Search Opperator");
+			}
+
+			$dbType = preg_replace('/([^\.])\[/', '$1.[', $type);
+			$dbType = preg_replace('/\[\*\]/', '[%]', $dbType);
+
+			// for between / not between queries
+			if (($lowerCaseOpperator == "between" || $lowerCaseOpperator == "not between") && is_array($value) && count($value) == 2) {
+				if (!is_numaric($value[1]) || !is_numaric($value[2])){
+					throw new Error("Cannot use non numarics for between. Try using standard SQL instead");
+				}
+				$statement = self::$conn->prepare("SELECT * from `" . self::$table . "` `data_key` like ? and where `data_num` between ? and ?;");
+				$statement->bind_param("sss", $dbType, $value[1], $value[2]);
+			}
+
+			// for in / not in queries
+			else if (($lowerCaseOpperator == "=" || $lowerCaseOpperator == "!=" || $lowerCaseOpperator == "in" || $lowerCaseOpperator == "not in") && is_array($value)){
+				if ($lowerCaseOpperator == "="){
+					$lowerCaseOpperator = "in";
+				}
+				if ($lowerCaseOpperator == "!="){
+					$lowerCaseOpperator = "not in";
+				}
+
+				throw new Error("Range query is currently not supported");
+				$statement = self::$conn->prepare("SELECT * from `" . self::$table . "` `data_key` like ? and ...");
+			}
+
+			// the every other case
+			else if (!is_array($value)){
+				$inputType = findInputType($value);
+				if ($inputType === 's'){
+					$maybeId = self::parseCompoundId($value)->id;
+				}
+				$statement = self::$conn->prepare("SELECT * from `" . self::$table . "` `data_key` like ? and (`data_string` $lowerCaseOpperator ? or `data_bool` $lowerCaseOpperator ? or `data_num` $lowerCaseOpperator ? or `data_link` $lowerCaseOpperator ?)");
+				$queryTypes = "s$inputType$inputType$inputType";
+				if ($maybeId){
+					$statement->bind_param($queryTypes . 's', $dbType, $value, $value, $value, $maybeId);
+				}
+				else {
+					$statement->bind_param($queryTypes . $inputType, $dbType, $value, $value, $value)
+				}
 			}
 		}
 	}
