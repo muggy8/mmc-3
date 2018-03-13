@@ -1,4 +1,5 @@
 <?php
+	echo "<pre>";
 	include_once("data-store.php");
 	storage::connect(db_server, db_user, db_pass, db_name, "mmc_3");
 
@@ -48,7 +49,7 @@
 	$previousNew = "user:bXCluFWQ5G6MvqAH9LUQY6uYGu8EDNkEPYTT6GhVWevkM_oGl92hpMbDWY5rlcTr";
 	// $previousClone = "user:sSovFjZFPIxUQJjTx_Rc7BFj7uburXsNWVUCqA9n12RsbqeXKdON5SuTd_MUOdn1";
 	$user = storage::get($previousNew);
-	// echo json_encode($user, JSON_PRETTY_PRINT);
+	echo json_encode($user, JSON_PRETTY_PRINT);
 	// $user->auth->facebook = storage::generateId(32);
 	// array_splice($user->tasks, 1, 1);
 	// $user->nextLevelUp = 18.22;
@@ -57,11 +58,13 @@
 	// storage::storeObject($previousNew, $user);
 
 
-	$taskId = "qDhFp9IdBbLXOKC0Ew_qOJSUqcMwgHz5cSZFbFsnYDzBes2OJXlX4jUeMKWSbyXl";
-	$task = storage::get($taskId);
-	echo json_encode($task, JSON_PRETTY_PRINT);
+	// $taskId = "qDhFp9IdBbLXOKC0Ew_qOJSUqcMwgHz5cSZFbFsnYDzBes2OJXlX4jUeMKWSbyXl";
+	// $task = storage::get($taskId);
+	// echo json_encode($task, JSON_PRETTY_PRINT);
 	//storage::storeObject($taskId, $task);
 	//$task->assignedTo = $previousNew;
+
+	echo "\n\n" . json_encode(storage::search("user.nextLevelUp", [15, 18], "not between"), JSON_PRETTY_PRINT);
 
 	// storage::deleteObject($previousClone);
 	// echo json_encode($src = storage::getObject($previousNew), JSON_PRETTY_PRINT);
@@ -80,3 +83,5 @@
 	// $bool = true;
 	// print_r(storage::saveKeyVal("123abc", "user.bool", $bool));
 	//print_r(storage::getObjectDefinition("user"));
+
+	echo "</pre>";

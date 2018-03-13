@@ -314,13 +314,14 @@
 				return 'i';
 			}
 
-			throw new Error ("This type of data cannot be used safely with this sytem. Try using traditional SQL");
+			throw new Exception("This type of data cannot be used safely with this sytem. Try using traditional SQL");
 		}
 
 		public static function search($type, $value, $opperator = '='){
 			$lowerCaseOpperator = strtolower($opperator);
-			if (in_array($lowerCaseOpperator, self::$allowedOpperators)){
-				throw new Error("$opperator is an Invalid Search Opperator");
+			if (!in_array($lowerCaseOpperator, self::$allowedOpperators)){
+				echo "Allowed Opperators are " . implode(", ", self::$allowedOpperators);
+				throw new Exception("$opperator is an Invalid Search Opperator");
 			}
 
 			$dbType = preg_replace('/([^\.])\[/', '$1.[', $type);
@@ -328,11 +329,14 @@
 
 			// for between / not between queries
 			if (($lowerCaseOpperator == "between" || $lowerCaseOpperator == "not between") && is_array($value) && count($value) == 2) {
-				if (!is_numaric($value[1]) || !is_numaric($value[2])){
-					throw new Error("Cannot use non numarics for between. Try using standard SQL instead");
+				if (!is_numeric($value[0]) || !is_numeric($value[1])){
+					throw new Exception("Cannot use non numarics for between. Try using standard SQL instead");
 				}
-				$statement = self::$conn->prepare("SELECT * from `" . self::$table . "` `data_key` like ? and where `data_num` between ? and ?;");
-				$statement->bind_param("sss", $dbType, $value[1], $value[2]);
+				$statement = self::$conn->prepare("SELECT * from `" . self::$table . "` where `data_key` like ? and `data_num` between ? and ?;");
+				// if (!$statement){
+				// 	die("Connection failed: " . htmlspecialchars(self::$conn->error));
+				// }
+				$statement->bind_param("s" . self::findInputType($value[0]) . self::findInputType($value[1]), $dbType, $value[0], $value[1]);
 			}
 
 			// for in / not in queries
@@ -344,24 +348,42 @@
 					$lowerCaseOpperator = "not in";
 				}
 
-				throw new Error("Range query is currently not supported");
+				throw new Exeption("Range query is currently not supported");
 				$statement = self::$conn->prepare("SELECT * from `" . self::$table . "` `data_key` like ? and ...");
 			}
 
 			// the every other case
 			else if (!is_array($value)){
-				$inputType = findInputType($value);
+				$inputType = self::findInputType($value);
 				if ($inputType === 's'){
 					$maybeId = self::parseCompoundId($value)->id;
 				}
-				$statement = self::$conn->prepare("SELECT * from `" . self::$table . "` `data_key` like ? and (`data_string` $lowerCaseOpperator ? or `data_bool` $lowerCaseOpperator ? or `data_num` $lowerCaseOpperator ? or `data_link` $lowerCaseOpperator ?)");
+				$statement = self::$conn->prepare("SELECT * from `" . self::$table . "` where `data_key` like ? and (`data_string` $lowerCaseOpperator ? or `data_bool` $lowerCaseOpperator ? or `data_num` $lowerCaseOpperator ? or `data_link` $lowerCaseOpperator ?)");
+				// if (!$statement){
+				// 	die("Connection failed: " . htmlspecialchars(self::$conn->error));
+				// }
 				$queryTypes = "s$inputType$inputType$inputType";
+				echo "\n\n" . $queryTypes;
+				echo "\n\n" . $dbType;
 				if ($maybeId){
 					$statement->bind_param($queryTypes . 's', $dbType, $value, $value, $value, $maybeId);
 				}
 				else {
-					$statement->bind_param($queryTypes . $inputType, $dbType, $value, $value, $value)
+					$statement->bind_param($queryTypes . $inputType, $dbType, $value, $value, $value, $value);
 				}
 			}
+
+			$statement->execute();
+
+			$rows = $statement->get_result();
+
+			$foundId = [];
+			while($row = $rows->fetch_assoc()){
+				$row = (object)$row;
+
+				array_push($foundId, $row->id);
+			}
+
+			return $foundId;
 		}
 	}
