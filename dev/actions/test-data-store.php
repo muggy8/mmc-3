@@ -48,11 +48,11 @@
 	// now testing attempts to retrieve data
 	$previousNew = "user:bXCluFWQ5G6MvqAH9LUQY6uYGu8EDNkEPYTT6GhVWevkM_oGl92hpMbDWY5rlcTr";
 	$previousClone = "user:sSovFjZFPIxUQJjTx_Rc7BFj7uburXsNWVUCqA9n12RsbqeXKdON5SuTd_MUOdn1";
-	$user = storage::get($previousNew);
-	echo json_encode($user, JSON_PRETTY_PRINT);
-    echo "\n\n" ;
-	$userClone = storage::get($previousClone);
-	echo json_encode($userClone, JSON_PRETTY_PRINT);
+	// $user = storage::get($previousNew);
+	// echo json_encode($user, JSON_PRETTY_PRINT);
+    // echo "\n\n" ;
+	// $userClone = storage::get($previousClone);
+	// echo json_encode($userClone, JSON_PRETTY_PRINT);
 	// $user->auth->facebook = storage::generateId(32);
 	// array_splice($user->tasks, 1, 1);
 	// $user->nextLevelUp = 18.22;
@@ -64,10 +64,10 @@
 	// $taskId = "qDhFp9IdBbLXOKC0Ew_qOJSUqcMwgHz5cSZFbFsnYDzBes2OJXlX4jUeMKWSbyXl";
 	// $task = storage::get($taskId);
 	// echo json_encode($task, JSON_PRETTY_PRINT);
-	//storage::storeObject($taskId, $task);
-	//$task->assignedTo = $previousNew;
+	// storage::storeObject($taskId, $task);
+	// $task->assignedTo = $previousNew;
 
-	echo "\n\n" . json_encode(storage::search("user.nextLevelUp", 18), JSON_PRETTY_PRINT);
+	// echo "\n\n" . json_encode(storage::search("user.nextLevelUp", 18), JSON_PRETTY_PRINT);
 	echo "\n\n" . json_encode(storage::search("user.array[*]", "ayDbrH_n9MIeIcOspFQf4LOuJQLuosKy"), JSON_PRETTY_PRINT);
 
 	// storage::deleteObject($previousClone);

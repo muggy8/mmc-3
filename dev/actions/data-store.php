@@ -174,7 +174,7 @@
 		}
 
 		// retrieving Objct Functions
-		protected static function getObject(&$requestCache, $recursionBranchHistory, &$id, $depth = -1, $identify = false, &$parentBaseType = null){
+		protected static function getObject(&$requestCache, $recursionBranchHistory, &$id, $depth = -1, $identify = false){
 			if (!$depth || !($idObj = self::parseCompoundId($id))){
 				return;
 			}
@@ -211,12 +211,15 @@
 				preg_match('/\.(([^\.\[\]]+)|([^\.]+))$/', $row->data_key, $propMatch);
 				$propertyName = $propMatch[2] ?: preg_replace('/\[|\]/', "", $propMatch[3]);
 
+				$expectedObjKey = "$type.$propertyName";
+				$expectedArrayKey = "$type.[$propertyName]";
+
 				if ($propMatch[2]){ // if the property matches ....propname then it's not an array so we note it down here for future reference. because this is in a while loop. any instance of missmatch will trigger this flag for later
 					$isObject = true;
 				}
 
 				// if this object has a type, we expect a certain key name and if it isn't then this value isn't a part of the selected object so out liers are just noted down by their complexId instead
-				if ($type && $parentBaseType && $currentBaseType !== $parentBaseType) {
+				if ($type && $row->data_key != $expectedObjKey && $row->data_key != $expectedArrayKey) {
 					preg_match('/^[^\.]+/', $row->data_key, $typeName);
 					$requestCache->{$id} = "$currentBaseType:$row->id";
 					return $requestCache->{$id};
