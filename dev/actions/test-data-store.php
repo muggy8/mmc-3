@@ -67,7 +67,7 @@
 	//storage::storeObject($taskId, $task);
 	//$task->assignedTo = $previousNew;
 
-	echo "\n\n" . json_encode(storage::search("user.nextLevelUp", 18.22), JSON_PRETTY_PRINT);
+	echo "\n\n" . json_encode(storage::search("user.nextLevelUp", 18), JSON_PRETTY_PRINT);
 
 	// storage::deleteObject($previousClone);
 	// echo json_encode($src = storage::getObject($previousNew), JSON_PRETTY_PRINT);

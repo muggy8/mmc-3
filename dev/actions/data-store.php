@@ -363,8 +363,6 @@
 				// 	die("Connection failed: " . htmlspecialchars(self::$conn->error));
 				// }
 				$queryTypes = "s$inputType$inputType$inputType";
-				echo "\n\n" . $queryTypes;
-				echo "\n\n" . $dbType;
 				if ($maybeId){
 					$statement->bind_param($queryTypes . 's', $dbType, $value, $value, $value, $maybeId);
 				}
