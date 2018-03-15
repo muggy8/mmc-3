@@ -340,7 +340,7 @@
 			}
 		}
 
-		public static function searchObject($type, $value, $opperator = '='){
+		public static function index($type, $value, $opperator){
 			$lowerCaseOpperator = strtolower($opperator);
 			if (!in_array($lowerCaseOpperator, self::$allowedOpperators)){
 				echo "Allowed Opperators are " . implode(", ", self::$allowedOpperators);
@@ -406,5 +406,12 @@
 			}
 
 			return array_unique($foundIds);
+		}
+
+		public static function search($type, $value, $opperator = '='){
+			$items = self::index($type, $value, $opperator);
+			return array_map(function(&$id){
+				return self::get($id);
+			}, $items);
 		}
 	}
