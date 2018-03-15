@@ -72,7 +72,7 @@
 
 		// Storing Object Functions
 		protected static function saveKeyVal($id, $key, &$val){
-			return self::stubSave($id, $key, $val);
+			// return self::stubSave($id, $key, $val);
 			if (is_string($val)){
 				$parsedId = self::parseCompoundId($val);
 				if ($parsedId && $parsedId->id && $parsedId->type){
@@ -122,6 +122,7 @@
 
 			if ($idObj->id){ // we know we can get here because type is required or we error so we just need to check there's an id and we'd know that the compound id has a type and id
 				$currentLair = self::internallyConsistantGet($id, 1, true);
+				// echo json_encode($currentLair, JSON_PRETTY_PRINT);
 			}
 
 			foreach($objToStore as $key => &$val){
@@ -136,7 +137,9 @@
 				)){
 					if ($currentLair){
 						$currentLairTarget = is_array($currentLair) ? $currentLair[$key] : $currentLair->{$key};
-						$overwriteId = $currentLairTarget->key . ":" . $currentLairTarget->id;
+
+						// $currentLairTarget->value is the key for the next object. if it is an object. If the saving was successfull in the previous if statement, then this would for sure not run and as a result, this will always be a string that's the complex id of the thing we want to overwrite
+						$overwriteId = $currentLairTarget->value;
 					}
 
 					$subObjectLink = self::storeObjectInternally(
