@@ -332,7 +332,7 @@
 				if (!is_numeric($value[0]) || !is_numeric($value[1])){
 					throw new Exception("Cannot use non numarics for between. Try using standard SQL instead");
 				}
-				$statement = self::$conn->prepare("SELECT * from `" . self::$table . "` where `data_key` like ? and `data_num` between ? and ?;");
+				$statement = self::$conn->prepare("SELECT * from `" . self::$table . "` where `data_key` like ? and ( `data_num` $lowerCaseOpperator ? and ? ) ;");
 				// if (!$statement){
 				// 	die("Connection failed: " . htmlspecialchars(self::$conn->error));
 				// }
