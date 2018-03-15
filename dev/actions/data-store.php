@@ -49,7 +49,7 @@
 		protected static function validTypeName($id){
 			$idObj = self::parseCompoundId($id);
 			if ($idObj->type && preg_match("/(\[|\]|:|\.)/i", $idObj->type)){
-				throw new Exception("The characters ( [, ], :, . ) cannot be used in object types. Type was: $type");
+				throw new Exception("The characters ( [, ], :, . ) cannot be used in object types. Type was: $idObj->type");
 			}
 		}
 
@@ -121,7 +121,7 @@
 			$instanceId = $idObj->id ?: self::generateId(64);
 
 			if ($idObj->id){ // we know we can get here because type is required or we error so we just need to check there's an id and we'd know that the compound id has a type and id
-				$currentLair = self::get($id, 1, true);
+				$currentLair = self::internallyConsistantGet($id, 1, true);
 			}
 
 			foreach($objToStore as $key => &$val){
@@ -264,16 +264,20 @@
 
 		}
 
-		public static function get($id, $depth = -1, $identify = false){
-			self::validTypeName($id);
+		protected static function internallyConsistantGet($id, $depth = -1, $identify = false){
 			$requestCache = (object)[];
 			return self::getObject($requestCache, (object)[], $id, $depth, $identify);
+		}
+
+		public static function get($id, $depth = -1, $identify = false){
+			self::validTypeName($id);
+			return self::internallyConsistantGet($id, $depth, $identify);
 		}
 
 		// delete Object Functions
 		public static function deleteObject($id, $depth = -1){
 
-			if ($depth && $currentLair = self::get($id, 1)){
+			if ($depth && $currentLair = self::internallyConsistantGet($id, 1)){
 				$idObj = self::parseCompoundId($id);
 				$id = $idObj->id;
 				$type = $idObj->type;
@@ -343,7 +347,7 @@
 			}
 		}
 
-		public static function index($type, $value, $opperator){
+		public static function index($type, $value, $opperator = '='){
 			$lowerCaseOpperator = strtolower($opperator);
 			if (!in_array($lowerCaseOpperator, self::$allowedOpperators)){
 				echo "Allowed Opperators are " . implode(", ", self::$allowedOpperators);
@@ -414,7 +418,7 @@
 		public static function search($type, $value, $opperator = '='){
 			$items = self::index($type, $value, $opperator);
 			return array_map(function(&$id){
-				return self::get($id);
+				return self::internallyConsistantGet($id);
 			}, $items);
 		}
 	}

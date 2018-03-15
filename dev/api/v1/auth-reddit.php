@@ -56,10 +56,16 @@
 				$userId = storage::storeObject("user", $user);
 			}
 
-			$userId = storage::parseCompoundId($userId);
-			$sessionExpires = time() + (86400 * 30) // 30 days
-			setcookie("user", $userId, $sessionExpires, "/", $_SERVER["HTTP_HOST"], true, true);
-			setcookie("session", $sessionId = storage::generateId(32), $sessionExpires, "/", $_SERVER["HTTP_HOST"], true, true);
+			$soloId = storage::parseCompoundId($userId)->id;
+			$validDuration = (86400 * 30); // 30 days
+			$sessionExpires = time() + $validDuration;
+			$sessionId = storage::generateId(32);
+
+			$headerCookies = [
+				"user=$soloId; Max-Age=$validDuration; Secure; HttpOnly; Path='/';",
+				"session=$sessionId; Max-Age=$validDuration; Secure; HttpOnly; Path='/';"
+			];
+			header("Set-Cookie: " . implode(",", $headerCookies));
 
 			$sessionList = $user->sessions = $user->sessions ?: [];
 			array_push($sessionList, (object)[
@@ -70,6 +76,6 @@
 				return $item->expires > time();
 			});
 
-			storage:storeObject($userId, $user);
+			storage::storeObject($userId, $user);
 		}
 	}
