@@ -317,7 +317,30 @@
 			throw new Exception("This type of data cannot be used safely with this sytem. Try using traditional SQL");
 		}
 
-		public static function search($type, $value, $opperator = '='){
+		protected static function getRootObjectIdFrom(&$res, &$addTo = []){
+			if (preg_match('/^([^\.]+)\.[^\.]+$/', $res->data_key, $matches)) {
+				array_push($addTo, "$matches[1]:$res->id");
+			}
+			else {
+				preg_match('/^([^\.]+)/', $res->data_key, $matches);
+				$keyLike = "$matches[0].%";
+				$link = $res->id;
+				$statement = self::$conn->prepare("SELECT * from `" . self::$table . "` where `data_key` like ? and `data_link` = ? ;");
+				$statement->bind_param('ss', $keyLike, $link);
+
+				$statement->execute();
+
+				$rows = $statement->get_result();
+				while ($row = $rows->fetch_assoc()){
+					$row = (object)$row;
+
+					self::getRootObjectIdFrom($row, $addTo);
+				}
+				return $addTo;
+			}
+		}
+
+		public static function searchObject($type, $value, $opperator = '='){
 			$lowerCaseOpperator = strtolower($opperator);
 			if (!in_array($lowerCaseOpperator, self::$allowedOpperators)){
 				echo "Allowed Opperators are " . implode(", ", self::$allowedOpperators);
@@ -375,13 +398,13 @@
 
 			$rows = $statement->get_result();
 
-			$foundId = [];
+			$foundIds = [];
 			while($row = $rows->fetch_assoc()){
 				$row = (object)$row;
 
-				array_push($foundId, $row->id);
+				self::getRootObjectIdFrom($row, $foundIds);
 			}
 
-			return $foundId;
+			return array_unique($foundIds);
 		}
 	}
