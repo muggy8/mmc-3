@@ -72,7 +72,7 @@
 
 		// Storing Object Functions
 		protected static function saveKeyVal($id, $key, &$val){
-			// return self::stubSave($id, $key, $val);
+			return self::stubSave($id, $key, $val);
 			if (is_string($val)){
 				$parsedId = self::parseCompoundId($val);
 				if ($parsedId && $parsedId->id && $parsedId->type){
@@ -126,24 +126,31 @@
 
 			foreach($objToStore as $key => &$val){
 				self::validTypeName($key);
+				$storageKey = is_array($objToStore) ? "$type.[$key]" : "$type.$key";
 				if (!is_null(
 					$didNotStoreSuccessfully = self::saveKeyVal(
 						$instanceId,
-						is_array($objToStore) ? "$type.[$key]" : "$type.$key",
+						$storageKey,
 						$val
 					)
 				)){
+					if ($currentLair){
+						$currentLairTarget = is_array($currentLair) ? $currentLair[$key] : $currentLair->{$key};
+						$overwriteId = $currentLairTarget->key . ":" . $currentLairTarget->id;
+					}
+
 					$subObjectLink = self::storeObjectInternally(
-						$currentLair->{$key}->value ? $currentLair->{$key}->value: "$type.$key",
+						$overwriteId ?: $storageKey,
 						$didNotStoreSuccessfully
 					);
 
 					self::saveKeyVal(
 						$instanceId,
-						is_array($objToStore) ? "$type.[$key]" : "$type.$key",
+						$storageKey,
 						$subObjectLink
 					);
 				}
+				// keep track of what we dont need to delete at the end
 				if ($currentLair){
 					is_array($currentLair) ? ($currentLair[$key] = null) : ($currentLair->{$key} = null);
 				}

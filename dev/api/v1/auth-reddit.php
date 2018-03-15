@@ -67,12 +67,12 @@
 			];
 			header("Set-Cookie: " . implode(",", $headerCookies));
 
-			$sessionList = $user->sessions = $user->sessions ?: [];
-			array_push($sessionList, (object)[
+			$user->sessions = (array)$user->sessions ?: [];
+			array_push($user->sessions, (object)[
 				"id" => $sessionId,
 				"expires" => $sessionExpires
 			]);
-			array_filter($sessionList, function($item){
+			array_filter($user->sessions, function($item){
 				return $item->expires > time();
 			});
 
