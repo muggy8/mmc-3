@@ -37,8 +37,13 @@
 				else {
 					$fileName = basename($filePath);
 					if (preg_match('/^on\.(.+)(\(.+\))?\.php$/', $fileName, $listenerName)){
-						$listeners->{$listenerName[1]} = $listeners->{$listenerName[1]} ?: [];
-						array_push($listeners->{$listenerName[1]}, $filePath);
+						$listenerName = $listenerName[1];
+						$listenerName = preg_replace('/\./', '\.', $listenerName);
+						$listenerName = preg_replace('/_/', '[^\.]+', $listenerName);
+						$listenerName = "/$listenerName/";
+						$listeners->{$listenerName} = $listeners->{$listenerName} ?: [];
+						array_push($listeners->{$listenerName}, $filePath);
+						// var_dump($listenerName);
 					}
 				}
 			}
@@ -50,11 +55,16 @@
 			return;
 		}
 		$currentQueueLength = count($includeQueue);
-		if ($listenerToAdd = $listeners->{$eventName}){
-			foreach($listenerToAdd as $listener){
-				array_push($includeQueue, $listener);
+		var_dump($listeners);
+		foreach($listeners as $listenerRegex => $listenerToAdd){
+			if (preg_match($listenerRegex, $eventName)){
+				foreach($listenerToAdd as $listener){
+					array_push($includeQueue, $listener);
+				}
 			}
 		}
+
+
 
 		if ($currentQueueLength === 0){
 			// we dont want to clear out the item from the queue until we have finished running the listener so we cant use array_shift incase the include script calls event which woud not trigger the event handler and would return back to here for the next loop
