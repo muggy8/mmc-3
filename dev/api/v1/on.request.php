@@ -9,6 +9,13 @@
 		request("endPoint", subStr(request("endPoint"), 0, -1 ));
 	}
 
-	event(request("method"));
-	event(request("method") . "." . str_replace('/', ".", request("endPoint")));
-	event(str_replace('/', ".", request("endPoint")));
+	$requestPath = explode("/", request("endPoint"));
+
+	var_dump(request("method"));
+	if ($requestPath){
+		for ($i = 1, $requestPathLen = count($requestPath); $i <= $requestPathLen; $i++){
+			$eventPath = implode(".", array_slice($requestPath, 0, $i));
+			var_dump(request("method") . ".$eventPath" );
+			var_dump("$eventPath");
+		}
+	}
