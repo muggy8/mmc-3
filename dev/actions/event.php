@@ -42,13 +42,11 @@
 					}
 				}
 			}
-
-			print_r($listeners);
 			return;
 		}
 
 		$currentQueueLength = count($includeQueue);
-		foreach($listener as $name => $path){
+		foreach($listeners as $name => $path){
 			// push the correct listeners onto the queue
 		}
 
