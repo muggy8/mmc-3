@@ -18,3 +18,4 @@
 	request("vars", $query);
 	request("headers", $headers);
 	request("body", $body);
+	request("method", $_SERVER['REQUEST_METHOD']);
