@@ -6,7 +6,6 @@
 		static $workspace = null;
 
 		if (!$listeners){
-			echo "Initializing the event system\n\n";
 			$path = $complex;
 			$workspace = (object)[];
 			$runListener = function($path, &$workspace){
@@ -47,6 +46,9 @@
 		}
 
 		$eventName = $complex;
+		if (!$eventName){
+			return;
+		}
 		$currentQueueLength = count($includeQueue);
 		if ($listenerToAdd = $listeners->{$eventName}){
 			foreach($listenerToAdd as $listener){
