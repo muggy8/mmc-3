@@ -1,6 +1,8 @@
 <?php
 	include_once("globals.php");
 	include_once(api_root . "/actions/data-store.php");
+	include_once(api_root . "/actions/request.php");
+	include_once(api_root . "/actions/response.php");
 
 	storage::connect(db_server, db_user, db_pass, db_name, "mmc_3");
 
@@ -10,3 +12,7 @@
 	if (!$body = json_decode($input)) {
 		$body = (object)parse_str($input);
 	}
+	
+	request("vars", $query);
+	request("headers", $headers);
+	request("body", $body);
