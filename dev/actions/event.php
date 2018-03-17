@@ -37,23 +37,28 @@
 				}
 				else {
 					$fileName = basename($filePath);
-					if (preg_match('/^on\.(.+)\.php$/', $fileName, $listenerName)){
-						$listeners->{$listenerName[1]} = $filePath;
+					if (preg_match('/^on\.(.+)(\(.+\))?\.php$/', $fileName, $listenerName)){
+						$listeners->{$listenerName[1]} = $listeners->{$listenerName[1]} ?: [];
+						array_push($listeners->{$listenerName[1]}, $filePath);
 					}
 				}
 			}
 			return;
 		}
 
+		$eventName = $complex;
 		$currentQueueLength = count($includeQueue);
-		foreach($listeners as $name => $path){
-			// push the correct listeners onto the queue
+		if ($listenerToAdd = $listeners->{$eventName}){
+			foreach($listenerToAdd as $listener){
+				array_push($includeQueue, $listener);
+			}
 		}
 
 		if ($currentQueueLength === 0){
 			// we dont want to clear out the item from the queue until we have finished running the listener so we cant use array_shift incase the include script calls event which woud not trigger the event handler and would return back to here for the next loop
 			while($included = $includeQueue[0]){
 				$runListener($included, $workspace);
+				array_shift($includeQueue);
 			}
 		}
 	}
