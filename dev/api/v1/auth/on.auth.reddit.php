@@ -1,11 +1,11 @@
 <?php
 	if (request("user")->auth->reddit){
-		response::addHeader("location": "/");
+		response::addHeader("location", "/");
 		return;
 	}
 
 	if (!request("query")->code && !request("query")->error){
-		responce::addHeader("location", "https://www.reddit.com/api/v1/authorize?client_id=" . reddit_app_id . "&response_type=code&state=" . storage::generateId() . "&redirect_uri=http://mugdev.com/mmc-3/dev/api/v1/auth-reddit.php&duration=temporary&scope=identity");
+		response::addHeader("location", "https://www.reddit.com/api/v1/authorize?client_id=" . reddit_app_id . "&response_type=code&state=" . storage::generateId() . "&redirect_uri=http://mugdev.com/mmc-3/dev/api/v1/auth-reddit.php&duration=temporary&scope=identity");
 	}
 	else {
 		$curl = curl_init("https://www.reddit.com/api/v1/access_token");

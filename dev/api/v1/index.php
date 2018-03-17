@@ -3,3 +3,5 @@
 	include_once(api_root . "/api/v1/init.php");
 
 	event("request");
+
+	response::send();
