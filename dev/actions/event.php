@@ -40,7 +40,7 @@
 						$listenerName = $listenerName[1];
 						$listenerName = preg_replace('/\./', '\.', $listenerName);
 						$listenerName = preg_replace('/_/', '[^\.]+', $listenerName);
-						$listenerName = "/$listenerName/";
+						$listenerName = '/^' . $listenerName . '$/';
 						$listeners->{$listenerName} = $listeners->{$listenerName} ?: [];
 						array_push($listeners->{$listenerName}, $filePath);
 						// var_dump($listenerName);
@@ -55,7 +55,7 @@
 			return;
 		}
 		$currentQueueLength = count($includeQueue);
-		var_dump($listeners);
+		// var_dump($listeners);
 		foreach($listeners as $listenerRegex => $listenerToAdd){
 			if (preg_match($listenerRegex, $eventName)){
 				foreach($listenerToAdd as $listener){
