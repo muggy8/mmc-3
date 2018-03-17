@@ -4,6 +4,7 @@
 	include_once(api_root . "/actions/request.php");
 	include_once(api_root . "/actions/response.php");
 	include_once(api_root . "/actions/event.php");
+	event(api_root . "/api/v1");
 
 	storage::connect(db_server, db_user, db_pass, db_name, "mmc_3");
 
