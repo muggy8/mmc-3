@@ -39,6 +39,7 @@
 					if (preg_match('/^on\.(.+)(\(.+\))?\.php$/', $fileName, $listenerName)){
 						$listenerName = $listenerName[1];
 						$listenerName = preg_replace('/\./', '\.', $listenerName);
+						$listenerName = preg_replace('/__/', '.*', $listenerName);
 						$listenerName = preg_replace('/_/', '[^\.]+', $listenerName);
 						$listenerName = '/^' . $listenerName . '$/';
 						$listeners->{$listenerName} = $listeners->{$listenerName} ?: [];
