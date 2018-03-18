@@ -9,6 +9,9 @@
 		request("endPoint", subStr(request("endPoint"), 0, -1 ));
 	}
 
-	event(request("method"));
-	event(request("method") . "." . str_replace('/', ".", request("endPoint")));
-	event(str_replace('/', ".", request("endPoint")));
+	event(request("method") . ".api");	
+	// var_dump(request("method") . ".api");
+	event(request("method") . ".api." . str_replace('/', ".", request("endPoint")));
+	// var_dump(request("method") . ".api." . str_replace('/', ".", request("endPoint")));
+	event("api." . str_replace('/', ".", request("endPoint")));
+	// var_dump("api." . str_replace('/', ".", request("endPoint")));
