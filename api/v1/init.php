@@ -1,10 +1,12 @@
 <?php
 	include_once("globals.php");
+	define(api_version, basename(__DIR__));
+
 	include_once(api_root . "/actions/data-store.php");
 	include_once(api_root . "/actions/request.php");
 	include_once(api_root . "/actions/response.php");
 	include_once(api_root . "/actions/event.php");
-	event(api_root . "/api/v1");
+	event(api_root . "/api/" . api_version);
 
 	storage::connect(db_server, db_user, db_pass, db_name, "mmc_3");
 
