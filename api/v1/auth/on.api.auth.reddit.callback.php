@@ -69,6 +69,6 @@
 			request("user")->sessions->{$sessionId} = $sessionExpires;
 			storage::storeObject(request("userId"), request("user"));
 
-			// cleaning up old sessions is handled by another script that cleans up things after a request is done
+			// cleaning up old sessions is handled by the api._ event
 		}
 	}

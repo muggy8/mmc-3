@@ -3,6 +3,10 @@
 		// figure out the user from the cookies if we have any
 		// this will fill in the request()->user and request()->userId variables
 
+
+		if (!request("user")){ // it's possiable to have a cookie but not a user attached
+			return;
+		}
 		// clean up the user's authed sessions
 		$needsToUpdateData = false;
 		foreach(request("user")->sessions as $sessionId => $expiryTime){
