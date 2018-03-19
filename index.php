@@ -16,7 +16,7 @@
 			document.body.className += "has-font"
 		})</script>
 		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
-		<link href="/styles.css" rel="stylesheet"/>
-		<script href="/app.js"></script>
+		<link href="/app/styles.css" rel="stylesheet"/>
+		<script href="/app"></script>
 	</body>
 </html>
