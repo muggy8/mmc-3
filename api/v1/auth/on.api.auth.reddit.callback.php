@@ -1,6 +1,6 @@
 <?php
 	$workspace->errors = $workspace->errors ?: [];
-	if (!request("query")->code && request("query")->error){
+	if (!request("vars")->code && request("vars")->error){
 		// we weren't granted permission sad life oh well :/
 		response::addHeader("location", "/");
 		array_push($workspace->errors, "auth not accepted");
@@ -14,11 +14,12 @@
 		]);
 		curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query([
 			"grant_type" => "authorization_code",
-			"code" => $query->code,
+			"code" => request("vars")->code,
 			"redirect_uri" => "https://mmc-3.mugdev.com/api/auth/reddit/callback"
 		]));
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		$res = json_decode(curl_exec($curl));
+		$accessRes = curl_exec($curl);
+		$res = json_decode($accessRes);
 		curl_close($curl);
 
 		// if we can get an access token from reddit, we can then ask the API for the user's identity
@@ -31,13 +32,14 @@
 			curl_setopt($curl, CURLOPT_HTTPHEADER, [
 				"Authorization: $res->token_type $res->access_token"
 			]);
-			$redditUser = json_decode(curl_exec($curl));
+			$userRes = curl_exec($curl);
+			$redditUser = json_decode($userRes);
 			curl_close($curl);
 
 			// var_dump($redditUser);
 		}
 		else {
-			array_push($workspace->errors, $res);
+			array_push($workspace->errors, $accessRes);
 		}
 		// if reddit gives us the user's identity, we can look in our own database with a matching identity and give the user the headers we need to make sure the user is authorized to make future requests
 		if ($redditUser){
@@ -82,7 +84,7 @@
 			// cleaning up old sessions is handled by the api._ event
 		}
 		else {
-			array_push($workspace->errors, $redditUser);
+			array_push($workspace->errors, $userRes);
 		}
 
 		if (count($workspace->errors)){
