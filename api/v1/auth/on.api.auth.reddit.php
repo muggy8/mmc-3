@@ -6,5 +6,5 @@
 
 	// if the user is not logged in or doesn't have a reddit authentication, we should ask reddit to identify this guy for us
 	else {
-		response::addHeader("location", "https://www.reddit.com/api/v1/authorize?client_id=" . reddit_app_id . "&response_type=code&state=" . storage::generateId() . "&redirect_uri=http://mmc-3.mugdev.com/api/auth/reddit/callback&duration=temporary&scope=identity");
+		response::addHeader("location", "https://www.reddit.com/api/v1/authorize?client_id=" . reddit_app_id . "&response_type=code&state=" . storage::generateId() . "&redirect_uri=https://mmc-3.mugdev.com/api/auth/reddit/callback&duration=temporary&scope=identity");
 	}

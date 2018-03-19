@@ -1,7 +1,9 @@
 <?php
+	$workspace->errors = $workspace->errors ?: [];
 	if (!request("query")->code && request("query")->error){
 		// we weren't granted permission sad life oh well :/
 		response::addHeader("location", "/");
+		array_push($workspace->errors, "auth not accepted");
 	}
 	else {
 		// fetch an access token from reddit
@@ -13,14 +15,14 @@
 		curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query([
 			"grant_type" => "authorization_code",
 			"code" => $query->code,
-			"redirect_uri" => "http://mmc-3.mugdev.com/api/auth/reddit/callback"
+			"redirect_uri" => "https://mmc-3.mugdev.com/api/auth/reddit/callback"
 		]));
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		$res = json_decode(curl_exec($curl));
 		curl_close($curl);
 
 		// if we can get an access token from reddit, we can then ask the API for the user's identity
-		if ($res){
+		if ($res->access_token){
 			// var_dump($res);
 
 			$curl = curl_init("https://oauth.reddit.com/api/v1/me");
@@ -34,7 +36,9 @@
 
 			// var_dump($redditUser);
 		}
-
+		else {
+			array_push($workspace->errors, $res);
+		}
 		// if reddit gives us the user's identity, we can look in our own database with a matching identity and give the user the headers we need to make sure the user is authorized to make future requests
 		if ($redditUser){
 			// there's 3 cases we want this endpoint to support:
@@ -42,13 +46,19 @@
 			// B: the user is creating a new account
 			// C: the user is adding a new authentication method to their existing account
 			if (!request("user")){ // case A or B
-				request()->user = (object)[
-					"name" => $redditUser->name,
-					"identity" => (object)[
-						"reddit" => $redditUser->id
-					]
-				];
-				request()->userId = storage::storeObject("user", request("user"));
+				if (request()->userId = storage::index("user.identity.reddit", $redditUser->id)){
+					request()->userId = request()->userId[0];
+					request()->user = storage::get(request()->userId);
+				}
+				else {
+					request()->user = (object)[
+						"name" => $redditUser->name,
+						"identity" => (object)[
+							"reddit" => $redditUser->id
+						]
+					];
+					request()->userId = storage::storeObject("user", request("user"));
+				}
 			}
 			else { // case C
 				request("user")->identity->reddit = $redditUser->id;
@@ -70,5 +80,12 @@
 			storage::storeObject(request("userId"), request("user"));
 
 			// cleaning up old sessions is handled by the api._ event
+		}
+		else {
+			array_push($workspace->errors, $redditUser);
+		}
+
+		if (count($workspace->errors)){
+			response::write(json_encode($workspace->errors));
 		}
 	}
