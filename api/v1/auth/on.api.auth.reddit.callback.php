@@ -80,7 +80,7 @@
 			// response::addHeader("Set-Cookie", "session=$sessionId; Max-Age=$sessionExpires; Secure; HttpOnly; Path='/';");
 			//header("Set-Cookie: " . implode(",", $headerCookies));
 
-			request("user")->sessions = request("user")->sessions ?: (object)[];
+			request("user")->sessions = (object)request("user")->sessions ?: (object)[];
 			request("user")->sessions->{$sessionId} = $sessionExpires;
 			storage::storeObject(request("userId"), request("user"));
 
