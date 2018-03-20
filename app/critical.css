@@ -120,6 +120,47 @@ h5 {
 	flex-wrap: wrap;
 }
 
+.block,
+.block-smol
+{
+	display: block
+}
+
+.inline,
+.inline-smol
+{
+	display: inline;
+}
+.inline.block,
+.inline.block-smol,
+.inline-smol.block,
+.inline-smol.block-smol
+{
+	display: inline-block;
+}
+.inline.flex,
+.inline.flex-smol,
+.inline-smol.flex,
+.inline-smol.flex-smol
+{
+	display: inline-flex;
+}
+.relative,
+.relative-smol
+{
+	position: relative;
+}
+.absolute,
+.absolute-smol
+{
+	position: absolute;
+}
+.fixed,
+.fixed-smol
+{
+	position: fixed;
+}
+
 .col-0,
 .col-0-smol,
 .col-0-2,

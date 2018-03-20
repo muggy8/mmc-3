@@ -79,6 +79,39 @@ body.has-font {
 		flex-wrap: wrap;
 	}
 
+	.block-mid
+	{
+		display: block
+	}
+	.inline-mid
+	{
+		display: inline;
+	}
+	.inline.block-mid,
+	.inline-mid.block,
+	.inline-mid.block-mid
+	{
+		display: inline-block;
+	}
+	.inline.flex-mid,
+	.inline-mid.flex,
+	.inline-mid.flex-mid
+	{
+		display: inline-flex;
+	}
+	.relative-mid
+	{
+		position: relative;
+	}
+	.absolute-mid
+	{
+		position: absolute;
+	}
+	.fixed-mid
+	{
+		position: fixed;
+	}
+
 	.font-0rem-mid,
 	.font-0em-mid,
 	.font-0-mid
@@ -217,10 +250,42 @@ body.has-font {
 		align-items: flex-end;
 		justify-content: flex-end;
 	}
-
 	[class*="flex"] .wrap-big
 	{
 		flex-wrap: wrap;
+	}
+
+	.block-big
+	{
+		display: block
+	}
+	.inline-big
+	{
+		display: inline;
+	}
+	.inline.block-big,
+	.inline-big.block,
+	.inline-big.block-big
+	{
+		display: inline-block;
+	}
+	.inline.flex-big,
+	.inline-big.flex,
+	.inline-big.flex-big
+	{
+		display: inline-flex;
+	}
+	.relative-big
+	{
+		position: relative;
+	}
+	.absolute-big
+	{
+		position: absolute;
+	}
+	.fixed-big
+	{
+		position: fixed;
 	}
 
 	.font-0rem-big,
