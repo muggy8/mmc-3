@@ -281,6 +281,10 @@
 
 		public static function get($id, $depth = -1, $identify = false){
 			self::validTypeName($id);
+			$idObj = self::parseCompoundId($id);
+			if (!$idObj->id){
+				return false;
+			}
 			return self::internallyConsistantGet($id, $depth, $identify);
 		}
 
