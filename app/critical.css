@@ -9,3 +9,21 @@ html {
 body {
 	font-family: sans-serif;
 }
+
+/* the responsive flex based grid system */
+.flex,
+.flex-smol {
+	display: flex;
+}
+
+@media screen and (min-width: 520px){
+	.flex-mid {
+		display: flex;
+	}
+}
+
+@media screen and (min-width: 1040px){ /* a bit under the standard 1080 screen (some are 1060 for some reason) so if they are side ways, it still is in large mode*/
+	.flex-big {
+		display: flex;
+	}
+}
