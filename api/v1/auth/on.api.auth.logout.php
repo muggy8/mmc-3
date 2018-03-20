@@ -1,10 +1,10 @@
 <?php
 	if (request("user") && request("cookies")){
+		request("user")->sessions = (object)request("user")->sessions; // make this an object from an array if it's not already for whatever reason and keep the reference to each other
 		unset(request("user")->sessions->{request("cookies")->session});
-		setcookie("user", "__", -1, "/", $_SERVER["HTTP_HOST"], true, false);
-		setcookie("session", "__", -1, "/", $_SERVER["HTTP_HOST"], true, true);
-
 		storage::storeObject(request("userId"), request("user"));
+		setcookie("user", null, 0, "/", $_SERVER["HTTP_HOST"]);
+		setcookie("session", null, 0, "/", $_SERVER["HTTP_HOST"]);
 	}
 	else {
 		$workspace->errors = $workspace->errors ?: [];

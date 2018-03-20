@@ -15,3 +15,8 @@
 	// var_dump(request("method") . ".api." . str_replace('/', ".", request("endPoint")));
 	event("api." . str_replace('/', ".", request("endPoint")));
 	// var_dump("api." . str_replace('/', ".", request("endPoint")));
+
+	if ($workspace->errors){
+		response::setHeader("Status", "400 Bad Request");
+		response::write(json_encode($workspace->errors));
+	}

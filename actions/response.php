@@ -32,7 +32,7 @@
 				// send the headers and when future write chunks comes in, immediately echo it
 
 				foreach(self::$headers as $key => $val){
-					$val = implode(", ", $val);
+					$val = implode(",", $val);
 					header("$key: $val");
 				}
 
