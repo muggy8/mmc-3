@@ -89,8 +89,4 @@
 		else {
 			array_push($workspace->errors, $userRes);
 		}
-
-		if (count($workspace->errors)){
-			response::write(json_encode($workspace->errors));
-		}
 	}
