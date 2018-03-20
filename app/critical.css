@@ -1,6 +1,6 @@
 * {
 	padding: 0;
-	margin: 0; 
+	margin: 0;
 	box-sizing: border-box;
 }
 html {
@@ -9,6 +9,21 @@ html {
 body {
 	font-family: sans-serif;
 }
+h1 {
+	font-size: 1.75em;
+}
+h2 {
+	font-size: 1.66666667em;
+}
+h3 {
+	font-size: 1.5em;
+}
+h4 {
+	font-size: 1.33333333em;
+}
+h5 {
+	font-size: 1.25em;
+}
 
 /* the responsive flex based grid system */
 .flex,
@@ -16,14 +31,344 @@ body {
 	display: flex;
 }
 
+[class*="flex"] > .grow,
+[class*="flex"] > .grow-1,
+[class*="flex"] > .grow-smol,
+[class*="flex"] > .grow-1-smol
+{
+	flex-grow: 1;
+}
+[class*="flex"] > .grow-2,
+[class*="flex"] > .grow-2-smol
+{
+	flex-grow: 2;
+}
+[class*="flex"] > .grow-3,
+[class*="flex"] > .grow-3-smol
+{
+	flex-grow: 3;
+}
+
+[class*="flex"] > .vcenter,
+[class*="flex"] > .vcenter-smol
+{
+	align-self: center;
+}
+[class*="flex"].vcenter,
+[class*="flex"].vcenter-smol
+{
+	align-items: center;
+}
+[class*="flex"].hcenter,
+[class*="flex"].hcenter-smol
+{
+	justify-content: center;
+}
+[class*="flex"].vhcenter,
+[class*="flex"].vhcenter-smol
+{
+	align-items: center;
+	justify-content: center;
+}
+
+[class*="flex"] > .vstart,
+[class*="flex"] > .vstart-smol
+{
+	align-self: flex-start;
+}
+[class*="flex"].vstart,
+[class*="flex"].vstart-smol
+{
+	align-items: flex-start;
+}
+[class*="flex"].hstart,
+[class*="flex"].hstart-smol
+{
+	justify-content: flex-start;
+}
+[class*="flex"].vhstart,
+[class*="flex"].vhstart-smol
+{
+	align-items: flex-start;
+	justify-content: flex-start;
+}
+
+[class*="flex"] > .vend,
+[class*="flex"] > .vend-smol {
+	align-self: flex-end;
+}
+[class*="flex"].vend,
+[class*="flex"].vend-smol
+{
+	align-items: flex-end;
+}
+[class*="flex"].hend,
+[class*="flex"].hend-smol
+{
+	justify-content: flex-end;
+}
+[class*="flex"].vhend,
+[class*="flex"].vhend-smol
+{
+	align-items: flex-end;
+	justify-content: flex-end;
+}
+
+[class*="flex"] .wrap,
+[class*="flex"] .wrap-smol
+{
+	flex-wrap: wrap;
+}
+
+.col-0,
+.col-0-smol,
+.col-0-2,
+.col-0-2-smol,
+.col-0-3,
+.col-0-3-smol,
+.col-0-4,
+.col-0-4-smol,
+.col-0-6,
+.col-0-6-smol,
+.col-0-12,
+.col-0-12-smol
+{
+	width: 0;
+}
+.col-1-12,
+.col-1-12-smol {
+	width: 8.33333333%;
+}
+.col-1-6,
+.col-1-6-smol,
+.col-2-12,
+.col-2-12-smol
+{
+	width: 16.66666667%;
+}
+.col-1-4,
+.col-1-4-smol,
+.col-3-12,
+.col-3-12-smol
+{
+	width: 25%;
+}
+.col-1-3,
+.col-1-3-smol,
+.col-2-6,
+.col-2-6-smol,
+.col-4-12,
+.col-4-12-smol
+{
+	width: 33.33333333%;
+}
+.col-5-12,
+.col-5-12-smol {
+	width: 41.66666667%;
+}
+.col-1-2,
+.col-1-2-smol,
+.col-2-4,
+.col-2-4-smol,
+.col-3-6,
+.col-3-6-smol,
+.col-6-12,
+.col-6-12-smol
+{
+	width: 50%;
+}
+.col-7-12,
+.col-7-12-smol {
+	width: 58.33333333%;
+}
+.col-1-3,
+.col-1-3-smol,
+.col-2-6,
+.col-2-6-smol,
+.col-8-12,
+.col-8-12-smol
+{
+	width: 66.66666667%;
+}
+.col-3-4,
+.col-3-4-smol,
+.col-9-12,
+.col-9-12-smol {
+	width: 75%;
+}
+.col-5-6,
+.col-5-6-smol,
+.col-10-12,
+.col-10-12-smol {
+	width: 83.33333333%;
+}
+.col-11-12,
+.col-11-12-smol {
+	width: 91.66666667%
+}
+.col-2-2,
+.col-2-2-smol,
+.col-3-3,
+.col-3-3-smol,
+.col-4-4,
+.col-4-4-smol,
+.col-6-6,
+.col-6-6-smol,
+.col-12-12,
+.col-12-12-smol {
+	width: 100%;
+}
+
 @media screen and (min-width: 520px){
 	.flex-mid {
 		display: flex;
+	}
+
+	[class*="flex"] > .grow-1-mid
+	{
+		flex-grow: 1;
+	}
+	[class*="flex"] > .grow-2-mid
+	{
+		flex-grow: 2;
+	}
+	[class*="flex"] > .grow-3-mid
+	{
+		flex-grow: 3;
+	}
+
+	[class*="flex"] > .vcenter-mid
+	{
+		align-self: center;
+	}
+	[class*="flex"].vcenter-mid
+	{
+		align-items: center;
+	}
+	[class*="flex"].hcenter-mid
+	{
+		justify-content: center;
+	}
+	[class*="flex"].vhcenter-mid
+	{
+		align-items: center;
+		justify-content: center;
+	}
+
+	[class*="flex"] > .vstart-mid
+	{
+		align-self: flex-start;
+	}
+	[class*="flex"].vstart-mid
+	{
+		align-items: flex-start;
+	}
+	[class*="flex"].hstart-mid
+	{
+		justify-content: flex-start;
+	}
+	[class*="flex"].vhstart-mid
+	{
+		align-items: flex-start;
+		justify-content: flex-start;
+	}
+
+	[class*="flex"] > .vend-mid {
+		align-self: flex-end;
+	}
+	[class*="flex"].vend-mid
+	{
+		align-items: flex-end;
+	}
+	[class*="flex"].hend-mid
+	{
+		justify-content: flex-end;
+	}
+	[class*="flex"].vhend-mid
+	{
+		align-items: flex-end;
+		justify-content: flex-end;
+	}
+
+	[class*="flex"] .wrap-mid
+	{
+		flex-wrap: wrap;
 	}
 }
 
 @media screen and (min-width: 1040px){ /* a bit under the standard 1080 screen (some are 1060 for some reason) so if they are side ways, it still is in large mode*/
 	.flex-big {
 		display: flex;
+	}
+
+	[class*="flex"] > .grow-1-big
+	{
+		flex-grow: 1;
+	}
+	[class*="flex"] > .grow-2-big
+	{
+		flex-grow: 2;
+	}
+	[class*="flex"] > .grow-3-big
+	{
+		flex-grow: 3;
+	}
+
+	[class*="flex"] > .vcenter-big
+	{
+		align-self: center;
+	}
+	[class*="flex"].vcenter-big
+	{
+		align-items: center;
+	}
+	[class*="flex"].hcenter-big
+	{
+		justify-content: center;
+	}
+	[class*="flex"].vhcenter-big
+	{
+		align-items: center;
+		justify-content: center;
+	}
+
+	[class*="flex"] > .vstart-big
+	{
+		align-self: flex-start;
+	}
+	[class*="flex"].vstart-big
+	{
+		align-items: flex-start;
+	}
+	[class*="flex"].hstart-big
+	{
+		justify-content: flex-start;
+	}
+	[class*="flex"].vhstart-big
+	{
+		align-items: flex-start;
+		justify-content: flex-start;
+	}
+
+	[class*="flex"] > .vend-big {
+		align-self: flex-end;
+	}
+	[class*="flex"].vend-big
+	{
+		align-items: flex-end;
+	}
+	[class*="flex"].hend-big
+	{
+		justify-content: flex-end;
+	}
+	[class*="flex"].vhend-big
+	{
+		align-items: flex-end;
+		justify-content: flex-end;
+	}
+
+	[class*="flex"] .wrap-big
+	{
+		flex-wrap: wrap;
 	}
 }
