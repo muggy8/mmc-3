@@ -74,4 +74,6 @@
 				array_shift($includeQueue);
 			}
 		}
+
+		return $workspace;
 	}
