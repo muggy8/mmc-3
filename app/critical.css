@@ -219,6 +219,93 @@ h5 {
 	width: 100%;
 }
 
+
+.font-0rem,
+.font-0rem-smol,
+.font-0em,
+.font-0em-smol,
+.font-0,
+.font-0-smol
+{
+	font-size:0;
+}
+.font-0\.25rem,
+.font-0\.25rem-smol
+{
+	font-size:0.25rem;
+}
+.font-0\.5rem,
+.font-0\.5rem-smol
+{
+	font-size:0.5rem;
+}
+.font-0\.75rem,
+.font-0\.-75rem-smol
+{
+	font-size:0.75rem;
+}
+.font-1rem,
+.font-1rem-smol
+{
+	font-size:1rem;
+}
+.font-1\.25rem,
+.font-1\.25rem-smol
+{
+	font-size:1.25rem;
+}
+.font-1\.5rem,
+.font-1\.5rem-smol{
+	font-size:1.5rem;
+}
+.font-1\.75rem,
+.font-1\.75rem-smol{
+	font-size:1.75rem;
+}
+.font-2rem,
+.font-2rem-smol
+{
+	font-size:2rem;
+}
+.font-0\.25em,
+.font-0\.25em-smol
+{
+	font-size:0.25em;
+}
+.font-0\.5em,
+.font-0\.5em-smol
+{
+	font-size:0.5em;
+}
+.font-0\.75em,
+.font-0\.-75em-smol
+{
+	font-size:0.75em;
+}
+.font-1em,
+.font-1em-smol
+{
+	font-size:1em;
+}
+.font-1\.25em,
+.font-1\.25em-smol
+{
+	font-size:1.25em;
+}
+.font-1\.5em,
+.font-1\.5em-smol{
+	font-size:1.5em;
+}
+.font-1\.75em,
+.font-1\.75em-smol{
+	font-size:1.75em;
+}
+.font-2em,
+.font-2em-smol
+{
+	font-size:2em;
+}
+
 @media screen and (min-width: 520px){
 	.flex-mid {
 		display: flex;
@@ -293,6 +380,73 @@ h5 {
 	[class*="flex"] .wrap-mid
 	{
 		flex-wrap: wrap;
+	}
+
+	.font-0rem-mid,
+	.font-0em-mid,
+	.font-0-mid
+	{
+		font-size:0;
+	}
+	.font-0\.25rem-mid
+	{
+		font-size:0.25rem;
+	}
+	.font-0\.5rem-mid
+	{
+		font-size:0.5rem;
+	}
+	.font-0\.-75rem-mid
+	{
+		font-size:0.75rem;
+	}
+	.font-1rem-mid
+	{
+		font-size:1rem;
+	}
+	.font-1\.25rem-mid
+	{
+		font-size:1.25rem;
+	}
+	.font-1\.5rem-mid{
+		font-size:1.5rem;
+	}
+	.font-1\.75rem-mid{
+		font-size:1.75rem;
+	}
+	.font-2rem-mid
+	{
+		font-size:2rem;
+	}
+	.font-0\.25em-mid
+	{
+		font-size:0.25em;
+	}
+	.font-0\.5em-mid
+	{
+		font-size:0.5em;
+	}
+	.font-0\.-75em-mid
+	{
+		font-size:0.75em;
+	}
+	.font-1em-mid
+	{
+		font-size:1em;
+	}
+	.font-1\.25em-mid
+	{
+		font-size:1.25em;
+	}
+	.font-1\.5em-mid{
+		font-size:1.5em;
+	}
+	.font-1\.75em-mid{
+		font-size:1.75em;
+	}
+	.font-2em-mid
+	{
+		font-size:2em;
 	}
 }
 
@@ -370,5 +524,72 @@ h5 {
 	[class*="flex"] .wrap-big
 	{
 		flex-wrap: wrap;
+	}
+
+	.font-0rem-big,
+	.font-0em-big,
+	.font-0-big
+	{
+		font-size:0;
+	}
+	.font-0\.25rem-big
+	{
+		font-size:0.25rem;
+	}
+	.font-0\.5rem-big
+	{
+		font-size:0.5rem;
+	}
+	.font-0\.-75rem-big
+	{
+		font-size:0.75rem;
+	}
+	.font-1rem-big
+	{
+		font-size:1rem;
+	}
+	.font-1\.25rem-big
+	{
+		font-size:1.25rem;
+	}
+	.font-1\.5rem-big{
+		font-size:1.5rem;
+	}
+	.font-1\.75rem-big{
+		font-size:1.75rem;
+	}
+	.font-2rem-big
+	{
+		font-size:2rem;
+	}
+	.font-0\.25em-big
+	{
+		font-size:0.25em;
+	}
+	.font-0\.5em-big
+	{
+		font-size:0.5em;
+	}
+	.font-0\.-75em-big
+	{
+		font-size:0.75em;
+	}
+	.font-1em-big
+	{
+		font-size:1em;
+	}
+	.font-1\.25em-big
+	{
+		font-size:1.25em;
+	}
+	.font-1\.5em-big{
+		font-size:1.5em;
+	}
+	.font-1\.75em-big{
+		font-size:1.75em;
+	}
+	.font-2em-big
+	{
+		font-size:2em;
 	}
 }
