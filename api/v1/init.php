@@ -24,3 +24,4 @@
 	request("url", (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
 	request("uri",  $_SERVER["REQUEST_URI"]);
 	request("cookies", (object)$_COOKIE);
+	request("time", time());

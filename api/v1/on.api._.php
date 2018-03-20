@@ -7,20 +7,19 @@
 		$userId = "user:" . $userIdObj->id;
 		$user = storage::get($userId);
 		if ($user && $user->sessions->{request("cookies")->session}){
+			foreach($user->sessions as $sessionId => $expireTime){
+				if ($expireTime < request("time")){
+					unset($user->sessions->{$sessionId});
+				}
+			}
+
+			// give the user another month for their session to expire
+			$user->sessions->{request("cookies")->session} = $sessionExpires = time() + $validDuration;
+			setcookie("user", $userIdObj->id, $sessionExpires, "/", $_SERVER["HTTP_HOST"], true, false);
+			setcookie("session", request("cookies")->session, $sessionExpires, "/", $_SERVER["HTTP_HOST"], true, true);
+
 			request("userId", $userId);
 			request("user", $user);
-		}
-		if (!request("user")){ // it's possiable to have a cookie but not a user attached
-			return;
-		}
-		// clean up the user's authed sessions
-		$needsToUpdateData = false;
-		foreach(request("user")->sessions as $sessionId => $expiryTime){
-
-		}
-
-		// if we made any changes to the user's authed sessions, we need to store the changes but we dont want to do this if we dont have to
-		if ($needsToUpdateData){
 			storage::storeObject(request("userId"), request("user"));
 		}
 	}
