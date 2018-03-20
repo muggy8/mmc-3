@@ -23,3 +23,4 @@
 	request("method", $_SERVER['REQUEST_METHOD']);
 	request("url", (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
 	request("uri",  $_SERVER["REQUEST_URI"]);
+	request("cookies", $_COOKIE);
