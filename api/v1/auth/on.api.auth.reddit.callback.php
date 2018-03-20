@@ -67,17 +67,20 @@
 			}
 
 			// ok we stored everything and now we can just set the user's cookies whee
-			$soloId = storage::parseCompoundId($userId)->id;
-			$validDuration = (86400 * 30); // 30 days
+			$soloId = storage::parseCompoundId(request("userId"))->id;
+			$validDuration = 86400 * 30; // 30 days
 			$sessionExpires = time() + $validDuration;
 			$sessionId = request("cookies")->session ?: storage::generateId(32);
 
 			// we set 2 cookies here, the user ID and the session ID. both will have the same valid duration but only the user ID is visable to the browser because that's important to whatever endpoints we need to get at in the clinet script. the session ID is not and it works as a password of sorts for validating future requests
-			response::addHeader("Set-Cookie", "user=$soloId; Max-Age=$validDuration; Secure; Path='/';");
-			response::addHeader("Set-Cookie", "session=$sessionId; Max-Age=$validDuration; Secure; HttpOnly; Path='/';");
+			setcookie("user", $soloId, $sessionExpires, "/", $_SERVER["HTTP_HOST"], true, false);
+			// response::addHeader("Set-Cookie", "user=$soloId; Max-Age=$sessionExpires; Secure; Path='/';");
+
+			setcookie("session", $sessionId, $sessionExpires, "/", $_SERVER["HTTP_HOST"], true, true);
+			// response::addHeader("Set-Cookie", "session=$sessionId; Max-Age=$sessionExpires; Secure; HttpOnly; Path='/';");
 			//header("Set-Cookie: " . implode(",", $headerCookies));
 
-			request("user")->sessions = (array)request("user")->sessions ?: (object)[];
+			request("user")->sessions = request("user")->sessions ?: (object)[];
 			request("user")->sessions->{$sessionId} = $sessionExpires;
 			storage::storeObject(request("userId"), request("user"));
 
