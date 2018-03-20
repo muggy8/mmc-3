@@ -14,6 +14,7 @@
 			}
 
 			// give the user another month for their session to expire
+			$validDuration = 86400 * 30; // 30 days
 			$user->sessions->{request("cookies")->session} = $sessionExpires = time() + $validDuration;
 			setcookie("user", $userIdObj->id, $sessionExpires, "/", $_SERVER["HTTP_HOST"], true, false);
 			setcookie("session", request("cookies")->session, $sessionExpires, "/", $_SERVER["HTTP_HOST"], true, true);
