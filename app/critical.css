@@ -359,3 +359,13 @@ h5 {
 .text-right {
 	text-align: right;
 }
+
+.island {
+    margin: 0.5rem;
+}
+.cell {
+    padding: 0.5rem;
+}
+.hide {
+    display: none;
+}
