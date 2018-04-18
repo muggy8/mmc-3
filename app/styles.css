@@ -2,6 +2,10 @@ body.has-font {
 	font-family: "Source Sans Pro", sans-serif;
 }
 
+[onclick] {
+    cursor: pointer;
+}
+
 /* the responsive stuff that we dont need till later so whatever laod slowly is ok */
 @media screen and (min-width: 520px){
 	.flex-mid {

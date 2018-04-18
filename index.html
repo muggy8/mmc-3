@@ -13,7 +13,10 @@
 			</h1>
             <div class="hide block-big grow"></div>
 			<nav class="flex hcenter">
-                <div class="cell bg-primary-light-hover color-white">
+                <div
+                    class="cell bg-primary-dark-hover {: (this.app.navSelect === 'login') ? 'bg-primary-dark' : '' :}"
+                    onclick="(this.app.navSelect === 'login') ? (this.app.navSelect = '') : (this.app.navSelect = 'login')"
+                >
                     Login
                 </div>
 			</nav>
