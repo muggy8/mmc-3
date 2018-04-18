@@ -47,12 +47,12 @@
 			// A: the user is logging in,
 			// B: the user is creating a new account
 			// C: the user is adding a new authentication method to their existing account
-			if (!request("user")){ // case A or B
+			if (!request("user")){ // case A
 				if (request()->userId = storage::index("user.identity.reddit", $redditUser->id)){
 					request()->userId = request()->userId[0];
 					request()->user = storage::get(request()->userId);
 				}
-				else {
+				else { // case B
 					request()->user = (object)[
 						"name" => $redditUser->name,
 						"identity" => (object)[
@@ -64,6 +64,7 @@
 			}
 			else { // case C
 				request("user")->identity->reddit = $redditUser->id;
+				storage::storeObject(request("userId"), request("user"));
 			}
 
 			// ok we stored everything and now we can just set the user's cookies whee
@@ -90,10 +91,9 @@
 			setcookie("session", $sessionId, $sessionExpires, "/", $_SERVER["HTTP_HOST"], true, true);
 			// response::addHeader("Set-Cookie", "session=$sessionId; Max-Age=$sessionExpires; Secure; HttpOnly; Path='/';");
 			// header("Set-Cookie: " . implode(",", $headerCookies));
-			
+
 			// request("user")->sessions = (object)request("user")->sessions ?: (object)[];
 			// request("user")->sessions->{$sessionId} = $sessionExpires;
-			// storage::storeObject(request("userId"), request("user"));
 
 			// cleaning up old sessions is handled by the api._ event
 		}
