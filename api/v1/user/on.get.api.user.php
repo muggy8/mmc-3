@@ -5,7 +5,9 @@
 	}
 	else {
 		response::setHeader("Status", "403 Forbidden");
-		response::write(json_encode((object)[
-			"error" => "Not Authenticated"
-		]));
+		$workspace->errors = $workspace->errors ?: [];
+		array_push($workspace->errors, "Not currently authenticated");
+		// response::write(json_encode((object)[
+		// 	"error" => "Not Authenticated"
+		// ]));
 	}
