@@ -8,4 +8,24 @@ function keyValParse(str, seperator = "&"){
     return output
 }
 
-var cookies = keyValParse(document.cookie)
+function updateUser = function(){
+    var cookies = keyValParse(document.cookie)
+    if (cookies.user){
+        aja()
+            .url("/api/user/me")
+            .on("2xx", function(res){
+                mmc.user = res
+            })
+            .on("4xx", function(o3o){
+                mmc.user = null
+            })
+            .go()
+    }
+    else {
+        mmc.user = null
+    }
+}
+
+var mmcView = proxymity(document.querySelector("body"))
+var mmc = mmcView.app
+updateUser()

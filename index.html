@@ -7,7 +7,7 @@
 		<link href="/app/critical.css" rel="stylesheet"/>
 	</head>
 	<body>
-		<header id="header-nav">
+		<header>
             <div class="flex-big vhcenter wrap bg-primary">
                 <h1 class="text-center cell">
                     Music Matrix Composer (V3)
@@ -15,8 +15,8 @@
                 <div class="hide block-big grow"></div>
                 <nav class="flex hcenter vend-big">
                     <div
-                        class="cell bg-primary-dark-hover {: (this.app.navSelect === 'login') ? 'bg-primary-dark' : '' :}"
-                        onclick="(this.app.navSelect === 'login') ? (this.app.navSelect = '') : (this.app.navSelect = 'login')"
+                        class="cell bg-primary-dark-hover {: (this.app.nav.subNavSection === 'login') ? 'bg-primary-dark' : '' :}|{nav.subNavSection}|"
+                        onclick="(this.app.nav.subNavSection === 'login') ? (this.app.nav.subNavSection = '') : (this.app.nav.subNavSection = 'login')"
                     >
                         Login
                     </div>
@@ -25,8 +25,8 @@
             <div class="flex-big">
                 <div class="col-5-6-big"></div>
                 <!-- more stuff -->
-                <div class="bg-primary-dark grow text-center cell {: this.app.navSelect.toString() ? '' : 'hide' :}">
-                    <div class="{: (this.app.navSelect === 'login') ? '' : 'hide' :}">
+                <div class="bg-primary-dark grow text-center cell {: this.app.nav.subNavSection.toString() ? '' : ' hide ' :}|{nav.subNavSection}|">
+                    <div class="{: (this.app.nav.subNavSection === 'login') ? '' : ' hide ' :}|{nav.subNavSection}|">
                         <a href="/api/auth/reddit" target="_blank" class="block color-gray-light color-white-hover">Reddit</a>
                     </div>
                 </div>
