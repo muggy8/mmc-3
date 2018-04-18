@@ -357,57 +357,6 @@ body.has-font {
 }
 
 /*the rules for declaring how to repsond to user interaction*/
-.color-primary-hover:hover,
-.color-primary-hover:active,
-.color-primary-hover:focus {
-    color: #006600;
-}
-.color-primary-bright-hover:hover,
-.color-primary-bright-hover:active,
-.color-primary-bright-hover:focus {
-    color: #00DD00;
-}
-.color-primary-dark-hover:hover,
-.color-primary-dark-hover:active,
-.color-primary-dark-hover:focus {
-    color: #003300;
-}
-.color-secondary-hover:hover,
-.color-secondary-hover:active,
-.color-secondary-hover:focus {
-    color: #331905;
-}
-.color-secondary-light-hover:hover,
-.color-secondary-light-hover:active,
-.color-secondary-light-hover:focus {
-    color: #B25309;
-}
-.color-black-hover:hover,
-.color-black-hover:active,
-.color-black-hover:focus {
-    color: #000;
-}
-.color-gray-dark-hover:hover,
-.color-gray-dark-hover:active,
-.color-gray-dark-hover:focus {
-    color: #999;
-}
-.color-gray-hover:hover,
-.color-gray-hover:active,
-.color-gray-hover:focus {
-    color: #CCC;
-}
-.color-gray-light-hover:hover,
-.color-gray-light-hover:active,
-.color-gray-light-hover:focus {
-    color: #EEE;
-}
-.color-white-hover:hover,
-.color-white-hover:active,
-.color-white-hover:focus {
-    color: #FFF;
-}
-
 .bg-primary-light-hover:hover,
 .bg-primary-light-hover:active,
 .bg-primary-light-hover:focus {
@@ -467,6 +416,58 @@ body.has-font {
 .bg-white-hover:focus {
     background-color: #FFF;
     color: #000;
+}
+
+
+.color-primary-hover:hover,
+.color-primary-hover:active,
+.color-primary-hover:focus {
+    color: #006600;
+}
+.color-primary-bright-hover:hover,
+.color-primary-bright-hover:active,
+.color-primary-bright-hover:focus {
+    color: #00DD00;
+}
+.color-primary-dark-hover:hover,
+.color-primary-dark-hover:active,
+.color-primary-dark-hover:focus {
+    color: #003300;
+}
+.color-secondary-hover:hover,
+.color-secondary-hover:active,
+.color-secondary-hover:focus {
+    color: #331905;
+}
+.color-secondary-light-hover:hover,
+.color-secondary-light-hover:active,
+.color-secondary-light-hover:focus {
+    color: #B25309;
+}
+.color-black-hover:hover,
+.color-black-hover:active,
+.color-black-hover:focus {
+    color: #000;
+}
+.color-gray-dark-hover:hover,
+.color-gray-dark-hover:active,
+.color-gray-dark-hover:focus {
+    color: #999;
+}
+.color-gray-hover:hover,
+.color-gray-hover:active,
+.color-gray-hover:focus {
+    color: #CCC;
+}
+.color-gray-light-hover:hover,
+.color-gray-light-hover:active,
+.color-gray-light-hover:focus {
+    color: #EEE;
+}
+.color-white-hover:hover,
+.color-white-hover:active,
+.color-white-hover:focus {
+    color: #FFF;
 }
 
 /*controlling padding and margin*/
