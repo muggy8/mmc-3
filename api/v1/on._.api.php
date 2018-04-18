@@ -6,6 +6,16 @@
 		$userIdObj = storage::parseCompoundId(request("cookies")->user);
 		$userId = "user:" . $userIdObj->id;
 		$user = storage::get($userId);
+		
+		request("userId", $userId);
+		request("user", $user);
+		
+		$sessionIdObj = storage::parseCompoundId(request("cookies")->session);
+		$sessionId = "session:" . $sessionIdObj->id;
+		$session = storage::get($sessionId);
+		request("sessionId", $sessionId);
+		request("user", $session);
+		/*
 		if ($user && $user->sessions->{request("cookies")->session}){
 			foreach($user->sessions as $sessionId => $expireTime){
 				if ($expireTime < request("time")){
@@ -23,4 +33,5 @@
 			request("user", $user);
 			storage::storeObject(request("userId"), request("user"));
 		}
+		*/
 	}
