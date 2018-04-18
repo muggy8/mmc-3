@@ -95,6 +95,8 @@
 			// request("user")->sessions = (object)request("user")->sessions ?: (object)[];
 			// request("user")->sessions->{$sessionId} = $sessionExpires;
 
+			response::setHeader("Status: 200 OK");
+
 			// cleaning up old sessions is handled by the api._ event
 		}
 		else {
