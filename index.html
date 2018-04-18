@@ -25,8 +25,10 @@
             <div class="flex-big">
                 <div class="col-5-6-big"></div>
                 <!-- more stuff -->
-                <div class="bg-primary-dark grow cell {: (this.app.navSelect === 'login') ? '' : 'hide' :}">
-                    placeholder
+                <div class="bg-primary-dark grow text-center cell {: this.app.navSelect.toString() ? '' : 'hide' :}">
+                    <div class="{: (this.app.navSelect === 'login') ? '' : 'hide' :}">
+                        <a href="/api/auth/reddit" target="_blank" class="block color-gray-light color-white-hover">Reddit</a>
+                    </div>
                 </div>
             </div>
 		</header>
