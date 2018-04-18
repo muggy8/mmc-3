@@ -7,19 +7,25 @@
 		<link href="/app/critical.css" rel="stylesheet"/>
 	</head>
 	<body>
-		<header class="flex-big vhcenter wrap bg-primary" id="header-nav">
-			<h1 class="text-center cell">
-				Music Matrix Composer (V3)
-			</h1>
-            <div class="hide block-big grow"></div>
-			<nav class="flex hcenter">
-                <div
-                    class="cell bg-primary-dark-hover {: (this.app.navSelect === 'login') ? 'bg-primary-dark' : '' :}"
-                    onclick="(this.app.navSelect === 'login') ? (this.app.navSelect = '') : (this.app.navSelect = 'login')"
-                >
-                    Login
-                </div>
-			</nav>
+		<header id="header-nav">
+            <div class="flex-big vhcenter wrap bg-primary">
+                <h1 class="text-center cell">
+                    Music Matrix Composer (V3)
+                </h1>
+                <div class="hide block-big grow"></div>
+                <nav class="flex hcenter">
+                    <div
+                        class="cell bg-primary-dark-hover {: (this.app.navSelect === 'login') ? 'bg-primary-dark' : '' :}"
+                        onclick="(this.app.navSelect === 'login') ? (this.app.navSelect = '') : (this.app.navSelect = 'login')"
+                    >
+                        Login
+                    </div>
+                </nav>
+            </div>
+            <div class="flex-big">
+                <div class="col-4-6-big"></div>
+                <!-- more stuff -->
+            </div>
 		</header>
 		<script>onfontready("Source Sans Pro", function(){
 			document.body.className += "has-font"
