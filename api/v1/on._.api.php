@@ -1,7 +1,6 @@
 <?php
 	if (request("cookies")->user && request("cookies")->session){
 		// this will fill in the request()->user and request()->userId variables
-		response::setHeader("Status", "404 Not Found");
 
 		// incase in the future we decide to store user:the id instead of just the id
 		$userIdObj = storage::parseCompoundId(request("cookies")->user);
