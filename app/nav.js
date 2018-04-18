@@ -1,3 +1,3 @@
-(function(accountableData){
+;(function(accountableData){
 
 })(mmc.nav)

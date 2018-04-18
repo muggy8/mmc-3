@@ -15,7 +15,9 @@
                 <div class="hide block-big grow"></div>
                 <nav class="flex hcenter vend-big">
                     <div
-                        class="cell bg-primary-dark-hover {: (this.app.nav.subNavSection === 'login') ? 'bg-primary-dark' : '' :}|{nav.subNavSection}|"
+                        class="cell bg-primary-dark-hover {:
+                            (this.app.nav.subNavSection === 'login') ? 'bg-primary-dark' : ''
+                        :}|{nav.subNavSection}| {: this.app.user && ' hide ':}|{user}|"
                         onclick="(this.app.nav.subNavSection === 'login') ? (this.app.nav.subNavSection = '') : (this.app.nav.subNavSection = 'login')"
                     >
                         Login
