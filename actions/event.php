@@ -41,7 +41,7 @@
 						$listenerName = preg_replace('/\./', '\.', $listenerName);
 						$listenerName = preg_replace('/__/', '.*', $listenerName);
 						$listenerName = preg_replace('/_/', '[^\.]+', $listenerName);
-						$listenerName = '/^' . $listenerName . '$/';
+						$listenerName = '/^' . $listenerName . '$/i';
 						$listeners->{$listenerName} = $listeners->{$listenerName} ?: [];
 						array_push($listeners->{$listenerName}, $filePath);
 						// var_dump($listenerName);
