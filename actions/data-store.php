@@ -299,7 +299,7 @@
 				if (!is_string($currentLair)){
 					foreach($currentLair as &$potentialSubItem){
 						$subItemIdObj = self::parseCompoundId($potentialSubItem);
-						if ($subItemIdObj){
+						if ($subItemIdObj->id){
 							$type
 								? self::deleteObject($potentialSubItem, $depth-1)
 								: self::deleteObject($subItemIdObj->id, $depth-1);
