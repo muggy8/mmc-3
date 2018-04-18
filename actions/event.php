@@ -65,8 +65,6 @@
 			}
 		}
 
-
-
 		if ($currentQueueLength === 0){
 			// we dont want to clear out the item from the queue until we have finished running the listener so we cant use array_shift incase the include script calls event which woud not trigger the event handler and would return back to here for the next loop
 			while($included = $includeQueue[0]){

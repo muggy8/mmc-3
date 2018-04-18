@@ -1,4 +1,2 @@
 <?php
-	function publicUser(){
-		response::write("testing");
-	}
+	include_once(api_root . "/actions/user-functions.php");
