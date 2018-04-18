@@ -1,6 +1,6 @@
 var navView = (function(){
     var view = proxymity(document.querySelector("#header-nav"))
-    var cookies = keyValParse(document.cookie)
+    var app = view.app
 
     if (cookies.user){
         aja()

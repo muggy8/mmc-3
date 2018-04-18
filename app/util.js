@@ -7,3 +7,5 @@ function keyValParse(str, seperator = "&"){
 	}
     return output
 }
+
+var cookies = keyValParse(document.cookie)
