@@ -5,6 +5,9 @@ body.has-font {
 [onclick] {
     cursor: pointer;
 }
+.pointer[onclick] {
+    cursor: initial;
+}
 
 /* the responsive stuff that we dont need till later so whatever laod slowly is ok */
 @media screen and (min-width: 520px){
