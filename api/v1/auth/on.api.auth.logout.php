@@ -5,7 +5,7 @@
 		storage::storeObject(request("userId"), request("user"));
 		setcookie("user", null, 0, "/", $_SERVER["HTTP_HOST"]);
 		setcookie("session", null, 0, "/", $_SERVER["HTTP_HOST"]);
-		response::setHeader("Status: 204 No Content");
+		response::setHeader("Status", "204 No Content");
 	}
 	else {
 		$workspace->errors = $workspace->errors ?: [];
