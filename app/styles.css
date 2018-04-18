@@ -118,6 +118,67 @@ body.has-font {
 	{
 		position: fixed;
 	}
+    
+    .col-0-mid,
+    .col-0-2-mid,
+    .col-0-3-mid,
+    .col-0-4-mid,
+    .col-0-6-mid,
+    .col-0-12-mid {
+        width: 0;
+    }
+    .col-1-12-mid {
+        width: 8.33333333%;
+    }
+    .col-1-6-mid,
+    .col-2-12-mid {
+        width: 16.66666667%;
+    }
+    .col-1-4-mid,
+    .col-3-12-mid {
+        width: 25%;
+    }
+    .col-1-3-mid,
+    .col-2-6-mid,
+    .col-4-12-mid {
+        width: 33.33333333%;
+    }
+    .col-5-12-mid {
+        width: 41.66666667%;
+    }
+    .col-1-2-mid,
+    .col-2-4-mid,
+    .col-3-6-mid,
+    .col-6-12-mid {
+        width: 50%;
+    }
+    .col-7-12-mid {
+        width: 58.33333333%;
+    }
+    .col-1-3-mid,
+    .col-2-6-mid,
+    .col-8-12-mid {
+        width: 66.66666667%;
+    }
+    .col-3-4-mid,
+    .col-4-6-mid,
+    .col-9-12-mid {
+        width: 75%;
+    }
+    .col-5-6-mid,
+    .col-10-12-mid {
+        width: 83.33333333%;
+    }
+    .col-11-12-mid {
+        width: 91.66666667%
+    }
+    .col-2-2-mid,
+    .col-3-3-mid,
+    .col-4-4-mid,
+    .col-6-6-mid,
+    .col-12-12-mid {
+        width: 100%;
+    }
 
 	.font-0rem-mid,
 	.font-0em-mid,
@@ -294,6 +355,67 @@ body.has-font {
 	{
 		position: fixed;
 	}
+    
+    .col-0-big,
+    .col-0-2-big,
+    .col-0-3-big,
+    .col-0-4-big,
+    .col-0-6-big,
+    .col-0-12-big {
+        width: 0;
+    }
+    .col-1-12-big {
+        width: 8.33333333%;
+    }
+    .col-1-6-big,
+    .col-2-12-big {
+        width: 16.66666667%;
+    }
+    .col-1-4-big,
+    .col-3-12-big {
+        width: 25%;
+    }
+    .col-1-3-big,
+    .col-2-6-big,
+    .col-4-12-big {
+        width: 33.33333333%;
+    }
+    .col-5-12-big {
+        width: 41.66666667%;
+    }
+    .col-1-2-big,
+    .col-2-4-big,
+    .col-3-6-big,
+    .col-6-12-big {
+        width: 50%;
+    }
+    .col-7-12-big {
+        width: 58.33333333%;
+    }
+    .col-1-3-big,
+    .col-2-6-big,
+    .col-8-12-big {
+        width: 66.66666667%;
+    }
+    .col-3-4-big,
+    .col-4-6-big,
+    .col-9-12-big {
+        width: 75%;
+    }
+    .col-5-6-big,
+    .col-10-12-big {
+        width: 83.33333333%;
+    }
+    .col-11-12-big {
+        width: 91.66666667%
+    }
+    .col-2-2-big,
+    .col-3-3-big,
+    .col-4-4-big,
+    .col-6-6-big,
+    .col-12-12-big {
+        width: 100%;
+    }
 
 	.font-0rem-big,
 	.font-0em-big,
