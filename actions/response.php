@@ -17,12 +17,17 @@
 			// add the header or initialize it if it's not set
 			self::$headers->{$name} = self::$headers->{$name} ?: [];
 			array_push(self::$headers->{$name}, $val);
-
 		}
+
 		public static function setHeader($name, $val){
 			self::initOnce();
 			// ovewrite the current header and set it's value
 			self::$headers->{$name} = [$val];
+		}
+
+		public static function readHeader($name){
+			self::initOnce();
+			return (array)self::$headers->{$name};
 		}
 
 		public static function stream(){
