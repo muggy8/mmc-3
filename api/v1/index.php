@@ -13,7 +13,7 @@
 		]));
 	}
 
-	if ($workspace->errors){
+	if ($workspace->errors && substr(response::readHeader("Status")[0], 0, 1) == "4"){
 		response::setHeader("Status", "400 Bad Request");
 		response::write(json_encode($workspace->errors));
 	}
