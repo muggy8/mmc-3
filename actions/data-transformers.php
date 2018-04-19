@@ -27,11 +27,15 @@
 		foreach($data as $key => $val){
 			if (isset($schema->{$key})){
 				if (is_object($val) && is_object($schema->{$key})){
-					$assumption = $assumption && withinSchema($val, $schema->{$key});
+					$assumption = $assumption
+						? withinSchema($val, $schema->{$key})
+						: false ;
 				}
 				else if (is_array($val) && is_object($schema->{$key})){
-					foreach($val as &$item){
-						$assumption = $assumption && withinSchema($item, $schema->{$key});
+					foreach($val as $item){
+						$assumption = $assumption
+							? withinSchema($item, $schema->{$key})
+							: false ;
 					}
 				}
 			}
@@ -59,7 +63,9 @@
 	], (object)[
 		"name" => true,
 		"arr" => (object)[
-			"foo" => true
-		]
+			"foo" => true,
+			"bar" => true
+		],
+		"junk" => true
 	]);
-	print_r($output);
+	var_dump($output);
