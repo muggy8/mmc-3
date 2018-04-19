@@ -16,6 +16,7 @@ var utils = {
                 .url("/api/user/me")
                 .on("2xx", function(res){
                     mmc.user = res
+                    mmc.nav.subNavSection = ''
                 })
                 .go()
         }
