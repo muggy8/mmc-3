@@ -83,25 +83,25 @@
 		return $assumption;
 	}
 
-	$output = withinSchema((object)[
-		"name" => "abc123",
-		"arr" => [
-			(object)[
-				"foo" => 123,
-				"bar" => 456
-			],
-			(object)[
-				"foo" => 888,
-				"bar" => 999,
-				"baz" => "bleh"
-			]
-		]
-	], (object)[
-		"name" => "string",
-		"arr" => (object)[
-			"foo" => "integer",
-			"bar" => "integer"
-		],
-		"junk" => "boolean"
-	]);
-	var_dump($output);
+	// $output = withinSchema((object)[
+	// 	"name" => "abc123",
+	// 	"arr" => [
+	// 		(object)[
+	// 			"foo" => 123,
+	// 			"bar" => 456
+	// 		],
+	// 		(object)[
+	// 			"foo" => 888,
+	// 			"bar" => 999,
+	// 			"baz" => "bleh"
+	// 		]
+	// 	]
+	// ], (object)[
+	// 	"name" => "string",
+	// 	"arr" => (object)[
+	// 		"foo" => "integer",
+	// 		"bar" => "integer"
+	// 	],
+	// 	"junk" => "boolean"
+	// ]);
+	// var_dump($output);
