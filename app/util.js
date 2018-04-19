@@ -18,12 +18,12 @@ var utils = {
                     mmc.user = res
                 })
 				.on("4xx", function(){
-					mmc.user = false
+					mmc.user = {}
 				})
                 .go()
         }
 		else {
-        	mmc.user = false
+        	mmc.user = {}
 		}
     },
 	notify: function(message){
