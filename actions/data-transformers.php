@@ -63,31 +63,31 @@
 		}
 		return $assumption;
 	}
-
-	$output = patch((object)[
-		"name" => "abc123",
-		"obj" => (object)[
-			"abc" => 123
-		],
-		"arr" => [
-			(object)[
-				"foo" => 123,
-				"bar" => 456
-			],
-			(object)[
-				"foo" => 888,
-				"bar" => 999
-			]
-		]
-	], (object)[
-		"name" => "muggy8",
-		"arr" => [
-			(object)[
-				"foo" => 15,
-				"bar" => 22
-			],
-			99,
-		],
-		"junk" => true
-	]);
-	var_dump($output);
+	//
+	// $output = patch((object)[
+	// 	"name" => "abc123",
+	// 	"obj" => (object)[
+	// 		"abc" => 123
+	// 	],
+	// 	"arr" => [
+	// 		(object)[
+	// 			"foo" => 123,
+	// 			"bar" => 456
+	// 		],
+	// 		(object)[
+	// 			"foo" => 888,
+	// 			"bar" => 999
+	// 		]
+	// 	]
+	// ], (object)[
+	// 	"name" => "muggy8",
+	// 	"arr" => [
+	// 		(object)[
+	// 			"foo" => 15,
+	// 			"bar" => 22
+	// 		],
+	// 		99,
+	// 	],
+	// 	"junk" => true
+	// ]);
+	// var_dump($output);
