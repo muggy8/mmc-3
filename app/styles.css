@@ -118,7 +118,7 @@ body.has-font {
 	{
 		position: fixed;
 	}
-    
+
     .col-0-mid,
     .col-0-2-mid,
     .col-0-3-mid,
@@ -246,6 +246,20 @@ body.has-font {
 	{
 		font-size:2em;
 	}
+
+	/* text alignment stuff */
+	.text-center-mid {
+		text-align: center;
+	}
+	.text-left-mid {
+		text-align: left;
+	}
+	.text-justify-mid {
+		text-align: justify;
+	}
+	.text-right-mid {
+		text-align: right;
+	}
 }
 
 @media screen and (min-width: 1040px){ /* a bit under the standard 1080 screen (some are 1060 for some reason) so if they are side ways, it still is in large mode*/
@@ -355,7 +369,7 @@ body.has-font {
 	{
 		position: fixed;
 	}
-    
+
     .col-0-big,
     .col-0-2-big,
     .col-0-3-big,
@@ -482,6 +496,20 @@ body.has-font {
 	.font-2em-big
 	{
 		font-size:2em;
+	}
+
+	/* text alignment stuff */
+	.text-center-big {
+		text-align: center;
+	}
+	.text-left-big {
+		text-align: left;
+	}
+	.text-justify-big {
+		text-align: justify;
+	}
+	.text-right-big {
+		text-align: right;
 	}
 }
 

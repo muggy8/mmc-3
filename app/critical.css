@@ -349,16 +349,20 @@ h5 {
 	font-size:2em;
 }
 
-.text-center {
+.text-center,
+.text-center-smol {
 	text-align: center;
 }
-.text-left {
+.text-left,
+.text-left-smol {
 	text-align: left;
 }
-.text-justify {
+.text-justify,
+.text-justify-smol {
 	text-align: justify;
 }
-.text-right {
+.text-right,
+.text-right-smol {
 	text-align: right;
 }
 
