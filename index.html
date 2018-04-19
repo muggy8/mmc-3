@@ -19,9 +19,7 @@
                             (this.app.nav.subNavSection === 'login') ? 'bg-primary-dark' : ''
                         :}|{nav.subNavSection}| {: this.app.user && ' hide ':}|{user}|"
                         onclick="(this.app.nav.subNavSection === 'login') ? (this.app.nav.subNavSection = '') : (this.app.nav.subNavSection = 'login')"
-                    >
-                        Login
-                    </div>
+                    >Login</div>
                     <div
                         class="cell bg-primary-dark-hover {:
                             (this.app.nav.subNavSection === 'account') ? 'bg-primary-dark' : ''
@@ -34,14 +32,17 @@
                     >LogOut</div>
                 </nav>
             </div>
-            <div class="absolute-big col-1-6-big" style="top: 100%; right:0;">
-                <!-- more stuff -->
-                <div class="bg-primary-dark grow text-center cell {: this.app.nav.subNavSection.toString() ? '' : ' hide ' :}|{nav.subNavSection}|">
-                    <div class="{: (this.app.nav.subNavSection === 'login') ? '' : ' hide ' :}|{nav.subNavSection}|">
-                        <a href="/api/auth/reddit" target="_blank" class="block color-gray-light color-white-hover">Reddit</a>
-                    </div>
+
+            <!-- sub menu -->
+            <div class="absolute-big col-1-6-big bg-primary-dark text-center {: this.app.nav.subNavSection.toString() ? '' : ' hide ' :}|{nav.subNavSection}|" style="top: 100%; right:0;">
+
+				<!-- Login with ... -->
+				<div class="{: (this.app.nav.subNavSection === 'login') ? '' : ' hide ' :}|{nav.subNavSection}| cell">
+					Login With
+                    <a href="/api/auth/reddit" target="_blank" class="block color-gray-light color-white-hover bg-primary-light-hover">Reddit</a>
                 </div>
             </div>
+
 		</header>
 		<script>onfontready("Source Sans Pro", function(){
 			document.body.className += "has-font"
