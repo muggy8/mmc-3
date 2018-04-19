@@ -7,7 +7,7 @@
 		<link href="/app/critical.css" rel="stylesheet"/>
 	</head>
 	<body>
-		<header>
+		<header class="relative">
             <div class="flex-big vhcenter wrap bg-primary">
                 <h1 class="text-center cell">
                     Music Matrix Composer (V3)
@@ -34,8 +34,7 @@
                     >LogOut</div>
                 </nav>
             </div>
-            <div class="flex-big">
-                <div class="col-5-6-big"></div>
+            <div class="absolute-big col-1-6-big" style="top: 100%; right:0;">
                 <!-- more stuff -->
                 <div class="bg-primary-dark grow text-center cell {: this.app.nav.subNavSection.toString() ? '' : ' hide ' :}|{nav.subNavSection}|">
                     <div class="{: (this.app.nav.subNavSection === 'login') ? '' : ' hide ' :}|{nav.subNavSection}|">
