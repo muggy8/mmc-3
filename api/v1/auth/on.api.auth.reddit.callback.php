@@ -95,7 +95,10 @@
 			// request("user")->sessions = (object)request("user")->sessions ?: (object)[];
 			// request("user")->sessions->{$sessionId} = $sessionExpires;
 
-			response::setHeader("Status", "200 OK");
+			// response::setHeader("Status", "200 OK");
+
+            response::setHeader("Status", "302 Found");
+            response::addHeader("location", "/api/close-self");
 
 			// cleaning up old sessions is handled by the api._ event
 		}

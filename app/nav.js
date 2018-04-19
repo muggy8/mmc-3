@@ -2,7 +2,7 @@
     accountableData.logout = function(){
         aja()
             .url("/api/auth/logout")
-            .on("2xx", utils.updateUser)
+            .on("success", utils.updateUser)
             .go()
     }
 })(mmc.nav)
