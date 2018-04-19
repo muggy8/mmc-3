@@ -19,7 +19,25 @@
 	}
 
 	function patch($original, $incoming){
-
+		foreach($incoming as $key => $val){
+			if (
+				(is_object($original->{$key}) && is_object($val)) || (is_array($original->{$key}) && is_array($val))
+			){
+				if (is_array($original)){
+					$original[$key] = patch($original->{$key}, $val);
+				}
+				else{
+					$original->{$key} = patch($original->{$key}, $val);
+				}
+			}
+			else if (is_array($original)){
+				$original[$key] = $val;
+			}
+			else{
+				$original->{$key} = $val;
+			}
+		}
+		return $original;
 	}
 
 	function withinSchema($data, $schema){
@@ -46,9 +64,11 @@
 		return $assumption;
 	}
 
-
-	$output = withinSchema((object)[
+	$output = patch((object)[
 		"name" => "abc123",
+		"obj" => (object)[
+			"abc" => 123
+		],
 		"arr" => [
 			(object)[
 				"foo" => 123,
@@ -58,13 +78,15 @@
 				"foo" => 888,
 				"bar" => 999
 			]
-		],
-		"junk" => "1234567890"
+		]
 	], (object)[
-		"name" => true,
-		"arr" => (object)[
-			"foo" => true,
-			"bar" => true
+		"name" => "muggy8",
+		"arr" => [
+			(object)[
+				"foo" => 15,
+				"bar" => 22
+			],
+			99,
 		],
 		"junk" => true
 	]);
