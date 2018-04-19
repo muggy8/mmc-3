@@ -4,7 +4,7 @@
 		"email" => true,
 		"songs" => true
 	];
-	
+
 	$workspace->updateUserSchema = (object)[
 		"name" => "string",
 		"email" => "string",

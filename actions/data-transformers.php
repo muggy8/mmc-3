@@ -75,10 +75,10 @@
 				}
 			}
 		}
-
-		var_dump($data);
-		var_dump($schema);
-		var_dump($assumption);
+		
+		// var_dump($data);
+		// var_dump($schema);
+		// var_dump($assumption);
 
 		return $assumption;
 	}
