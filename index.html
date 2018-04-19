@@ -45,10 +45,13 @@
 				<!-- my account -->
 				<form class="{: (this.app.nav.subNavSection === 'account') ? '' : ' hide ' :}|{nav.subNavSection}| flex-mid vhcenter block-big" onsubmit="this.app.nav.updateUser(this.app.sendUser); this.app.sendUser = {}; return false;">
 					<label class="block cell text-left-big">
-						Name: <input name="user.name" class="bg-gray col-2-2-big" data-on-user-interaction="{: this.app.sendUser.name = this.app.user.name.toString() :}|{user.name}|">
+						Name: <input type="text" name="user.name" class="bg-gray col-2-2-big" onchange="this.app.sendUser.name = this.app.user.name.toString()">
 					</label>
 					<label class="block cell text-left-big">
-						Email: <input name="user.email" class="bg-gray col-2-2-big" data-on-user-interaction="{: this.app.sendUser.email = this.app.user.email.toString() :}|{user.email}|">
+						Email (public): <input type="email" name="user.email" class="bg-gray col-2-2-big" onchange="this.app.sendUser.email = this.app.user.email.toString()">
+					</label>
+					<label class="block cell text-left-big">
+						Website (public): <input type="url" name="user.website" class="bg-gray col-2-2-big" onchange="this.app.sendUser.website = this.app.user.website.toString()">
 					</label>
 					<button type="submit" class="island">Save</button>
 				</form>
