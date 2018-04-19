@@ -13,9 +13,9 @@ var utils = {
         if (cookies.user){
             aja()
                 .url("/api/user/me")
+				.cache(false)
                 .on("2xx", function(res){
                     mmc.user = res
-                    mmc.nav.subNavSection = ''
                 })
 				.on("4xx", function(){
 					mmc.user = false
@@ -25,5 +25,8 @@ var utils = {
 		else {
         	mmc.user = false
 		}
-    }
+    },
+	notify: function(message){
+		console.log(message)
+	}
 }

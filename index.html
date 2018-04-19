@@ -41,6 +41,17 @@
 					Login With
                     <a href="/api/auth/reddit" target="_blank" class="block color-gray-light color-white-hover bg-primary-light-hover">Reddit</a>
                 </div>
+
+				<!-- my account -->
+				<form class="{: (this.app.nav.subNavSection === 'account') ? '' : ' hide ' :}|{nav.subNavSection}| flex vhcenter block-big" onsubmit="this.app.nav.updateUser(this.app.sendUser); this.app.sendUser = {}; return false;">
+					<label class="block text-left cell">
+						Name: <input name="user.name" class="bg-gray col-2-2-big" data-on-user-interaction="{: this.app.sendUser.name = this.app.user.name.toString() :}|{user.name}|">
+					</label>
+					<label class="block text-left cell">
+						Email: <input name="user.email" class="bg-gray col-2-2-big" data-on-user-interaction="{: this.app.sendUser.email = this.app.user.email.toString() :}|{user.email}|">
+					</label>
+					<button type="submit">Save</button>
+				</form>
             </div>
 
 		</header>
