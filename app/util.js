@@ -9,7 +9,6 @@ var utils = {
         return output
     },
     updateUser: function(){
-        mmc.user = false
         var cookies = utils.keyValParse(document.cookie)
         if (cookies.user){
             aja()
@@ -18,7 +17,13 @@ var utils = {
                     mmc.user = res
                     mmc.nav.subNavSection = ''
                 })
+				.on("4xx", function(){
+					mmc.user = false
+				})
                 .go()
         }
+		else {
+        	mmc.user = false
+		}
     }
 }
