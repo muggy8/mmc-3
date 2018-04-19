@@ -8,8 +8,8 @@
 	$workspace = event("request");
 
 	if (substr(response::readHeader("Status")[0], 0, 3) == "404" ){
-		response::write(json_encode((object)[
-			"error" => "Endpoint not found"
+		response::write(json_encode([
+			"Not found"
 		]));
 	}
 
