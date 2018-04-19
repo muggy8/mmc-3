@@ -22,6 +22,16 @@
                     >
                         Login
                     </div>
+                    <div
+                        class="cell bg-primary-dark-hover {:
+                            (this.app.nav.subNavSection === 'account') ? 'bg-primary-dark' : ''
+                        :}|{nav.subNavSection}| {: !this.app.user && ' hide ':}|{user}|"
+                        onclick="(this.app.nav.subNavSection === 'account') ? (this.app.nav.subNavSection = '') : (this.app.nav.subNavSection = 'account')"
+                    >Account</div>
+                    <div
+                        class="cell bg-primary-dark-hover {: !this.app.user && ' hide ':}|{user}|"
+                        onclick="this.app.nav.logout()"
+                    >LogOut</div>
                 </nav>
             </div>
             <div class="flex-big">
