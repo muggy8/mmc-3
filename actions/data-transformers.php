@@ -42,52 +42,66 @@
 
 	function withinSchema($data, $schema){
 		$assumption = true;
-		foreach($data as $key => $val){
-			if (isset($schema->{$key})){
-				if (is_object($val) && is_object($schema->{$key})){
+		if (is_object($schema)){
+			if (is_array($data)){
+				foreach($data as $item){
 					$assumption = $assumption
-						? withinSchema($val, $schema->{$key})
-						: false ;
+						? withinSchema($item, $schema)
+						: false;
 				}
-				else if (is_array($val) && is_object($schema->{$key})){
-					foreach($val as $item){
+			}
+			else if (is_object($data)){
+				foreach($data as $key => $val){
+					// echo $key;
+					// var_dump($val);
+					if (!isset($schema->{$key})){
+						$assumption = false;
+					}
+					else if (isset($schema->{$key}) && (is_object($val) || is_array($val)) ){
 						$assumption = $assumption
-							? withinSchema($item, $schema->{$key})
-							: false ;
+							? withinSchema($val, $schema->{$key})
+							: false;
+					}
+					else if (isset($schema->{$key}) && gettype($val) !== $schema->{$key}){
+						$assumption = false;
 					}
 				}
 			}
-			else {
-				$assumption = false;
+		}
+		else if (is_string($schema)){ // we only expect to get here if we are testing an array of single value types
+			foreach($data as $val){
+				if (gettype($val) !== $schema){
+					$assumption = false;
+				}
 			}
 		}
+
+		var_dump($data);
+		var_dump($schema);
+		var_dump($assumption);
+
 		return $assumption;
 	}
-	//
-	// $output = patch((object)[
-	// 	"name" => "abc123",
-	// 	"obj" => (object)[
-	// 		"abc" => 123
-	// 	],
-	// 	"arr" => [
-	// 		(object)[
-	// 			"foo" => 123,
-	// 			"bar" => 456
-	// 		],
-	// 		(object)[
-	// 			"foo" => 888,
-	// 			"bar" => 999
-	// 		]
-	// 	]
-	// ], (object)[
-	// 	"name" => "muggy8",
-	// 	"arr" => [
-	// 		(object)[
-	// 			"foo" => 15,
-	// 			"bar" => 22
-	// 		],
-	// 		99,
-	// 	],
-	// 	"junk" => true
-	// ]);
-	// var_dump($output);
+
+	$output = withinSchema((object)[
+		"name" => "abc123",
+		"arr" => [
+			(object)[
+				"foo" => 123,
+				"bar" => 456
+			],
+			(object)[
+				"foo" => 888,
+				"bar" => 999,
+				"baz" => "bleh"
+			]
+		]
+	], (object)[
+		"name" => "string",
+		"arr" => (object)[
+			"foo" => "integer",
+			"bar" => "integer"
+		],
+		"junk" => "boolean"
+	]);
+	var_dump($output);
