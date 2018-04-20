@@ -3,4 +3,3 @@
 	include_once "util.js";
 	include_once "main.js";
 	include_once "nav.js";
-	include_once "views/home.js";
