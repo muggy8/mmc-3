@@ -23,6 +23,9 @@
 					momoca.notify(message)
 				}
 			})
+            .on("5xx", function(oxo){
+                momoca.notify("Server Error")
+            })
 			.go()
 	}
 

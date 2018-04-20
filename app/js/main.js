@@ -5,8 +5,8 @@ var mmcView = proxymity(document.querySelector("body"), {
             aja()
                 .url("/api/me")
 				.cache(false)
-                .on("2xx", function(res){
-                    momoca.user = res
+                .on("2xx", function(ouo){
+                    momoca.user = ouo
                 })
 				.on("4xx", function(){
 					momoca.user = {}
