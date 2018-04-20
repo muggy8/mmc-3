@@ -17,35 +17,35 @@
                     <div
                         class="cell bg-primary-dark-hover {:
                             (this.app.nav.subNavSection === 'login') ? 'bg-primary-dark' : ''
-                        :}|{nav.subNavSection}| {: this.app.user && ' hide ':}|{user}|"
+                        :}|{nav.subNavSection}| {: this.app.user.name.toString() && ' hidden-state ':}|{user.name}|"
                         onclick="(this.app.nav.subNavSection === 'login') ? (this.app.nav.subNavSection = '') : (this.app.nav.subNavSection = 'login')"
                     >Login</div>
                     <div
                         class="cell bg-primary-dark-hover {:
                             (this.app.nav.subNavSection === 'account') ? 'bg-primary-dark' : ''
-                        :}|{nav.subNavSection}| {: !this.app.user && ' hide ':}|{user}|"
+                        :}|{nav.subNavSection}| {: !this.app.user.name.toString() && ' hidden-state ':}|{user.name}|"
                         onclick="(this.app.nav.subNavSection === 'account') ? (this.app.nav.subNavSection = '') : (this.app.nav.subNavSection = 'account')"
                     >Account</div>
                     <div
-                        class="cell bg-primary-dark-hover {: !this.app.user && ' hide ':}|{user}|"
+                        class="cell bg-primary-dark-hover {: !this.app.user.name.toString() && ' hidden-state ':}|{user.name}|"
                         onclick="this.app.nav.logout()"
                     >LogOut</div>
                 </nav>
             </div>
 
             <!-- sub menu -->
-            <div class="absolute-big col-1-6-big bg-primary-dark text-center {: this.app.nav.subNavSection.toString() ? '' : ' hide ' :}|{nav.subNavSection}|" style="top: 100%; right:0;">
+            <div class="absolute-big col-1-6-big bg-primary-dark text-center {: this.app.nav.subNavSection.toString() ? '' : ' hidden-state ' :}|{nav.subNavSection}|" style="top: 100%; right:0;">
 
 				<!-- Login with ... -->
-				<div class="{: (this.app.nav.subNavSection === 'login') ? '' : ' hide ' :}|{nav.subNavSection}| cell">
+				<div class="{: (this.app.nav.subNavSection === 'login') ? '' : ' hidden-state ' :}|{nav.subNavSection}| cell">
 					Login With
                     <a href="/api/auth/reddit" target="_blank" class="block color-gray-light color-white-hover bg-primary-light-hover">Reddit</a>
                 </div>
 
 				<!-- my account -->
-				<form class="{: (this.app.nav.subNavSection === 'account') ? '' : ' hide ' :}|{nav.subNavSection}| flex-mid vhcenter block-big" onsubmit="this.app.nav.updateUser(this.app.sendUser); this.app.sendUser = {}; return false;">
+				<form class="{: (this.app.nav.subNavSection === 'account') ? '' : ' hidden-state ' :}|{nav.subNavSection}| flex-mid vhcenter block-big" onsubmit="this.app.nav.updateUser(this.app.sendUser); this.app.sendUser = {}; return false;">
 					<label class="block cell text-left-big">
-						Name: <input type="text" name="user.name" class="bg-gray col-2-2-big" onchange="this.app.sendUser.name = this.app.user.name.toString()">
+						Name: <input type="text" name="user.name" class="bg-gray col-2-2-big" onchange="this.app.sendUser.name = this.app.user.name.toString()" required>
 					</label>
 					<label class="block cell text-left-big">
 						Email (public): <input type="email" name="user.email" class="bg-gray col-2-2-big" onchange="this.app.sendUser.email = this.app.user.email.toString()">

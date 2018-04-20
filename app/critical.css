@@ -447,3 +447,7 @@ h5 {
 .color-white {
     color: #FFF;
 }
+
+.hidden-state {
+    display: none !important;
+}
