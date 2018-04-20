@@ -1,0 +1,24 @@
+{
+    "name": "mmc-3",
+    "version": "0.0.1",
+    "description": "The 3rd rewrite of the Music Matrix Composer",
+    "main": "index.html",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/muggy8/mmc-3.git"
+    },
+    "keywords": [
+        "music",
+        "web",
+        "app"
+    ],
+    "author": "Muggy Ate",
+    "license": "UNLICENSED",
+    "bugs": {
+        "url": "https://github.com/muggy8/mmc-3/issues"
+    },
+    "homepage": "https://github.com/muggy8/mmc-3#readme"
+}
