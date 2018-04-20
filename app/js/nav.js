@@ -25,4 +25,10 @@
 			})
 			.go()
 	}
+
+    window.addEventListener("message", function(ev){
+        if (ev.data === "close"){
+            mmc.nav.subNavSection = ""
+        }
+    })
 })(mmc.nav)
