@@ -11,7 +11,7 @@
 			.method("PATCH")
 			.cache(false)
 			.body(userProxy.objectify())
-			.url("/api/user/me")
+			.url("/api/me")
 			.on("2xx", function(){
 				utils.notify("Account Updated")
 				mmc.nav.subNavSection = ""

@@ -12,7 +12,7 @@ var utils = {
         var cookies = utils.keyValParse(document.cookie)
         if (cookies.user){
             aja()
-                .url("/api/user/me")
+                .url("/api/me")
 				.cache(false)
                 .on("2xx", function(res){
                     mmc.user = res
