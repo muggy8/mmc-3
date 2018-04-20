@@ -2,7 +2,7 @@
     navControler.logout = function(){
         aja()
             .url("/api/auth/logout")
-            .on("success", utils.updateUser)
+            .on("success", mmc.updateUser)
             .go()
     }
 
@@ -15,7 +15,7 @@
 			.on("2xx", function(){
 				utils.notify("Account Updated")
 				mmc.nav.subNavSection = ""
-				utils.updateUser()
+				mmc.updateUser()
 			})
 			.on("4xx", function(o3o){
 				var messages = JSON.parse(o3o)
@@ -28,6 +28,7 @@
 
     window.addEventListener("message", function(ev){
         if (ev.data === "close"){
+            mmc.updateUser()
             mmc.nav.subNavSection = ""
         }
     })
