@@ -7,8 +7,5 @@ var utils = {
             output[pair[0]] = pair[1]
         }
         return output
-    },
-	notify: function(message){
-		console.log(message)
-	}
+    }
 }

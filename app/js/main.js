@@ -16,7 +16,10 @@ var mmcView = proxymity(document.querySelector("body"), {
 		else {
         	mmc.user = {}
 		}
-    }
+    },
+	notify: function(message){
+		console.log(message)
+	}
 })
 var mmc = mmcView.app
 mmc.updateUser()

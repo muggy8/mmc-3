@@ -13,14 +13,14 @@
 			.body(userProxy.objectify())
 			.url("/api/me")
 			.on("2xx", function(){
-				utils.notify("Account Updated")
+				mmc.notify("Account Updated")
 				mmc.nav.subNavSection = ""
 				mmc.updateUser()
 			})
 			.on("4xx", function(o3o){
 				var messages = JSON.parse(o3o)
 				for(var message of messages){
-					utils.notify(message)
+					mmc.notify(message)
 				}
 			})
 			.go()
