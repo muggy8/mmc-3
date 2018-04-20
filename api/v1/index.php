@@ -1,6 +1,6 @@
 <?php
 	include_once("globals.php");
-	include_once(api_root . "/api/v1/init.php");
+	include_once(http_root . "/api/v1/init.php");
 
 	response::setHeader("Status", "404 Not Found");
 	response::setHeader("Content-Type", "application/json;charset=UTF-8");
