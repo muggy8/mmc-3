@@ -2,7 +2,7 @@
     navControler.logout = function(){
         aja()
             .url("/api/auth/logout")
-            .on("success", mmc.updateUser)
+            .on("success", momoca.updateUser)
             .go()
     }
 
@@ -13,14 +13,14 @@
 			.body(userProxy.objectify())
 			.url("/api/me")
 			.on("2xx", function(){
-				mmc.notify("Account Updated")
-				mmc.nav.subNavSection = ""
-				mmc.updateUser()
+				momoca.notify("Account Updated")
+				momoca.nav.subNavSection = ""
+				momoca.updateUser()
 			})
 			.on("4xx", function(o3o){
 				var messages = JSON.parse(o3o)
 				for(var message of messages){
-					mmc.notify(message)
+					momoca.notify(message)
 				}
 			})
 			.go()
@@ -28,8 +28,8 @@
 
     window.addEventListener("message", function(ev){
         if (ev.data === "close"){
-            mmc.updateUser()
-            mmc.nav.subNavSection = ""
+            momoca.updateUser()
+            momoca.nav.subNavSection = ""
         }
     })
-})(mmc.nav)
+})(momoca.nav)

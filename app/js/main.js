@@ -6,20 +6,20 @@ var mmcView = proxymity(document.querySelector("body"), {
                 .url("/api/me")
 				.cache(false)
                 .on("2xx", function(res){
-                    mmc.user = res
+                    momoca.user = res
                 })
 				.on("4xx", function(){
-					mmc.user = {}
+					momoca.user = {}
 				})
                 .go()
         }
 		else {
-        	mmc.user = {}
+        	momoca.user = {}
 		}
     },
 	notify: function(message){
 		console.log(message)
 	}
 })
-var mmc = mmcView.app
-mmc.updateUser()
+var momoca = mmcView.app
+momoca.updateUser()
