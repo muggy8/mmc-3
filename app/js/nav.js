@@ -2,11 +2,11 @@
     navControler.logout = function(){
         aja()
             .url("/api/auth/logout")
-            .on("success", momoca.updateUser)
+            .on("success", momoca.getUser)
             .go()
     }
 
-	navControler.updateUser = function(userProxy){
+	navControler.patchUser = function(userProxy){
 		aja()
 			.method("PATCH")
 			.cache(false)
@@ -15,7 +15,7 @@
 			.on("2xx", function(){
 				momoca.notify("Account Updated")
 				momoca.nav.subNavSection = ""
-				momoca.updateUser()
+				momoca.getUser()
 			})
 			.on("4xx", function(o3o){
 				var messages = JSON.parse(o3o)

@@ -1,5 +1,5 @@
 var mmcView = proxymity(document.querySelector("body"), {
-    updateUser: function(){
+    getUser: function(){
         var cookies = utils.keyValParse(document.cookie)
         if (cookies.user){
             aja()
@@ -22,4 +22,4 @@ var mmcView = proxymity(document.querySelector("body"), {
 	}
 })
 var momoca = mmcView.app
-momoca.updateUser()
+momoca.getUser()

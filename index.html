@@ -43,7 +43,7 @@
                 </div>
 
 				<!-- my account -->
-				<form class="{: (this.app.nav.subNavSection === 'account') ? '' : ' hidden-state ' :}|{nav.subNavSection}| flex-mid vhcenter block-big" onsubmit="this.app.nav.updateUser(this.app.sendUser); this.app.sendUser = {}; return false;">
+				<form class="{: (this.app.nav.subNavSection === 'account') ? '' : ' hidden-state ' :}|{nav.subNavSection}| flex-mid vhcenter block-big" onsubmit="this.app.nav.patchUser(this.app.sendUser); this.app.sendUser = {}; return false;">
 					<label class="block cell text-left-big">
 						Name: <input type="text" name="user.name" class="bg-gray col-2-2-big" onchange="this.app.sendUser.name = this.app.user.name.toString()" required>
 					</label>
