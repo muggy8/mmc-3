@@ -1,6 +1,7 @@
 .ftpconfig
 configs.json
 configs.php
+app/version.json
 
 # Logs
 logs
