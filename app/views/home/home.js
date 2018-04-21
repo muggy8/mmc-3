@@ -1,12 +1,12 @@
-void function(homeScope){
+void function(homeController){
     aja()
         .url("/app/views/home/home.html")
         .into("#loading")
         .on("2xx", function(){
-            homeScope.view = proxymity(loading.childNodes, momoca).detach()
+            var view = proxymity(loading.childNodes, momoca).detach()
             momoca.rout = utils.extendFn(momoca.rout, function(superFn){
                 if (!superFn() && momoca.state.match(/^\/?$/)){
-                    homeScope.view.appendTo("main")
+                    view.appendTo("main")
                     return true
                 }
             })

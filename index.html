@@ -3,7 +3,14 @@
 		<title>Music Matrix Composer V3</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script>document.location.hash.match(/debug/) && document.write('<script src="//unpkg.com/mobile-inspector">\<\/script\>')</script>
-		<script src="https://cdn.rawgit.com/dwighthouse/onfontready/066420c8ce53065bb3df2337ca7c98caf891d654/dist/onfontready.min.js"></script>
+		<script src="https://cdn.rawgit.com/bramstein/fontfaceobserver/111670b895c338bed371ad5feb95d8573ce3d0c9/fontfaceobserver.standalone.js"></script>
+		<script>
+			new FontFaceObserver("Source Sans Pro")
+				.load()
+				.then(function(){
+					document.body.className += " has-font"
+				})
+		</script>
 		<link href="/app/css/critical.css" rel="stylesheet"/>
 	</head>
 	<body>
@@ -60,9 +67,6 @@
 		</header>
 		<main></main>
         <div id="loading" class="hidden-state"></div>
-		<script>onfontready("Source Sans Pro", function(){
-			document.body.className += "has-font"
-		})</script>
 		<script src="https://cdn.rawgit.com/muggy8/proxymity/9b794d9162e1c48058cd6970aedf6131f6b67b86/dist/proxymity.js"></script>
 		<script src="//unpkg.com/aja@0.4.1/aja.min.js"></script>
 		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
