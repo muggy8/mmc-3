@@ -1,4 +1,4 @@
-;(function(navControler){
+void function(navControler){
     navControler.logout = function(){
         aja()
             .url("/api/auth/logout")
@@ -35,4 +35,4 @@
             momoca.nav.subNavSection = ""
         }
     })
-})(momoca.nav)
+}(momoca.nav)
