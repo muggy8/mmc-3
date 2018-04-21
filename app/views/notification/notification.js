@@ -32,5 +32,5 @@ void function(){
         .on("5xx", function(){
             alert("Server Error")
         })
-
+        .go()
 }()
