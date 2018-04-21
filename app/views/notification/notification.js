@@ -16,7 +16,7 @@ void function(){
             setTimeout(function(){
                 var source = notificationsArray()
                 source.splice(source.indexOf(message), 1)
-            }, timeout)
+            }, configs.timeout)
         }
     }
 
