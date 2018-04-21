@@ -23,3 +23,5 @@ var mmcView = proxymity(document.querySelector("body"), {
 })
 var momoca = mmcView.app
 momoca.getUser()
+
+var main = document.querySelector("main")
