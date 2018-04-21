@@ -31,7 +31,7 @@
 
     window.addEventListener("message", function(ev){
         if (ev.data === "close"){
-            momoca.updateUser()
+            momoca.getUser()
             momoca.nav.subNavSection = ""
         }
     })
