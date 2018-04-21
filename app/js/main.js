@@ -20,9 +20,7 @@ var mmcView = proxymity(document.querySelector("body"), {
 	notify: function(message){
 		console.log(message)
 	},
-    rout: function(){
-        return false
-    },
+    rout: function(){},
     state: "/"
 })
 var momoca = mmcView.app

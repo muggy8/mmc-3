@@ -9,7 +9,6 @@ void function(homeScope){
                     homeScope.view.appendTo("main")
                     return true
                 }
-                return false
             })
             momoca.rout()
         })
