@@ -4,7 +4,8 @@
         "/app/js/util.js",
         "/app/js/main.js",
         "/app/js/nav.js",
-        "/app/views/home/home.js"
+        "/app/views/home/home.js",
+        "/app/views/notification/notification.js"
     ],
     "css": [
         "/app/css/critical.css",
@@ -12,6 +13,7 @@
     ],
     "html": [
         "/",
-        "/app/views/home/home.html"
+        "/app/views/home/home.html",
+        "/app/views/notification/notification.html"
     ]
 }
