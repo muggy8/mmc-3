@@ -4,6 +4,14 @@ void function(homeScope){
         .into("#loading")
         .on("2xx", function(){
             homeScope.view = proxymity(loading.childNodes, momoca).detach()
+            momoca.rout = utils.extendFn(momoca.rout, function(superFn){
+                if (!superFn() && momoca.state.match(/^\/?$/)){
+                    homeScope.view.appendTo("main")
+                    return true
+                }
+                return false
+            })
+            momoca.rout()
         })
         .on("4xx", function(o3o){
             momoca.notify("failed to get home view")
@@ -13,11 +21,4 @@ void function(homeScope){
         })
         .go()
 
-    momoca.rout = utils.extendFn(momoca.rout, function(superFn){
-        if (!superFn() && momoca.state.match(/^\/?$/)){
-            homeScope.view.appendTo("main")
-            return true
-        }
-        return false
-    })
 }(momoca.home)
