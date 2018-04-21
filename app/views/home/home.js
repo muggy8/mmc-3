@@ -12,4 +12,12 @@ void function(homeScope){
             momoca.notify("server error")
         })
         .go()
+
+    momoca.rout = utils.extendFn(momoca.rout, function(superFn){
+        if (!superFn() && momoca.state.match(/^\/?$/)){
+            homeScope.view.appendTo("main")
+            return true
+        }
+        return false
+    })
 }(momoca.home)
