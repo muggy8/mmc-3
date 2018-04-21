@@ -366,16 +366,6 @@ h5 {
 	text-align: right;
 }
 
-.island {
-    margin: 0.5rem;
-}
-.cell {
-    padding: 0.5rem;
-}
-.hide {
-    display: none;
-}
-
 .bg-primary-light {
     background-color: #00DD00;
     color: #000;
@@ -409,7 +399,7 @@ h5 {
     color: #000;
 }
 .bg-gray-light {
-    background-color: #EEE;
+    background-color: #E9E9E9;
     color: #000;
 }
 .bg-white {
@@ -420,7 +410,7 @@ h5 {
 .color-primary {
     color: #006600;
 }
-.color-primary-bright {
+.color-primary-light {
     color: #00DD00;
 }
 .color-primary-dark {
@@ -442,12 +432,26 @@ h5 {
     color: #CCC;
 }
 .color-gray-light {
-    color: #EEE;
+    color: #E9E9E9;
 }
 .color-white {
     color: #FFF;
 }
 
+.hide {
+    display: none;
+}
 .hidden-state {
     display: none !important;
+}
+
+.island {
+    margin: 0.5rem;
+}
+.cell {
+    padding: 0.5rem;
+}
+
+.cage {
+	border: solid 1px currentcolor;
 }

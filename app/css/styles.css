@@ -9,6 +9,26 @@ body.has-font {
     cursor: initial;
 }
 
+.bubble-1\.5 {
+	border-radius: 1.5em;
+}
+.bubble-1\.25 {
+	border-radius: 1.25em;
+}
+.bubble-1 {
+	border-radius: 1em;
+}
+.bubble,
+.bubble-0\.75 {
+	border-radius: 0.75em;
+}
+.bubble-0\.5 {
+	border-radius: 0.5em;
+}
+.bubble-0\.25 {
+	border-radius: 0.25em;
+}
+
 /* the responsive stuff that we dont need till later so whatever laod slowly is ok */
 @media screen and (min-width: 520px){
 	.flex-mid {

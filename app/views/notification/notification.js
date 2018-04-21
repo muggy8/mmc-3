@@ -11,14 +11,19 @@ void function(){
     }
 
     momoca.notify = function(message, configs = {}){
-        notificationsArray().push(message)
+		configs.message = message
+		notificationsArray().push(configs)
         if (typeof configs.timeout === "number"){
             setTimeout(function(){
                 var source = notificationsArray()
-                source.splice(source.indexOf(message), 1)
+                source.splice(source.indexOf(configs), 1)
             }, configs.timeout)
         }
     }
+	momoca.notify.clear = function(){
+		var source = notificationsArray()
+		source.length = 0
+	}
 
     aja()
         .url("/app/views/notification/notification.html")
