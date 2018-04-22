@@ -7,6 +7,7 @@ void function(homeController){
             momoca.rout = utils.extendFn(momoca.rout, function(superFn){
                 if (!superFn() && momoca.state.match(/^\/?$/)){
                     view.appendTo("main")
+					document.querySelector("main").className = "relative flex-big"
                     return true
                 }
             })
