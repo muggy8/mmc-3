@@ -29,5 +29,7 @@ void function(homeController){
 	homeController.createSong = function(songProperties){
 		songProperties.nps = +songProperties.nps || 8
 		console.log(songProperties.objectify())
+		momoca.state = "/song"
+		momoca.rout()
 	}
 }(momoca.home)
