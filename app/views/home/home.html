@@ -1,5 +1,24 @@
-<div class="island cage color-primary col-1-4-big col-1-2-mid cell">
+<div class="island cage bubble-0.25 color-primary col-1-4-big col-1-2-mid cell">
 	<div class="color-black">
-    	placeholder
+		<strong class="cell">Create New Song</strong>
+		<form onsubmit="this.app.home.createSong(this.app.home.newSong); this.app.home.newSong = null; return false">
+			<label class="flex island vcenter">
+				Song Name:
+				<input name="home.newSong.name" type="text" class="grow margin-h-0.5em marginless-right">
+			</label>
+			<label class="flex island vcenter">
+				Song Length:
+				<input name="home.newSong.min" class="grow margin-h-0.5em marginless-right text-center" placeholder="min" type="number" min="0" max="60">
+				:
+				<input name="home.newSong.sec" class="grow text-center" placeholder="sec" type="number" min="0" max="59">
+			</label>
+			<label class="flex island vcenter">
+				Notes per Second:
+				<input name="home.newSong.nps" class="grow margin-h-0.5em marginless-right" type="number" min="1" max="32" placeholder="8">
+			</label>
+			<div class="text-right">
+				<input type="submit" value="Create Song" class="island">
+			</div>
+		</form>
 	</div>
 </div>

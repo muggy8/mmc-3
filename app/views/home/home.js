@@ -21,4 +21,8 @@ void function(homeController){
         })
         .go()
 
+	homeController.createSong = function(songProperties){
+		songProperties.nps = +songProperties.nps || 8
+		console.log(songProperties.objectify())
+	}
 }(momoca.home)
