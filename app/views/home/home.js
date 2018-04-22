@@ -4,14 +4,16 @@ void function(homeController){
         .into("#loading")
         .on("2xx", function(){
             var view = proxymity(loading.childNodes, momoca).detach()
-            momoca.rout = utils.extendFn(momoca.rout, function(superFn){
-				var otherRoutsWorked = superFn()
-                if (!otherRoutsWorked && momoca.state.match(/^\/?$/)){
+            momoca.rout = utils.extendFn(momoca.rout, function(superFn, payload){
+				var otherRoutsWorked = superFn(payload)
+				var routMatch = momoca.state.match(/^\/($|home)/)
+                if (!otherRoutsWorked && routMatch && !view.inDom){
                     view.appendTo("main")
+					view.inDom = true
 					document.querySelector("main").className = "relative flex-big"
                     return true
                 }
-				else if (otherRoutsWorked) {
+				else if (view.inDom){
 					view.detach()
 					return otherRoutsWorked
 				}
@@ -28,12 +30,12 @@ void function(homeController){
 
 	homeController.createSong = function(songProperties){
 		songProperties.nps = +songProperties.nps || 8
-		console.log(songProperties.objectify())
 		momoca.state = "/song"
-		momoca.rout()
+		momoca.rout(songProperties.objectify())
 	}
 
 	homeController.configure = function(instrumentForConfiguration){
-
+		momoca.state = "/home/instrument-configuration"
+		momoca.rout(instrumentForConfiguration)
 	}
 }(momoca.home)
