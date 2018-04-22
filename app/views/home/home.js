@@ -13,7 +13,7 @@ void function(homeController){
                 }
 				else if (otherRoutsWorked) {
 					view.detach()
-					return true
+					return otherRoutsWorked
 				}
             })
             momoca.rout()
