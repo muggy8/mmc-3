@@ -7,13 +7,16 @@ void function(homeController){
             momoca.rout = utils.extendFn(momoca.rout, function(superFn, payload){
 				var otherRoutsWorked = superFn(payload)
 				var routMatch = momoca.state.match(/^\/($|home)/)
-                if (!otherRoutsWorked && routMatch && !view.inDom){
-                    view.appendTo("main")
-					view.inDom = true
-					document.querySelector("main").className = "relative flex-big"
+				console.log(otherRoutsWorked, routMatch, view.inDom)
+                if (!otherRoutsWorked && routMatch){
+                    if (!view.inDom){
+						view.appendTo("main")
+						view.inDom = true
+						document.querySelector("main").className = "relative flex-big"
+					}
                     return true
                 }
-				else if (view.inDom){
+				else{
 					view.detach()
 					return otherRoutsWorked
 				}
