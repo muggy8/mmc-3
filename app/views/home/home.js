@@ -5,11 +5,16 @@ void function(homeController){
         .on("2xx", function(){
             var view = proxymity(loading.childNodes, momoca).detach()
             momoca.rout = utils.extendFn(momoca.rout, function(superFn){
-                if (!superFn() && momoca.state.match(/^\/?$/)){
+				var otherRoutsWorked = superFn()
+                if (!otherRoutsWorked && momoca.state.match(/^\/?$/)){
                     view.appendTo("main")
 					document.querySelector("main").className = "relative flex-big"
                     return true
                 }
+				else if (otherRoutsWorked) {
+					view.detach()
+					return true
+				}
             })
             momoca.rout()
         })
