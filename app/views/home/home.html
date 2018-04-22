@@ -11,17 +11,17 @@
 		">
 			<label class="flex island vcenter">
 				Song Name:
-				<input name="home.newSong.name" type="text" class="grow margin-h-0.5em marginless-right">
+				<input name="home.newSong.name" type="text" class="grow margin-h-0.5em marginless-right  padding-0.25em">
 			</label>
 			<label class="flex island vcenter">
 				Song Length:
-				<input name="home.newSong.min" class="grow margin-h-0.5em marginless-right text-center" placeholder="min" type="number" min="0" max="60">
+				<input name="home.newSong.min" class="grow margin-h-0.5em marginless-right text-center padding-0.25em" placeholder="min" type="number" min="0" max="60">
 				:
-				<input name="home.newSong.sec" class="grow text-center" placeholder="sec" type="number" min="0" max="59">
+				<input name="home.newSong.sec" class="grow text-center  padding-0.25em" placeholder="sec" type="number" min="0" max="59">
 			</label>
 			<label class="flex island vcenter">
 				Notes per Second:
-				<input name="home.newSong.nps" class="grow margin-h-0.5em marginless-right" type="number" min="1" max="32" placeholder="8">
+				<input name="home.newSong.nps" class="grow margin-h-0.5em marginless-right padding-0.25em" type="number" min="1" max="32" placeholder="8">
 			</label>
 			<!--
 				foreach: {
@@ -30,15 +30,19 @@
 				}
 			-->
 			<div class="flex island vcenter">
-				Instrument
-				<select name="home.instrumentsForNewSong[this.instrumentIndex].name" class="grow margin-h-0.5em marginless-right">
+				Instrument {:this.instrumentIndex + 1:}
+				<button class="margin-h-0.25em marginless-right padding-0.25em {: !!this.app.home.instrumentsForNewSong[this.instrumentIndex].name.toString() || ' hidden-state ' :}" onclick="this.app.home.configure(this.app.home.instrumentsForNewSong[this.instrumentIndex])" type="button">Edit</button>
+				<select name="home.instrumentsForNewSong[this.instrumentIndex].name" class="grow {: !!this.app.home.instrumentsForNewSong[this.instrumentIndex].name.toString() || 'margin-h-0.25em marginless-right' :} padding-0.25em">
 					<option value="1">placeholder 1</option>
 					<option value="2">placeholder 2</option>
 				</select>
+				<button class="padding-0.25em {: this.app.home.instrumentsForNewSong.length > 1 || ' hidden-state ' :}" onclick="this.app.home.instrumentsForNewSong.splice(this.instrumentIndex, 1)" type="button">X</button>
 			</div>
 			<!-- foreach: key.end() -->
-			<div class="text-right">
-				<input type="submit" value="Create Song" class="island">
+			<div class="flex vcenter">
+				<button class="island padding-0.25em" onclick="this.app.home.instrumentsForNewSong.push({})" type="button">Add Instrument</button>
+				<div class="grow"></div>
+				<input type="submit" value="Create Song" class="island padding-0.25em">
 			</div>
 		</form>
 	</div>

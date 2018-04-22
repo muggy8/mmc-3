@@ -32,4 +32,8 @@ void function(homeController){
 		momoca.state = "/song"
 		momoca.rout()
 	}
+
+	homeController.configure = function(instrumentForConfiguration){
+
+	}
 }(momoca.home)
