@@ -2,11 +2,8 @@
 	<div class="color-black">
 		<strong class="cell">Create New Song</strong>
 		<form onsubmit="
-			this.app.home.newSong.instruments = this.app.home.instrumentsForNewSong;
 			this.app.home.createSong(this.app.home.newSong);
-			this.app.home.newSong = null;
-			this.app.home.instrumentsForNewSong.length = 0;
-			this.app.home.instrumentsForNewSong.push({})
+			this.app.home.newSong = {};
 			return false;
 		">
 			<label class="flex island vcenter">
@@ -23,24 +20,22 @@
 				Notes per Second:
 				<input name="home.newSong.nps" class="grow margin-h-0.5em marginless-right padding-0.25em" type="number" min="1" max="32" placeholder="8">
 			</label>
-			<!--
-				foreach: {
-					this.app.home.instrumentsForNewSong = [{}];
-					key("instrumentIndex").in(this.app.home.instrumentsForNewSong)
-				}
-			-->
+			<!-- foreach: {
+                this.app.home.newSong.instruments = [{}];
+                key("instrumentIndex").in(this.app.home.newSong.instruments);
+            } -->
 			<div class="flex island vcenter">
 				Instrument {:this.instrumentIndex + 1:}
-				<button class="margin-h-0.25em marginless-right padding-0.25em {: !!this.app.home.instrumentsForNewSong[this.instrumentIndex].name.toString() || ' hidden-state ' :}" onclick="this.app.home.configure(this.app.home.instrumentsForNewSong[this.instrumentIndex])" type="button">Edit</button>
-				<select name="home.instrumentsForNewSong[this.instrumentIndex].name" class="grow {: !!this.app.home.instrumentsForNewSong[this.instrumentIndex].name.toString() || 'margin-h-0.25em marginless-right' :} padding-0.25em">
+				<button class="margin-h-0.25em marginless-right padding-0.25em {: !!this.app.home.newSong.instruments[this.instrumentIndex].name.toString() || ' hidden-state ' :}" onclick="this.app.home.configure(this.app.home.newSong.instruments[this.instrumentIndex])" type="button">Edit</button>
+				<select name="home.newSong.instruments[this.instrumentIndex].name" class="grow {: !!this.app.home.newSong.instruments[this.instrumentIndex].name.toString() || 'margin-h-0.25em marginless-right' :} padding-0.25em">
 					<option value="1">placeholder 1</option>
 					<option value="2">placeholder 2</option>
 				</select>
-				<button class="padding-0.25em {: this.app.home.instrumentsForNewSong.length > 1 || ' hidden-state ' :}" onclick="this.app.home.instrumentsForNewSong.splice(this.instrumentIndex, 1)" type="button">X</button>
+				<button class="padding-0.25em {: this.app.home.newSong.instruments.length > 1 || ' hidden-state ' :}" onclick="this.app.home.newSong.instruments.splice(this.instrumentIndex, 1)" type="button">X</button>
 			</div>
 			<!-- foreach: key.end() -->
 			<div class="flex vcenter">
-				<button class="island padding-0.25em" onclick="this.app.home.instrumentsForNewSong.push({})" type="button">Add Instrument</button>
+				<button class="island padding-0.25em" onclick="this.app.home.newSong.instruments.push({})" type="button">Add Instrument</button>
 				<div class="grow"></div>
 				<input type="submit" value="Create Song" class="island padding-0.25em">
 			</div>
