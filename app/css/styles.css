@@ -2,11 +2,24 @@ body.has-font {
 	font-family: "Source Sans Pro", sans-serif;
 }
 
-[onclick] {
+[onclick],
+.link {
     cursor: pointer;
 }
 .pointer[onclick] {
     cursor: initial;
+}
+
+button,
+input[type="submit"],
+input[type="button"] {
+	display: block;
+	border-radius: 0.15em;
+	border-width: 1px;
+	border-color: currentcolor;
+	border-style: solid;
+	background-color: inherit;
+	padding: 0.25em;
 }
 
 .bubble-1\.5 {
