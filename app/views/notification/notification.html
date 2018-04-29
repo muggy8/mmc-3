@@ -1,8 +1,8 @@
 <div class="fixed col-2-2 col-1-2-mid col-1-4-big cell" style="bottom: 0; right: 0">
     <!-- foreach: key("index").in(this.app.notifications) -->
-        <div class="cage cell bubble-0.25 flex {: this.app.notifications[this.index].class.toString() || 'bg-gray-light' :} color-primary-dark">
-            <div class="grow color-black">{: this.app.notifications[this.index].message.toString() :}</div>
-			<div class="cage bubble-0.25 padding-h-0.75em padding-v-0.25em bg-white-hover" onclick="this.app.notifications.splice(this.index, 1)">X</div>
+        <div class="cage cell bubble-0.25 flex {: this.app.notifications[this.index].class.toString() || 'bg-gray-light' :}|{notifications[this.index].class}| color-primary-dark">
+            <div class="grow color-black">{: this.app.notifications[this.index].message.toString() :}|{notifications[this.index].message}|</div>
+			<div class="cage bubble-0.25 padding-h-0.75em padding-v-0.25em bg-white-hover" onclick="this.app.notifications.splice(this.index, 1);">X</div>
         </div>
     <!-- foreach: key.end() -->
 </div>
