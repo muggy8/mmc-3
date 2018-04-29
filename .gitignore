@@ -2,6 +2,7 @@
 configs.json
 configs.php
 app/version.json
+dependency-cache
 
 # Logs
 logs
