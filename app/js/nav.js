@@ -1,10 +1,10 @@
 void function(navControler){
-    navControler.logout = function(){
-        aja()
-            .url("/api/auth/logout")
-            .on("success", momoca.getUser)
-            .go()
-    }
+	navControler.logout = function(){
+		aja()
+			.url("/api/auth/logout")
+			.on("success", momoca.getUser)
+			.go()
+	}
 
 	navControler.patchUser = function(userProxy){
 		aja()
@@ -23,16 +23,16 @@ void function(navControler){
 					momoca.notify(message)
 				}
 			})
-            .on("5xx", function(oxo){
-                momoca.notify("Server Error")
-            })
+			.on("5xx", function(oxo){
+				momoca.notify("Server Error")
+			})
 			.go()
 	}
 
-    window.addEventListener("message", function(ev){
-        if (ev.data === "close"){
-            momoca.getUser()
-            momoca.nav.subNavSection = ""
-        }
-    })
+	window.addEventListener("message", function(ev){
+		if (ev.data === "close"){
+			momoca.getUser()
+			momoca.nav.subNavSection = ""
+		}
+	})
 }(momoca.nav)
