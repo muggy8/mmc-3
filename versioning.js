@@ -24,6 +24,7 @@ fs.readFile("app/assets.json", function(o3o, ouo){
                         contents += chunk
                     })
                     stream.on("end", function(){
+						console.log("loaded:", assetName)
                         assetVersion[assetName] = crypto.createHash("md5")
                             .update(contents, 'utf8')
                             .digest('hex')
