@@ -15,6 +15,9 @@
         "web",
         "app"
     ],
+	"dependencies" : {
+		"MIDI.js": "git+https://github.com/mudcube/MIDI.js.git#a8a84257afa70721ae462448048a87301fc1554a"
+	},
     "author": "Muggy Ate",
     "license": "UNLICENSED",
     "bugs": {
