@@ -29,515 +29,515 @@ momoca.getUser()
 momoca.loading = document.querySelector("#loading")
 momoca.instruments = [
 	{
-		"name":"trombone",
-		"key":"trombone"
-	},
-	{
-		"name":"taiko Drum",
-		"key":"taiko_drum"
-	},
-	{
-		"name":"bird Tweet",
-		"key":"bird_tweet"
-	},
-	{
-		"name":"tubular Bells",
-		"key":"tubular_bells"
-	},
-	{
-		"name":"oboe",
-		"key":"oboe"
-	},
-	{
-		"name":"lead 6 Voice",
-		"key":"lead_6_voice"
-	},
-	{
-		"name":"violin",
-		"key":"violin"
-	},
-	{
-		"name":"gunshot",
-		"key":"gunshot"
-	},
-	{
-		"name":"music Box",
-		"key":"music_box"
-	},
-	{
-		"name":"viola",
-		"key":"viola"
-	},
-	{
-		"name":"pad 6 Metallic",
-		"key":"pad_6_metallic"
-	},
-	{
-		"name":"slap Bass 1",
-		"key":"slap_bass_1"
-	},
-	{
-		"name":"rock Organ",
-		"key":"rock_organ"
-	},
-	{
-		"name":"flute",
-		"key":"flute"
-	},
-	{
-		"name":"lead 3 Calliope",
-		"key":"lead_3_calliope"
-	},
-	{
-		"name":"celesta",
-		"key":"celesta"
-	},
-	{
-		"name":"alto Sax",
-		"key":"alto_sax"
-	},
-	{
-		"name":"fretless Bass",
-		"key":"fretless_bass"
-	},
-	{
-		"name":"seashore",
-		"key":"seashore"
-	},
-	{
-		"name":"lead 5 Charang",
-		"key":"lead_5_charang"
-	},
-	{
-		"name":"cello",
-		"key":"cello"
-	},
-	{
-		"name":"electric Grand Piano",
-		"key":"electric_grand_piano"
-	},
-	{
-		"name":"harpsichord",
-		"key":"harpsichord"
-	},
-	{
-		"name":"pizzicato Strings",
-		"key":"pizzicato_strings"
-	},
-	{
-		"name":"agogo",
-		"key":"agogo"
-	},
-	{
-		"name":"steel Drums",
-		"key":"steel_drums"
-	},
-	{
-		"name":"piccolo",
-		"key":"piccolo"
-	},
-	{
-		"name":"bright Acoustic Piano",
-		"key":"bright_acoustic_piano"
-	},
-	{
-		"name":"fx 2 Soundtrack",
-		"key":"fx_2_soundtrack"
-	},
-	{
-		"name":"applause",
-		"key":"applause"
-	},
-	{
-		"name":"electric Piano 2",
-		"key":"electric_piano_2"
-	},
-	{
-		"name":"bassoon",
-		"key":"bassoon"
-	},
-	{
-		"name":"pad 1 New Age",
-		"key":"pad_1_new_age"
-	},
-	{
-		"name":"fx 4 Atmosphere",
-		"key":"fx_4_atmosphere"
-	},
-	{
-		"name":"synth Choir",
-		"key":"synth_choir"
-	},
-	{
-		"name":"reverse Cymbal",
-		"key":"reverse_cymbal"
-	},
-	{
-		"name":"ocarina",
-		"key":"ocarina"
-	},
-	{
-		"name":"french Horn",
-		"key":"french_horn"
-	},
-	{
-		"name":"recorder",
-		"key":"recorder"
-	},
-	{
-		"name":"orchestra Hit",
-		"key":"orchestra_hit"
-	},
-	{
-		"name":"guitar Harmonics",
-		"key":"guitar_harmonics"
-	},
-	{
-		"name":"acoustic Guitar Steel",
-		"key":"acoustic_guitar_steel"
-	},
-	{
-		"name":"fx 3 Crystal",
-		"key":"fx_3_crystal"
-	},
-	{
-		"name":"trumpet",
-		"key":"trumpet"
-	},
-	{
-		"name":"lead 4 Chiff",
-		"key":"lead_4_chiff"
-	},
-	{
-		"name":"electric Guitar Clean",
-		"key":"electric_guitar_clean"
-	},
-	{
-		"name":"accordion",
+		"name":"Accordion",
 		"key":"accordion"
 	},
 	{
-		"name":"sitar",
-		"key":"sitar"
-	},
-	{
-		"name":"fiddle",
-		"key":"fiddle"
-	},
-	{
-		"name":"percussive Organ",
-		"key":"percussive_organ"
-	},
-	{
-		"name":"lead 7 Fifths",
-		"key":"lead_7_fifths"
-	},
-	{
-		"name":"tenor Sax",
-		"key":"tenor_sax"
-	},
-	{
-		"name":"tinkle Bell",
-		"key":"tinkle_bell"
-	},
-	{
-		"name":"english Horn",
-		"key":"english_horn"
-	},
-	{
-		"name":"fx 1 Rain",
-		"key":"fx_1_rain"
-	},
-	{
-		"name":"dulcimer",
-		"key":"dulcimer"
-	},
-	{
-		"name":"tuba",
-		"key":"tuba"
-	},
-	{
-		"name":"acoustic Grand Piano",
-		"key":"acoustic_grand_piano"
-	},
-	{
-		"name":"drawbar Organ",
-		"key":"drawbar_organ"
-	},
-	{
-		"name":"baritone Sax",
-		"key":"baritone_sax"
-	},
-	{
-		"name":"orchestral Harp",
-		"key":"orchestral_harp"
-	},
-	{
-		"name":"reed Organ",
-		"key":"reed_organ"
-	},
-	{
-		"name":"pad 2 Warm",
-		"key":"pad_2_warm"
-	},
-	{
-		"name":"soprano Sax",
-		"key":"soprano_sax"
-	},
-	{
-		"name":"electric Bass Pick",
-		"key":"electric_bass_pick"
-	},
-	{
-		"name":"synth Strings 1",
-		"key":"synth_strings_1"
-	},
-	{
-		"name":"tango Accordion",
-		"key":"tango_accordion"
-	},
-	{
-		"name":"choir Aahs",
-		"key":"choir_aahs"
-	},
-	{
-		"name":"synth Strings 2",
-		"key":"synth_strings_2"
-	},
-	{
-		"name":"slap Bass 2",
-		"key":"slap_bass_2"
-	},
-	{
-		"name":"banjo",
-		"key":"banjo"
-	},
-	{
-		"name":"xylophone",
-		"key":"xylophone"
-	},
-	{
-		"name":"overdriven Guitar",
-		"key":"overdriven_guitar"
-	},
-	{
-		"name":"vibraphone",
-		"key":"vibraphone"
-	},
-	{
-		"name":"synth Bass 1",
-		"key":"synth_bass_1"
-	},
-	{
-		"name":"blown Bottle",
-		"key":"blown_bottle"
-	},
-	{
-		"name":"fx 6 Goblins",
-		"key":"fx_6_goblins"
-	},
-	{
-		"name":"pad 5 Bowed",
-		"key":"pad_5_bowed"
-	},
-	{
-		"name":"pad 8 Sweep",
-		"key":"pad_8_sweep"
-	},
-	{
-		"name":"tremolo Strings",
-		"key":"tremolo_strings"
-	},
-	{
-		"name":"bagpipe",
-		"key":"bagpipe"
-	},
-	{
-		"name":"koto",
-		"key":"koto"
-	},
-	{
-		"name":"muted Trumpet",
-		"key":"muted_trumpet"
-	},
-	{
-		"name":"fx 5 Brightness",
-		"key":"fx_5_brightness"
-	},
-	{
-		"name":"glockenspiel",
-		"key":"glockenspiel"
-	},
-	{
-		"name":"electric Piano 1",
-		"key":"electric_piano_1"
-	},
-	{
-		"name":"voice Oohs",
-		"key":"voice_oohs"
-	},
-	{
-		"name":"clavinet",
-		"key":"clavinet"
-	},
-	{
-		"name":"timpani",
-		"key":"timpani"
-	},
-	{
-		"name":"breath Noise",
-		"key":"breath_noise"
-	},
-	{
-		"name":"marimba",
-		"key":"marimba"
-	},
-	{
-		"name":"synth Brass 1",
-		"key":"synth_brass_1"
-	},
-	{
-		"name":"pan Flute",
-		"key":"pan_flute"
-	},
-	{
-		"name":"kalimba",
-		"key":"kalimba"
-	},
-	{
-		"name":"synth Drum",
-		"key":"synth_drum"
-	},
-	{
-		"name":"acoustic Bass",
+		"name":"Acoustic Bass",
 		"key":"acoustic_bass"
 	},
 	{
-		"name":"shakuhachi",
-		"key":"shakuhachi"
+		"name":"Acoustic Grand Piano",
+		"key":"acoustic_grand_piano"
 	},
 	{
-		"name":"electric Guitar Jazz",
-		"key":"electric_guitar_jazz"
-	},
-	{
-		"name":"church Organ",
-		"key":"church_organ"
-	},
-	{
-		"name":"fx 8 Scifi",
-		"key":"fx_8_scifi"
-	},
-	{
-		"name":"shanai",
-		"key":"shanai"
-	},
-	{
-		"name":"melodic Tom",
-		"key":"melodic_tom"
-	},
-	{
-		"name":"woodblock",
-		"key":"woodblock"
-	},
-	{
-		"name":"lead 2 Sawtooth",
-		"key":"lead_2_sawtooth"
-	},
-	{
-		"name":"guitar Fret Noise",
-		"key":"guitar_fret_noise"
-	},
-	{
-		"name":"electric Bass Finger",
-		"key":"electric_bass_finger"
-	},
-	{
-		"name":"synth Bass 2",
-		"key":"synth_bass_2"
-	},
-	{
-		"name":"synth Brass 2",
-		"key":"synth_brass_2"
-	},
-	{
-		"name":"string Ensemble 2",
-		"key":"string_ensemble_2"
-	},
-	{
-		"name":"electric Guitar Muted",
-		"key":"electric_guitar_muted"
-	},
-	{
-		"name":"distortion Guitar",
-		"key":"distortion_guitar"
-	},
-	{
-		"name":"harmonica",
-		"key":"harmonica"
-	},
-	{
-		"name":"pad 7 Halo",
-		"key":"pad_7_halo"
-	},
-	{
-		"name":"pad 4 Choir",
-		"key":"pad_4_choir"
-	},
-	{
-		"name":"acoustic Guitar Nylon",
+		"name":"Acoustic Guitar Nylon",
 		"key":"acoustic_guitar_nylon"
 	},
 	{
-		"name":"lead 1 Square",
-		"key":"lead_1_square"
+		"name":"Acoustic Guitar Steel",
+		"key":"acoustic_guitar_steel"
 	},
 	{
-		"name":"lead 8 Bass _lead",
-		"key":"lead_8_bass__lead"
+		"name":"Agogo",
+		"key":"agogo"
 	},
 	{
-		"name":"pad 3 Polysynth",
-		"key":"pad_3_polysynth"
+		"name":"Alto Sax",
+		"key":"alto_sax"
 	},
 	{
-		"name":"brass Section",
+		"name":"Applause",
+		"key":"applause"
+	},
+	{
+		"name":"Bagpipe",
+		"key":"bagpipe"
+	},
+	{
+		"name":"Banjo",
+		"key":"banjo"
+	},
+	{
+		"name":"Baritone Sax",
+		"key":"baritone_sax"
+	},
+	{
+		"name":"Bassoon",
+		"key":"bassoon"
+	},
+	{
+		"name":"Bird Tweet",
+		"key":"bird_tweet"
+	},
+	{
+		"name":"Blown Bottle",
+		"key":"blown_bottle"
+	},
+	{
+		"name":"Brass Section",
 		"key":"brass_section"
 	},
 	{
-		"name":"contrabass",
+		"name":"Breath Noise",
+		"key":"breath_noise"
+	},
+	{
+		"name":"Bright Acoustic Piano",
+		"key":"bright_acoustic_piano"
+	},
+	{
+		"name":"Celesta",
+		"key":"celesta"
+	},
+	{
+		"name":"Cello",
+		"key":"cello"
+	},
+	{
+		"name":"Choir Aahs",
+		"key":"choir_aahs"
+	},
+	{
+		"name":"Church Organ",
+		"key":"church_organ"
+	},
+	{
+		"name":"Clarinet",
+		"key":"clarinet"
+	},
+	{
+		"name":"Clavinet",
+		"key":"clavinet"
+	},
+	{
+		"name":"Contrabass",
 		"key":"contrabass"
 	},
 	{
-		"name":"shamisen",
-		"key":"shamisen"
+		"name":"Distortion Guitar",
+		"key":"distortion_guitar"
 	},
 	{
-		"name":"fx 7 Echoes",
+		"name":"Drawbar Organ",
+		"key":"drawbar_organ"
+	},
+	{
+		"name":"Dulcimer",
+		"key":"dulcimer"
+	},
+	{
+		"name":"Electric Bass Finger",
+		"key":"electric_bass_finger"
+	},
+	{
+		"name":"Electric Bass Pick",
+		"key":"electric_bass_pick"
+	},
+	{
+		"name":"Electric Grand Piano",
+		"key":"electric_grand_piano"
+	},
+	{
+		"name":"Electric Guitar Clean",
+		"key":"electric_guitar_clean"
+	},
+	{
+		"name":"Electric Guitar Jazz",
+		"key":"electric_guitar_jazz"
+	},
+	{
+		"name":"Electric Guitar Muted",
+		"key":"electric_guitar_muted"
+	},
+	{
+		"name":"Electric Piano 1",
+		"key":"electric_piano_1"
+	},
+	{
+		"name":"Electric Piano 2",
+		"key":"electric_piano_2"
+	},
+	{
+		"name":"English Horn",
+		"key":"english_horn"
+	},
+	{
+		"name":"Fiddle",
+		"key":"fiddle"
+	},
+	{
+		"name":"Flute",
+		"key":"flute"
+	},
+	{
+		"name":"French Horn",
+		"key":"french_horn"
+	},
+	{
+		"name":"Fretless Bass",
+		"key":"fretless_bass"
+	},
+	{
+		"name":"Fx 1 Rain",
+		"key":"fx_1_rain"
+	},
+	{
+		"name":"Fx 2 Soundtrack",
+		"key":"fx_2_soundtrack"
+	},
+	{
+		"name":"Fx 3 Crystal",
+		"key":"fx_3_crystal"
+	},
+	{
+		"name":"Fx 4 Atmosphere",
+		"key":"fx_4_atmosphere"
+	},
+	{
+		"name":"Fx 5 Brightness",
+		"key":"fx_5_brightness"
+	},
+	{
+		"name":"Fx 6 Goblins",
+		"key":"fx_6_goblins"
+	},
+	{
+		"name":"Fx 7 Echoes",
 		"key":"fx_7_echoes"
 	},
 	{
-		"name":"string Ensemble 1",
-		"key":"string_ensemble_1"
+		"name":"Fx 8 Scifi",
+		"key":"fx_8_scifi"
 	},
 	{
-		"name":"helicopter",
+		"name":"Glockenspiel",
+		"key":"glockenspiel"
+	},
+	{
+		"name":"Guitar Fret Noise",
+		"key":"guitar_fret_noise"
+	},
+	{
+		"name":"Guitar Harmonics",
+		"key":"guitar_harmonics"
+	},
+	{
+		"name":"Gunshot",
+		"key":"gunshot"
+	},
+	{
+		"name":"Harmonica",
+		"key":"harmonica"
+	},
+	{
+		"name":"Harpsichord",
+		"key":"harpsichord"
+	},
+	{
+		"name":"Helicopter",
 		"key":"helicopter"
 	},
 	{
-		"name":"telephone Ring",
-		"key":"telephone_ring"
-	},
-	{
-		"name":"honkytonk Piano",
+		"name":"Honkytonk Piano",
 		"key":"honkytonk_piano"
 	},
 	{
-		"name":"whistle",
+		"name":"Kalimba",
+		"key":"kalimba"
+	},
+	{
+		"name":"Koto",
+		"key":"koto"
+	},
+	{
+		"name":"Lead 1 Square",
+		"key":"lead_1_square"
+	},
+	{
+		"name":"Lead 2 Sawtooth",
+		"key":"lead_2_sawtooth"
+	},
+	{
+		"name":"Lead 3 Calliope",
+		"key":"lead_3_calliope"
+	},
+	{
+		"name":"Lead 4 Chiff",
+		"key":"lead_4_chiff"
+	},
+	{
+		"name":"Lead 5 Charang",
+		"key":"lead_5_charang"
+	},
+	{
+		"name":"Lead 6 Voice",
+		"key":"lead_6_voice"
+	},
+	{
+		"name":"Lead 7 Fifths",
+		"key":"lead_7_fifths"
+	},
+	{
+		"name":"Lead 8 Bass _lead",
+		"key":"lead_8_bass__lead"
+	},
+	{
+		"name":"Marimba",
+		"key":"marimba"
+	},
+	{
+		"name":"Melodic Tom",
+		"key":"melodic_tom"
+	},
+	{
+		"name":"Music Box",
+		"key":"music_box"
+	},
+	{
+		"name":"Muted Trumpet",
+		"key":"muted_trumpet"
+	},
+	{
+		"name":"Oboe",
+		"key":"oboe"
+	},
+	{
+		"name":"Ocarina",
+		"key":"ocarina"
+	},
+	{
+		"name":"Orchestra Hit",
+		"key":"orchestra_hit"
+	},
+	{
+		"name":"Orchestral Harp",
+		"key":"orchestral_harp"
+	},
+	{
+		"name":"Overdriven Guitar",
+		"key":"overdriven_guitar"
+	},
+	{
+		"name":"Pad 1 New Age",
+		"key":"pad_1_new_age"
+	},
+	{
+		"name":"Pad 2 Warm",
+		"key":"pad_2_warm"
+	},
+	{
+		"name":"Pad 3 Polysynth",
+		"key":"pad_3_polysynth"
+	},
+	{
+		"name":"Pad 4 Choir",
+		"key":"pad_4_choir"
+	},
+	{
+		"name":"Pad 5 Bowed",
+		"key":"pad_5_bowed"
+	},
+	{
+		"name":"Pad 6 Metallic",
+		"key":"pad_6_metallic"
+	},
+	{
+		"name":"Pad 7 Halo",
+		"key":"pad_7_halo"
+	},
+	{
+		"name":"Pad 8 Sweep",
+		"key":"pad_8_sweep"
+	},
+	{
+		"name":"Pan Flute",
+		"key":"pan_flute"
+	},
+	{
+		"name":"Percussive Organ",
+		"key":"percussive_organ"
+	},
+	{
+		"name":"Piccolo",
+		"key":"piccolo"
+	},
+	{
+		"name":"Pizzicato Strings",
+		"key":"pizzicato_strings"
+	},
+	{
+		"name":"Recorder",
+		"key":"recorder"
+	},
+	{
+		"name":"Reed Organ",
+		"key":"reed_organ"
+	},
+	{
+		"name":"Reverse Cymbal",
+		"key":"reverse_cymbal"
+	},
+	{
+		"name":"Rock Organ",
+		"key":"rock_organ"
+	},
+	{
+		"name":"Seashore",
+		"key":"seashore"
+	},
+	{
+		"name":"Shakuhachi",
+		"key":"shakuhachi"
+	},
+	{
+		"name":"Shamisen",
+		"key":"shamisen"
+	},
+	{
+		"name":"Shanai",
+		"key":"shanai"
+	},
+	{
+		"name":"Sitar",
+		"key":"sitar"
+	},
+	{
+		"name":"Slap Bass 1",
+		"key":"slap_bass_1"
+	},
+	{
+		"name":"Slap Bass 2",
+		"key":"slap_bass_2"
+	},
+	{
+		"name":"Soprano Sax",
+		"key":"soprano_sax"
+	},
+	{
+		"name":"Steel Drums",
+		"key":"steel_drums"
+	},
+	{
+		"name":"String Ensemble 1",
+		"key":"string_ensemble_1"
+	},
+	{
+		"name":"String Ensemble 2",
+		"key":"string_ensemble_2"
+	},
+	{
+		"name":"Synth Bass 1",
+		"key":"synth_bass_1"
+	},
+	{
+		"name":"Synth Bass 2",
+		"key":"synth_bass_2"
+	},
+	{
+		"name":"Synth Brass 1",
+		"key":"synth_brass_1"
+	},
+	{
+		"name":"Synth Brass 2",
+		"key":"synth_brass_2"
+	},
+	{
+		"name":"Synth Choir",
+		"key":"synth_choir"
+	},
+	{
+		"name":"Synth Drum",
+		"key":"synth_drum"
+	},
+	{
+		"name":"Synth Strings 1",
+		"key":"synth_strings_1"
+	},
+	{
+		"name":"Synth Strings 2",
+		"key":"synth_strings_2"
+	},
+	{
+		"name":"Taiko Drum",
+		"key":"taiko_drum"
+	},
+	{
+		"name":"Tango Accordion",
+		"key":"tango_accordion"
+	},
+	{
+		"name":"Telephone Ring",
+		"key":"telephone_ring"
+	},
+	{
+		"name":"Tenor Sax",
+		"key":"tenor_sax"
+	},
+	{
+		"name":"Timpani",
+		"key":"timpani"
+	},
+	{
+		"name":"Tinkle Bell",
+		"key":"tinkle_bell"
+	},
+	{
+		"name":"Tremolo Strings",
+		"key":"tremolo_strings"
+	},
+	{
+		"name":"Trombone",
+		"key":"trombone"
+	},
+	{
+		"name":"Trumpet",
+		"key":"trumpet"
+	},
+	{
+		"name":"Tuba",
+		"key":"tuba"
+	},
+	{
+		"name":"Tubular Bells",
+		"key":"tubular_bells"
+	},
+	{
+		"name":"Vibraphone",
+		"key":"vibraphone"
+	},
+	{
+		"name":"Viola",
+		"key":"viola"
+	},
+	{
+		"name":"Violin",
+		"key":"violin"
+	},
+	{
+		"name":"Voice Oohs",
+		"key":"voice_oohs"
+	},
+	{
+		"name":"Whistle",
 		"key":"whistle"
 	},
 	{
-		"name":"clarinet",
-		"key":"clarinet"
+		"name":"Woodblock",
+		"key":"woodblock"
+	},
+	{
+		"name":"Xylophone",
+		"key":"xylophone"
 	}
 ]

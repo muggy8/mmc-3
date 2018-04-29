@@ -21,19 +21,22 @@
 				<input name="home.newSong.nps" class="grow margin-h-0.5em marginless-right padding-0.25em" type="number" min="1" max="32" placeholder="8">
 			</label>
 			<!-- foreach: {
-                this.app.home.newSong.instruments = [{}];
-                key("instrumentIndex").in(this.app.home.newSong.instruments);
-            } -->
+				this.app.home.newSong.instruments = [{}];
+				key("instrumentIndex").in(this.app.home.newSong.instruments);
+			} -->
 			<div class="flex island vcenter">
 				Instrument {:this.instrumentIndex + 1:}
 				<button class="margin-h-0.25em marginless-right padding-0.25em {: !!this.app.home.newSong.instruments[this.instrumentIndex].name.toString() || ' hidden-state ' :}" onclick="this.app.home.configure(this.app.home.newSong.instruments[this.instrumentIndex])" type="button">Edit</button>
 				<select name="home.newSong.instruments[this.instrumentIndex].name" class="grow {: !!this.app.home.newSong.instruments[this.instrumentIndex].name.toString() || 'margin-h-0.25em marginless-right' :} padding-0.25em">
-					<option value="1">placeholder 1</option>
-					<option value="2">placeholder 2</option>
+					<!-- foreach: key("instrumentIndex").in(this.app.instruments) -->
+					<option value="{: this.app.instruments[this.instrumentIndex].key :}|{instruments}|">{: this.app.instruments[this.instrumentIndex].name :}|{instruments}|</option>
+					<!-- foreach: key.end() -->
 				</select>
 				<button class="padding-0.25em {: this.app.home.newSong.instruments.length > 1 || ' hidden-state ' :}" onclick="this.app.home.newSong.instruments.splice(this.instrumentIndex, 1)" type="button">X</button>
 			</div>
-			<!-- foreach: key.end() -->
+			<!-- foreach: key.end(function(item){
+				item.app.home.newSong.instruments[item.instrumentIndex].name = "acoustic_grand_piano"
+			}) -->
 			<div class="flex vcenter">
 				<button class="island padding-0.25em" onclick="this.app.home.newSong.instruments.push({})" type="button">Add Instrument</button>
 				<div class="grow"></div>
