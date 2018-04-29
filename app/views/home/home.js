@@ -38,10 +38,16 @@ void function(homeController){
 		songProperties.nps = +songProperties.nps || 8
 		momoca.state = "/song"
 		momoca.rout(songProperties.objectify())
+		momoca.notify("Work in progress", {
+			timeout: 5000
+		})
 	}
 
 	homeController.configure = function(instrumentForConfiguration){
 		momoca.state = "/home/instrument-configuration"
 		momoca.rout(instrumentForConfiguration)
+		momoca.notify("Work in progress", {
+			timeout: 5000
+		})
 	}
 }(momoca.home)
