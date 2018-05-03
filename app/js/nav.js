@@ -23,7 +23,7 @@ void function(navControler){
 					momoca.notify(message)
 				}
 			})
-			.on("5xx", function(oxo){
+			.on("5xx", function(x_x){
 				momoca.notify("Server Error")
 			})
 			.go()

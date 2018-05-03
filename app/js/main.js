@@ -8,8 +8,11 @@ var mmcView = proxymity(document.querySelector("body"), {
 				.on("2xx", function(ouo){
 					momoca.user = ouo
 				})
-				.on("4xx", function(){
+				.on("4xx", function(o3o){
 					momoca.user = {}
+				})
+				.on("5xx", function(x_x){
+					momoca.notify("Server Error. Please try again later")
 				})
 				.go()
 		}
