@@ -13,7 +13,7 @@ void function(){
 	momoca.notify = function(message, configs = {}){
 		configs.message = message
 		if (!configs.hasOwnProperty("timeout")){
-			configs.timeout = 2000
+			configs.timeout = 10000
 		}
 		notificationsArray().push(configs)
 		if (typeof configs.timeout === "number"){
