@@ -1,3 +1,23 @@
-<div>
-	
+<div class="fixed flex vhcenter" style="width: 100vw; height: 100vh; top:0;">
+    <div class="absolute bg-gray-dark pointer" onclick="this.app.close()" style="opacity: 0.5; height: 100%; width: 100%; top:0; left:0;"></div>
+    <div class="cell bg-white bubble-0.25 {:this.app.configs.classes.toString():}|{configs}|" style="z-index: 1; min-width: {: this.app.configs.minWidth.toString() || '0xp' :}|{configs}|;">
+        <div class="flex">
+            <span>{:this.app.configs.label.toString():}|{configs}|</span>
+            <span class="grow"></span>
+            <span class="bubble-0.25 padding-h-0.75em padding-v-0.25em bg-gray-light-hover" onclick="this.app.close()">X</span>
+        </div>
+        <div data-script="{:
+            if (this.app.innerHTML && !this.app.body) {
+                this.innerHTML = this.app.innerHTML;
+                'innerHTML';
+            }
+            else if (this.app.body && !this.app.innerHTML){
+                this.childNodes.forEach(function(node){
+                    this.removeChild(node);
+                }.bind(this));
+                this.appendChild(this.app.body);
+                'body';
+            }
+        :}|{body},{innerHTML}|"></div>
+    </div>
 </div>
