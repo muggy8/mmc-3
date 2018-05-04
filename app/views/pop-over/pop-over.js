@@ -8,23 +8,33 @@ aja()
 		momoca.notify("Failed to load pop-over module")
 	})
 	.on("2xx", function(){
-		var popoverView = proxymity(momoca.loading.childNodes)
-		var popOverController = popoverView.app
-        popOverController.body = popOverController.innerHTML = undefined;
+		var viewNodes = Array.prototype.slice.call(momoca.loading.childNodes)
+		viewNodes.forEach(function(node){
+			node.parentNode.removeChild(node)
+		})
 		momoca.popOver = function(body, configs = {}){
+			var popoverView = proxymity(viewNodes.map(function(node){
+				return node.cloneNode(true)
+			}))
+			var popOverController = popoverView.app
+        	popOverController.body = popOverController.innerHTML = popOverController.proxyView = undefined;
 			if (body instanceof HTMLElement){
 				popOverController.body = body
 			}
 			else if (typeof body === "string") {
 				popOverController.innerHTML = body
 			}
+            else if (Array.isArray(body) && body.appendTo) {
+                popOverController.proxyView = body
+            }
             popOverController.configs = configs
+
+	        popOverController.close = function(){
+	            popoverView.detach()
+				configs.onclose && configs.onclose()
+	            popOverController.body = popOverController.innerHTML = popOverController.proxyView = undefined;
+	        }
 			popoverView.appendTo("main")
 		}
-
-        popOverController.close = function(){
-            popoverView.detach()
-            popOverController.body = popOverController.innerHTML = undefined;
-        }
 	})
 	.go()
