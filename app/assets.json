@@ -3,6 +3,7 @@
         "/app/js/",
         "/app/js/util.js",
         "/app/js/main.js",
+        "/app/js/configs.js",
         "/app/views/pop-over/pop-over.js",
         "/app/js/nav.js",
         "/app/views/home/home.js",
