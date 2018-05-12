@@ -24,7 +24,15 @@ var mmcView = proxymity(document.querySelector("body"), {
 		console.log(message)
 	},
 	rout: function(){},
-	state: "/"
+	state: document.location.pathname,
+	playSong: function(songJson){
+		var b64
+		// somehow convert the song data into base64
+
+		MIDI.Player.currentData = window.atob(b64);
+		MIDI.Player.loadMidiFile();
+		MIDI.Player.start();
+	}
 })
 var momoca = mmcView.app
 momoca.getUser()
