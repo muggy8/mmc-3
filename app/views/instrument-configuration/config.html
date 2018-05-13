@@ -1,3 +1,48 @@
+<div class="flex-mid">
+	<label class="flex vcenter input-row basis">
+		<span>Instrument:</span>
+		<select name="instrument.instrumentId" class="grow margin-h-0.5em marginless-right">
+			<!-- foreach: key("instrumentIndex").in(momoca.instruments) -->
+			<option value="{: momoca.instruments[this.instrumentIndex].key :}|{static}|">{: momoca.instruments[this.instrumentIndex].name :}|{static}|</option>
+			<!-- foreach: key.end() -->
+		</select>
+	</label>
+	<div class="island"></div>
+	<label class="flex vcenter input-row basis">
+		<span>Note Configuration:</span>
+		<select name="instrument.preset" class="grow margin-h-0.5em marginless-right">
+			<!-- foreach: key("presetIndex").in(momoca.presets)-->
+			<option value="{:this.presetIndex:}|{static}|">{:momoca.presets[this.presetIndex].preset:}|{static}|</option>
+			<!-- foreach: key.end() -->
+		</select>
+		<!-- {:this.app.instrument.keyMap = momoca.presets[(+this.app.instrument.preset || 0)].map.objectify():}|{instrument.preset}| -->
+	</label>
+</div>
+
+<div>
+	<!-- foreach: {
+		this.app.mapKeys = Object.keys(this.app.instrument.keyMap)
+		key("noteLoation").in(this.app.mapKeys)
+	} -->
+	<div class="preview-row flex vhcenter margin-v-0.25em">
+		<select name="instrument.keyMap[this.app.mapKeys[this.noteLoation]]" data-transform-script="{:
+			if (typeof this.app.instrument.keyMap[this.app.mapKeys[this.noteLoation]] === 'string') {
+				this.app.instrument.keyMap[this.app.mapKeys[this.noteLoation]] = parseInt(this.app.instrument.keyMap[this.app.mapKeys[this.noteLoation]])
+			}
+		:}|{instrument.keyMap[this.app.mapKeys[this.noteLoation]]}|">
+			<!-- foreach: key("note").in(this.app.possiableNotes) -->
+			<option value="{:this.app.possiableNotes[this.note]:}|{possiableNotes}|">{:MIDI.noteToKey[this.app.possiableNotes[this.note]]:}|{possiableNotes}|</option>
+			<!-- foreach: key.end() -->
+		</select>
+		<input type="number" name="instrument.keyMap[this.app.mapKeys[this.noteLoation]]" min="21" max="108" class="input-row margin-h-0.25em marginless-right" size="2">
+		<div class="hide flex-mid">
+			<!-- foreach: key("i").in(this.app.cols)-->
+			<div class="padding-0.5em bg-gray margin-h-0.25em marginless-right"></div>
+			<!-- foreach: key.end() -->
+		</div>
+	</div>
+	<!-- foreach: key.end() -->
+</div>
 <div>
     <pre>{:this.app.stringify(null, "    "):}</pre>
 </div>

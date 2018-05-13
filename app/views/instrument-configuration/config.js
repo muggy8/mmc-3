@@ -2,7 +2,15 @@ aja()
 	.url("/app/views/instrument-configuration/config.html")
 	.into("#loading")
 	.on("2xx", function(){
-		var view = proxymity(momoca.loading.childNodes).detach()
+		var view = proxymity(momoca.loading.childNodes, {
+			cols: [],
+			possiableNotes: Object.keys(MIDI.noteToKey).map(function(item){
+				return parseInt(item);
+			})
+		}).detach()
+		for(var i = 16; i--;){
+			view.app.cols.push(true)
+		}
 		momoca.rout = utils.extendFn(momoca.rout, function(superFn, payload){
 			var otherRoutState = superFn(payload)
 			var routMatch = momoca.state.match(/\/instrument-configuration/i)
@@ -14,7 +22,8 @@ aja()
 						momoca.state = momoca.state.replace("/instrument-configuration", "")
 						momoca.rout()
                         delete view.app.instrument
-					}
+					},
+					label: "Instrument Key Selector"
 				})
 				view.app.instrument = payload
 				view.active = true
