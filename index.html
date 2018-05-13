@@ -13,6 +13,8 @@
 				.load()
 				.then(function(){
 					document.body.className += " has-font"
+				}, function(o3o){
+					console.warn("Failed to load font: Source Sans Pro", o3o)
 				})
 		</script>
 
@@ -86,11 +88,11 @@
 		<script src="https://cdn.rawgit.com/mudcube/MIDI.js/a8a84257afa70721ae462448048a87301fc1554a/inc/shim/WebAudioAPI.js"></script>
 		<script src="https://cdn.rawgit.com/mudcube/MIDI.js/a8a84257afa70721ae462448048a87301fc1554a/build/MIDI.min.js"></script>
 
+		<!-- This is our app -->
+		<script src="/app/js/"></script>
+
 		<!-- This is our main stylings  -->
 		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
 		<link href="/app/css/styles.css" rel="stylesheet"/>
-
-		<!-- This is our app -->
-		<script src="/app/js/"></script>
 	</body>
 </html>
