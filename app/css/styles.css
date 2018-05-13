@@ -36,7 +36,8 @@ body.has-font {
 		display: flex;
 	}
 
-	[class*="flex"] > .grow-1-mid
+	[class*="flex"] > .grow-1-mid,
+	[class*="flex"] > .grow-mid
 	{
 		flex-grow: 1;
 	}
@@ -47,6 +48,24 @@ body.has-font {
 	[class*="flex"] > .grow-3-mid
 	{
 		flex-grow: 3;
+	}
+
+	[class*="flex"] > .basis-50-mid
+	{
+		flex-basis: 50%;
+	}
+	[class*="flex"] > .basis-100-mid,
+	[class*="flex"] > .basis-mid
+	{
+		flex-basis: 100%;
+	}
+	[class*="flex"] > .basis-150-mid
+	{
+		flex-basis: 150%;
+	}
+	[class*="flex"] > .basis-200-mid
+	{
+		flex-basis: 200%;
 	}
 
 	[class*="flex"] > .vcenter-mid
@@ -299,6 +318,24 @@ body.has-font {
 	[class*="flex"] > .grow-3-big
 	{
 		flex-grow: 3;
+	}
+
+	[class*="flex"] > .basis-50-big
+	{
+		flex-basis: 50%;
+	}
+	[class*="flex"] > .basis-100-big,
+	[class*="flex"] > .basis-big
+	{
+		flex-basis: 100%;
+	}
+	[class*="flex"] > .basis-150-big
+	{
+		flex-basis: 150%;
+	}
+	[class*="flex"] > .basis-200-big
+	{
+		flex-basis: 200%;
 	}
 
 	[class*="flex"] > .vcenter-big
