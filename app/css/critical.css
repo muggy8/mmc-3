@@ -75,11 +75,6 @@ h5 {
 	flex-basis: 200%;
 }
 
-[class*="flex"] > .vcenter,
-[class*="flex"] > .vcenter-smol
-{
-	align-self: center;
-}
 [class*="flex"].vcenter,
 [class*="flex"].vcenter-smol
 {
@@ -97,11 +92,6 @@ h5 {
 	justify-content: center;
 }
 
-[class*="flex"] > .vstart,
-[class*="flex"] > .vstart-smol
-{
-	align-self: flex-start;
-}
 [class*="flex"].vstart,
 [class*="flex"].vstart-smol
 {
@@ -119,10 +109,6 @@ h5 {
 	justify-content: flex-start;
 }
 
-[class*="flex"] > .vend,
-[class*="flex"] > .vend-smol {
-	align-self: flex-end;
-}
 [class*="flex"].vend,
 [class*="flex"].vend-smol
 {
