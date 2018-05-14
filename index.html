@@ -60,13 +60,13 @@
 				<!-- my account -->
 				<form class="{: (this.app.nav.subNavSection === 'account') ? '' : ' hidden-state ' :}|{nav.subNavSection}| flex-mid vhcenter block-big" onsubmit="this.app.nav.patchUser(this.app.sendUser); this.app.sendUser = {}; return false;">
 					<label class="block cell text-left-big">
-						Name: <input type="text" name="user.name" class="bg-gray col-2-2-big" onchange="this.app.sendUser.name = this.app.user.name.toString()" required>
+						Name: <input type="text" name="user.name" class="bg-gray col-2-2-big" onblur="this.app.sendUser.name = this.app.user.name.toString()" required>
 					</label>
 					<label class="block cell text-left-big">
-						Email (public): <input type="email" name="user.email" class="bg-gray col-2-2-big" onchange="this.app.sendUser.email = this.app.user.email.toString()">
+						Email (public): <input type="email" name="user.email" class="bg-gray col-2-2-big" onblur="this.app.sendUser.email = this.app.user.email.toString()">
 					</label>
 					<label class="block cell text-left-big">
-						Website (public): <input type="url" name="user.website" class="bg-gray col-2-2-big" onchange="this.app.sendUser.website = this.app.user.website.toString()">
+						Website (public): <input type="url" name="user.website" class="bg-gray col-2-2-big" onblur="this.app.sendUser.website = this.app.user.website.toString()">
 					</label>
 					<label class="block cell text-center text-right-big">
 						<button type="submit" class="bubble-0.25 padding-0.25em bg-gray-light">Save</button>
