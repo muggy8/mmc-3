@@ -4,7 +4,7 @@
         "/app/js/util.js",
         "/app/js/main.js",
         "/app/js/configs.js",
-        "/app/views/pop-over/pop-over.js",
+        "/app/views/modal/modal.js",
         "/app/js/nav.js",
         "/app/views/home/home.js",
         "/app/views/notification/notification.js",
@@ -17,7 +17,7 @@
     "html": [
         "/",
         "/app/views/home/home.html",
-        "/app/views/pop-over/pop-over.html",
+        "/app/views/modal/modal.html",
         "/app/views/notification/notification.html",
         "/app/views/instrument-configuration/config.html"
     ],
