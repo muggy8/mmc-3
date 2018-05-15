@@ -3,6 +3,7 @@ configs.json
 configs.php
 app/version.json
 dependency-cache
+*.mid
 
 # Logs
 logs
