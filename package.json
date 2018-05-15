@@ -16,10 +16,10 @@
         "app"
     ],
 	"dependencies" : {
-		"MIDI.js": "git+https://github.com/mudcube/MIDI.js.git#a8a84257afa70721ae462448048a87301fc1554a",
 		"fontfaceobserver": "git+https://github.com/bramstein/fontfaceobserver.git#111670b895c338bed371ad5feb95d8573ce3d0c9",
 		"proxymity": "git+https://github.com/muggy8/proxymity.git",
 		"aja": "0.4.1",
+		"midi-player-js": "2.0.3",
 		"mobile-inspector": "latest"
 	},
     "author": "Muggy Ate",
