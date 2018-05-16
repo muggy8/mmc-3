@@ -1,515 +1,775 @@
+utils.midiWriter = require('MidiWriter') // https://www.npmjs.com/package/midi-writer-js
+utils.midiPlayer = MidiPlayer // https://github.com/grimmdude/MidiPlayerJS
+utils.soundfontPlayer = Soundfont // https://github.com/danigb/soundfont-player
+
 momoca.instruments = [
 	{
-		"name":"Accordion",
-		"key":"accordion"
+		"id": "acoustic_grand_piano",
+		"instrument": "Acoustic Grand Piano",
+		"number": 0,
+		"category": "Piano"
 	},
 	{
-		"name":"Acoustic Bass",
-		"key":"acoustic_bass"
+		"id": "bright_acoustic_piano",
+		"instrument": "Bright Acoustic Piano",
+		"number": 1,
+		"category": "Piano"
 	},
 	{
-		"name":"Acoustic Grand Piano",
-		"key":"acoustic_grand_piano"
+		"id": "electric_grand_piano",
+		"instrument": "Electric Grand Piano",
+		"number": 2,
+		"category": "Piano"
 	},
 	{
-		"name":"Acoustic Guitar Nylon",
-		"key":"acoustic_guitar_nylon"
+		"id": "honkytonk_piano",
+		"instrument": "Honky-tonk Piano",
+		"number": 3,
+		"category": "Piano"
 	},
 	{
-		"name":"Acoustic Guitar Steel",
-		"key":"acoustic_guitar_steel"
+		"id": "electric_piano_1",
+		"instrument": "Electric Piano 1",
+		"number": 4,
+		"category": "Piano"
 	},
 	{
-		"name":"Agogo",
-		"key":"agogo"
+		"id": "electric_piano_2",
+		"instrument": "Electric Piano 2",
+		"number": 5,
+		"category": "Piano"
 	},
 	{
-		"name":"Alto Sax",
-		"key":"alto_sax"
+		"id": "harpsichord",
+		"instrument": "Harpsichord",
+		"number": 6,
+		"category": "Piano"
 	},
 	{
-		"name":"Applause",
-		"key":"applause"
+		"id": "clavinet",
+		"instrument": "Clavinet",
+		"number": 7,
+		"category": "Piano"
 	},
 	{
-		"name":"Bagpipe",
-		"key":"bagpipe"
+		"id": "celesta",
+		"instrument": "Celesta",
+		"number": 8,
+		"category": "Chromatic Percussion"
 	},
 	{
-		"name":"Banjo",
-		"key":"banjo"
+		"id": "glockenspiel",
+		"instrument": "Glockenspiel",
+		"number": 9,
+		"category": "Chromatic Percussion"
 	},
 	{
-		"name":"Baritone Sax",
-		"key":"baritone_sax"
+		"id": "music_box",
+		"instrument": "Music Box",
+		"number": 10,
+		"category": "Chromatic Percussion"
 	},
 	{
-		"name":"Bassoon",
-		"key":"bassoon"
+		"id": "vibraphone",
+		"instrument": "Vibraphone",
+		"number": 11,
+		"category": "Chromatic Percussion"
 	},
 	{
-		"name":"Bird Tweet",
-		"key":"bird_tweet"
+		"id": "marimba",
+		"instrument": "Marimba",
+		"number": 12,
+		"category": "Chromatic Percussion"
 	},
 	{
-		"name":"Blown Bottle",
-		"key":"blown_bottle"
+		"id": "xylophone",
+		"instrument": "Xylophone",
+		"number": 13,
+		"category": "Chromatic Percussion"
 	},
 	{
-		"name":"Brass Section",
-		"key":"brass_section"
+		"id": "tubular_bells",
+		"instrument": "Tubular Bells",
+		"number": 14,
+		"category": "Chromatic Percussion"
 	},
 	{
-		"name":"Breath Noise",
-		"key":"breath_noise"
+		"id": "dulcimer",
+		"instrument": "Dulcimer",
+		"number": 15,
+		"category": "Chromatic Percussion"
 	},
 	{
-		"name":"Bright Acoustic Piano",
-		"key":"bright_acoustic_piano"
+		"id": "drawbar_organ",
+		"instrument": "Drawbar Organ",
+		"number": 16,
+		"category": "Organ"
 	},
 	{
-		"name":"Celesta",
-		"key":"celesta"
+		"id": "percussive_organ",
+		"instrument": "Percussive Organ",
+		"number": 17,
+		"category": "Organ"
 	},
 	{
-		"name":"Cello",
-		"key":"cello"
+		"id": "rock_organ",
+		"instrument": "Rock Organ",
+		"number": 18,
+		"category": "Organ"
 	},
 	{
-		"name":"Choir Aahs",
-		"key":"choir_aahs"
+		"id": "church_organ",
+		"instrument": "Church Organ",
+		"number": 19,
+		"category": "Organ"
 	},
 	{
-		"name":"Church Organ",
-		"key":"church_organ"
+		"id": "reed_organ",
+		"instrument": "Reed Organ",
+		"number": 20,
+		"category": "Organ"
 	},
 	{
-		"name":"Clarinet",
-		"key":"clarinet"
+		"id": "accordion",
+		"instrument": "Accordion",
+		"number": 21,
+		"category": "Organ"
 	},
 	{
-		"name":"Clavinet",
-		"key":"clavinet"
+		"id": "harmonica",
+		"instrument": "Harmonica",
+		"number": 22,
+		"category": "Organ"
 	},
 	{
-		"name":"Contrabass",
-		"key":"contrabass"
+		"id": "tango_accordion",
+		"instrument": "Tango Accordion",
+		"number": 23,
+		"category": "Organ"
 	},
 	{
-		"name":"Distortion Guitar",
-		"key":"distortion_guitar"
+		"id": "acoustic_guitar_nylon",
+		"instrument": "Acoustic Guitar (nylon)",
+		"number": 24,
+		"category": "Guitar"
 	},
 	{
-		"name":"Drawbar Organ",
-		"key":"drawbar_organ"
+		"id": "acoustic_guitar_steel",
+		"instrument": "Acoustic Guitar (steel)",
+		"number": 25,
+		"category": "Guitar"
 	},
 	{
-		"name":"Dulcimer",
-		"key":"dulcimer"
+		"id": "electric_guitar_jazz",
+		"instrument": "Electric Guitar (jazz)",
+		"number": 26,
+		"category": "Guitar"
 	},
 	{
-		"name":"Electric Bass Finger",
-		"key":"electric_bass_finger"
+		"id": "electric_guitar_clean",
+		"instrument": "Electric Guitar (clean)",
+		"number": 27,
+		"category": "Guitar"
 	},
 	{
-		"name":"Electric Bass Pick",
-		"key":"electric_bass_pick"
+		"id": "electric_guitar_muted",
+		"instrument": "Electric Guitar (muted)",
+		"number": 28,
+		"category": "Guitar"
 	},
 	{
-		"name":"Electric Grand Piano",
-		"key":"electric_grand_piano"
+		"id": "overdriven_guitar",
+		"instrument": "Overdriven Guitar",
+		"number": 29,
+		"category": "Guitar"
 	},
 	{
-		"name":"Electric Guitar Clean",
-		"key":"electric_guitar_clean"
+		"id": "distortion_guitar",
+		"instrument": "Distortion Guitar",
+		"number": 30,
+		"category": "Guitar"
 	},
 	{
-		"name":"Electric Guitar Jazz",
-		"key":"electric_guitar_jazz"
+		"id": "guitar_harmonics",
+		"instrument": "Guitar Harmonics",
+		"number": 31,
+		"category": "Guitar"
 	},
 	{
-		"name":"Electric Guitar Muted",
-		"key":"electric_guitar_muted"
+		"id": "acoustic_bass",
+		"instrument": "Acoustic Bass",
+		"number": 32,
+		"category": "Bass"
 	},
 	{
-		"name":"Electric Piano 1",
-		"key":"electric_piano_1"
+		"id": "electric_bass_finger",
+		"instrument": "Electric Bass (finger)",
+		"number": 33,
+		"category": "Bass"
 	},
 	{
-		"name":"Electric Piano 2",
-		"key":"electric_piano_2"
+		"id": "electric_bass_pick",
+		"instrument": "Electric Bass (pick)",
+		"number": 34,
+		"category": "Bass"
 	},
 	{
-		"name":"English Horn",
-		"key":"english_horn"
+		"id": "fretless_bass",
+		"instrument": "Fretless Bass",
+		"number": 35,
+		"category": "Bass"
 	},
 	{
-		"name":"Fiddle",
-		"key":"fiddle"
+		"id": "slap_bass_1",
+		"instrument": "Slap Bass 1",
+		"number": 36,
+		"category": "Bass"
 	},
 	{
-		"name":"Flute",
-		"key":"flute"
+		"id": "slap_bass_2",
+		"instrument": "Slap Bass 2",
+		"number": 37,
+		"category": "Bass"
 	},
 	{
-		"name":"French Horn",
-		"key":"french_horn"
+		"id": "synth_bass_1",
+		"instrument": "Synth Bass 1",
+		"number": 38,
+		"category": "Bass"
 	},
 	{
-		"name":"Fretless Bass",
-		"key":"fretless_bass"
+		"id": "synth_bass_2",
+		"instrument": "Synth Bass 2",
+		"number": 39,
+		"category": "Bass"
 	},
 	{
-		"name":"Fx 1 Rain",
-		"key":"fx_1_rain"
+		"id": "violin",
+		"instrument": "Violin",
+		"number": 40,
+		"category": "Strings"
 	},
 	{
-		"name":"Fx 2 Soundtrack",
-		"key":"fx_2_soundtrack"
+		"id": "viola",
+		"instrument": "Viola",
+		"number": 41,
+		"category": "Strings"
 	},
 	{
-		"name":"Fx 3 Crystal",
-		"key":"fx_3_crystal"
+		"id": "cello",
+		"instrument": "Cello",
+		"number": 42,
+		"category": "Strings"
 	},
 	{
-		"name":"Fx 4 Atmosphere",
-		"key":"fx_4_atmosphere"
+		"id": "contrabass",
+		"instrument": "Contrabass",
+		"number": 43,
+		"category": "Strings"
 	},
 	{
-		"name":"Fx 5 Brightness",
-		"key":"fx_5_brightness"
+		"id": "tremolo_strings",
+		"instrument": "Tremolo Strings",
+		"number": 44,
+		"category": "Strings"
 	},
 	{
-		"name":"Fx 6 Goblins",
-		"key":"fx_6_goblins"
+		"id": "pizzicato_strings",
+		"instrument": "Pizzicato Strings",
+		"number": 45,
+		"category": "Strings"
 	},
 	{
-		"name":"Fx 7 Echoes",
-		"key":"fx_7_echoes"
+		"id": "orchestral_harp",
+		"instrument": "Orchestral Harp",
+		"number": 46,
+		"category": "Strings"
 	},
 	{
-		"name":"Fx 8 Scifi",
-		"key":"fx_8_scifi"
+		"id": "timpani",
+		"instrument": "Timpani",
+		"number": 47,
+		"category": "Strings"
 	},
 	{
-		"name":"Glockenspiel",
-		"key":"glockenspiel"
+		"id": "string_ensemble_1",
+		"instrument": "String Ensemble 1",
+		"number": 48,
+		"category": "Ensemble"
 	},
 	{
-		"name":"Guitar Fret Noise",
-		"key":"guitar_fret_noise"
+		"id": "string_ensemble_2",
+		"instrument": "String Ensemble 2",
+		"number": 49,
+		"category": "Ensemble"
 	},
 	{
-		"name":"Guitar Harmonics",
-		"key":"guitar_harmonics"
+		"id": "synth_strings_1",
+		"instrument": "Synth Strings 1",
+		"number": 50,
+		"category": "Ensemble"
 	},
 	{
-		"name":"Gunshot",
-		"key":"gunshot"
+		"id": "synth_strings_2",
+		"instrument": "Synth Strings 2",
+		"number": 51,
+		"category": "Ensemble"
 	},
 	{
-		"name":"Harmonica",
-		"key":"harmonica"
+		"id": "choir_aahs",
+		"instrument": "Choir Aahs",
+		"number": 52,
+		"category": "Ensemble"
 	},
 	{
-		"name":"Harpsichord",
-		"key":"harpsichord"
+		"id": "voice_oohs",
+		"instrument": "Voice Oohs",
+		"number": 53,
+		"category": "Ensemble"
 	},
 	{
-		"name":"Helicopter",
-		"key":"helicopter"
+		"id": "synth_choir",
+		"instrument": "Synth Choir",
+		"number": 54,
+		"category": "Ensemble"
 	},
 	{
-		"name":"Honkytonk Piano",
-		"key":"honkytonk_piano"
+		"id": "orchestra_hit",
+		"instrument": "Orchestra Hit",
+		"number": 55,
+		"category": "Ensemble"
 	},
 	{
-		"name":"Kalimba",
-		"key":"kalimba"
+		"id": "trumpet",
+		"instrument": "Trumpet",
+		"number": 56,
+		"category": "Brass"
 	},
 	{
-		"name":"Koto",
-		"key":"koto"
+		"id": "trombone",
+		"instrument": "Trombone",
+		"number": 57,
+		"category": "Brass"
 	},
 	{
-		"name":"Lead 1 Square",
-		"key":"lead_1_square"
+		"id": "tuba",
+		"instrument": "Tuba",
+		"number": 58,
+		"category": "Brass"
 	},
 	{
-		"name":"Lead 2 Sawtooth",
-		"key":"lead_2_sawtooth"
+		"id": "muted_trumpet",
+		"instrument": "Muted Trumpet",
+		"number": 59,
+		"category": "Brass"
 	},
 	{
-		"name":"Lead 3 Calliope",
-		"key":"lead_3_calliope"
+		"id": "french_horn",
+		"instrument": "French Horn",
+		"number": 60,
+		"category": "Brass"
 	},
 	{
-		"name":"Lead 4 Chiff",
-		"key":"lead_4_chiff"
+		"id": "brass_section",
+		"instrument": "Brass Section",
+		"number": 61,
+		"category": "Brass"
 	},
 	{
-		"name":"Lead 5 Charang",
-		"key":"lead_5_charang"
+		"id": "synth_brass_1",
+		"instrument": "Synth Brass 1",
+		"number": 62,
+		"category": "Brass"
 	},
 	{
-		"name":"Lead 6 Voice",
-		"key":"lead_6_voice"
+		"id": "synth_brass_2",
+		"instrument": "Synth Brass 2",
+		"number": 63,
+		"category": "Brass"
 	},
 	{
-		"name":"Lead 7 Fifths",
-		"key":"lead_7_fifths"
+		"id": "soprano_sax",
+		"instrument": "Soprano Sax",
+		"number": 64,
+		"category": "Reed"
 	},
 	{
-		"name":"Lead 8 Bass _lead",
-		"key":"lead_8_bass__lead"
+		"id": "alto_sax",
+		"instrument": "Alto Sax",
+		"number": 65,
+		"category": "Reed"
 	},
 	{
-		"name":"Marimba",
-		"key":"marimba"
+		"id": "tenor_sax",
+		"instrument": "Tenor Sax",
+		"number": 66,
+		"category": "Reed"
 	},
 	{
-		"name":"Melodic Tom",
-		"key":"melodic_tom"
+		"id": "baritone_sax",
+		"instrument": "Baritone Sax",
+		"number": 67,
+		"category": "Reed"
 	},
 	{
-		"name":"Music Box",
-		"key":"music_box"
+		"id": "oboe",
+		"instrument": "Oboe",
+		"number": 68,
+		"category": "Reed"
 	},
 	{
-		"name":"Muted Trumpet",
-		"key":"muted_trumpet"
+		"id": "english_horn",
+		"instrument": "English Horn",
+		"number": 69,
+		"category": "Reed"
 	},
 	{
-		"name":"Oboe",
-		"key":"oboe"
+		"id": "bassoon",
+		"instrument": "Bassoon",
+		"number": 70,
+		"category": "Reed"
 	},
 	{
-		"name":"Ocarina",
-		"key":"ocarina"
+		"id": "clarinet",
+		"instrument": "Clarinet",
+		"number": 71,
+		"category": "Reed"
 	},
 	{
-		"name":"Orchestra Hit",
-		"key":"orchestra_hit"
+		"id": "piccolo",
+		"instrument": "Piccolo",
+		"number": 72,
+		"category": "Pipe"
 	},
 	{
-		"name":"Orchestral Harp",
-		"key":"orchestral_harp"
+		"id": "flute",
+		"instrument": "Flute",
+		"number": 73,
+		"category": "Pipe"
 	},
 	{
-		"name":"Overdriven Guitar",
-		"key":"overdriven_guitar"
+		"id": "recorder",
+		"instrument": "Recorder",
+		"number": 74,
+		"category": "Pipe"
 	},
 	{
-		"name":"Pad 1 New Age",
-		"key":"pad_1_new_age"
+		"id": "pan_flute",
+		"instrument": "Pan Flute",
+		"number": 75,
+		"category": "Pipe"
 	},
 	{
-		"name":"Pad 2 Warm",
-		"key":"pad_2_warm"
+		"id": "blown_bottle",
+		"instrument": "Blown Bottle",
+		"number": 76,
+		"category": "Pipe"
 	},
 	{
-		"name":"Pad 3 Polysynth",
-		"key":"pad_3_polysynth"
+		"id": "shakuhachi",
+		"instrument": "Shakuhachi",
+		"number": 77,
+		"category": "Pipe"
 	},
 	{
-		"name":"Pad 4 Choir",
-		"key":"pad_4_choir"
+		"id": "whistle",
+		"instrument": "Whistle",
+		"number": 78,
+		"category": "Pipe"
 	},
 	{
-		"name":"Pad 5 Bowed",
-		"key":"pad_5_bowed"
+		"id": "ocarina",
+		"instrument": "Ocarina",
+		"number": 79,
+		"category": "Pipe"
 	},
 	{
-		"name":"Pad 6 Metallic",
-		"key":"pad_6_metallic"
+		"id": "lead_1_square",
+		"instrument": "Lead 1 (square)",
+		"number": 80,
+		"category": "Synth Lead"
 	},
 	{
-		"name":"Pad 7 Halo",
-		"key":"pad_7_halo"
+		"id": "lead_2_sawtooth",
+		"instrument": "Lead 2 (sawtooth)",
+		"number": 81,
+		"category": "Synth Lead"
 	},
 	{
-		"name":"Pad 8 Sweep",
-		"key":"pad_8_sweep"
+		"id": "lead_3_calliope",
+		"instrument": "Lead 3 (calliope)",
+		"number": 82,
+		"category": "Synth Lead"
 	},
 	{
-		"name":"Pan Flute",
-		"key":"pan_flute"
+		"id": "lead_4_chiff",
+		"instrument": "Lead 4 (chiff)",
+		"number": 83,
+		"category": "Synth Lead"
 	},
 	{
-		"name":"Percussive Organ",
-		"key":"percussive_organ"
+		"id": "lead_5_charang",
+		"instrument": "Lead 5 (charang)",
+		"number": 84,
+		"category": "Synth Lead"
 	},
 	{
-		"name":"Piccolo",
-		"key":"piccolo"
+		"id": "lead_6_voice",
+		"instrument": "Lead 6 (voice)",
+		"number": 85,
+		"category": "Synth Lead"
 	},
 	{
-		"name":"Pizzicato Strings",
-		"key":"pizzicato_strings"
+		"id": "lead_7_fifths",
+		"instrument": "Lead 7 (fifths)",
+		"number": 86,
+		"category": "Synth Lead"
 	},
 	{
-		"name":"Recorder",
-		"key":"recorder"
+		"id": "lead_8_bass__lead",
+		"instrument": "Lead 8 (bass + lead)",
+		"number": 87,
+		"category": "Synth Lead"
 	},
 	{
-		"name":"Reed Organ",
-		"key":"reed_organ"
+		"id": "pad_1_new_age",
+		"instrument": "Pad 1 (new age)",
+		"number": 88,
+		"category": "Synth Pad"
 	},
 	{
-		"name":"Reverse Cymbal",
-		"key":"reverse_cymbal"
+		"id": "pad_2_warm",
+		"instrument": "Pad 2 (warm)",
+		"number": 89,
+		"category": "Synth Pad"
 	},
 	{
-		"name":"Rock Organ",
-		"key":"rock_organ"
+		"id": "pad_3_polysynth",
+		"instrument": "Pad 3 (polysynth)",
+		"number": 90,
+		"category": "Synth Pad"
 	},
 	{
-		"name":"Seashore",
-		"key":"seashore"
+		"id": "pad_4_choir",
+		"instrument": "Pad 4 (choir)",
+		"number": 91,
+		"category": "Synth Pad"
 	},
 	{
-		"name":"Shakuhachi",
-		"key":"shakuhachi"
+		"id": "pad_5_bowed",
+		"instrument": "Pad 5 (bowed)",
+		"number": 92,
+		"category": "Synth Pad"
 	},
 	{
-		"name":"Shamisen",
-		"key":"shamisen"
+		"id": "pad_6_metallic",
+		"instrument": "Pad 6 (metallic)",
+		"number": 93,
+		"category": "Synth Pad"
 	},
 	{
-		"name":"Shanai",
-		"key":"shanai"
+		"id": "pad_7_halo",
+		"instrument": "Pad 7 (halo)",
+		"number": 94,
+		"category": "Synth Pad"
 	},
 	{
-		"name":"Sitar",
-		"key":"sitar"
+		"id": "pad_8_sweep",
+		"instrument": "Pad 8 (sweep)",
+		"number": 95,
+		"category": "Synth Pad"
 	},
 	{
-		"name":"Slap Bass 1",
-		"key":"slap_bass_1"
+		"id": "fx_1_rain",
+		"instrument": "FX 1 (rain)",
+		"number": 96,
+		"category": "Synth Effects"
 	},
 	{
-		"name":"Slap Bass 2",
-		"key":"slap_bass_2"
+		"id": "fx_2_soundtrack",
+		"instrument": "FX 2 (soundtrack)",
+		"number": 97,
+		"category": "Synth Effects"
 	},
 	{
-		"name":"Soprano Sax",
-		"key":"soprano_sax"
+		"id": "fx_3_crystal",
+		"instrument": "FX 3 (crystal)",
+		"number": 98,
+		"category": "Synth Effects"
 	},
 	{
-		"name":"Steel Drums",
-		"key":"steel_drums"
+		"id": "fx_4_atmosphere",
+		"instrument": "FX 4 (atmosphere)",
+		"number": 99,
+		"category": "Synth Effects"
 	},
 	{
-		"name":"String Ensemble 1",
-		"key":"string_ensemble_1"
+		"id": "fx_5_brightness",
+		"instrument": "FX 5 (brightness)",
+		"number": 100,
+		"category": "Synth Effects"
 	},
 	{
-		"name":"String Ensemble 2",
-		"key":"string_ensemble_2"
+		"id": "fx_6_goblins",
+		"instrument": "FX 6 (goblins)",
+		"number": 101,
+		"category": "Synth Effects"
 	},
 	{
-		"name":"Synth Bass 1",
-		"key":"synth_bass_1"
+		"id": "fx_7_echoes",
+		"instrument": "FX 7 (echoes)",
+		"number": 102,
+		"category": "Synth Effects"
 	},
 	{
-		"name":"Synth Bass 2",
-		"key":"synth_bass_2"
+		"id": "fx_8_scifi",
+		"instrument": "FX 8 (sci-fi)",
+		"number": 103,
+		"category": "Synth Effects"
 	},
 	{
-		"name":"Synth Brass 1",
-		"key":"synth_brass_1"
+		"id": "sitar",
+		"instrument": "Sitar",
+		"number": 104,
+		"category": "Ethnic"
 	},
 	{
-		"name":"Synth Brass 2",
-		"key":"synth_brass_2"
+		"id": "banjo",
+		"instrument": "Banjo",
+		"number": 105,
+		"category": "Ethnic"
 	},
 	{
-		"name":"Synth Choir",
-		"key":"synth_choir"
+		"id": "shamisen",
+		"instrument": "Shamisen",
+		"number": 106,
+		"category": "Ethnic"
 	},
 	{
-		"name":"Synth Drum",
-		"key":"synth_drum"
+		"id": "koto",
+		"instrument": "Koto",
+		"number": 107,
+		"category": "Ethnic"
 	},
 	{
-		"name":"Synth Strings 1",
-		"key":"synth_strings_1"
+		"id": "kalimba",
+		"instrument": "Kalimba",
+		"number": 108,
+		"category": "Ethnic"
 	},
 	{
-		"name":"Synth Strings 2",
-		"key":"synth_strings_2"
+		"id": "bagpipe",
+		"instrument": "Bagpipe",
+		"number": 109,
+		"category": "Ethnic"
 	},
 	{
-		"name":"Taiko Drum",
-		"key":"taiko_drum"
+		"id": "fiddle",
+		"instrument": "Fiddle",
+		"number": 110,
+		"category": "Ethnic"
 	},
 	{
-		"name":"Tango Accordion",
-		"key":"tango_accordion"
+		"id": "shanai",
+		"instrument": "Shanai",
+		"number": 111,
+		"category": "Ethnic"
 	},
 	{
-		"name":"Telephone Ring",
-		"key":"telephone_ring"
+		"id": "tinkle_bell",
+		"instrument": "Tinkle Bell",
+		"number": 112,
+		"category": "Percussive"
 	},
 	{
-		"name":"Tenor Sax",
-		"key":"tenor_sax"
+		"id": "agogo",
+		"instrument": "Agogo",
+		"number": 113,
+		"category": "Percussive"
 	},
 	{
-		"name":"Timpani",
-		"key":"timpani"
+		"id": "steel_drums",
+		"instrument": "Steel Drums",
+		"number": 114,
+		"category": "Percussive"
 	},
 	{
-		"name":"Tinkle Bell",
-		"key":"tinkle_bell"
+		"id": "woodblock",
+		"instrument": "Woodblock",
+		"number": 115,
+		"category": "Percussive"
 	},
 	{
-		"name":"Tremolo Strings",
-		"key":"tremolo_strings"
+		"id": "taiko_drum",
+		"instrument": "Taiko Drum",
+		"number": 116,
+		"category": "Percussive"
 	},
 	{
-		"name":"Trombone",
-		"key":"trombone"
+		"id": "melodic_tom",
+		"instrument": "Melodic Tom",
+		"number": 117,
+		"category": "Percussive"
 	},
 	{
-		"name":"Trumpet",
-		"key":"trumpet"
+		"id": "synth_drum",
+		"instrument": "Synth Drum",
+		"number": 118,
+		"category": "Percussive"
 	},
 	{
-		"name":"Tuba",
-		"key":"tuba"
+		"id": "reverse_cymbal",
+		"instrument": "Reverse Cymbal",
+		"number": 119,
+		"category": "Sound effects"
 	},
 	{
-		"name":"Tubular Bells",
-		"key":"tubular_bells"
+		"id": "guitar_fret_noise",
+		"instrument": "Guitar Fret Noise",
+		"number": 120,
+		"category": "Sound effects"
 	},
 	{
-		"name":"Vibraphone",
-		"key":"vibraphone"
+		"id": "breath_noise",
+		"instrument": "Breath Noise",
+		"number": 121,
+		"category": "Sound effects"
 	},
 	{
-		"name":"Viola",
-		"key":"viola"
+		"id": "seashore",
+		"instrument": "Seashore",
+		"number": 122,
+		"category": "Sound effects"
 	},
 	{
-		"name":"Violin",
-		"key":"violin"
+		"id": "bird_tweet",
+		"instrument": "Bird Tweet",
+		"number": 123,
+		"category": "Sound effects"
 	},
 	{
-		"name":"Voice Oohs",
-		"key":"voice_oohs"
+		"id": "telephone_ring",
+		"instrument": "Telephone Ring",
+		"number": 124,
+		"category": "Sound effects"
 	},
 	{
-		"name":"Whistle",
-		"key":"whistle"
+		"id": "helicopter",
+		"instrument": "Helicopter",
+		"number": 125,
+		"category": "Sound effects"
 	},
 	{
-		"name":"Woodblock",
-		"key":"woodblock"
+		"id": "applause",
+		"instrument": "Applause",
+		"number": 126,
+		"category": "Sound effects"
 	},
 	{
-		"name":"Xylophone",
-		"key":"xylophone"
+		"id": "gunshot",
+		"instrument": "Gunshot",
+		"number": 127,
+		"category": "Sound effects"
 	}
 ]
 

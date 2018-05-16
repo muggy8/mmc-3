@@ -3,7 +3,7 @@
 		<span>Instrument:</span>
 		<select name="instrument.instrumentId" class="grow margin-h-0.5em marginless-right">
 			<!-- foreach: key("instrumentIndex").in(momoca.instruments) -->
-			<option value="{: momoca.instruments[this.instrumentIndex].key :}|{static}|">{: momoca.instruments[this.instrumentIndex].name :}|{static}|</option>
+			<option value="{: momoca.instruments[this.instrumentIndex].number :}|{static}|">{: momoca.instruments[this.instrumentIndex].instrument :}|{static}|</option>
 			<!-- foreach: key.end() -->
 		</select>
 	</label>
