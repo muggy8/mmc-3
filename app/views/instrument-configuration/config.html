@@ -32,7 +32,7 @@
 				}
 			:}|{instrument.keyMap[this.app.mapKeys[this.noteLoation]]}|">
 				<!-- foreach: key("note").in(this.app.possiableNotes) -->
-				<option value="{:this.app.possiableNotes[this.note]:}|{possiableNotes}|">{:MIDI.noteToKey[this.app.possiableNotes[this.note]]:}|{possiableNotes}|</option>
+				<option value="{:this.note:}|{possiableNotes}|">{:this.app.possiableNotes[this.note]:}|{possiableNotes}|</option>
 				<!-- foreach: key.end() -->
 			</select>
 			<input type="number" name="instrument.keyMap[this.app.mapKeys[this.noteLoation]]" min="21" max="108" class="margin-h-0.25em marginless-right" size="2">

@@ -4,9 +4,7 @@ aja()
 	.on("2xx", function(){
 		var view = proxymity(momoca.loading.childNodes, {
 			cols: [],
-			possiableNotes: Object.keys(MIDI.noteToKey).map(function(item){
-				return parseInt(item);
-			})
+			possiableNotes: MidiPlayer.Constants.NOTES
 		}).detach()
 		for(var i = 16; i--;){
 			view.app.cols.push(true)
