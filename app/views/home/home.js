@@ -3,7 +3,12 @@ void function(homeController){
 		.url("/app/views/home/home.html")
 		.into("#loading")
 		.on("2xx", function(){
+			Array.prototype.forEach.call(momoca.loading.querySelectorAll("select"), function(select){
+				utils.proxyRenderStaticRepeats(select.childNodes, momoca)
+			})
+
 			var view = proxymity(momoca.loading.childNodes, momoca).detach()
+
 			momoca.rout = utils.extendFn(momoca.rout, function(superFn, payload){
 				var otherRoutsWorked = superFn(payload)
 				var routMatch = momoca.state.match(/^\/($|home)/)
