@@ -14,5 +14,13 @@ var utils = {
 			args.unshift(superFunction.bind(this))
 			return extendedFunction.apply(this, args)
 		}
-	}
+	},
+    proxyRenderStaticRepeats(template, data={}, name="app"){
+        var bound = proxymity(template, data, name)
+        var preRendered = bound.reduce(function(sum, current){
+            return sum + (current.outerHTML || "")
+        }, "")
+        bound.destroy && bound.destroy()
+        return preRendered
+    }
 }
