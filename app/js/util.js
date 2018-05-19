@@ -15,12 +15,13 @@ var utils = {
 			return extendedFunction.apply(this, args)
 		}
 	},
-    proxyRenderStaticRepeats(template, data={}, name="app"){
-        var bound = proxymity(template, data, name)
-        var preRendered = bound.reduce(function(sum, current){
-            return sum + (current.outerHTML || "")
-        }, "")
-        bound.destroy && bound.destroy()
-        return preRendered
+    proxyRenderStaticRepeats(template, proxyData, name="app"){
+        return proxymity(template, proxyData, name)
+			.unlink()
+			.forEach(function(node){
+				if (!(node instanceof HTMLElement)){
+					node.parentNode.removeChild(node)
+				}
+			})
     }
 }

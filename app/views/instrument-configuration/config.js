@@ -2,13 +2,21 @@ aja()
 	.url("/app/views/instrument-configuration/config.html")
 	.into("#loading")
 	.on("2xx", function(){
-		var view = proxymity(momoca.loading.childNodes, {
-			cols: [],
+		var preRenderData = proxymity.convert({
 			possiableNotes: MidiPlayer.Constants.NOTES
+		})
+
+		Array.prototype.forEach.call(momoca.loading.querySelectorAll("select"), function(select){
+			utils.proxyRenderStaticRepeats(select.childNodes, preRenderData)
+		})
+
+		var view = proxymity(momoca.loading.childNodes, {
+			cols: []
 		}).detach()
 		for(var i = 16; i--;){
 			view.app.cols.push(true)
 		}
+
 		momoca.rout = utils.extendFn(momoca.rout, function(superFn, payload){
 			var otherRoutState = superFn(payload)
 			var routMatch = momoca.state.match(/\/instrument-configuration/i)
