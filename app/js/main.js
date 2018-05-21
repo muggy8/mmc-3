@@ -25,13 +25,27 @@ var mmcView = proxymity(document.querySelector("body"), {
 	},
 	rout: function(){},
 	state: document.location.pathname,
-	playSong: function(songJson){
-		var b64
-		// somehow convert the song data into base64
+	playSong: function(songJson, nps){
+		// notes/second = smallest note that can be played. 
+		console.log(songJson)
 
-		MIDI.Player.currentData = window.atob(b64);
-		MIDI.Player.loadMidiFile();
-		MIDI.Player.start();
+		// actual logic time
+
+		var tracks = songJson.map(function(trackJson){
+			var track = new utils.midiWriter.Track()
+
+			track.addEvent(new utils.midiWriter.ProgramChangeEvent({
+				instrument: (+trackJson.instrumentId || 0)
+			}))
+
+			for(var key of utils.range(1, 16)){
+				var tKey = "T" + key
+				var tNote = trackJson.keyMap[tKey]
+				trackJson[tKey].forEach(function(note, index){
+					// default ticks per beat is 128
+				})
+			}
+		})
 	}
 })
 var momoca = mmcView.app
