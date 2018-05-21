@@ -27,7 +27,7 @@ void function(){
 			if (i-1 === j){
 				testTrack["T" + i][j] = {
 					duration: 1,
-					velocity: 0.8
+					velocity: 80
 				}
 			}
 			else{
@@ -36,5 +36,9 @@ void function(){
 		}
 	}
 
-	momoca.playSong([testTrack])
+	momoca.playSong({
+		tracks:[testTrack],
+		bpm: 128,
+		smallestFraction: 4
+	})
 }()
