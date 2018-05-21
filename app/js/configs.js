@@ -4136,3 +4136,42 @@ momoca.presets = [
 		}
 	}
 ]
+
+momoca.smallestNoteSet = [
+	{
+		name: "1 Beat (1/4 Bar)",
+		fraction: 1
+	},
+	{
+		name: "1/2 Beat (1/8 Bar)",
+		fraction: 2
+	},
+	{
+		name: "1/3 Beat (1/12 Bar)",
+		fraction: 3
+	},
+	{
+		name: "1/4 Beat (1/16 Bar)",
+		fraction: 4
+	},
+	{
+		name: "1/5 Beat (1/20 Bar)",
+		fraction: 5
+	},
+	{
+		name: "1/6 Beat (1/24 Bar)",
+		fraction: 6
+	},
+	{
+		name: "1/8 Beat (1/32 Bar)",
+		fraction: 8
+	},
+	{
+		name: "1/10 Beat (1/40 Bar)",
+		fraction: 10
+	},
+	{
+		name: "1/12 Beat (1/48 Bar)",
+		fraction: 12
+	}
+]

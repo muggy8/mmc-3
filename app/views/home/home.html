@@ -2,7 +2,7 @@
     <strong class="cell">Create New Song</strong>
     <form onsubmit="
         this.app.home.createSong(this.app.home.newSong);
-        this.app.home.newSong = {};
+        delete this.app.home.newSong;
         return false;
     ">
         <label class="flex island vcenter input-row">
@@ -16,8 +16,16 @@
             <input name="home.newSong.sec" class="grow text-center  padding-0.25em" placeholder="sec" type="number" min="0" max="59">
         </label>
         <label class="flex island vcenter input-row">
-            Notes per Second:
-            <input name="home.newSong.nps" class="grow margin-h-0.5em marginless-right padding-0.25em" type="number" min="1" max="32" placeholder="8">
+            Beats per Minute:
+            <input name="home.newSong.bpm" class="grow margin-h-0.5em marginless-right padding-0.25em" type="number" min="32" max="512" step="2" data-script="{: +this.app.home.newSong.bpm || (this.app.home.newSong.bpm = 128) :}|{home.newSong.bpm}|">
+        </label>
+        <label class="flex island vcenter input-row">
+            Smallest Note
+			<select name="home.newSong.smallestNoteFraction" class="grow padding-0.25em" data-script="{: +this.app.home.newSong.smallestNoteFraction || (this.app.home.newSong.smallestNoteFraction = 4) :}|{home.newSong.smallestNoteFraction}|">
+				<!-- foreach: key("noteIndex").in(this.app.smallestNoteSet) -->
+				<option value="{: this.app.smallestNoteSet[this.noteIndex].fraction :}|{smallestNoteSet}|">{: this.app.smallestNoteSet[this.noteIndex].name :}|{smallestNoteSet}|</option>
+				<!-- foreach: key.end() -->
+			</select>
         </label>
         <div class="island">
             Instruments:
