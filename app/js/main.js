@@ -23,7 +23,7 @@ var mmcView = proxymity(document.querySelector("body"), {
 	notify: function(message){
 		console.log(message)
 	},
-	rout: function(){},
+	rout: function(){}, // default base routing function
 	state: document.location.pathname,
 	buildSong: function(songJson){
 		console.log(songJson)
@@ -87,9 +87,35 @@ var mmcView = proxymity(document.querySelector("body"), {
 	},
 	playSong: function(songJson){
 		var songWriter = momoca.buildSong(songJson)
-		var songEvents = new utils.midiPlayer.Player(console.log, songWriter.buildFile())
+		var playEventRouter = function(event){
+			console.log(event)
+			songEvents.triggerPlayerEvent(event.track + ":" + event.name, event)
+			songEvents.triggerPlayerEvent(event.track + ":" + event.name + ":" + event.noteName, event)
+		}
+		var songEvents = new utils.midiPlayer.Player(playEventRouter, songWriter.buildFile())
 
 		songEvents.fileLoaded()
+
+		var instrumentLoadingQueue = songJson.tracks.map(function(trackJson, index){
+			var trackNumber = index + 1
+			return momoca.getInstrument(+trackJson.instrumentId || 0)
+				.then(function(instrument){
+					console.log(instrument)
+					songEvents.on(trackNumber + ":Note on", function(event){
+						var notePlaying = instrument.play(event.noteName, instrument.context.currentTime, {gain:event.velocity/100})
+
+						var noteOffEvent = trackNumber + ":Note off:" + event.noteName
+						var noteOffListener = function(event){
+							var listenerIndex = songEvents.eventListeners[noteOffEvent].indexOf(noteOffListener)
+							songEvents.eventListeners[noteOffEvent].splice(listenerIndex, 1)
+							notePlaying.stop()
+						}
+						songEvents.on(noteOffEvent, noteOffListener)
+					})
+				}, function(){
+					momoca.notify("Failed to laod Instrument ID: " + (+trackJson.instrumentId || 0))
+				})
+		})
 
 		playerTest = songEvents
 	}
