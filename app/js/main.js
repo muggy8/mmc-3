@@ -25,7 +25,7 @@ var mmcView = proxymity(document.querySelector("body"), {
 	},
 	rout: function(){},
 	state: document.location.pathname,
-	playSong: function(songJson){
+	buildSong: function(songJson){
 		console.log(songJson)
 		// default ticks per beat is 128
 		var durationTicks = 128/songJson.smallestFraction
@@ -61,8 +61,37 @@ var mmcView = proxymity(document.querySelector("body"), {
 
 		// console.log(tracks)
 
-		write = new utils.midiWriter.Writer(tracks)
-		console.log(write.dataUri())
+		return new utils.midiWriter.Writer(tracks)
+	},
+	getInstrument: function(instrumentId){
+		var ac = momoca.getInstrument.audioContext ||  (momoca.getInstrument.audioContext = new AudioContext())
+		if (momoca.getInstrument[instrumentId]){
+			return Promise.resolve(momoca.getInstrument[instrumentId])
+		}
+		else {
+			var selectedInstrument
+			momoca.instruments.forEach(function(instrument){
+				if (instrument.number === instrumentId) {
+					selectedInstrument = instrument
+				}
+			})
+
+			// first we cache the promise for the network opperation in case there's lots of calls for the same instrument
+			return momoca.getInstrument[instrumentId] = utils.soundfontPlayer
+				.instrument(ac, "/app/soundfonts/" + selectedInstrument.id + "-ogg.js")
+				.then(function(instrument){
+					// this is for the final time we get the instrument we just stick the instrument in our cache so in the future we dont have to ask the network for it
+					return momoca.getInstrument[instrumentId] = instrument
+				})
+		}
+	},
+	playSong: function(songJson){
+		var songWriter = momoca.buildSong(songJson)
+		var songEvents = new utils.midiPlayer.Player(console.log, songWriter.buildFile())
+
+		songEvents.fileLoaded()
+
+		playerTest = songEvents
 	}
 })
 var momoca = mmcView.app
