@@ -100,17 +100,14 @@ var mmcView = proxymity(document.querySelector("body"), {
 			var trackNumber = index + 1
 			return momoca.getInstrument(+trackJson.instrumentId || 0)
 				.then(function(instrument){
-					console.log(instrument)
 					songEvents.on(trackNumber + ":Note on", function(event){
 						var notePlaying = instrument.play(event.noteName, instrument.context.currentTime, {gain:event.velocity/100})
-						console.log("start:", instrument.context.currentTime)
 
 						var noteOffEvent = trackNumber + ":Note off:" + event.noteName
 						var noteOffListener = function(event){
 							var listenerIndex = songEvents.eventListeners[noteOffEvent].indexOf(noteOffListener)
 							songEvents.eventListeners[noteOffEvent].splice(listenerIndex, 1)
 							notePlaying.stop()
-							console.log("stop:", instrument.context.currentTime)
 						}
 						songEvents.on(noteOffEvent, noteOffListener)
 					})
