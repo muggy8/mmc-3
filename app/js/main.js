@@ -88,7 +88,7 @@ var mmcView = proxymity(document.querySelector("body"), {
 	playSong: function(songJson){
 		var songWriter = momoca.buildSong(songJson)
 		var playEventRouter = function(event){
-			console.log(event)
+			// console.log(event)
 			songEvents.triggerPlayerEvent(event.track + ":" + event.name, event)
 			songEvents.triggerPlayerEvent(event.track + ":" + event.name + ":" + event.noteName, event)
 		}
@@ -103,12 +103,14 @@ var mmcView = proxymity(document.querySelector("body"), {
 					console.log(instrument)
 					songEvents.on(trackNumber + ":Note on", function(event){
 						var notePlaying = instrument.play(event.noteName, instrument.context.currentTime, {gain:event.velocity/100})
+						console.log("start:", instrument.context.currentTime)
 
 						var noteOffEvent = trackNumber + ":Note off:" + event.noteName
 						var noteOffListener = function(event){
 							var listenerIndex = songEvents.eventListeners[noteOffEvent].indexOf(noteOffListener)
 							songEvents.eventListeners[noteOffEvent].splice(listenerIndex, 1)
 							notePlaying.stop()
+							console.log("stop:", instrument.context.currentTime)
 						}
 						songEvents.on(noteOffEvent, noteOffListener)
 					})
