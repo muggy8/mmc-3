@@ -26,9 +26,14 @@ var utils = {
     },
 	range: function(start, end){
 		var range = []
-		for(var i = start; i <= end; i++){
-			range.push(i)
+		var increment = 1
+		if (end < start){
+			increment = -1
 		}
+		for(; start !== end; start += increment){
+			range.push(start)
+		}
+		range.push(start)
 		return range
 	}
 }
