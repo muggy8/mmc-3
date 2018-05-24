@@ -31,38 +31,39 @@
             Instruments:
         </div>
         <!-- foreach: {
-            this.app.home.newSong.instruments = [{}];
-            key("instrumentIndex").in(this.app.home.newSong.instruments);
+            this.app.home.newSong.tracks = [{}];
+            key("instrumentIndex").in(this.app.home.newSong.tracks);
         } -->
         <div class="flex island vcenter input-row">
-            {: this.instrumentIndex + 1:}|{ home.newSong.instruments[this.instrumentIndex] }|:
-            <button class="margin-h-0.25em padding-0.25em bg-white-hover marginless-right color-primary color-primary-light-hover {: !!this.app.home.newSong.instruments[this.instrumentIndex].instrumentId.toString() || ' hidden-state ' :}|{ home.newSong.instruments[this.instrumentIndex].instrumentId }|" onclick="this.app.home.configure(this.app.home.newSong.instruments[this.instrumentIndex])" type="button">Edit</button>
+            {: this.instrumentIndex + 1:}|{ home.newSong.tracks[this.instrumentIndex] }|:
+            <button class="margin-h-0.25em padding-0.25em bg-white-hover marginless-right color-primary color-primary-light-hover {: !!this.app.home.newSong.tracks[this.instrumentIndex].instrumentId.toString() || ' hidden-state ' :}|{ home.newSong.tracks[this.instrumentIndex].instrumentId }|" onclick="this.app.home.configure(this.app.home.newSong.tracks[this.instrumentIndex])" type="button">Edit</button>
             <select
-				name="home.newSong.instruments[this.instrumentIndex].instrumentId"
+				name="home.newSong.tracks[this.instrumentIndex].instrumentId"
 				class="grow {:
-					!!this.app.home.newSong.instruments[this.instrumentIndex].instrumentId.toString() || 'margin-h-0.25em marginless-right'
+					!!this.app.home.newSong.tracks[this.instrumentIndex].instrumentId.toString() || 'margin-h-0.25em marginless-right'
 				:}|{
-					home.newSong.instruments[this.instrumentIndex].instrumentId
+					home.newSong.tracks[this.instrumentIndex].instrumentId
 				}| padding-0.25em"
 				data-script="{:
-					if (typeof this.app.home.newSong.instruments[this.instrumentIndex].instrumentId === 'number'){
-						momoca.getInstrument(this.app.home.newSong.instruments[this.instrumentIndex].instrumentId)
+					if (typeof this.app.home.newSong.tracks[this.instrumentIndex].instrumentId === 'number'){
+						momoca.getInstrument(this.app.home.newSong.tracks[this.instrumentIndex].instrumentId)
 					}
-				:}|{home.newSong.instruments[this.instrumentIndex].instrumentId}|"
+				:}|{home.newSong.tracks[this.instrumentIndex].instrumentId}|"
 			>
                 <!-- foreach: key("instrumentIndex").in(this.app.instruments) -->
                 <option value="{: this.app.instruments[this.instrumentIndex].number :}|{instruments}|">{: this.app.instruments[this.instrumentIndex].instrument :}|{instruments}|</option>
                 <!-- foreach: key.end() -->
             </select>
-            <button class="color-primary padding-0.25em bg-white-hover color-primary-light-hover {: this.app.home.newSong.instruments.length > 1 || ' hidden-state ' :}|{ home.newSong.instruments.length }|" onclick="this.app.home.newSong.instruments.splice(this.instrumentIndex, 1);" type="button">X</button>
+            <button class="color-primary padding-0.25em bg-white-hover color-primary-light-hover {: this.app.home.newSong.tracks.length > 1 || ' hidden-state ' :}|{ home.newSong.tracks.length }|" onclick="this.app.home.newSong.tracks.splice(this.instrumentIndex, 1);" type="button">X</button>
         </div>
         <!-- foreach: key.end(function(item){
-            item.app.home.newSong.instruments[item.instrumentIndex].instrumentId = 0;
-			item.app.home.newSong.instruments[item.instrumentIndex].keyMap = momoca.presets[0].map.objectify();
-			item.app.home.newSong.instruments[item.instrumentIndex].preset = 0;
+			var trackData = item.app.home.newSong.tracks[item.instrumentIndex]
+            trackData.instrumentId = 0;
+			trackData.keyMap = momoca.presets[0].map.objectify();
+			trackData.preset = 0;
         }) -->
         <div class="flex vcenter">
-            <button class="island padding-0.25em bg-white-hover color-primary color-primary-light-hover" onclick="this.app.home.newSong.instruments.push({})" type="button">Add Instrument</button>
+            <button class="island padding-0.25em bg-white-hover color-primary color-primary-light-hover" onclick="this.app.home.newSong.tracks.push({})" type="button">Add Instrument</button>
             <div class="grow"></div>
             <input type="submit" value="Create Song" class="island padding-0.25em bg-white-hover color-primary color-primary-light-hover link">
         </div>
