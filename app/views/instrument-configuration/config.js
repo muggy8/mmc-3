@@ -31,6 +31,18 @@ aja()
 					},
 					label: "Instrument Key Selector"
 				})
+				for(var i of utils.range(1, 16)){
+					payload["T" + i] = utils.range(16, 1).map(function(j){
+						if (i === j){
+							return {
+								duration: 1,
+								velocity: 80
+							}
+						}
+						return false
+					})
+				}
+
 				view.app.instrument = payload
 				view.active = true
 			}
