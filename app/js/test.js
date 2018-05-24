@@ -39,6 +39,6 @@ void function(){
 	momoca.playSong({
 		tracks:[testTrack],
 		bpm: 128,
-		smallestFraction: 4
+		smallestNoteFraction: 4
 	})
 }()

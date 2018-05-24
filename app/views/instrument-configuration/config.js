@@ -10,8 +10,23 @@ aja()
 			utils.proxyRenderStaticRepeats(select.childNodes, preRenderData)
 		})
 
+		var currentlyPlayerPromise = Promise.resolve(null)
 		var view = proxymity(momoca.loading.childNodes, {
-			cols: []
+			cols: [],
+			watchAndPlayScale: function(id){
+				if (id.toString().match(/^\d+$/)) {
+					currentlyPlayerPromise.then(function(player){
+						player && player.stop()
+						setTimeout(function(){
+							currentlyPlayerPromise = momoca.playSong({
+								tracks:[view.app.instrument.objectify()],
+								bpm: momoca.home.newSong.bpm,
+								smallestNoteFraction: momoca.home.newSong.smallestNoteFraction
+							})
+						}, 100)
+					})
+				}
+			}
 		}).detach()
 		for(var i = 16; i--;){
 			view.app.cols.push(true)
@@ -22,15 +37,7 @@ aja()
 			var routMatch = momoca.state.match(/\/instrument-configuration/i)
 
 			if (routMatch && !view.active){
-				momoca.popOver(view, {
-					onclose: function(){
-						view.active = false
-						momoca.state = momoca.state.replace("/instrument-configuration", "")
-						momoca.rout()
-                        delete view.app.instrument
-					},
-					label: "Instrument Key Selector"
-				})
+
 				for(var i of utils.range(1, 16)){
 					payload["T" + i] = utils.range(16, 1).map(function(j){
 						if (i === j){
@@ -45,6 +52,20 @@ aja()
 
 				view.app.instrument = payload
 				view.active = true
+				var stopWatchingInstrument = view.app.instrument.watch("instrumentId", view.app.watchAndPlayScale)
+				var stopWatchingInstrument = view.app.instrument.watch("preset", view.app.watchAndPlayScale)
+
+				momoca.popOver(view, {
+					onclose: function(){
+						view.active = false
+						momoca.state = momoca.state.replace("/instrument-configuration", "")
+						momoca.rout()
+                        delete view.app.instrument
+						stopWatchingInstrument()
+						stopWatchingInstrument()
+					},
+					label: "Instrument Key Selector"
+				})
 			}
 
 			return otherRoutState

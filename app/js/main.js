@@ -28,7 +28,7 @@ var mmcView = proxymity(document.querySelector("body"), {
 	buildSong: function(songJson){
 		console.log(songJson)
 		// default ticks per beat is 128
-		var durationTicks = 128/songJson.smallestFraction
+		var durationTicks = 128/songJson.smallestNoteFraction
 
 		// actual logic time
 
@@ -118,7 +118,9 @@ var mmcView = proxymity(document.querySelector("body"), {
 				})
 		})
 
-		playerTest = songEvents
+		return Promise.all(instrumentLoadingQueue).then(function(){
+			return songEvents.play()
+		})
 	}
 })
 var momoca = mmcView.app
