@@ -37,7 +37,19 @@
         <div class="flex island vcenter input-row">
             {: this.instrumentIndex + 1:}|{ home.newSong.instruments[this.instrumentIndex] }|:
             <button class="margin-h-0.25em padding-0.25em bg-white-hover marginless-right color-primary color-primary-light-hover {: !!this.app.home.newSong.instruments[this.instrumentIndex].instrumentId.toString() || ' hidden-state ' :}|{ home.newSong.instruments[this.instrumentIndex].instrumentId }|" onclick="this.app.home.configure(this.app.home.newSong.instruments[this.instrumentIndex])" type="button">Edit</button>
-            <select name="home.newSong.instruments[this.instrumentIndex].instrumentId" class="grow {: !!this.app.home.newSong.instruments[this.instrumentIndex].instrumentId.toString() || 'margin-h-0.25em marginless-right' :}|{ home.newSong.instruments[this.instrumentIndex].instrumentId }| padding-0.25em">
+            <select
+				name="home.newSong.instruments[this.instrumentIndex].instrumentId"
+				class="grow {:
+					!!this.app.home.newSong.instruments[this.instrumentIndex].instrumentId.toString() || 'margin-h-0.25em marginless-right'
+				:}|{
+					home.newSong.instruments[this.instrumentIndex].instrumentId
+				}| padding-0.25em"
+				data-script="{:
+					if (typeof this.app.home.newSong.instruments[this.instrumentIndex].instrumentId === 'number'){
+						momoca.getInstrument(this.app.home.newSong.instruments[this.instrumentIndex].instrumentId)
+					}
+				:}|{home.newSong.instruments[this.instrumentIndex].instrumentId}|"
+			>
                 <!-- foreach: key("instrumentIndex").in(this.app.instruments) -->
                 <option value="{: this.app.instruments[this.instrumentIndex].number :}|{instruments}|">{: this.app.instruments[this.instrumentIndex].instrument :}|{instruments}|</option>
                 <!-- foreach: key.end() -->
