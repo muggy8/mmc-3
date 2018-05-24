@@ -1,4 +1,4 @@
-<div class="flex-mid">
+<div class="flex-big">
 	<label class="flex vcenter input-row basis">
 		<span>Instrument:</span>
 		<select name="instrument.instrumentId" class="grow margin-h-0.5em marginless-right">
@@ -25,7 +25,7 @@
 		key("noteLoation").in(this.app.mapKeys)
 	} -->
 	<div class="preview-row flex vhcenter margin-v-0.25em">
-		<span class="input-row">
+		<span class="input-row flex-mid">
 			<!-- select for note -->
 			<select name="instrument.keyMap[this.app.mapKeys[this.noteLoation]]">
 				<!-- foreach: key("note").in(this.app.possiableNotes) -->
@@ -40,13 +40,17 @@
 			</select>
 		</span>
 		<div class="hide flex-mid">
-			<!-- foreach: key("i").in(this.app.cols)-->
-			<div class="padding-0.5em bg-gray margin-h-0.25em marginless-right"></div>
+			<!-- foreach:
+			 	key("i").in(this.app.instrument[this.app.mapKeys[this.noteLoation]])
+			-->
+			<div class="padding-0.5em margin-h-0.25em {:
+				this.app.instrument[this.app.mapKeys[this.noteLoation]][this.i] ? 'bg-primary' : 'bg-gray'
+			:}|{instrument[this.app.mapKeys[this.noteLoation]][this.i]}| "></div>
 			<!-- foreach: key.end() -->
 		</div>
 	</div>
 	<!-- foreach: key.end() -->
 </div>
-<div>
+<!-- <div>
     <pre>{:this.app.stringify(null, "    "):}</pre>
-</div>
+</div> -->
