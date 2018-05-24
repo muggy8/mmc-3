@@ -390,13 +390,13 @@ h5 {
     background-color: #003300;
     color: #FFF;
 }
-.bg-secondary-light {
-    background-color: #B25309;
+.bg-secondary {
+    background-color: #FF481F;
     color: #000;
 }
-.bg-secondary {
-    background-color: #331905;
-    color: #FFF;
+.bg-secondary-light {
+    background-color: #FF7355;
+    color: #000;
 }
 .bg-black {
     background-color: #000;
