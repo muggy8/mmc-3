@@ -31,7 +31,7 @@ body.has-font {
 }
 
 /* the responsive stuff that we dont need till later so whatever laod slowly is ok */
-@media screen and (min-width: 594px){
+@media screen and (min-width: 593px){
 	.flex-mid {
 		display: flex;
 	}
