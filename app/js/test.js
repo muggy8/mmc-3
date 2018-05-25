@@ -21,29 +21,13 @@ void function(){
         }
     }
 
-	// for(var i = 1; i <= 16; i++){
-	// 	testTrack["T" + i] = []
-	// 	for(var j = 0; j < 16; j++){
-	// 		if (i-1 === j){
-	// 			testTrack["T" + i][j] = {
-	// 				duration: 1,
-	// 				velocity: 80
-	// 			}
-	// 		}
-	// 		else{
-	// 			testTrack["T" + i][j] = false
-	// 		}
-	// 	}
-	// }
-
 	TestMidiFile = momoca.generateMidi({
 		tracks:[testTrack],
 		bpm: 128,
 		smallestNoteFraction: 4
 	})
 
-    var songB64 = "data:audio/midi;base64," + btoa(TestMidiFile.toBytes())
     var player = new utils.midiPlayer.Player(console.log)
-    player.loadDataUri(songB64)
+    player.loadDataUri(TestMidiFile)
     player.play()
 }()

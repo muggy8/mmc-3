@@ -77,8 +77,8 @@ var mmcView = proxymity(document.querySelector("body"), {
             return track
         }).forEach(song.addTrack.bind(song))
 
-        console.log(song)
-        return song
+        var songB64 = "data:audio/midi;base64," + btoa(song.toBytes())
+        return songB64
     },
 	buildSong: function(songJson){
 		console.log(songJson)
