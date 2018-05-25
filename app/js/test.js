@@ -15,7 +15,6 @@ void function(){
             testTrack.notes[col][row] = false
             if (col == row){
                 testTrack.notes[col][row] = {
-                    duration: 1,
 					velocity: 127
                 }
             }
@@ -37,9 +36,14 @@ void function(){
 	// 	}
 	// }
 
-	momoca.generateMidi({
+	TestMidiFile = momoca.generateMidi({
 		tracks:[testTrack],
 		bpm: 128,
 		smallestNoteFraction: 4
 	})
+
+    var songB64 = "data:audio/midi;base64," + btoa(TestMidiFile.toBytes())
+    var player = new utils.midiPlayer.Player(console.log)
+    player.loadDataUri(songB64)
+    player.play()
 }()

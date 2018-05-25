@@ -70,10 +70,12 @@ var mmcView = proxymity(document.querySelector("body"), {
 				trackJson[tKey].forEach(function(note, index){
 					if (note && note.duration && note.velocity){
 						var notePosition = index * durationTicks
+						console.log(notePosition)
 
 						track.addEvent(new utils.midiWriter.NoteEvent({
 							pitch: [tNote],
 							duration: "T" + (durationTicks * note.duration),
+							start: notePosition,
 							velocity: note.velocity
 						}))
 					}
