@@ -8,8 +8,7 @@
         "/app/js/nav.js",
         "/app/views/home/home.js",
         "/app/views/notification/notification.js",
-        "/app/views/instrument-configuration/config.js",
-        "/app/js/test.js"
+        "/app/views/instrument-configuration/config.js"
     ],
     "css": [
         "/app/css/critical.css",

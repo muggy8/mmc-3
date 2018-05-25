@@ -47,8 +47,8 @@ aja()
 
 				view.app.instrument = payload
 				view.active = true
-				// var stopWatchingInstrument = view.app.instrument.watch("instrumentId", view.app.watchAndPlayScale)
-				// var stopWatchingInstrument = view.app.instrument.watch("preset", view.app.watchAndPlayScale)
+				var stopWatchingInstrument = view.app.instrument.watch("instrumentId", view.app.watchAndPlayScale)
+				var stopWatchingInstrument = view.app.instrument.watch("preset", view.app.watchAndPlayScale)
 
 				momoca.popOver(view, {
 					onclose: function(){

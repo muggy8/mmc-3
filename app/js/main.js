@@ -143,13 +143,11 @@ var mmcView = proxymity(document.querySelector("body"), {
 		}
 	},
 	playSong: function(songJson){
-		var songWriter = momoca.buildSong(songJson)
-		var playEventRouter = function(event){
+		var songEvents = new utils.midiPlayer.Player(function(event){
 			// console.log(event)
 			songEvents.triggerPlayerEvent(event.track + ":" + event.name, event)
-		}
-		var songEvents = new utils.midiPlayer.Player(playEventRouter, songWriter.buildFile())
-
+		})
+        songEvents.loadDataUri(momoca.generateMidi(songJson))
 		songEvents.fileLoaded()
 
 		var instrumentLoadingQueue = songJson.tracks.map(function(trackJson, index){
