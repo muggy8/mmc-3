@@ -25,6 +25,30 @@ var mmcView = proxymity(document.querySelector("body"), {
 	},
 	rout: function(){}, // default base routing function
 	state: document.location.pathname,
+    generateMidi: function(songJson){
+        console.log(songJson)
+
+        var song = new utils.midGen.File()
+        songJson.tracks.map(function(jsonTrack){
+            var track = new utils.midGen.Track()
+            track.setInstrument(0, +jsonTrack.instrumentId)
+            track.setTempo(songJson.bpm)
+
+            var trackBuildState = {
+                waitDuration: 0
+            }
+            jsonTrack.notes.forEach(function(notesColumn){ // right to left = progression through time
+                notesColumn.forEach(function(note, index){ // right to left = bottom to top or low to high
+                    var noteName = jsonTrack.keyMap[index]
+
+                    if (note && note.duration && note.velocity){
+
+                    }
+                })
+            })
+            return track
+        }).forEach(song.addTrack.bind(song))
+    },
 	buildSong: function(songJson){
 		console.log(songJson)
 		// default ticks per beat is 128
