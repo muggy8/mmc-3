@@ -27,6 +27,7 @@ var mmcView = proxymity(document.querySelector("body"), {
 	state: document.location.pathname,
     generateMidi: function(songJson){
         console.log(songJson)
+        var noteTicks = 128/songJson.smallestNoteFraction
 
         var song = new utils.midGen.File()
         songJson.tracks.map(function(jsonTrack){
@@ -37,17 +38,47 @@ var mmcView = proxymity(document.querySelector("body"), {
             var trackBuildState = {
                 waitDuration: 0
             }
-            jsonTrack.notes.forEach(function(notesColumn){ // right to left = progression through time
-                notesColumn.forEach(function(note, index){ // right to left = bottom to top or low to high
+            var buildEventColumn = function(columnOfNotes){ // right to left = progression through time
+                columnOfNotes.forEach(function(note, index){ // right to left = bottom to top or low to high
                     var noteName = jsonTrack.keyMap[index]
 
-                    if (note && note.duration && note.velocity){
-
+                    if (!note && trackBuildState[noteName]){
+                        // we have detected that a note is currently falsey and there is a pending note in which case we need to turn it off
+                        // console.log(trackBuildState.waitDuration, "stop", noteName)
+                        track.addNoteOff(0, noteName, trackBuildState.waitDuration)
+                        trackBuildState[noteName] = false
+                        trackBuildState.waitDuration = 0
                     }
+
+                    if (note && note.velocity){
+                        // we have detected a new note to be struck
+
+                        if (trackBuildState[noteName]){ // is the pervious note still going if so we want to stop it before striking again
+                            // console.log(trackBuildState.waitDuration, "stop", noteName)
+                            track.addNoteOff(0, noteName, trackBuildState.waitDuration)
+                            trackBuildState[noteName] = false
+                            trackBuildState.waitDuration = 0
+                        }
+
+                        // ok we've handled the previous note thing lets strike the note now
+                        // console.log(trackBuildState.waitDuration, "start", noteName)
+                        track.addNoteOn(0, noteName, trackBuildState.waitDuration, note.velocity)
+                        trackBuildState[noteName] = true
+                    }
+
+                    // ok we're done with any changes that need to be made to no on and no off now we increment the wait time so the next round of setting can begin
                 })
-            })
+                trackBuildState.waitDuration += noteTicks
+            }
+            jsonTrack.notes.forEach(buildEventColumn)
+            buildEventColumn(utils.range(0, 15).map(function(){
+                return false
+            }))
             return track
         }).forEach(song.addTrack.bind(song))
+
+        console.log(song)
+        return song
     },
 	buildSong: function(songJson){
 		console.log(songJson)
