@@ -109,7 +109,20 @@ body.has-font {
 		align-items: flex-end;
 		justify-content: flex-end;
 	}
-    [class*="flex"].reverse-mid
+
+    [class*="flex"].column-mid
+    {
+        flex-direction: column;
+    }
+    [class*="flex"].row-mid
+    {
+        flex-direction: row;
+    }
+    [class*="flex"].column-reverse-mid
+    {
+        flex-direction: column-reverse;
+    }
+    [class*="flex"].row-reverse-mid
     {
         flex-direction: row-reverse;
     }
@@ -372,7 +385,19 @@ body.has-font {
 		align-items: flex-end;
 		justify-content: flex-end;
 	}
-    [class*="flex"].reverse-big
+    [class*="flex"].column-big
+    {
+        flex-direction: column;
+    }
+    [class*="flex"].row-big
+    {
+        flex-direction: row;
+    }
+    [class*="flex"].column-reverse-big
+    {
+        flex-direction: column-reverse;
+    }
+    [class*="flex"].row-reverse-big
     {
         flex-direction: row-reverse;
     }
