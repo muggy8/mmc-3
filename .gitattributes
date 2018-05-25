@@ -1,2 +1,3 @@
 # Ignore all differences in line endings
 *        -crlf
+*.ext text eol=crlf
