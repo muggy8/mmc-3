@@ -12,7 +12,6 @@ aja()
 
 		var currentlyPlayerPromise = Promise.resolve(null)
 		var view = proxymity(momoca.loading.childNodes, {
-			cols: [],
 			watchAndPlayScale: function(id){
 				if (id.toString().match(/^\d+$/)) {
 					currentlyPlayerPromise.then(function(player){
@@ -28,9 +27,6 @@ aja()
 				}
 			}
 		}).detach()
-		for(var i = 16; i--;){
-			view.app.cols.push(true)
-		}
 
 		momoca.rout = utils.extendFn(momoca.rout, function(superFn, payload){
 			var otherRoutState = superFn(payload)
@@ -38,22 +34,21 @@ aja()
 
 			if (routMatch && !view.active){
 
-				for(var i of utils.range(1, 16)){
-					payload["T" + i] = utils.range(16, 1).map(function(j){
-						if (i === j){
+                payload.notes = utils.range(0, 15).map(function(i){
+                    return utils.range(0, 15).map(function(j){
+                        if (i === j){
 							return {
-								duration: 1,
-								velocity: 80
+								velocity: 127
 							}
 						}
 						return false
-					})
-				}
+                    })
+                })
 
 				view.app.instrument = payload
 				view.active = true
-				var stopWatchingInstrument = view.app.instrument.watch("instrumentId", view.app.watchAndPlayScale)
-				var stopWatchingInstrument = view.app.instrument.watch("preset", view.app.watchAndPlayScale)
+				// var stopWatchingInstrument = view.app.instrument.watch("instrumentId", view.app.watchAndPlayScale)
+				// var stopWatchingInstrument = view.app.instrument.watch("preset", view.app.watchAndPlayScale)
 
 				momoca.popOver(view, {
 					onclose: function(){

@@ -21,19 +21,18 @@
 
 <div>
 	<!-- foreach: {
-		this.app.mapKeys = Object.keys(this.app.instrument.keyMap)
-		key("noteLoation").in(this.app.mapKeys)
+		key("rowIndex").in(this.app.instrument.keyMap)
 	} -->
 	<div class="preview-row flex vhcenter margin-v-0.25em">
 		<span class="input-row flex-mid">
 			<!-- select for note -->
-			<select name="instrument.keyMap[this.app.mapKeys[this.noteLoation]]">
+			<select name="instrument.keyMap[this.rowIndex]">
 				<!-- foreach: key("note").in(this.app.possiableNotes) -->
 				<option value="{:this.app.possiableNotes[this.note]:}|{possiableNotes}|">{:this.app.possiableNotes[this.note]:}|{possiableNotes}|</option>
 				<!-- foreach: key.end() -->
 			</select>
 			<!-- Input for note number -->
-			<select name="instrument.keyMap[this.app.mapKeys[this.noteLoation]]">
+			<select name="instrument.keyMap[this.rowIndex]">
 				<!-- foreach: key("note").in(this.app.possiableNotes) -->
 				<option value="{:this.app.possiableNotes[this.note]:}|{possiableNotes}|">{:this.note:}|{possiableNotes}|</option>
 				<!-- foreach: key.end() -->
@@ -41,11 +40,11 @@
 		</span>
 		<div class="hide flex-mid">
 			<!-- foreach:
-			 	key("i").in(this.app.instrument[this.app.mapKeys[this.noteLoation]])
+			 	key("colIndex").in(this.app.instrument.notes)
 			-->
 			<div class="padding-0.5em margin-h-0.25em {:
-				this.app.instrument[this.app.mapKeys[this.noteLoation]][this.i] ? 'bg-secondary' : 'bg-gray'
-			:}|{instrument[this.app.mapKeys[this.noteLoation]][this.i]}| "></div>
+				this.app.instrument.notes[this.colIndex][this.rowIndex] ? 'bg-secondary' : 'bg-gray'
+			:}|{instrument.notes[this.colIndex][this.rowIndex]}| "></div>
 			<!-- foreach: key.end() -->
 		</div>
 	</div>
