@@ -1,4 +1,5 @@
 utils.midiWriter = require('MidiWriter') // https://www.npmjs.com/package/midi-writer-js
+utils.midGen = Midi // https://www.npmjs.com/package/midi-writer-js
 utils.midiPlayer = MidiPlayer // https://github.com/grimmdude/MidiPlayerJS
 utils.soundfontPlayer = Soundfont // https://github.com/danigb/soundfont-player
 
