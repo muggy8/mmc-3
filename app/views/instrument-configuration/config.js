@@ -48,16 +48,16 @@ aja()
 				view.app.instrument = payload
 				view.active = true
 				var stopWatchingInstrument = view.app.instrument.watch("instrumentId", view.app.watchAndPlayScale)
-				var stopWatchingInstrument = view.app.instrument.watch("preset", view.app.watchAndPlayScale)
+				var stopWatchingpreset = view.app.instrument.watch("preset", view.app.watchAndPlayScale)
 
 				momoca.popOver(view, {
 					onclose: function(){
 						view.active = false
 						momoca.state = momoca.state.replace("/instrument-configuration", "")
 						momoca.rout()
-                        delete view.app.instrument
+                        view.app.instrument = {}
 						stopWatchingInstrument()
-						stopWatchingInstrument()
+						stopWatchingpreset()
 					},
 					label: "Instrument Key Selector"
 				})
