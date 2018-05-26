@@ -11,7 +11,7 @@ aja()
 		})
 
 		var currentlyPlayerPromise = Promise.resolve(null)
-		var view = proxymity(momoca.loading.childNodes, {
+		var view = proxymity(momoca.loading.querySelectorAll(".instrument-configuration-template"), {
 			watchAndPlayScale: function(id){
 				if (id.toString().match(/^\d+$/)) {
 					currentlyPlayerPromise.then(function(player){

@@ -8,7 +8,7 @@ aja()
 		momoca.notify("Failed to load modal module")
 	})
 	.on("2xx", function(){
-		var viewNodes = Array.prototype.slice.call(momoca.loading.childNodes)
+		var viewNodes = Array.prototype.slice.call(momoca.loading.querySelectorAll(".modal-template"))
 		viewNodes.forEach(function(node){
 			node.parentNode.removeChild(node)
 		})

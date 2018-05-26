@@ -32,7 +32,7 @@ void function(){
 		.url("/app/views/notification/notification.html")
 		.into("#loading")
 		.on("2xx", function(){
-			notificationsView = proxymity(momoca.loading.childNodes, notificationController).appendTo("body")
+			notificationsView = proxymity(momoca.loading.querySelectorAll(".notifications-template"), notificationController).appendTo("body")
 		})
 		.on("4xx", function(){
 			alert("Failed to load Notification module")
