@@ -80,46 +80,6 @@ var mmcView = proxymity(document.querySelector("body"), {
         var songB64 = "data:audio/midi;base64," + btoa(song.toBytes())
         return songB64
     },
-	buildSong: function(songJson){
-		console.log(songJson)
-		// default ticks per beat is 128
-		var durationTicks = 128/songJson.smallestNoteFraction
-
-		// actual logic time
-
-		var tracks = songJson.tracks.map(function(trackJson){
-			var track = new utils.midiWriter.Track()
-
-			track.addEvent(new utils.midiWriter.ProgramChangeEvent({
-				instrument: (+trackJson.instrumentId || 0)
-			}))
-			track.setTempo(songJson.bpm)
-
-			for(var key of utils.range(1, 16)){
-				var tKey = "T" + key
-				var tNote = trackJson.keyMap[tKey]
-				trackJson[tKey].forEach(function(note, index){
-					if (note && note.duration && note.velocity){
-						var notePosition = index * durationTicks
-						console.log(notePosition)
-
-						track.addEvent(new utils.midiWriter.NoteEvent({
-							pitch: [tNote],
-							duration: "T" + (durationTicks * note.duration),
-							start: notePosition,
-							velocity: note.velocity
-						}))
-					}
-				})
-			}
-
-			return track
-		})
-
-		// console.log(tracks)
-
-		return new utils.midiWriter.Writer(tracks)
-	},
 	getInstrument: function(instrumentId){
 		var ac = momoca.getInstrument.audioContext ||  (momoca.getInstrument.audioContext = new AudioContext())
 		if (momoca.getInstrument[instrumentId]){
