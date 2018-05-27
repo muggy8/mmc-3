@@ -14,6 +14,15 @@
             <input name="home.newSong.min" class="grow margin-h-0.5em marginless-right text-center padding-0.25em" placeholder="min" type="number" min="0" max="60">
             :
             <input name="home.newSong.sec" class="grow text-center  padding-0.25em" placeholder="sec" type="number" min="0" max="59">
+			<span>
+				({:
+					this.app.home.newSong.beats =
+					Math.round((
+						(+this.app.home.newSong.min || 0) +
+						((+this.app.home.newSong.sec || 0) / 60)
+					) * (+this.app.home.newSong.bpm || 0))
+				:}|{home.newSong.min},{home.newSong.sec},{home.newSong.bpm}| Beats)
+			</span>
         </label>
         <label class="flex island vcenter input-row">
             Beats per Minute:
@@ -63,7 +72,7 @@
 			trackData.preset = 0;
         }) -->
         <div class="flex vcenter">
-            <button class="island padding-0.25em bg-white-hover color-primary color-primary-light-hover" onclick="this.app.home.newSong.tracks.push({})" type="button">Add Instrument</button>
+            <button class="island padding-0.25em bg-white-hover color-primary color-primary-light-hover" onclick="this.app.home.newSong.tracks.push({})" type="button">Add Track</button>
             <div class="grow"></div>
             <input type="submit" value="Create Song" class="island padding-0.25em bg-white-hover color-primary color-primary-light-hover link">
         </div>

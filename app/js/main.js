@@ -26,7 +26,6 @@ var mmcView = proxymity(document.querySelector("body"), {
 	rout: function(){}, // default base routing function
 	state: document.location.pathname,
     generateMidi: function(songJson){
-        console.log(songJson)
         var noteTicks = 128/songJson.smallestNoteFraction
 
         var song = new utils.midGen.File()
