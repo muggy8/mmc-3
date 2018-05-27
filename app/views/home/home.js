@@ -43,6 +43,13 @@ void function(homeController){
 		if (!+songProperties.beats){
 			songProperties.beats = 2
 		}
+		songProperties.tracks.forEach(function(track){
+			track.notes = utils.range(0, songProperties.beats * songProperties.smallestNoteFraction).map(function(){
+				return utils.range(0, 15).map(function(){
+					return false
+				})
+			})
+		})
 		momoca.state = "/song"
 		momoca.rout(songProperties.objectify())
 		momoca.notify("Work in progress", {
