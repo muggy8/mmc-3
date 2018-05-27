@@ -40,9 +40,9 @@
 		</span>
 		<div class="hide flex-mid">
 			<!-- foreach: key("colIndex").in(this.app.instrument.notes) -->
-			<div class="padding-0.5em margin-h-0.25em {:
+			<div class="padding-0.5em margin-h-0.25em link {:
 				this.app.instrument.notes[this.colIndex][this.rowIndex] ? 'bg-secondary' : 'bg-gray'
-			:}|{instrument.notes[this.colIndex][this.rowIndex]}| "></div>
+			:}|{instrument.notes[this.colIndex][this.rowIndex]}| " onclick="momoca.toggleNote(this.app.instrument.notes, this.colIndex, this.rowIndex)"></div>
 			<!-- foreach: key.end() -->
 		</div>
 	</div>

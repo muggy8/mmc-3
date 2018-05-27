@@ -136,6 +136,11 @@ var mmcView = proxymity(document.querySelector("body"), {
 		return Promise.all(instrumentLoadingQueue).then(function(){
 			return songEvents.play()
 		})
+	},
+	toggleNote: function(notesMatrix, column, row){
+		console.log(notesMatrix, column, row)
+		var targetedNote = notesMatrix[column][row]
+
 	}
 })
 var momoca = mmcView.app
