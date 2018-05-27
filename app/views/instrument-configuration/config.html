@@ -39,9 +39,7 @@
 			</select>
 		</span>
 		<div class="hide flex-mid">
-			<!-- foreach:
-			 	key("colIndex").in(this.app.instrument.notes)
-			-->
+			<!-- foreach: key("colIndex").in(this.app.instrument.notes) -->
 			<div class="padding-0.5em margin-h-0.25em {:
 				this.app.instrument.notes[this.colIndex][this.rowIndex] ? 'bg-secondary' : 'bg-gray'
 			:}|{instrument.notes[this.colIndex][this.rowIndex]}| "></div>
