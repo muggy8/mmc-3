@@ -40,19 +40,19 @@ void function(homeController){
 		.go()
 
 	homeController.createSong = function(songProperties){
-		songProperties.nps = +songProperties.nps || 8
+		if (!+songProperties.beats){
+			songProperties.beats = 2
+		}
 		momoca.state = "/song"
 		momoca.rout(songProperties.objectify())
 		momoca.notify("Work in progress", {
 			timeout: 5000
 		})
+		return true
 	}
 
 	homeController.configure = function(instrumentForConfiguration){
 		momoca.state = "/home/instrument-configuration"
 		momoca.rout(instrumentForConfiguration)
-		momoca.notify("Work in progress", {
-			timeout: 5000
-		})
 	}
 }(momoca.home)

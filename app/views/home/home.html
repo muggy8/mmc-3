@@ -2,7 +2,7 @@
     <strong class="cell">Create New Song</strong>
     <form onsubmit="
         this.app.home.createSong(this.app.home.newSong);
-        delete this.app.home.newSong;
+		delete this.app.home.newSong;
         return false;
     ">
         <label class="flex island vcenter input-row">
@@ -13,16 +13,14 @@
             Song Length:
             <input name="home.newSong.min" class="grow margin-h-0.5em marginless-right text-center padding-0.25em" placeholder="min" type="number" min="0" max="60">
             :
-            <input name="home.newSong.sec" class="grow text-center  padding-0.25em" placeholder="sec" type="number" min="0" max="59">
-			<span>
-				({:
-					this.app.home.newSong.beats =
-					Math.round((
-						(+this.app.home.newSong.min || 0) +
-						((+this.app.home.newSong.sec || 0) / 60)
-					) * (+this.app.home.newSong.bpm || 0))
-				:}|{home.newSong.min},{home.newSong.sec},{home.newSong.bpm}| Beats)
-			</span>
+            <input name="home.newSong.sec" class="grow text-center margin-h-0.5em marginless-left padding-0.25em" placeholder="sec" type="number" min="0" max="59">
+			({:
+				this.app.home.newSong.beats =
+				Math.round((
+					(+this.app.home.newSong.min || 0) +
+					((+this.app.home.newSong.sec || 0) / 60)
+				) * (+this.app.home.newSong.bpm || 0))
+			:}|{home.newSong.min},{home.newSong.sec},{home.newSong.bpm}| Beats)
         </label>
         <label class="flex island vcenter input-row">
             Beats per Minute:
