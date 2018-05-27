@@ -1,22 +1,27 @@
-<div class="instrument-configuration-template flex-big">
-	<label class="flex vcenter input-row basis">
-		<span>Instrument:</span>
-		<select name="instrument.instrumentId" class="grow margin-h-0.5em marginless-right">
-			<!-- foreach: key("instrumentIndex").in(momoca.instruments) -->
-			<option value="{: momoca.instruments[this.instrumentIndex].number :}|{static}|">{: momoca.instruments[this.instrumentIndex].instrument :}|{static}|</option>
-			<!-- foreach: key.end() -->
-		</select>
-	</label>
-	<div class="island"></div>
-	<label class="flex vcenter input-row basis">
-		<span>Note Configuration:</span>
-		<select name="instrument.preset" class="grow margin-h-0.5em marginless-right">
-			<!-- foreach: key("presetIndex").in(momoca.presets)-->
-			<option value="{:this.presetIndex:}|{static}|">{:momoca.presets[this.presetIndex].preset:}|{static}|</option>
-			<!-- foreach: key.end() -->
-		</select>
-		<!-- {:this.app.instrument.keyMap = momoca.presets[(+this.app.instrument.preset || 0)].map.objectify():}|{instrument.preset}| -->
-	</label>
+<div class="instrument-configuration-template flex">
+	<div class="flex vcenter cell font-2em margin-h-0.25em marginless-left">
+		<div class="icon play" onclick="this.app.watchAndPlayScale('1')"></div>
+	</div>
+	<div class="flex-big grow">
+		<label class="flex vcenter input-row basis">
+			<span>Instrument:</span>
+			<select name="instrument.instrumentId" class="grow margin-h-0.5em marginless-right">
+				<!-- foreach: key("instrumentIndex").in(momoca.instruments) -->
+				<option value="{: momoca.instruments[this.instrumentIndex].number :}|{static}|">{: momoca.instruments[this.instrumentIndex].instrument :}|{static}|</option>
+				<!-- foreach: key.end() -->
+			</select>
+		</label>
+		<div class="island"></div>
+		<label class="flex vcenter input-row basis">
+			<span>Note Configuration:</span>
+			<select name="instrument.preset" class="grow margin-h-0.5em marginless-right">
+				<!-- foreach: key("presetIndex").in(momoca.presets)-->
+				<option value="{:this.presetIndex:}|{static}|">{:momoca.presets[this.presetIndex].preset:}|{static}|</option>
+				<!-- foreach: key.end() -->
+			</select>
+			<!-- {:this.app.instrument.keyMap = momoca.presets[(+this.app.instrument.preset || 0)].map.objectify():}|{instrument.preset}| -->
+		</label>
+	</div>
 </div>
 
 <div class="instrument-configuration-template flex column-reverse">

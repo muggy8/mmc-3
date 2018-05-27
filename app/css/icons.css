@@ -8,7 +8,18 @@
 	position: absolute;
 	display: block;
 }
+.icon.animate {
+	-webkit-transition: all 0.5s;
+	transition: all 0.5s;
+}
 
 .play.icon {
+	border-top: solid 0.5em rgba(0,0,0,0);
+	border-bottom: solid 0.5em rgba(0,0,0,0);
+	border-right: solid 0.1em rgba(0,0,0,0);
+	border-left: solid 0.9em currentcolor;
+}
 
+.stop.icon {
+	background-color: currentcolor;
 }
