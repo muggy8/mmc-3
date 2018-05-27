@@ -16,9 +16,11 @@ void function(controller){
 				var routMatch = momoca.state.match(/^\/song/)
 				if (!otherRoutsWorked && routMatch){
 					if (!view.inDom){
-						view.appendTo("main")
 						view.inDom = true
 						controller.song = payload
+						view.when("renderend").then(function(){
+							view.appendTo("main")
+						})
 					}
 					return true
 				}

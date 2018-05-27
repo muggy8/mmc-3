@@ -1,0 +1,25 @@
+<div class="song-template">
+
+</div>
+<div class="song-template">
+	<!-- foreach: key("trackIndex").in(this.app.song.tracks) -->
+	<div class="island flex-mid">
+		<div class="bg-primary">
+			<!-- this is the tool bar -->
+		</div>
+		<div class="bg-black inline block flex-mid padding-0.25em paddingless-left paddingless-top">
+			<!-- this is the main body -->
+
+			<!-- foreach: key("col").in(this.app.song.tracks[this.trackIndex].notes) -->
+			<div class="flex column-reverse-mid">
+				<!-- foreach: key("row").in(this.app.song.tracks[this.trackIndex].notes[this.col]) -->
+				<div class="padding-0.5em margin-0.25em marginless-right marginless-bot {:
+					this.app.song.tracks[this.trackIndex].notes[this.col][this.row] ? 'bg-secondary' : 'bg-gray'
+				:}|{song.tracks[this.trackIndex].notes[this.col][this.row]}|"></div>
+				<!-- foreach: key.end() -->
+			</div>
+			<!-- foreach: key.end() -->
+		</div>
+	</div>
+	<!-- foreach: key.end() -->
+</div>
