@@ -37,9 +37,7 @@ aja()
                 payload.notes = utils.range(0, 15).map(function(i){
                     return utils.range(0, 15).map(function(j){
                         if (i === j){
-							return {
-								velocity: 127
-							}
+							return momoca.createNote()
 						}
 						return false
                     })

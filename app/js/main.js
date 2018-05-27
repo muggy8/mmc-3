@@ -138,9 +138,40 @@ var mmcView = proxymity(document.querySelector("body"), {
 		})
 	},
 	toggleNote: function(notesMatrix, column, row){
-		console.log(notesMatrix, column, row)
 		var targetedNote = notesMatrix[column][row]
 
+		if (column -1 >= 0){
+			var previousNote = notesMatrix[column - 1][row]
+		}
+
+		if (column + 1 < notesMatrix.length){
+			var nextNote = notesMatrix[column + 1][row]
+
+			if (nextNote && targetedNote.velocity){ // current note is the start of a note chain
+				notesMatrix[column + 1][row] = momoca.createNote() // make the next note the start of the note chain
+			}
+
+			if (nextNote.velocity && !targetedNote){
+				notesMatrix[column][row] = nextNote
+				notesMatrix[column + 1][row] = true
+				return
+			}
+		}
+
+		if (!targetedNote && !previousNote){
+			notesMatrix[column][row] = momoca.createNote()
+		}
+		else if (targetedNote.velocity){
+			notesMatrix[column][row] = false
+		}
+		else if (previousNote){
+			notesMatrix[column][row] = true
+		}
+	},
+	createNote: function(velocity = 127){
+		return {
+			velocity: velocity
+		}
 	}
 })
 var momoca = mmcView.app
