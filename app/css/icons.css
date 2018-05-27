@@ -1,0 +1,14 @@
+.icon {
+	position: relative;
+	width: 1em;
+	height: 1em;
+}
+.icon:before, .icon:after {
+	content: '';
+	position: absolute;
+	display: block;
+}
+
+.play.icon {
+
+}

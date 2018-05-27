@@ -13,7 +13,8 @@
     ],
     "css": [
         "/app/css/critical.css",
-        "/app/css/styles.css"
+        "/app/css/styles.css",
+        "/app/css/icons.css"
     ],
     "html": [
         "/",
