@@ -1,12 +1,16 @@
+/* Inspired by: http://cssicon.space/ */
+
 .icon {
 	position: relative;
 	width: 1em;
 	height: 1em;
+	box-sizing: border-box;
 }
 .icon:before, .icon:after {
 	content: '';
 	position: absolute;
 	display: block;
+	box-sizing: border-box;
 }
 .icon.animate {
 	-webkit-transition: all 0.5s;
@@ -22,4 +26,30 @@
 
 .stop.icon {
 	background-color: currentcolor;
+}
+
+.loading.icon {
+	border-radius: 0.75em;
+	border: solid 0.15em rgba(0,0,0,0);
+	border-top-color: currentcolor;
+
+	-webkit-animation-name: loading-icon;
+    animation-name: loading-icon;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+}
+
+@keyframes loading-icon {
+    0% {
+        -webkit-transform: rotateZ(0deg);
+        transform: rotateZ(0deg)
+    }
+    100% {
+        -webkit-transform: rotateZ(360deg);
+        transform: rotateZ(360deg)
+    }
 }
