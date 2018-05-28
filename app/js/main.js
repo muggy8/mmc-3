@@ -163,7 +163,10 @@ var mmcView = proxymity(document.querySelector("body"), {
 		else if (targetedNote.velocity){
 			notesMatrix[column][row] = false
 		}
-		else if (previousNote){
+		else if (previousNote && targetedNote && !targetedNote.velocity){
+			notesMatrix[column][row] = momoca.createNote()
+		}
+		else if (previousNote && !targetedNote){
 			notesMatrix[column][row] = true
 		}
 	},
