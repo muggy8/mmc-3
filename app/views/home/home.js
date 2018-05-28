@@ -41,10 +41,10 @@ void function(homeController){
 
 	homeController.createSong = function(songProperties){
 		if (!+songProperties.beats){
-			songProperties.beats = 2
+			songProperties.beats = 4
 		}
 		songProperties.tracks.forEach(function(track){
-			track.notes = utils.range(0, songProperties.beats * songProperties.smallestNoteFraction).map(function(){
+			track.notes = utils.range(0, (songProperties.beats * songProperties.smallestNoteFraction) - 1).map(function(){
 				return utils.range(0, 15).map(function(){
 					return false
 				})
