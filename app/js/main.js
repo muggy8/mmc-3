@@ -176,4 +176,7 @@ var mmcView = proxymity(document.querySelector("body"), {
 var momoca = mmcView.app
 momoca.getUser()
 
+window.addEventListener("resize", function(){
+	momoca.screenSize = window.innerWidth
+})
 momoca.loading = document.querySelector("#loading")
