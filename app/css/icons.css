@@ -91,10 +91,28 @@
 	left: 0.15em;
 	right: 0.15em;
 	bottom: 100%;
-
 	border: solid 0.2em rgba(0,0,0,0);
 	border-bottom: solid 0.25em currentcolor;
-
 	box-shadow: 0px 0.5em 0 -0.1em currentcolor;
+}
 
+.gear.icon:before, .gear.icon:after {
+	/* the gear is composed of 2 squares are placed diagonally with box shadows that extend past it. setting it via the 4 position attributes centers it and leaves 0.2em of a box */
+	left: 0.4em;
+	right: 0.4em;
+	top: 0.4em;
+	bottom: 0.4em;
+
+	background-color: rgba(0,0,0,0); /* the center of the box is left hollow cuz it looks better */
+
+	/* the first 4 box shadows extend out 0.4em (since the core box is 2 em) to create a cross shape*/
+	box-shadow:
+		0 0.4em 0 0 currentcolor,
+		0 -0.4em 0 0 currentcolor,
+		0.4em 0 0 0 currentcolor,
+		-0.4em 0 0 0 currentcolor,
+		0 0 0 0.25em currentcolor; /*the last box shadow creates the bigger center box and when 2 of these gets overlapped it looks like a gear*/
+}
+.gear.icon:after {
+	transform: rotate(45deg);
 }
