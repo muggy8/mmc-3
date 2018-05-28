@@ -171,6 +171,15 @@ var mmcView = proxymity(document.querySelector("body"), {
 		return {
 			velocity: velocity
 		}
+	},
+	classOfNote: function(note){
+		if (note && note.velocity){
+			return "bg-secondary"
+		}
+		else if (note){
+			return "bg-secondary-light"
+		}
+		return "bg-gray"
 	}
 })
 var momoca = mmcView.app
