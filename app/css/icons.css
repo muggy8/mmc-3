@@ -57,7 +57,7 @@
 .rewind.icon {
 	border-left: solid 0.15em currentcolor;
 }
-.rewind:before, .rewind:after {
+.rewind.icon:before, .rewind.icon:after {
 	width: 0.6em;
 	height: 1em;
 	top: 0;
@@ -68,6 +68,36 @@
 	border-left: none;
 	border-right: solid 0.6em currentcolor;
 }
-.rewind:after {
+.rewind.icon:after {
 	left: 0.25em;
+}
+
+.export.icon {
+	margin-top: 0.25em;
+	height: 0.75em;
+	border: solid 0.15em currentcolor;
+	border-top-style: hidden;
+	border-radius: 0.1em;
+}
+.export.icon:before {
+	top: -0.2em;
+	bottom: 0.1em;
+	left: 0.275em;
+	right: 0.275em;
+	background-color: currentcolor;
+}
+.export.icon:after {
+	border: solid 0.15em currentcolor;
+	border-bottom: none;
+	border-right: none;
+	top: -0.2em;
+	width: 0.35em;
+	height: 0.35em;
+
+	transform: rotate(45deg);
+
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
 }
