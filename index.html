@@ -7,7 +7,7 @@
 		<link href="/app/css/critical.css" rel="stylesheet"/>
 	</head>
 	<body>
-		<header class="relative">
+		<header class="fixed col-2-2">
             <div class="flex-big vhcenter wrap bg-primary">
                 <h1 class="text-center cell">
                     Music Matrix Composer (V3)
@@ -60,6 +60,9 @@
             </div>
 
 		</header>
+		<div style="height: {:
+			this.previousElementSibling.offsetHeight
+		:}|{nav.subNavSection}|px"></div>
 		<main class="relative"></main>
         <div id="loading" class="hidden-state"></div>
 
