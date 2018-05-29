@@ -1,34 +1,38 @@
 /* Inspired by: http://cssicon.space/ */
 /* http://cssicon.space/old/ */
 .icon {
+	display: inline-block;
+}
+.icon > * {
 	position: relative;
 	width: 1em;
 	height: 1em;
 	box-sizing: border-box;
+	display: inline-block;
 }
-.icon:before, .icon:after {
+.icon > *:before, .icon > *:after {
 	content: '';
 	position: absolute;
 	display: block;
 	box-sizing: border-box;
 }
-.icon.animate {
+.icon.animate, .icon .animate, .icon.animate *, .icon .animate * {
 	-webkit-transition: all 0.5s;
 	transition: all 0.5s;
 }
 
-.play.icon {
+.icon .play {
 	border-top: solid 0.5em rgba(0,0,0,0);
 	border-bottom: solid 0.5em rgba(0,0,0,0);
 	border-right: solid 0.1em rgba(0,0,0,0);
 	border-left: solid 0.9em currentcolor;
 }
 
-.stop.icon {
+.icon .stop {
 	background-color: currentcolor;
 }
 
-.loading.icon {
+.icon .loading {
 	border-radius: 0.75em;
 	border: solid 0.15em rgba(0,0,0,0);
 	border-top-color: currentcolor;
@@ -54,10 +58,10 @@
     }
 }
 
-.rewind.icon {
+.icon .rewind {
 	border-left: solid 0.15em currentcolor;
 }
-.rewind.icon:before, .rewind.icon:after {
+.icon .rewind:before, .icon .rewind:after {
 	width: 0.6em;
 	height: 1em;
 	top: 0;
@@ -68,25 +72,25 @@
 	border-left: none;
 	border-right: solid 0.6em currentcolor;
 }
-.rewind.icon:after {
+.icon .rewind:after {
 	left: 0.25em;
 }
 
-.export.icon {
+.icon .export {
 	margin-top: 0.25em;
 	height: 0.75em;
 	border: solid 0.15em currentcolor;
 	border-top-style: hidden;
 	border-radius: 0.1em;
 }
-.export.icon:before {
+.icon .export:before {
 	top: 0;
 	height: 0.15em;
 	width: 100%;
 	border-left: solid 0.1em currentColor;
 	border-right: solid 0.1em currentColor;
 }
-.export.icon:after {
+.icon .export:after {
 	height: 2em;
 	left: 0.15em;
 	right: 0.15em;
@@ -96,7 +100,7 @@
 	box-shadow: 0px 0.5em 0 -0.1em currentcolor;
 }
 
-.gear.icon:before, .gear.icon:after {
+.icon .gear:before, .icon .gear:after {
 	/* the gear is composed of 2 squares are placed diagonally with box shadows that extend past it. setting it via the 4 position attributes centers it and leaves 0.2em of a box */
 	left: 0.4em;
 	right: 0.4em;
@@ -113,6 +117,6 @@
 		-0.4em 0 0 0 currentcolor,
 		0 0 0 0.25em currentcolor; /*the last box shadow creates the bigger center box and when 2 of these gets overlapped it looks like a gear*/
 }
-.gear.icon:after {
+.icon .gear:after {
 	transform: rotate(45deg);
 }
