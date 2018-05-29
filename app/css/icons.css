@@ -1,14 +1,11 @@
 /* Inspired by: http://cssicon.space/ */
 /* http://cssicon.space/old/ */
-.icon {
+.icon, .icon > * {
 	display: inline-block;
-}
-.icon > * {
 	position: relative;
 	width: 1em;
 	height: 1em;
 	box-sizing: border-box;
-	display: inline-block;
 }
 .icon > *:before, .icon > *:after {
 	content: '';
@@ -87,8 +84,8 @@
 	top: 0;
 	height: 0.15em;
 	width: 100%;
-	border-left: solid 0.1em currentColor;
-	border-right: solid 0.1em currentColor;
+	border-left: solid 0.1em currentcolor;
+	border-right: solid 0.1em currentcolor;
 }
 .icon .export:after {
 	height: 2em;
@@ -119,4 +116,27 @@
 }
 .icon .gear:after {
 	transform: rotate(45deg);
+}
+
+.icon .home {
+	height: 0.6em;
+    margin-bottom: 0.5em;
+    border: solid 0.5em rgba(0,0,0,0);
+    border-top: none;
+    border-bottom: solid 0.6em currentcolor;z
+}
+.icon .home:before {
+	bottom: -0.8em;
+	top: 0.6em;
+	left: -0.3em;
+	right: -0.3em;
+	background: radial-gradient(circle 0.2em at bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 50%,rgba(0,0,0,1) 51%,rgba(0,0,0,1) 100%);
+}
+.icon .home:after {
+	bottom: -1em;
+	top: 0.8em;
+	left: -0.3em;
+	right: -0.3em;
+	border-right: solid 0.2em currentcolor;
+	border-left: solid 0.2em currentcolor;
 }
