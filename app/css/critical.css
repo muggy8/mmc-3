@@ -40,22 +40,26 @@ h5 {
 [class*="flex"] > .grow-1-smol
 {
 	flex-grow: 1;
+	min-width: 1px;
 }
 [class*="flex"] > .grow-2,
 [class*="flex"] > .grow-2-smol
 {
 	flex-grow: 2;
+	min-width: 1px;
 }
 [class*="flex"] > .grow-3,
 [class*="flex"] > .grow-3-smol
 {
 	flex-grow: 3;
+	min-width: 1px;
 }
 
 [class*="flex"] > .basis-50,
 [class*="flex"] > .basis-50-smol
 {
 	flex-basis: 50%;
+	min-width: 1px;
 }
 [class*="flex"] > .basis-100,
 [class*="flex"] > .basis-100-smol,
@@ -63,16 +67,19 @@ h5 {
 [class*="flex"] > .basis-smol
 {
 	flex-basis: 100%;
+	min-width: 1px;
 }
 [class*="flex"] > .basis-150,
 [class*="flex"] > .basis-150-smol
 {
 	flex-basis: 150%;
+	min-width: 1px;
 }
 [class*="flex"] > .basis-200,
 [class*="flex"] > .basis-200-smol
 {
 	flex-basis: 200%;
+	min-width: 1px;
 }
 
 [class*="flex"].vcenter,

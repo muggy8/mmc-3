@@ -39,32 +39,39 @@ body.has-font {
 	[class*="flex"] > .grow-mid
 	{
 		flex-grow: 1;
+		min-width: 1px;
 	}
 	[class*="flex"] > .grow-2-mid
 	{
 		flex-grow: 2;
+		min-width: 1px;
 	}
 	[class*="flex"] > .grow-3-mid
 	{
 		flex-grow: 3;
+		min-width: 1px;
 	}
 
 	[class*="flex"] > .basis-50-mid
 	{
 		flex-basis: 50%;
+		min-width: 1px;
 	}
 	[class*="flex"] > .basis-100-mid,
 	[class*="flex"] > .basis-mid
 	{
 		flex-basis: 100%;
+		min-width: 1px;
 	}
 	[class*="flex"] > .basis-150-mid
 	{
 		flex-basis: 150%;
+		min-width: 1px;
 	}
 	[class*="flex"] > .basis-200-mid
 	{
 		flex-basis: 200%;
+		min-width: 1px;
 	}
 
 	[class*="flex"].vcenter-mid
