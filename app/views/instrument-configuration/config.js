@@ -18,26 +18,26 @@ aja()
 					view.app.controlFn = "stubFn"
 					currentlyPlayerPromise.then(function(player){
 						player && player.stop()
-						setTimeout(function(){
-							currentlyPlayerPromise = momoca.playSong({
-								tracks:[view.app.instrument.objectify()],
-								bpm: momoca.home.newSong.bpm,
-								smallestNoteFraction: momoca.home.newSong.smallestNoteFraction
-							}).then(function(player){
-								view.app.controlIcon = "stop"
-								view.app.stop = function(){
-									player.stop()
-									view.app.controlIcon = "play"
-									view.app.controlFn = "watchAndPlayScale"
-								}
-								view.app.controlFn = "stop"
 
-								player.on("endOfFile", function(){
-									view.app.controlIcon = "play"
-									view.app.controlFn = "watchAndPlayScale"
-								})
-							})
-						}, 100)
+                        currentlyPlayerPromise = momoca.playSong({
+                            tracks:[view.app.instrument.objectify()],
+                            bpm: momoca.home.newSong.bpm,
+                            smallestNoteFraction: momoca.home.newSong.smallestNoteFraction
+                        }).then(function(player){
+                            view.app.controlIcon = "stop"
+                            view.app.stop = function(){
+                                player.stop()
+                                view.app.controlIcon = "play"
+                                view.app.controlFn = "watchAndPlayScale"
+                            }
+                            view.app.controlFn = "stop"
+
+                            player.on("endOfFile", function(){
+                                view.app.controlIcon = "play"
+                                view.app.controlFn = "watchAndPlayScale"
+                            })
+                        })
+						
 					})
 				}
 			},
