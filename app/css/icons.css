@@ -26,13 +26,14 @@
 }
 
 .icon .stop {
-	background-color: currentcolor;
+	border: 0.5em solid currentcolor;
+	background: radial-gradient(circle 0.2em at center, currentcolor 50%, rgba(0,0,0,0) 51%)
 }
 
 .icon .loading {
 	border-radius: 0.75em;
 	border: solid 0.15em rgba(0,0,0,0);
-	border-top-color: currentcolor;
+	border-left-color: currentcolor;
 
 	-webkit-animation-name: loading-icon;
     animation-name: loading-icon;
