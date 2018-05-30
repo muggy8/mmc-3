@@ -15,19 +15,19 @@ void function(controller){
 				var otherRoutsWorked = superFn(payload)
 				var routMatch = momoca.state.match(/^\/song/)
 				if (!otherRoutsWorked && routMatch){
-					if (!view.inDom){
-						view.inDom = true
+					if (!controller.inDom){
 						controller.song = payload
 						view.when("renderend").then(function(){
 							view.appendTo("main")
+							controller.inDom = true
 						})
 					}
 					return true
 				}
 				else{
-					if (view.inDom){
+					if (controller.inDom){
 						view.detach()
-						view.inDom = false
+						controller.inDom = false
 					}
 					return otherRoutsWorked
 				}
@@ -35,4 +35,6 @@ void function(controller){
 			momoca.rout()
 		})
 		.go()
+	controller.mainControl = "play"
+	controller.inDom = false
 }(momoca.songController)
