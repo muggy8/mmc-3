@@ -14,6 +14,8 @@ aja()
 		var view = proxymity(momoca.loading.querySelectorAll(".instrument-configuration-template"), {
 			watchAndPlayScale: function(id){
 				if (id.toString().match(/^\d+$/)) {
+					view.app.controlIcon = "loading"
+					view.app.controlFn = "stubFn"
 					currentlyPlayerPromise.then(function(player){
 						player && player.stop()
 						setTimeout(function(){
@@ -21,11 +23,27 @@ aja()
 								tracks:[view.app.instrument.objectify()],
 								bpm: momoca.home.newSong.bpm,
 								smallestNoteFraction: momoca.home.newSong.smallestNoteFraction
+							}).then(function(player){
+								view.app.controlIcon = "stop"
+								view.app.stop = function(){
+									player.stop()
+									view.app.controlIcon = "play"
+									view.app.controlFn = "watchAndPlayScale"
+								}
+								view.app.controlFn = "stop"
+
+								player.on("endOfFile", function(){
+									view.app.controlIcon = "play"
+									view.app.controlFn = "watchAndPlayScale"
+								})
 							})
 						}, 100)
 					})
 				}
-			}
+			},
+			controlIcon: "play",
+			controlFn: "watchAndPlayScale",
+			stubFn: function(){}
 		}).detach()
 
 		momoca.rout = utils.extendFn(momoca.rout, function(superFn, payload){
