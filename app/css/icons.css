@@ -1,5 +1,8 @@
 /* Inspired by: http://cssicon.space/ */
 /* http://cssicon.space/old/ */
+.icon {
+	background-color: rgba(0,0,0,0);
+}
 .icon, .icon > * {
 	display: inline-block;
 	position: relative;
