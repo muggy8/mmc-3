@@ -35,6 +35,23 @@ void function(controller){
 			momoca.rout()
 		})
 		.go()
-	controller.mainControl = "play"
+		
 	controller.inDom = false
+	
+	controller.mainControl = "play"
+	controller.mainControlFn = "play"
+	controller.stubFn = function(){}
+	controller.play = function(){
+		controller.mainControlFn = "stubFn"
+		controller.mainControl = "loading"
+		momoca.playSong(controller.song.objectify()).then(function(player){
+			controller.mainControlFn = "stop"
+			controller.mainControl = "stop"
+			controller.stop = function(){
+				player.stop()
+				controller.mainControl = "play"
+				controller.mainControlFn = "play"
+			}
+		})
+	}
 }(momoca.songController)
