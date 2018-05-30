@@ -35,9 +35,9 @@ void function(controller){
 			momoca.rout()
 		})
 		.go()
-		
+
 	controller.inDom = false
-	
+
 	controller.mainControl = "play"
 	controller.mainControlFn = "play"
 	controller.stubFn = function(){}
@@ -52,6 +52,10 @@ void function(controller){
 				controller.mainControl = "play"
 				controller.mainControlFn = "play"
 			}
-		})
+            player.on("endOfFile", function(){
+                controller.mainControl = "play"
+                controller.mainControlFn = "play"
+            })
+        })
 	}
 }(momoca.songController)
