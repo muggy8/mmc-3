@@ -58,4 +58,11 @@ void function(controller){
             })
         })
 	}
+
+	controller.home = function(){
+		if (confirm("Discard all unsaved changes and return to home view")){
+			momoca.state = "/"
+			momoca.rout()
+		}
+	}
 }(momoca.songController)
