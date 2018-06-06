@@ -30,8 +30,11 @@ aja()
             popOverController.configs = configs
 
 	        popOverController.close = function(){
+				var canClose = configs.onclose && configs.onclose()
+				if (canClose === false){
+					return
+				}
 	            popoverView.detach()
-				configs.onclose && configs.onclose()
 	            popOverController.body = popOverController.innerHTML = popOverController.proxyView = undefined;
 	        }
 			popoverView.appendTo("main")
