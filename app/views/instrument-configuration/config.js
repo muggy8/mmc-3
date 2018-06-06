@@ -12,15 +12,26 @@ aja()
 
 		var currentlyPlayerPromise = Promise.resolve(null)
 		var view = proxymity(momoca.loading.querySelectorAll(".instrument-configuration-template"), {
+			notes: utils.range(0, 15).map(function(i){
+				return utils.range(0, 15).map(function(j){
+					if (i === j){
+						return momoca.createNote()
+					}
+					return false
+				})
+			}),
 			watchAndPlayScale: function(id){
 				if (id.toString().match(/^\d+$/)) {
 					view.app.controlIcon = "loading"
 					view.app.controlFn = "stubFn"
 					currentlyPlayerPromise.then(function(player){
 						player && player.stop()
+						var demoTrackNotes = view.app.notes.objectify()
+						var demoTrackData = view.app.instrument.objectify()
+						demoTrackData.notes = demoTrackNotes
 
                         currentlyPlayerPromise = momoca.playSong({
-                            tracks:[view.app.instrument.objectify()],
+                            tracks:[demoTrackData],
                             bpm: momoca.home.newSong.bpm,
                             smallestNoteFraction: momoca.home.newSong.smallestNoteFraction
                         }).then(function(player){
@@ -37,7 +48,7 @@ aja()
                                 view.app.controlFn = "watchAndPlayScale"
                             })
                         })
-						
+
 					})
 				}
 			},
@@ -51,15 +62,6 @@ aja()
 			var routMatch = momoca.state.match(/\/instrument-configuration/i)
 
 			if (routMatch && !view.active){
-
-                payload.notes = utils.range(0, 15).map(function(i){
-                    return utils.range(0, 15).map(function(j){
-                        if (i === j){
-							return momoca.createNote()
-						}
-						return false
-                    })
-                })
 
 				view.app.instrument = payload
 				view.active = true
