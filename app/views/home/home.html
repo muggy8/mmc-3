@@ -38,7 +38,7 @@
             Tracks:
         </div>
         <!-- foreach: {
-            this.app.home.newSong.tracks = [{}];
+            this.app.home.newSong.tracks = [this.app.home.trackTemplate.objectify()];
             key("instrumentIndex").in(this.app.home.newSong.tracks);
         } -->
         <div class="flex island vcenter input-row">
@@ -63,14 +63,9 @@
             </select>
             <button class="color-primary padding-0.25em bg-white-hover color-primary-light-hover {: this.app.home.newSong.tracks.length > 1 || ' hidden-state ' :}|{ home.newSong.tracks.length }|" onclick="this.app.home.newSong.tracks.splice(this.instrumentIndex, 1);" type="button">X</button>
         </div>
-        <!-- foreach: key.end(function(item){
-			var trackData = item.app.home.newSong.tracks[item.instrumentIndex]
-            trackData.instrumentId = 0;
-			trackData.keyMap = momoca.presets[0].map.objectify();
-			trackData.preset = 0;
-        }) -->
+        <!-- foreach: key.end() -->
         <div class="flex vcenter">
-            <button class="island padding-0.25em bg-white-hover color-primary color-primary-light-hover" onclick="this.app.home.newSong.tracks.push({})" type="button">Add Track</button>
+            <button class="island padding-0.25em bg-white-hover color-primary color-primary-light-hover" onclick="this.app.home.newSong.tracks.push(this.app.home.trackTemplate.objectify())" type="button">Add Track</button>
             <div class="grow"></div>
             <input type="submit" value="Create Song" class="island padding-0.25em bg-white-hover color-primary color-primary-light-hover link">
         </div>

@@ -62,4 +62,10 @@ void function(homeController){
 		momoca.state = "/home/instrument-configuration"
 		momoca.rout(instrumentForConfiguration)
 	}
+
+	homeController.trackTemplate = {
+		instrumentId: 0,
+		keyMap: momoca.presets[0].map.objectify(),
+		preset: 0
+	}
 }(momoca.home)
