@@ -65,4 +65,9 @@ void function(controller){
 			momoca.rout()
 		}
 	}
+
+	controller.configTrack = function(track){
+		momoca.state += "/instrument-configuration";
+		momoca.rout(track)
+	}
 }(momoca.songController)
