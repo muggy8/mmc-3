@@ -177,3 +177,24 @@
 	border-right: solid 0.15em currentcolor;
 	border-bottom: solid 0.05em currentcolor;
 }
+
+.icon .add:before,
+.icon .add:after,
+.icon .delete:before,
+.icon .delete:after {
+	top: 0;
+	bottom: 0;
+	left: 0.4em;
+	right: 0.4em;
+	background-color: currentcolor;
+}
+.icon .add:after {
+	transform: rotate(90deg);
+}
+
+.icon .delete:before {
+	transform: rotate(-45deg);
+}
+.icon .delete:after {
+	transform: rotate(45deg);
+}
