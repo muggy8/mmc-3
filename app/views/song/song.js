@@ -72,6 +72,6 @@ void function(controller){
 	}
 
 	controller.export = function(){
-		momoca.popOver(`<div><a href="${momoca.generateMidi(controller.song.objectify())}" download>Download</a></div>`)
+		momoca.popOver(`<div class="text-center"><a href="${momoca.generateMidi(controller.song.objectify())}" download>Download</a></div>`)
 	}
 }(momoca.songController)
