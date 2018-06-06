@@ -70,4 +70,8 @@ void function(controller){
 		momoca.state += "/instrument-configuration";
 		momoca.rout(track)
 	}
+
+	controller.export = function(){
+		momoca.popOver(`<div><a href="${momoca.generateMidi(controller.song.objectify())}" download>Download</a></div>`)
+	}
 }(momoca.songController)
