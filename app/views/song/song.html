@@ -61,7 +61,7 @@
 				<!-- foreach: key.end() -->
 			</div>
 
-			<input class="grow-mid margin-0.5em marginless-right marginles-bot" name="seek" type="range" min="0" max="{: (this.app.song.beats * (+this.app.song.smallestNoteFraction)) - 1 :}|{song.beats},{song.smallestNoteFraction}|" orient="{: parseInt(momoca.screenSize) > 593 ? 'horizontal' : 'vertical' :}|{inDom;momoca.screenSize},{inDom}|">
+			<input class="grow-mid margin-0.5em marginless-right marginles-bot" name="seek" type="range" min="0" max="{: (this.app.song.beats * (+this.app.song.smallestNoteFraction)) - 1 :}|{song.beats},{song.smallestNoteFraction}|" orient="{: momoca.mediaState === 'smol' ? 'vertical' : 'horizontal' :}|{inDom;momoca.mediaState},{inDom}|">
 		</div>
 	</div>
 	<!-- foreach: key.end() -->
