@@ -11,6 +11,7 @@ void function(controller){
 		.on("2xx", function(ouo){
 			var view = proxymity(momoca.loading.querySelectorAll(".song-template"), controller).detach()
 
+			controller.inDom = false
 			momoca.rout = utils.extendFn(momoca.rout, function(superFn, payload){
 				var otherRoutsWorked = superFn(payload)
 				var routMatch = momoca.state.match(/^\/song/)
@@ -36,7 +37,6 @@ void function(controller){
 		})
 		.go()
 
-	controller.inDom = false
 
 	controller.mainControl = "play"
 	controller.mainControlFn = "play"
@@ -74,4 +74,6 @@ void function(controller){
 	controller.export = function(){
 		momoca.popOver(`<div class="text-center"><a href="${momoca.generateMidi(controller.song.objectify())}" download>Download</a></div>`)
 	}
+
+	controller.seek = 0
 }(momoca.songController)

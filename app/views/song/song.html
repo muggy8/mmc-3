@@ -29,13 +29,9 @@
 	<div style="height:{:this.previousElementSibling.offsetHeight:}|{inDom;momoca.screenSize},{inDom}|px"></div>
 </div>
 <div class="song-template">
-	<div class="island flex">
-		<span style="width:{:var trackToolsDiv = document.querySelector('.track-tools'); trackToolsDiv && trackToolsDiv.offsetWidth:}|{inDom;momoca.screenSize},{inDom}|px"></span>
-		<input type="range" class="margin-h-0.25em" min="0" max="{: (this.app.song.beats * (+this.app.song.smallestNoteFraction)) - 1 :}|{song.beats},{song.smallestNoteFraction}|" style="width:{:var trackToolsDiv = document.querySelector('.track-notes'); trackToolsDiv && trackToolsDiv.offsetWidth:}|{inDom;momoca.screenSize},{inDom}|px">
-	</div>
 	<!-- foreach: key("trackIndex").in(this.app.song.tracks) -->
 	<div class="island flex-mid">
-		<div class="bg-primary flex row column-mid track-tools">
+		<div class="bg-primary flex row column-mid">
 			<!-- this is the tool bar -->
 
 			<div class="island bubble-0.25 padding-0.5em bg-gray-light bg-gray-hover" onclick="this.app.configTrack(this.app.song.tracks[this.trackIndex])">
@@ -51,18 +47,21 @@
 			</div>
 
 		</div>
-		<div class="bg-black inline block flex-mid padding-0.25em paddingless-left paddingless-top track-notes">
+		<div class="bg-black padding-0.25em paddingless-left paddingless-top flex row column-mid">
 			<!-- this is the main body -->
-
-			<!-- foreach: key("col").in(this.app.song.tracks[this.trackIndex].notes) -->
-			<div class="flex column-reverse-mid">
-				<!-- foreach: key("row").in(this.app.song.tracks[this.trackIndex].notes[this.col]) -->
-				<div class="padding-0.5em margin-0.25em marginless-right marginless-bot {:
-					momoca.classOfNote(this.app.song.tracks[this.trackIndex].notes[this.col][this.row])
-				:}|{song.tracks[this.trackIndex].notes[this.col][this.row]}|" onclick="momoca.toggleNote(this.app.song.tracks[this.trackIndex].notes, this.col, this.row)"></div>
+			<div class="block flex-mid">
+				<!-- foreach: key("col").in(this.app.song.tracks[this.trackIndex].notes) -->
+				<div class="flex column-reverse-mid">
+					<!-- foreach: key("row").in(this.app.song.tracks[this.trackIndex].notes[this.col]) -->
+					<div class="padding-0.5em margin-0.25em marginless-right marginless-bot {:
+						momoca.classOfNote(this.app.song.tracks[this.trackIndex].notes[this.col][this.row])
+					:}|{song.tracks[this.trackIndex].notes[this.col][this.row]}|" onclick="momoca.toggleNote(this.app.song.tracks[this.trackIndex].notes, this.col, this.row)"></div>
+					<!-- foreach: key.end() -->
+				</div>
 				<!-- foreach: key.end() -->
 			</div>
-			<!-- foreach: key.end() -->
+
+			<input class="grow-mid margin-0.5em marginless-right marginles-bot" name="seek" type="range" min="0" max="{: (this.app.song.beats * (+this.app.song.smallestNoteFraction)) - 1 :}|{song.beats},{song.smallestNoteFraction}|" orient="{: parseInt(momoca.screenSize) > 593 ? 'horizontal' : 'vertical' :}|{inDom;momoca.screenSize},{inDom}|">
 		</div>
 	</div>
 	<!-- foreach: key.end() -->
