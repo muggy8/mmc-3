@@ -64,7 +64,9 @@
 			this.previousElementSibling.offsetHeight
 		:}|{nav.subNavSection},{screenSize}|px"></div>
 		<main class="relative"></main>
-        <div id="loading" class="hidden-state"></div>
+        <div id="loading" class="hidden-state break-point" data-script="{:
+			this.app.mediaState = window.getComputedStyle(this, ':before').getPropertyValue('content').replace(new RegExp('\\\W', 'g'), '')
+		:}|{screenSize}|"></div>
 
 
 		<!-- our debugger for mobile debugging -->

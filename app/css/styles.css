@@ -9,6 +9,13 @@ input[type=range][orient=vertical]
 	width: 1.5em;
 }
 
+.break-point:before {
+	content: "smol";
+	display: none;
+}
+
+
+/*the rest is our frameworky css*/
 [onclick],
 .link {
     cursor: pointer;
@@ -38,6 +45,10 @@ input[type=range][orient=vertical]
 
 /* the responsive stuff that we dont need till later so whatever laod slowly is ok */
 @media screen and (min-width: 593px){
+	.break-point:before {
+		content: "mid";
+	}
+
 	.flex-mid {
 		display: flex;
 	}
@@ -322,6 +333,10 @@ input[type=range][orient=vertical]
 }
 
 @media screen and (min-width: 1040px){ /* a bit under the standard 1080 screen (some are 1060 for some reason) so if they are side ways, it still is in large mode*/
+	.break-point:before {
+		content: "big";
+	}
+
 	.flex-big {
 		display: flex;
 	}
