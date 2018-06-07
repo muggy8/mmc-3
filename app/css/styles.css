@@ -7,13 +7,13 @@ input[type=range][orient=vertical]
     -webkit-appearance: slider-vertical; /* WebKit */
     transform: rotate(180deg);
 	width: 1.5em;
+	height: auto;
 }
 
 .break-point:before {
 	content: "smol";
 	display: none;
 }
-
 
 /*the rest is our frameworky css*/
 [onclick],
@@ -23,24 +23,13 @@ input[type=range][orient=vertical]
 .pointer[onclick] {
     cursor: initial;
 }
-.bubble-1\.5 {
-	border-radius: 1.5em;
-}
-.bubble-1\.25 {
-	border-radius: 1.25em;
-}
-.bubble-1 {
-	border-radius: 1em;
-}
-.bubble,
-.bubble-0\.75 {
-	border-radius: 0.75em;
-}
-.bubble-0\.5 {
-	border-radius: 0.5em;
-}
-.bubble-0\.25 {
-	border-radius: 0.25em;
+
+@media screen and (max-width: 592px){
+	.track {
+		width: 22.5em;
+		margin-left: auto;
+		margin-right: auto;
+	}
 }
 
 /* the responsive stuff that we dont need till later so whatever laod slowly is ok */
@@ -609,6 +598,26 @@ input[type=range][orient=vertical]
 	.text-right-big {
 		text-align: right;
 	}
+}
+
+.bubble-1\.5 {
+	border-radius: 1.5em;
+}
+.bubble-1\.25 {
+	border-radius: 1.25em;
+}
+.bubble-1 {
+	border-radius: 1em;
+}
+.bubble,
+.bubble-0\.75 {
+	border-radius: 0.75em;
+}
+.bubble-0\.5 {
+	border-radius: 0.5em;
+}
+.bubble-0\.25 {
+	border-radius: 0.25em;
 }
 
 /*the rules for declaring how to repsond to user interaction*/
