@@ -1,13 +1,15 @@
 body.has-font {
 	font-family: "Source Sans Pro", sans-serif;
 }
-input[type=range][orient=vertical]
-{
+input[type=range] {
+	height: auto;
+	width: auto;
+}
+input[type=range][orient=vertical] {
     writing-mode: bt-lr; /* IE */
     -webkit-appearance: slider-vertical; /* WebKit */
     transform: rotate(180deg);
 	width: 1.5em;
-	height: auto;
 }
 
 .break-point:before {
