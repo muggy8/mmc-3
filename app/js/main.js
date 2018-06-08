@@ -40,7 +40,6 @@ var mmcView = proxymity(document.querySelector("body"), {
             var buildEventColumn = function(columnOfNotes){ // right to left = progression through time
                 columnOfNotes.forEach(function(note, index){ // right to left = bottom to top or low to high
                     var noteName = jsonTrack.keyMap[index]
-					console.log(trackBuildState.waitDuration, index, note)
 
                     if (!note && trackBuildState[noteName]){
                         // we have detected that a note is currently falsey and there is a pending note in which case we need to turn it off
