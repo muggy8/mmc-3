@@ -70,6 +70,7 @@ void function(controller){
 
 	controller.home = function(){
 		if (confirm("Discard all unsaved changes and return to home view")){
+			delete controller.song
 			momoca.state = "/"
 			momoca.rout()
 		}
