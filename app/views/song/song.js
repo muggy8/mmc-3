@@ -1,4 +1,5 @@
 void function(controller){
+	var view
 	aja()
 		.url("/app/views/song/song.html")
 		.into("#loading")
@@ -9,7 +10,7 @@ void function(controller){
 			momoca.notify("failed to get song view")
 		})
 		.on("2xx", function(ouo){
-			var view = proxymity(momoca.loading.querySelectorAll(".song-template"), controller).detach()
+			view = proxymity(momoca.loading.querySelectorAll(".song-template"), controller).detach()
 
 			controller.inDom = false
 			momoca.rout = utils.extendFn(momoca.rout, function(superFn, payload){
@@ -81,6 +82,23 @@ void function(controller){
 
 	controller.export = function(){
 		momoca.popOver(`<div class="text-center"><a href="${momoca.generateMidi(controller.song.objectify())}" download>Download</a></div>`)
+	}
+
+	controller.addTrack = function(){
+		var popOverController = momoca.popOver(`<div class="text-center padding-0.5em"><div class="icon font-2em"><i class="loading"></i></div></div>`)
+		controller.song.tracks.push({
+			instrumentId: 0,
+			keyMap: momoca.presets[0].objectify(),
+			preset: 0,
+			notes: utils.range(0, (controller.song.beats * controller.song.smallestNoteFraction) - 1).map(function(){
+				return utils.range(0, 15).map(function(){
+					return false
+				})
+			})
+		})
+		view.when("renderend").then(function(){
+			popOverController.close()
+		})
 	}
 
 }(momoca.songController)

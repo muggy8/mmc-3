@@ -38,6 +38,8 @@ aja()
 	            popOverController.body = popOverController.innerHTML = popOverController.proxyView = undefined;
 	        }
 			popoverView.appendTo("main")
+
+			return popOverController
 		}
 	})
 	.go()
