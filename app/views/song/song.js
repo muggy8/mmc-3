@@ -40,10 +40,12 @@ void function(controller){
 
 	controller.mainControl = "play"
 	controller.mainControlFn = "play"
+	controller.seek = 0
 	controller.stubFn = function(){}
 	controller.play = function(){
 		controller.mainControlFn = "stubFn"
 		controller.mainControl = "loading"
+        var originalSeek = controller.seek
 		momoca.playSong(controller.song.objectify()).then(function(player){
 			controller.mainControlFn = "stop"
 			controller.mainControl = "stop"
@@ -51,10 +53,16 @@ void function(controller){
 				player.stop()
 				controller.mainControl = "play"
 				controller.mainControlFn = "play"
+                controller.seek = originalSeek
 			}
             player.on("endOfFile", function(){
                 controller.mainControl = "play"
                 controller.mainControlFn = "play"
+                controller.seek = originalSeek
+            })
+            var noteTicks = 128/controller.song.smallestNoteFraction
+            player.on("playing", function(){
+                controller.seek = Math.floor(player.getCurrentTick()/noteTicks)
             })
         })
 	}
@@ -75,5 +83,4 @@ void function(controller){
 		momoca.popOver(`<div class="text-center"><a href="${momoca.generateMidi(controller.song.objectify())}" download>Download</a></div>`)
 	}
 
-	controller.seek = 0
 }(momoca.songController)
