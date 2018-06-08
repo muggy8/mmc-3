@@ -82,7 +82,7 @@ void function(controller){
 	}
 
 	controller.export = function(){
-		momoca.popOver(`<div class="text-center"><a href="${momoca.generateMidi(controller.song.objectify())}" download>Download</a></div>`)
+		momoca.popOver(`<div class="text-center">Midi: <a href="${momoca.generateMidi(controller.song.objectify())}" download>Download.mid</a></div><div class="text-center">JSON: <a href="data:application/json;base64,${btoa(controller.song.stringify())}" download>Download.json</a></div>`)
 	}
 
 	controller.addTrack = function(){
