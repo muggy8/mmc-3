@@ -7,7 +7,7 @@
     background-color: inherit;
 }
 html {
-	font-size: 14px;
+	font-size: 0.875em; /* assuming that the base size is 16px this makes it 14px but can scale depending */
 }
 body {
 	font-family: sans-serif;

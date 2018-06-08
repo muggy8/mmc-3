@@ -26,7 +26,7 @@ input[type=range][orient=vertical] {
     cursor: initial;
 }
 
-@media screen and (max-width: 592px){
+@media screen and (max-width: 37em){ /* default 16px/em => 592px */
 	.track {
 		width: 22.5em;
 		margin-left: auto;
@@ -35,7 +35,7 @@ input[type=range][orient=vertical] {
 }
 
 /* the responsive stuff that we dont need till later so whatever laod slowly is ok */
-@media screen and (min-width: 593px){
+@media screen and (min-width: calc(37em + 1px)), screen and (min-width: 37.0625em){ /* default font size of 16px/em => 593px but our real goal is to make it kick in as soon as the screen goes above the base breakpoint */
 	.break-point:before {
 		content: "mid";
 	}
@@ -323,7 +323,8 @@ input[type=range][orient=vertical] {
 	}
 }
 
-@media screen and (min-width: 1040px){ /* a bit under the standard 1080 screen (some are 1060 for some reason) so if they are side ways, it still is in large mode*/
+/* a bit under the standard 1080 screen (some are 1060 for some reason) so if they are side ways, it still is in large mode */
+@media screen and (min-width: 65em){  /* default font size of 16px/em => 1040px */
 	.break-point:before {
 		content: "big";
 	}
