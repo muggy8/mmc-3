@@ -771,6 +771,12 @@ momoca.instruments = [
 		"instrument": "Gunshot",
 		"number": 127,
 		"category": "Sound effects"
+	},
+	{
+		"id": "percussion",
+		"instrument": "Percussion",
+		"number": 128,
+		"category": "Sound effects"
 	}
 ]
 
