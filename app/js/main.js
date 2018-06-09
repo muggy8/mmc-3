@@ -38,7 +38,7 @@ var mmcView = proxymity(document.querySelector("body"), {
                 track.setInstrument(channel, +jsonTrack.instrumentId)
             }
             else {
-                channel = 10
+                channel = 9
             }
 
             var trackBuildState = {
