@@ -47,7 +47,7 @@ void function(controller){
 		controller.mainControlFn = "stubFn"
 		controller.mainControl = "loading"
         var originalSeek = controller.seek
-		momoca.playSong(controller.song.objectify()).then(function(player){
+		momoca.playSong(controller.song.objectify(), controller.seek).then(function(player){
 			controller.mainControlFn = "stop"
 			controller.mainControl = "stop"
 			controller.stop = function(){

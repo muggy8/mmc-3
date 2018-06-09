@@ -112,7 +112,7 @@ var mmcView = proxymity(document.querySelector("body"), {
                 })
 		}
 	},
-	playSong: function(songJson){
+	playSong: function(songJson, start = 0){
 		var songEvents = new utils.midiPlayer.Player(function(event){
 			// console.log(event)
 			songEvents.triggerPlayerEvent(event.track + ":" + event.name, event)
@@ -144,7 +144,8 @@ var mmcView = proxymity(document.querySelector("body"), {
 		})
 
 		return Promise.all(instrumentLoadingQueue).then(function(){
-			return songEvents.play()
+			var noteTicks = 128/songJson.smallestNoteFraction
+			return songEvents.skipToTick((noteTicks * start || 1) - 1).play()
 		})
 	},
 	toggleNote: function(notesMatrix, column, row){
