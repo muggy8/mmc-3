@@ -99,7 +99,10 @@ var mmcView = proxymity(document.querySelector("body"), {
 				.then(function(instrument){
 					// this is for the final time we get the instrument we just stick the instrument in our cache so in the future we dont have to ask the network for it
 					return momoca.getInstrument[instrumentId] = instrument
-				})
+				}, function(o3o){
+                    momoca.getInstrument[instrumentId] = false
+                    return Promise.reject(o3o)
+                })
 		}
 	},
 	playSong: function(songJson){
