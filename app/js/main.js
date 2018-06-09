@@ -31,8 +31,15 @@ var mmcView = proxymity(document.querySelector("body"), {
         var song = new utils.midGen.File()
         songJson.tracks.map(function(jsonTrack){
             var track = new utils.midGen.Track()
-            track.setInstrument(0, +jsonTrack.instrumentId)
             track.setTempo(songJson.bpm)
+
+            var channel = 0
+            if (+jsonTrack.instrumentId < 128){
+                track.setInstrument(0, +jsonTrack.instrumentId)
+            }
+            else {
+                channel = 10
+            }
 
             var trackBuildState = {
                 waitDuration: 0
@@ -44,7 +51,7 @@ var mmcView = proxymity(document.querySelector("body"), {
                     if (!note && trackBuildState[noteName]){
                         // we have detected that a note is currently falsey and there is a pending note in which case we need to turn it off
                         // console.log(trackBuildState.waitDuration, "stop", noteName)
-                        track.addNoteOff(0, noteName, trackBuildState.waitDuration)
+                        track.addNoteOff(channel, noteName, trackBuildState.waitDuration)
                         trackBuildState[noteName] = false
                         trackBuildState.waitDuration = 0
                     }
@@ -54,14 +61,14 @@ var mmcView = proxymity(document.querySelector("body"), {
 
                         if (trackBuildState[noteName]){ // is the pervious note still going if so we want to stop it before striking again
                             // console.log(trackBuildState.waitDuration, "stop", noteName)
-                            track.addNoteOff(0, noteName, trackBuildState.waitDuration)
+                            track.addNoteOff(channel, noteName, trackBuildState.waitDuration)
                             trackBuildState[noteName] = false
                             trackBuildState.waitDuration = 0
                         }
 
                         // ok we've handled the previous note thing lets strike the note now
                         // console.log(trackBuildState.waitDuration, "start", noteName)
-                        track.addNoteOn(0, noteName, trackBuildState.waitDuration, note.velocity)
+                        track.addNoteOn(channel, noteName, trackBuildState.waitDuration, note.velocity)
                         trackBuildState[noteName] = true
 						trackBuildState.waitDuration = 0
                     }
