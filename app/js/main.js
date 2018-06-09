@@ -102,7 +102,7 @@ var mmcView = proxymity(document.querySelector("body"), {
 
 			// first we cache the promise for the network opperation in case there's lots of calls for the same instrument
 			return momoca.getInstrument[instrumentId] = utils.soundfontPlayer
-				.instrument(ac, "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/" + selectedInstrument.id + "-ogg.js")
+				.instrument(ac, "https://cdn.rawgit.com/gleitz/midi-js-soundfonts/gh-pages/FluidR3_GM/" + selectedInstrument.id + "-ogg.js")
 				.then(function(instrument){
 					// this is for the final time we get the instrument we just stick the instrument in our cache so in the future we dont have to ask the network for it
 					return momoca.getInstrument[instrumentId] = instrument
