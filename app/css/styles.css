@@ -35,7 +35,7 @@ input[type=range][orient=vertical] {
 }
 
 /* the responsive stuff that we dont need till later so whatever laod slowly is ok */
-@media screen and (min-width: calc(37em + 1px)), screen and (min-width: 37.0625em){ /* default font size of 16px/em => 593px but our real goal is to make it kick in as soon as the screen goes above the base breakpoint */
+@media screen and (min-width: 37.01em){ /* default font size of 16px/em => 593px but our real goal is to make it kick in as soon as the screen goes above the base breakpoint */
 	.break-point:before {
 		content: "mid";
 	}
