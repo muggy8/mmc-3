@@ -33,7 +33,7 @@
 	</div>
 	<div style="height:{:this.previousElementSibling.offsetHeight:}|{inDom;momoca.screenSize},{inDom}|px"></div>
 </div>
-<div class="song-template" onmouseup="this.app.mouseDown = false;">
+<div class="song-template" onmouseup="this.app.mouseDown = false;" ontouchend="this.app.mouseDown = false;">
 	<!-- foreach: key("trackIndex").in(this.app.song.tracks) -->
 	<div class="island flex-mid track">
 		<div class="bg-primary flex row column-mid">
@@ -69,5 +69,5 @@
 			<input class="grow-mid margin-0.5em marginless-right marginless-bot" name="seek" type="range" min="0" max="{: (this.app.song.beats * (+this.app.song.smallestNoteFraction)) - 1 :}|{song.beats},{song.smallestNoteFraction}|" orient="{: momoca.mediaState === 'smol' ? 'vertical' : 'horizontal' :}|{inDom;momoca.mediaState},{inDom}|">
 		</div>
 	</div>
-	<!-- foreach: key.end() -->
+	<!-- foreach: key.end(this.app.trackTouch) -->
 </div>

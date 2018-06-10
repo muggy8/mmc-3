@@ -103,21 +103,63 @@ void function(controller){
 	}
 
 	controller.mouseDown = false
+	var toggleFn = function(ev, noteEle){
+		ev && ev.preventDefault && ev.preventDefault()
+		ev && ev.stopPropagation && ev.stopPropagation()
+		momoca.toggleNote(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
+	}
 	controller.prepNote = function(noteEle){
-		var toggleFn = function(ev){
-			ev && ev.preventDefault && ev.preventDefault()
-			momoca.toggleNote(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
-		}
-
 		noteEle.addEventListener("mousedown", function(ev){
 			controller.mouseDown = true
-			toggleFn(ev)
+			console.log("mousedown")
+			toggleFn(ev, noteEle)
 		})
+
+
 		noteEle.addEventListener("mouseenter", function(ev){
 			if (controller.mouseDown){
-				toggleFn(ev)
+				console.log("clicking and mouseenter")
+				toggleFn(ev, noteEle)
 			}
 		})
+		noteEle.addEventListener("customtouchenter", function(ev){
+			// console.log(ev, noteEle)
+			toggleFn(ev, noteEle)
+		})
+
+
 	}
 
+	controller.trackTouch = function(trackEle){
+		var touchMoveTargets = []
+
+		trackEle.addEventListener("touchstart", function(ev){
+			controller.mouseDown = true
+			console.log("mousedown")
+			toggleFn(ev, noteEle)
+		})
+
+		trackEle.addEventListener("touchmove", function(ev){
+			// console.log(ev)
+			ev.touches && Array.from(ev.touches).forEach(function(touch, i){
+				var ele = document.elementFromPoint(touch.clientX, touch.clientY)
+
+				if (touchMoveTargets[i] !== ele){
+					if (touchMoveTargets[i]){
+						touchMoveTargets[i].dispatchEvent(new CustomEvent("customtouchleave"))
+					}
+					touchMoveTargets[i] = ele
+					touchMoveTargets[i].dispatchEvent(new CustomEvent("customtouchenter"))
+				}
+
+			})
+		})
+
+		trackEle.addEventListener("touchend", function(ev){
+			touchMoveTargets.forEach(function(ele){
+				ele.dispatchEvent(new CustomEvent("customtouchleave"))
+			})
+			touchMoveTargets = []
+		})
+	}
 }(momoca.songController)
