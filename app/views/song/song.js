@@ -141,8 +141,10 @@ void function(controller){
 
 		trackEle.addEventListener("touchmove", function(ev){
 			// console.log(ev)
+			var updatedIndex
 			ev.touches && Array.from(ev.touches).forEach(function(touch, i){
 				var ele = document.elementFromPoint(touch.clientX, touch.clientY)
+				updatedIndex = i
 
 				if (touchMoveTargets[i] !== ele){
 					if (touchMoveTargets[i]){
@@ -151,8 +153,12 @@ void function(controller){
 					touchMoveTargets[i] = ele
 					touchMoveTargets[i].dispatchEvent(new CustomEvent("customtouchenter"))
 				}
-
 			})
+			if (updatedIndex < touchMoveTargets.length-1){
+				for(var i = touchMoveTargets.length-1; i > updatedIndex; i--){
+					touchMoveTargets.pop().dispatchEvent(new CustomEvent("customtouchleave"));
+				}
+			}
 		})
 
 		trackEle.addEventListener("touchend", function(ev){
