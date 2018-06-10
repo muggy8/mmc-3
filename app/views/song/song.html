@@ -15,11 +15,11 @@
 				<i class="add"></i>
 			</div>
 		</div>
-		<div class="island bubble-0.25 padding-0.5em bg-gray-light bg-gray-hover marginless-left">
+		<!-- <div class="island bubble-0.25 padding-0.5em bg-gray-light bg-gray-hover marginless-left">
 			<div class="icon font-2em">
 				<i class="flopy"></i>
 			</div>
-		</div>
+		</div> -->
 		<div class="island bubble-0.25 padding-0.5em bg-gray-light bg-gray-hover marginless-left" onclick="this.app.export()">
 			<div class="icon font-2em">
 				<i class="export"></i>
@@ -33,7 +33,7 @@
 	</div>
 	<div style="height:{:this.previousElementSibling.offsetHeight:}|{inDom;momoca.screenSize},{inDom}|px"></div>
 </div>
-<div class="song-template">
+<div class="song-template" onmouseup="this.app.mouseDown = false;">
 	<!-- foreach: key("trackIndex").in(this.app.song.tracks) -->
 	<div class="island flex-mid track">
 		<div class="bg-primary flex row column-mid">
@@ -60,8 +60,8 @@
 					<!-- foreach: key("row").in(this.app.song.tracks[this.trackIndex].notes[this.col]) -->
 					<div class="padding-0.5em margin-0.25em marginless-right marginless-bot {:
 						momoca.classOfNote(this.app.song.tracks[this.trackIndex].notes[this.col][this.row])
-					:}|{song.tracks[this.trackIndex].notes[this.col][this.row]}|" onclick="momoca.toggleNote(this.app.song.tracks[this.trackIndex].notes, this.col, this.row)"></div>
-					<!-- foreach: key.end() -->
+					:}|{song.tracks[this.trackIndex].notes[this.col][this.row]}|"></div>
+					<!-- foreach: key.end(this.app.prepNote) -->
 				</div>
 				<!-- foreach: key.end() -->
 			</div>

@@ -102,4 +102,22 @@ void function(controller){
 		})
 	}
 
+	controller.mouseDown = false
+	controller.prepNote = function(noteEle){
+		var toggleFn = function(ev){
+			ev && ev.preventDefault && ev.preventDefault()
+			momoca.toggleNote(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
+		}
+
+		noteEle.addEventListener("mousedown", function(ev){
+			controller.mouseDown = true
+			toggleFn(ev)
+		})
+		noteEle.addEventListener("mouseenter", function(ev){
+			if (controller.mouseDown){
+				toggleFn(ev)
+			}
+		})
+	}
+
 }(momoca.songController)
