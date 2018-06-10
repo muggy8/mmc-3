@@ -199,6 +199,7 @@ h5 {
 .fixed-smol
 {
 	position: fixed;
+	z-index: 1;
 }
 
 .col-0,
