@@ -181,11 +181,12 @@
 .icon .add:before,
 .icon .add:after,
 .icon .delete:before,
-.icon .delete:after {
-	top: 0;
-	bottom: 0;
-	left: 0.4em;
-	right: 0.4em;
+.icon .delete:after,
+.icon .minus:before {
+	top: 0.4em;
+	bottom: 0.4em;
+	left: 0;
+	right: 0;
 	background-color: currentcolor;
 }
 .icon .add:after {
@@ -197,4 +198,33 @@
 }
 .icon .delete:after {
 	transform: rotate(45deg);
+}
+
+.icon .toggle {
+	/* the hollow box */
+	width: 0.3em;
+	height: 0.3em;
+	border: solid 0.05em currentColor;
+	margin-top: 0.35em;
+	margin-bottom: 0.35em;
+
+	/* the filled in box */
+	box-shadow: 0.7em 0 0 0 currentcolor;
+}
+.icon .toggle:before {
+	top: -.75em;
+	left: 0.15em;
+	width: 0.6em;
+	height: 0.6em;
+	background: radial-gradient(0.4em 0.3em at bottom, rgba(0,0,0,0) 60%, currentcolor 60%, currentcolor 75%, rgba(0,0,0,0) 76%);
+	box-shadow: 0.265em 0.275em 0 -0.225em currentcolor;
+}
+.icon .toggle:after {
+	bottom: -.75em;
+	left: 0.15em;
+	width: 0.6em;
+	height: 0.6em;
+	background: radial-gradient(0.4em 0.3em at top, rgba(0,0,0,0) 60%, currentcolor 60%, currentcolor 75%, rgba(0,0,0,0) 76%);
+
+	box-shadow: -0.265em -0.275em 0 -0.225em currentcolor;
 }
