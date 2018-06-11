@@ -78,5 +78,12 @@
 		</div>
 
 
+		<script>
+			Array.from(document.querySelectorAll(".icon:not(.animate)")).forEach(function(ele){
+				ele.addEventListener("click", function(){
+					document.querySelector(".icon.animate i").className = ele.querySelector("i").className
+				})
+			})
+		</script>
 	</body>
 </html>
