@@ -58,7 +58,7 @@
 				<!-- foreach: key("col").in(this.app.song.tracks[this.trackIndex].notes) -->
 				<div class="flex column-reverse-mid">
 					<!-- foreach: key("row").in(this.app.song.tracks[this.trackIndex].notes[this.col]) -->
-					<div class="padding-0.5em margin-0.25em marginless-right marginless-bot {:
+					<div id="{:this.trackIndex + '-' + this.col + '-' + this.row :}|{song}|" class="padding-0.5em margin-0.25em marginless-right marginless-bot {:
 						momoca.classOfNote(this.app.song.tracks[this.trackIndex].notes[this.col][this.row])
 					:}|{song.tracks[this.trackIndex].notes[this.col][this.row]}|"></div>
 					<!-- foreach: key.end(this.app.prepNote) -->
