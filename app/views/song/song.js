@@ -106,7 +106,8 @@ void function(controller){
 	var toggleFn = function(ev, noteEle){
 		ev && ev.preventDefault && ev.preventDefault()
 		ev && ev.stopPropagation && ev.stopPropagation()
-		;(ev.button === 0) && momoca.toggleNote(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
+        /* !ev.button means ev.buttons is 0 or null and both should trigger left click event */
+		;(!ev.button) && momoca.toggleNote(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
 		;(ev.button === 2) && momoca.toggleNoteReverse(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
 	}
 	controller.prepNote = function(noteEle){
