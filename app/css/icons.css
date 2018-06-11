@@ -16,7 +16,7 @@
 	display: block;
 	box-sizing: border-box;
 }
-.icon.animate, .icon .animate, .icon.animate *, .icon .animate * {
+.icon.animate, .icon .animate, .icon.animate *, .icon .animate *, .icon.animate *:before, .icon .animate *:after {
 	-webkit-transition: all 0.5s;
 	transition: all 0.5s;
 }
