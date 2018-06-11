@@ -216,7 +216,7 @@
 	left: 0.15em;
 	width: 0.6em;
 	height: 0.6em;
-	background: radial-gradient(0.4em 0.3em at bottom, rgba(0,0,0,0) 60%, currentcolor 60%, currentcolor 75%, rgba(0,0,0,0) 76%);
+	background: radial-gradient(0.4em 0.325em at bottom, rgba(0,0,0,0) 55%, currentcolor 55%, currentcolor 80%, rgba(0,0,0,0) 80%);
 	box-shadow: 0.265em 0.275em 0 -0.225em currentcolor;
 }
 .icon .toggle:after {
@@ -224,7 +224,7 @@
 	left: 0.15em;
 	width: 0.6em;
 	height: 0.6em;
-	background: radial-gradient(0.4em 0.3em at top, rgba(0,0,0,0) 60%, currentcolor 60%, currentcolor 75%, rgba(0,0,0,0) 76%);
+	background: radial-gradient(0.4em 0.325em at top, rgba(0,0,0,0) 55%, currentcolor 55%, currentcolor 80%, rgba(0,0,0,0) 80%);
 
 	box-shadow: -0.265em -0.275em 0 -0.225em currentcolor;
 }
