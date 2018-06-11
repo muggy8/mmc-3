@@ -106,19 +106,18 @@ void function(controller){
 	var toggleFn = function(ev, noteEle){
 		ev && ev.preventDefault && ev.preventDefault()
 		ev && ev.stopPropagation && ev.stopPropagation()
-		momoca.toggleNote(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
+		;(ev.button === 0) && momoca.toggleNote(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
+		;(ev.button === 2) && momoca.toggleNoteReverse(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
 	}
 	controller.prepNote = function(noteEle){
 		noteEle.addEventListener("mousedown", function(ev){
 			controller.mouseDown = true
-			console.log("mousedown")
 			toggleFn(ev, noteEle)
 		})
 
 
 		noteEle.addEventListener("mouseenter", function(ev){
 			if (controller.mouseDown){
-				console.log("clicking and mouseenter")
 				toggleFn(ev, noteEle)
 			}
 		})
@@ -126,8 +125,6 @@ void function(controller){
 			// console.log(ev, noteEle)
 			toggleFn(ev, noteEle)
 		})
-
-
 	}
 
 	controller.trackTouch = function(trackEle){

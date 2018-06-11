@@ -182,6 +182,40 @@ var mmcView = proxymity(document.querySelector("body"), {
 			notesMatrix[column][row] = true
 		}
 	},
+	toggleNoteReverse: function(notesMatrix, column, row){
+		var targetedNote = notesMatrix[column][row]
+
+		if (column -1 >= 0){
+			var previousNote = notesMatrix[column - 1][row]
+		}
+
+		if (column + 1 < notesMatrix.length){
+			var nextNote = notesMatrix[column + 1][row]
+		}
+
+		if (previousNote && targetedNote.velocity){
+			notesMatrix[column][row] = true
+		}
+		else if (previousNote && targetedNote === true){
+			notesMatrix[column][row] = false
+		}
+		else if (previousNote && targetedNote === false){
+			notesMatrix[column][row] = momoca.createNote()
+		}
+		else if (!previousNote && targetedNote.velocity && !nextNote){
+			notesMatrix[column][row] = false
+		}
+		else if (!previousNote && targetedNote.velocity && nextNote === true){
+			notesMatrix[column + 1][row] = momoca.createNote()
+			notesMatrix[column][row] = false
+		}
+		else if (!previousNote && targetedNote.velocity && nextNote.velocity){
+			notesMatrix[column][row] = false
+		}
+		else if (!targetedNote){
+			notesMatrix[column][row] = momoca.createNote()
+		}
+	},
 	createNote: function(velocity = 127){
 		return {
 			velocity: velocity
