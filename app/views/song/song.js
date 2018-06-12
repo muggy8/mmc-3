@@ -102,28 +102,40 @@ void function(controller){
 		})
 	}
 
+	controller.slideMode = 0
+	controller.slideStates = [
+		{
+			toggleFn: function(ev, noteEle){
+				ev && ev.preventDefault && ev.preventDefault()
+				ev && ev.stopPropagation && ev.stopPropagation()
+				;(ev.button === 0) && momoca.toggleNote(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
+				;(ev.button === 2) && momoca.toggleNoteReverse(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
+			},
+			icon: "toggle"
+		}
+	]
 	controller.mouseDown = false
-	var toggleFn = function(ev, noteEle){
-		ev && ev.preventDefault && ev.preventDefault()
-		ev && ev.stopPropagation && ev.stopPropagation()
-		;(ev.button === 0) && momoca.toggleNote(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
-		;(ev.button === 2) && momoca.toggleNoteReverse(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
-	}
+	// var toggleFn = function(ev, noteEle){
+	// 	ev && ev.preventDefault && ev.preventDefault()
+	// 	ev && ev.stopPropagation && ev.stopPropagation()
+	// 	;(ev.button === 0) && momoca.toggleNote(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
+	// 	;(ev.button === 2) && momoca.toggleNoteReverse(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
+	// }
 	controller.prepNote = function(noteEle){
 		noteEle.addEventListener("mousedown", function(ev){
 			controller.mouseDown = true
-			toggleFn(ev, noteEle)
+			controller.slideStates[controller.slideMode].toggleFn(ev, noteEle)
 		})
 
 
 		noteEle.addEventListener("mouseenter", function(ev){
 			if (controller.mouseDown){
-				toggleFn(ev, noteEle)
+				controller.slideStates[controller.slideMode].toggleFn(ev, noteEle)
 			}
 		})
 		noteEle.addEventListener("customtouchenter", function(ev){
 			// console.log(ev, noteEle)
-			toggleFn(ev, noteEle)
+			controller.slideStates[controller.slideMode].toggleFn(ev, noteEle)
 		})
 	}
 
@@ -133,7 +145,7 @@ void function(controller){
 		trackEle.addEventListener("touchstart", function(ev){
 			controller.mouseDown = true
 			console.log("mousedown")
-			toggleFn(ev, noteEle)
+			controller.slideStates[controller.slideMode].toggleFn(ev, noteEle)
 		})
 
 		trackEle.addEventListener("touchmove", function(ev){
