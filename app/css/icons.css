@@ -228,3 +228,29 @@
 
 	box-shadow: -0.265em -0.275em 0 -0.225em currentcolor;
 }
+
+
+.icon .select {
+	width: 0.75em;
+	height: 0.75em;
+	border: dotted 0.1em currentColor;
+	margin-bottom: 0.25em;
+}
+.icon .select:before {
+	width: 0.275em;
+	height: 0.5em;
+	border-top: solid 0.35em rgba(0,0,0,0);
+    border-right: solid 0 rgba(0,0,0,0);
+    border-bottom: solid 0.15em rgba(0,0,0,0);
+    border-left: solid 0.35em currentcolor;
+	top: 0.3em;
+    left: 0.45em;
+}
+.icon .select:after {
+	width: 0.1em;
+	height: 0.3em;
+	background-color: currentColor;
+	top: 0.6em;
+	left: 0.58em;
+	transform: rotate(-23.5deg);
+}
