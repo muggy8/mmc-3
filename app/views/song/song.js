@@ -112,6 +112,12 @@ void function(controller){
 				;(ev.button === 2) && momoca.toggleNoteReverse(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
 			},
 			icon: "toggle"
+		},
+		{
+			toggleFn: function(ev, noteEle){
+				console.log(ev, noteEle)
+			},
+			icon: "select"
 		}
 	]
 	controller.mouseDown = false
