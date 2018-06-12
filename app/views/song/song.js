@@ -115,12 +115,6 @@ void function(controller){
 		}
 	]
 	controller.mouseDown = false
-	// var toggleFn = function(ev, noteEle){
-	// 	ev && ev.preventDefault && ev.preventDefault()
-	// 	ev && ev.stopPropagation && ev.stopPropagation()
-	// 	;(ev.button === 0) && momoca.toggleNote(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
-	// 	;(ev.button === 2) && momoca.toggleNoteReverse(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
-	// }
 	controller.prepNote = function(noteEle){
 		noteEle.addEventListener("mousedown", function(ev){
 			controller.mouseDown = true
