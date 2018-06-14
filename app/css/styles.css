@@ -12,6 +12,10 @@ input[type=range][orient=vertical] {
 	width: 1.5em;
 }
 
+.selected {
+	box-shadow: 0 0 0 0.25em currentColor;
+}
+
 .break-point:before {
 	content: "smol";
 	display: none;

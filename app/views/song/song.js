@@ -115,8 +115,53 @@ void function(controller){
 		},
 		{
 			toggleFn: function(ev, noteEle){
-				console.log(ev, noteEle)
-			},
+				var elePoints = noteEle.id.split("-").map(function(str){
+					return parseInt(str)
+				})
+				if ((ev.type === "mousedown" || ev.type === "touchstart") && !ev.button){
+					this.selectionPoints = {
+						track: elePoints[0],
+						start: {
+							col: elePoints[1],
+							row: elePoints[2]
+						}
+					}
+				}
+
+				var targets = this.selectionPoints
+
+				targets.end = {
+					col: elePoints[1],
+					row: elePoints[2]
+				}
+
+				var selection = []
+				utils.range(targets.end.col, targets.start.col).forEach(function(colTarget){
+					utils.range(targets.end.row, targets.start.row).forEach(function(rowTarget){
+						selection.push(`${targets.track}-${colTarget}-${rowTarget}`)
+					})
+				})
+
+				if (targets.previousSelection){
+					targets.previousSelection.filter(function(selectedId){
+						if (selection.indexOf(selectedId) === -1){
+							return true
+						}
+						return false
+					}).map(document.getElementById.bind(document)).forEach(function(ele){
+						ele.className = ele.className.replace(" selected", "")
+					})
+				}
+
+				selection.map(document.getElementById.bind(document)).forEach(function(ele){
+					if (ele.className.indexOf("selected") === -1){
+						ele.className += " selected"
+					}
+				})
+
+				targets.previousSelection = selection
+
+			}.bind({}),
 			icon: "select"
 		}
 	]
