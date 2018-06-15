@@ -189,8 +189,11 @@ void function(controller){
 
 		trackEle.addEventListener("touchstart", function(ev){
 			controller.mouseDown = true
-			console.log("mousedown")
-			controller.slideStates[controller.slideMode].toggleFn(ev, noteEle)
+
+			Array.from(ev.touches).forEach(function(touch){
+				var ele = document.elementFromPoint(touch.clientX, touch.clientY)
+				controller.slideStates[controller.slideMode].toggleFn(ev, ele)
+			})
 		})
 
 		trackEle.addEventListener("touchmove", function(ev){
