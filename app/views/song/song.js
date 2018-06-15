@@ -136,7 +136,6 @@ void function(controller){
 				utils.range(targets.end.col, targets.start.col).forEach(function(colTarget){
 					utils.range(targets.end.row, targets.start.row).forEach(function(rowTarget){
 						selection.push(`${targets.track}-${colTarget}-${rowTarget}`)
-						controller.song.tracks[targets.track].notes[colTarget][rowTarget] = controller.song.tracks[targets.track].notes[colTarget][rowTarget] // we do this to trigger a manual rerender
 					})
 				})
 
@@ -150,17 +149,14 @@ void function(controller){
 						if (ele.dataset.proxyClasses){
 							ele.dataset.proxyClasses = ele.dataset.proxyClasses.replace(" selected", "")
 						}
-						var dataTarget = ele.id.split("-").map(function(str){
-							return parseInt(str)
-						})
-
-						controller.song.tracks[dataTarget[0]].notes[dataTarget[1]][dataTarget[2]] = controller.song.tracks[dataTarget[0]].notes[dataTarget[1]][dataTarget[2]] // we do this to trigger a manual rerender
+						ele.className = ele.className.replace(" selected", "")
 					})
 				}
 
 				selection.map(document.getElementById.bind(document)).forEach(function(ele){
-					if (!ele.dataset.proxyClasses || ele.dataset.proxyClasses.indexOf("selected") === -1){
+					if (ele.className.indexOf("selected") === -1){
 						ele.dataset.proxyClasses += " selected"
+						ele.className += " selected"
 					}
 				})
 
