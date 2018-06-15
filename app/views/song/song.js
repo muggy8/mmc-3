@@ -115,20 +115,17 @@ void function(controller){
 		},
 		{
 			toggleFn: function(ev, noteEle){
+				var targets = this.selectionPoints = this.selectionPoints || {}
 				var elePoints = noteEle.id.split("-").map(function(str){
 					return parseInt(str)
 				})
 				if ((ev.type === "mousedown" || ev.type === "touchstart") && !ev.button){
-					this.selectionPoints = {
-						track: elePoints[0],
-						start: {
-							col: elePoints[1],
-							row: elePoints[2]
-						}
+					this.selectionPoints.track = elePoints[0]
+					this.selectionPoints.start = {
+						col: elePoints[1],
+						row: elePoints[2]
 					}
 				}
-
-				var targets = this.selectionPoints
 
 				targets.end = {
 					col: elePoints[1],
