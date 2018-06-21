@@ -93,7 +93,22 @@
 		<script src="//unpkg.com/midi-player-js@2.0.3/browser/midiplayer.min.js"></script>
 
 		<!-- This is our app -->
-		<script src="/app/js/"></script>
+		<!-- <script src="/app/js/"></script> -->
+        <script>
+            aja()
+                .url("/app/assets.json")
+                .on("2xx", function(ouo){
+                    ouo.js.forEach(function(path){
+                        var s = document.createElement("script")
+                        s.src = path
+                        document.body.appendChild(s)
+                    })
+                })
+                .on("4xx", function(o3o){
+                    alert("failed to load app")
+                })
+                .go
+        </script>
 
 		<!-- This is our main stylings  -->
 		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
