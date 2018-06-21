@@ -98,11 +98,13 @@
             aja()
                 .url("/app/assets.json")
                 .on("2xx", function(ouo){
+                    var f = document.createDocumentFragment()
                     ouo.js.forEach(function(path){
                         var s = document.createElement("script")
                         s.src = path
-                        document.body.appendChild(s)
+                        f.appendChild(s)
                     })
+                    document.body.appendChild(f)
                 })
                 .on("4xx", function(o3o){
                     alert("failed to load app")
