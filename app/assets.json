@@ -4,7 +4,6 @@
         "/app/js/main.js",
         "/app/js/configs.js",
         "/app/views/modal/modal.js",
-        "/app/js/nav.js",
         "/app/views/home/home.js",
         "/app/views/notification/notification.js",
         "/app/views/instrument-configuration/config.js",
