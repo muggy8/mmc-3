@@ -96,12 +96,12 @@
 		<!-- This is our app -->
 		<!-- <script src="/app/js/"></script> -->
         <script>
-            aja()
-                .url("/app/assets.json")
-                .on("2xx", function(ouo){
+            new (chainify(XMLHttpRequest))()
+                .open("GET", "/app/assets.json")
+                .addEventListener("load", function(){
 
                     Promise.all(
-						ouo.js.map(function(path){
+						JSON.parse(this.responseText).js.map(function(path){
 	                        return new Promise(function(accept, reject) {
 								var xhr = new XMLHttpRequest()
 								xhr.addEventListener("load", function(){
@@ -125,10 +125,10 @@
 					})
 
                 })
-                .on("4xx", function(o3o){
+                .addEventListener("error", function(){
                     alert("failed to load app")
                 })
-                .go()
+                .send()
         </script>
 
 		<!-- This is our main stylings  -->
