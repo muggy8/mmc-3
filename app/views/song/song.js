@@ -6,7 +6,7 @@ void function(controller){
 			momoca.notify("failed to get song view")
 		})
 		.addEventListener("load", function(){
-			view = proxymity(this.responseText).detach()
+			view = proxymity(this.responseText, controller).detach()
 
 			controller.inDom = false
 			momoca.rout = utils.extendFn(momoca.rout, function(superFn, payload){

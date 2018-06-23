@@ -5,7 +5,6 @@ void function(){
 	}
 
 	function notificationsArray(){
-		console.log(notificationsView)
 		return notificationsView
 			? notificationsView.app.notifications
 			: notificationController.notifications
