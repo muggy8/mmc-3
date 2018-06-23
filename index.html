@@ -98,13 +98,31 @@
             aja()
                 .url("/app/assets.json")
                 .on("2xx", function(ouo){
-                    var f = document.createDocumentFragment()
-                    ouo.js.forEach(function(path){
-                        var s = document.createElement("script")
-                        s.src = path
-                        f.appendChild(s)
-                    })
-                    document.body.appendChild(f)
+
+                    Promise.all(
+						ouo.js.map(function(path){
+	                        return new Promise(function(accept, reject) {
+								var xhr = new XMLHttpRequest()
+								xhr.addEventListener("load", function(){
+									accept(xhr)
+								})
+								xhr.addEventListener("error", function(){
+									reject(xhr)
+								})
+								xhr.open("GET", path)
+								xhr.send()
+							})
+	                    })
+					).then(function(set){
+						var s = document.createElement("script")
+						s.innerHTML = set.reduce(function(sum, xhr){
+							return sum + xhr.responseText
+						}, "")
+						document.body.appendChild(s)
+					}, function(set){
+						alert("Failed to load app. Please refresh the page at a later time.")
+					})
+
                 })
                 .on("4xx", function(o3o){
                     alert("failed to load app")
