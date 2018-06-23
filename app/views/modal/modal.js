@@ -1,4 +1,4 @@
-new xhr()
+new utils.xhr()
 	.open("GET", "/app/views/modal/modal.html")
 	.addEventListener("error", function(){
 		momoca.notify("Failed to load modal module")

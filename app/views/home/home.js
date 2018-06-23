@@ -1,13 +1,16 @@
 void function(homeController){
-	aja()
-		.url("/app/views/home/home.html")
-		.into("#loading")
-		.on("2xx", function(){
-			Array.prototype.forEach.call(momoca.loading.querySelectorAll("select"), function(select){
+	new utils.xhr()
+		.open("GET", "/app/views/home/home.html")
+		.addEventListener("load", function(){
+			var viewHtml = this.responseText
+			var template = document.createElement("template")
+			template.innerHTML = viewHtml
+
+			Array.prototype.forEach.call(template.querySelectorAll("select"), function(select){
 				utils.proxyRenderStaticRepeats(select.childNodes, momoca)
 			})
 
-			var view = proxymity(momoca.loading.querySelectorAll(".home-template"), momoca).detach()
+			var view = proxymity(template.children).detach()
 
 			momoca.rout = utils.extendFn(momoca.rout, function(superFn, payload){
 				var otherRoutsWorked = superFn(payload)
@@ -31,13 +34,10 @@ void function(homeController){
 			})
 			momoca.rout()
 		})
-		.on("4xx", function(o3o){
+		.addEventListener("error", function(o3o){
 			momoca.notify("failed to get home view")
 		})
-		.on("5xx", function(oxo){
-			momoca.notify("server error")
-		})
-		.go()
+		.send()
 
 	homeController.createSong = function(songProperties){
 		if (!+songProperties.beats){
