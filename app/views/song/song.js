@@ -1,16 +1,12 @@
 void function(controller){
 	var view
-	aja()
-		.url("/app/views/song/song.html")
-		.into("#loading")
-		.on("5xx", function(oxo){
-			momoca.notify("server error")
-		})
-		.on("4xx", function(o3o){
+	new utils.xhr()
+		.open("GET", "/app/views/song/song.html")
+		.addEventListener("error", function(){
 			momoca.notify("failed to get song view")
 		})
-		.on("2xx", function(ouo){
-			view = proxymity(momoca.loading.querySelectorAll(".song-template"), controller).detach()
+		.addEventListener("load", function(){
+			view = proxymity(this.responseText).detach()
 
 			controller.inDom = false
 			momoca.rout = utils.extendFn(momoca.rout, function(superFn, payload){
@@ -36,7 +32,7 @@ void function(controller){
 			})
 			momoca.rout()
 		})
-		.go()
+		.send()
 
 
 	controller.mainControl = "play"

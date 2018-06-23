@@ -56,7 +56,7 @@ new utils.xhr()
 			controlIcon: "play",
 			controlFn: "watchAndPlayScale",
 			stubFn: function(){}
-		}).detach()
+		})
 
 		momoca.rout = utils.extendFn(momoca.rout, function(superFn, payload){
 			var otherRoutState = superFn(payload)
