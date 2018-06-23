@@ -5,6 +5,7 @@ void function(){
 	}
 
 	function notificationsArray(){
+		console.log(notificationsView)
 		return notificationsView
 			? notificationsView.app.notifications
 			: notificationController.notifications
@@ -31,7 +32,7 @@ void function(){
 	new utils.xhr()
 		.open("GET", "/app/views/notification/notification.html")
 		.addEventListener("load", function(){
-			notificationsView = proxymity(this.responseText).appendTo("body")
+			notificationsView = proxymity(this.responseText, notificationController).appendTo("body")
 		})
 		.addEventListener("error", function(){
 			alert("Failed to load Notification module")
