@@ -12,7 +12,7 @@ new utils.xhr()
 		})
 
 		var currentlyPlayerPromise = Promise.resolve(null)
-		var view = proxymity(template.childNode, {
+		var view = proxymity(template.content.childNodes, {
 			notes: utils.range(0, 15).map(function(i){
 				return utils.range(0, 15).map(function(j){
 					if (i === j){
