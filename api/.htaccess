@@ -1,6 +1,0 @@
-<IfModule mod_rewrite.c>
-	RewriteEngine On
-	RewriteRule ^[^v][^\d]+\/?(.*)$ v1/index.php
-</IfModule>
-
-Header set Cache-Control "no-cache"
