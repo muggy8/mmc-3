@@ -7,7 +7,7 @@ new utils.xhr()
 		var template = document.createElement("template")
 		template.innerHTML = this.responseText
 
-		Array.prototype.forEach.call(template.querySelectorAll("select"), function(select){
+		Array.prototype.forEach.call(template.content.querySelectorAll("select"), function(select){
 			utils.proxyRenderStaticRepeats(select.childNodes, preRenderData)
 		})
 

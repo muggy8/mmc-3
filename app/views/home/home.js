@@ -6,7 +6,7 @@ void function(homeController){
 			var template = document.createElement("template")
 			template.innerHTML = viewHtml
 
-			Array.prototype.forEach.call(template.querySelectorAll("select"), function(select){
+			Array.prototype.forEach.call(template.content.querySelectorAll("select"), function(select){
 				utils.proxyRenderStaticRepeats(select.childNodes, momoca)
 			})
 
