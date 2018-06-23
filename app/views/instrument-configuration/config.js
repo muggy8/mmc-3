@@ -1,17 +1,18 @@
-aja()
-	.url("/app/views/instrument-configuration/config.html")
-	.into("#loading")
-	.on("2xx", function(){
+new utils.xhr()
+	.open("GET", "/app/views/instrument-configuration/config.html")
+	.addEventListener("load", function(){
 		var preRenderData = proxymity.convert({
 			possiableNotes: MidiPlayer.Constants.NOTES
 		})
+		var template = document.createElement("template")
+		template.innerHTML = this.responseText
 
-		Array.prototype.forEach.call(momoca.loading.querySelectorAll("select"), function(select){
+		Array.prototype.forEach.call(template.querySelectorAll("select"), function(select){
 			utils.proxyRenderStaticRepeats(select.childNodes, preRenderData)
 		})
 
 		var currentlyPlayerPromise = Promise.resolve(null)
-		var view = proxymity(momoca.loading.querySelectorAll(".instrument-configuration-template"), {
+		var view = proxymity(template.childNode, {
 			notes: utils.range(0, 15).map(function(i){
 				return utils.range(0, 15).map(function(j){
 					if (i === j){
@@ -84,10 +85,7 @@ aja()
 			return otherRoutState
 		})
 	})
-	.on("4xx", function(){
+	.addEventListener("error", function(){
 		momoca.notify("failed to get instrument configuration module")
 	})
-	.on("5xx", function(){
-		momoca.notify("server error")
-	})
-	.go()
+	.send()
