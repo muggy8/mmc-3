@@ -13,51 +13,6 @@
                 <h1 class="text-center cell">
                     Music Matrix Composer (V3)
                 </h1>
-                <div class="hide block-big grow"></div>
-                <nav class="flex hcenter vend-big">
-                    <div
-                        class="cell bg-primary-dark-hover {:
-                            (this.app.nav.subNavSection === 'login') ? 'bg-primary-dark' : ''
-                        :}|{nav.subNavSection}| {: this.app.user.name.toString() && ' hidden-state ':}|{user.name}|"
-                        onclick="(this.app.nav.subNavSection === 'login') ? (this.app.nav.subNavSection = '') : (this.app.nav.subNavSection = 'login')"
-                    >Login</div>
-                    <div
-                        class="cell bg-primary-dark-hover {:
-                            (this.app.nav.subNavSection === 'account') ? 'bg-primary-dark' : ''
-                        :}|{nav.subNavSection}| {: !this.app.user.name.toString() && ' hidden-state ':}|{user.name}|"
-                        onclick="(this.app.nav.subNavSection === 'account') ? (this.app.nav.subNavSection = '') : (this.app.nav.subNavSection = 'account')"
-                    >Account</div>
-                    <div
-                        class="cell bg-primary-dark-hover {: !this.app.user.name.toString() && ' hidden-state ':}|{user.name}|"
-                        onclick="this.app.nav.logout()"
-                    >LogOut</div>
-                </nav>
-            </div>
-
-            <!-- sub menu -->
-            <div class="absolute-big col-1-6-big bg-primary-dark text-center {: this.app.nav.subNavSection.toString() ? '' : ' hidden-state ' :}|{nav.subNavSection}|" style="top: 100%; right:0;">
-
-				<!-- Login with ... -->
-				<div class="{: (this.app.nav.subNavSection === 'login') ? '' : ' hidden-state ' :}|{nav.subNavSection}| cell">
-					Login With
-                    <a href="/api/auth/reddit" target="_blank" class="block color-gray-light color-white-hover bg-primary-light-hover">Reddit</a>
-                </div>
-
-				<!-- my account -->
-				<form class="{: (this.app.nav.subNavSection === 'account') ? '' : ' hidden-state ' :}|{nav.subNavSection}| flex-mid vhcenter block-big" onsubmit="this.app.nav.patchUser(this.app.sendUser); this.app.sendUser = {}; return false;">
-					<label class="block cell text-left-big">
-						Name: <input type="text" name="user.name" class="bg-gray col-2-2-big" onblur="this.app.sendUser.name = this.app.user.name.toString()" required>
-					</label>
-					<label class="block cell text-left-big">
-						Email (public): <input type="email" name="user.email" class="bg-gray col-2-2-big" onblur="this.app.sendUser.email = this.app.user.email.toString()">
-					</label>
-					<label class="block cell text-left-big">
-						Website (public): <input type="url" name="user.website" class="bg-gray col-2-2-big" onblur="this.app.sendUser.website = this.app.user.website.toString()">
-					</label>
-					<label class="block cell text-center text-right-big">
-						<button type="submit" class="bubble-0.25 padding-0.25em bg-gray-light">Save</button>
-					</label>
-				</form>
             </div>
 
 		</header>
@@ -65,7 +20,7 @@
 			this.previousElementSibling.offsetHeight
 		:}|{nav.subNavSection},{screenSize}|px"></div>
 		<main class="relative"></main>
-        <div id="loading" class="hidden-state break-point" data-script="{:
+        <div class="hidden-state break-point" data-script="{:
 			this.app.mediaState = window.getComputedStyle(this, ':before').getPropertyValue('content').replace(new RegExp('\\\W', 'g'), '')
 		:}|{screenSize}|"></div>
 
