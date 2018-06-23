@@ -1,21 +1,14 @@
-aja()
-	.url("/app/views/modal/modal.html")
-	.into("#loading")
-	.on("5xx", function(){
-		momoca.notify("Server Error")
-	})
-	.on("4xx", function(){
+new xhr()
+	.open("GET", "/app/views/modal/modal.html")
+	.addEventListener("error", function(){
 		momoca.notify("Failed to load modal module")
 	})
-	.on("2xx", function(){
-		var viewNodes = Array.prototype.slice.call(momoca.loading.querySelectorAll(".modal-template"))
-		viewNodes.forEach(function(node){
-			node.parentNode.removeChild(node)
-		})
+	.addEventListener("load", function(){
+		var viewHtml = this.responseText
+
+
 		momoca.popOver = function(body, configs = {}){
-			var popoverView = proxymity(viewNodes.map(function(node){
-				return node.cloneNode(true)
-			}))
+			var popoverView = proxymity(viewHtml)
 			var popOverController = popoverView.app
         	popOverController.body = popOverController.innerHTML = popOverController.proxyView = undefined;
 			if (body instanceof HTMLElement){
@@ -42,4 +35,4 @@ aja()
 			return popOverController
 		}
 	})
-	.go()
+	.send()
