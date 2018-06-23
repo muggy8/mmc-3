@@ -10,7 +10,7 @@ void function(homeController){
 				utils.proxyRenderStaticRepeats(select.childNodes, momoca)
 			})
 
-			var view = proxymity(template.content.childNodes).detach()
+			var view = proxymity(template.content.childNodes, momoca).detach()
 
 			momoca.rout = utils.extendFn(momoca.rout, function(superFn, payload){
 				var otherRoutsWorked = superFn(payload)
