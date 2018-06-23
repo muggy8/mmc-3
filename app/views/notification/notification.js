@@ -28,17 +28,13 @@ void function(){
 		source.length = 0
 	}
 
-	aja()
-		.url("/app/views/notification/notification.html")
-		.into("#loading")
-		.on("2xx", function(){
-			notificationsView = proxymity(momoca.loading.querySelectorAll(".notifications-template"), notificationController).appendTo("body")
+	new utils.xhr()
+		.open("GET", "/app/views/notification/notification.html")
+		.addEventListener("load", function(){
+			notificationsView = proxymity(this.responseText).appendTo("body")
 		})
-		.on("4xx", function(){
+		.addEventListener("error", function(){
 			alert("Failed to load Notification module")
 		})
-		.on("5xx", function(){
-			alert("Server Error")
-		})
-		.go()
+		.send()
 }()
