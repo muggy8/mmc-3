@@ -222,4 +222,4 @@ void function(controller){
 			touchMoveTargets = []
 		})
 	}
-}(momoca.songController)
+}(momoca.songController = momoca.songController || {})
