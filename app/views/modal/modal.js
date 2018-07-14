@@ -10,7 +10,7 @@ new utils.xhr()
 		momoca.popOver = function(body, configs = {}){
 			var popoverView = proxymity(viewHtml)
 			var popOverController = popoverView.app
-        	popOverController.body = popOverController.innerHTML = popOverController.proxyView = undefined;
+        	popOverController.body = popOverController.innerHTML = popOverController.proxyView = null;
 			if (body instanceof HTMLElement){
 				popOverController.body = body
 			}
@@ -28,7 +28,7 @@ new utils.xhr()
 					return
 				}
 	            popoverView.detach()
-	            popOverController.body = popOverController.innerHTML = popOverController.proxyView = undefined;
+	            popOverController.body = popOverController.innerHTML = popOverController.proxyView = null;
 	        }
 			popoverView.appendTo("main")
 

@@ -63,7 +63,6 @@ new utils.xhr()
 			var routMatch = momoca.state.match(/\/instrument-configuration/i)
 
 			if (routMatch && !view.active){
-
 				view.app.instrument = payload
 				view.active = true
 				var stopWatchingInstrument = view.app.instrument.watch("instrumentId", view.app.watchAndPlayScale)
@@ -74,9 +73,9 @@ new utils.xhr()
 						view.active = false
 						momoca.state = momoca.state.replace("/instrument-configuration", "")
 						momoca.rout()
-                        view.app.instrument = {}
 						stopWatchingInstrument()
 						stopWatchingpreset()
+                        view.app.instrument = {}
 					},
 					label: "Instrument Key Selector"
 				})
