@@ -69,4 +69,4 @@ void function(homeController){
 		keyMap: momoca.presets[0].map.objectify(),
 		preset: 0
 	}
-}(momoca.home)
+}(momoca.home = momoca.home || {})
