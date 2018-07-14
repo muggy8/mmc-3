@@ -15,8 +15,8 @@ var mmcView = proxymity(document.querySelector("body"), {
 			else {
 				clone[key] = obj[key]
 			}
-			return clone
 		})
+		return clone
 	},
 	state: document.location.pathname,
     generateMidi: function(songJson){

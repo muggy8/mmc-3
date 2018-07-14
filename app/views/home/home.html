@@ -44,8 +44,8 @@
             key("instrumentIndex").in(this.app.home.newSong.tracks);
         } -->
         <div class="flex island vcenter input-row">
-            {: this.instrumentIndex + 1:}|{ home.newSong.tracks[this.instrumentIndex] }|:
-            <button class="margin-h-0.25em padding-0.25em bg-white-hover marginless-right color-primary color-primary-light-hover {: !!this.app.home.newSong.tracks[this.instrumentIndex].instrumentId.toString() || ' hidden-state ' :}|{ home.newSong.tracks[this.instrumentIndex].instrumentId }|" onclick="this.app.home.configure(this.app.home.newSong.tracks[this.instrumentIndex])" type="button">Edit</button>
+            {: this.instrumentIndex + 1 :}:
+            <button class="margin-h-0.25em padding-0.25em bg-white-hover marginless-right color-primary color-primary-light-hover {: !!this.app.home.newSong.tracks[this.instrumentIndex].instrumentId.toString() || ' hidden-state ' :}|{home.newSong.tracks[this.instrumentIndex].instrumentId }|" onclick="this.app.home.configure(this.app.home.newSong.tracks[this.instrumentIndex])" type="button">Edit</button>
             <select
 				name="home.newSong.tracks[this.instrumentIndex].instrumentId"
 				class="grow {:
