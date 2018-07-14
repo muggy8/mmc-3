@@ -66,7 +66,7 @@ void function(controller){
 
 	controller.home = function(){
 		if (confirm("Discard all unsaved changes and return to home view")){
-			delete controller.song
+			controller.song = undefined
 			momoca.state = "/"
 			momoca.rout()
 		}
@@ -78,7 +78,7 @@ void function(controller){
 	}
 
 	controller.export = function(){
-		momoca.popOver(`<div class="text-center">Midi: <a href="${momoca.generateMidi(controller.song)}" download>Download.mid</a></div><div class="text-center">JSON: <a href="data:application/json;base64,${btoa(controller.song.stringify())}" download>Download.json</a></div>`)
+		momoca.popOver(`<div class="text-center">Midi: <a href="${momoca.generateMidi(controller.song)}" download>Download.mid</a></div><div class="text-center">JSON: <a href="data:application/json;base64,${btoa(controller.song.toString())}" download>Download.json</a></div>`)
 	}
 
 	controller.addTrack = function(){

@@ -39,7 +39,11 @@
 	<div style="height:{:this.previousElementSibling.offsetHeight:}|{inDom;momoca.screenSize},{inDom}|px"></div>
 </div>
 <div class="song-template" onmouseup="this.app.mouseDown = false;" oncontextmenu="event.preventDefault()">
-	<!-- foreach: key("trackIndex").in(this.app.song.tracks) -->
+	<!-- foreach: {
+		this.app.song = this.app.song || {};
+		this.app.song.tracks = this.app.song.tracks || [];
+		key("trackIndex").in(this.app.song.tracks);
+	} -->
 	<div class="island flex-mid track">
 		<div class="bg-primary flex row column-mid">
 			<!-- this is the tool bar -->
