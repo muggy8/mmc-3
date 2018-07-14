@@ -23,7 +23,7 @@
 				<option value="{:this.presetIndex:}|{static}|">{:momoca.presets[this.presetIndex].preset:}|{static}|</option>
 				<!-- foreach: key.end() -->
 			</select>
-			<!-- {:this.app.instrument.keyMap = momoca.presets[(+this.app.instrument.preset || 0)].map.objectify():}|{instrument.preset}| -->
+			<!-- {:this.app.instrument.keyMap = momoca.linearClone(momoca.presets[(+this.app.instrument.preset || 0)].map):}|{instrument.preset}| -->
 		</label>
 	</div>
 </div>

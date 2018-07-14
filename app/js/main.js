@@ -3,6 +3,21 @@ var mmcView = proxymity(document.querySelector("body"), {
 		console.log(message)
 	},
 	rout: function(){}, // default base routing function
+	linearClone: function(obj){
+		var clone = {}
+		if (Array.isArray(obj)){
+			clone = []
+		}
+		Object.getOwnPropertyNames(obj).forEach(function(key){
+			if (typeof obj[key] === 'object'){
+				clone[key] = momoca.linearClone(obj[key])
+			}
+			else {
+				clone[key] = obj[key]
+			}
+			return clone
+		})
+	},
 	state: document.location.pathname,
     generateMidi: function(songJson){
         var noteTicks = 128/songJson.smallestNoteFraction

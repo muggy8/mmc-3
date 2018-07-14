@@ -52,7 +52,7 @@ void function(homeController){
 			})
 		})
 		momoca.state = "/song"
-		momoca.rout(songProperties.objectify())
+		momoca.rout(songProperties)
 		momoca.notify("Work in progress", {
 			timeout: 5000
 		})
@@ -66,7 +66,7 @@ void function(homeController){
 
 	homeController.trackTemplate = {
 		instrumentId: 0,
-		keyMap: momoca.presets[0].map.objectify(),
+		keyMap: momoca.linearClone(momoca.presets[0].map),
 		preset: 0
 	}
 }(momoca.home = momoca.home || {})

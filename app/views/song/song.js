@@ -43,7 +43,7 @@ void function(controller){
 		controller.mainControlFn = "stubFn"
 		controller.mainControl = "loading"
         var originalSeek = controller.seek
-		momoca.playSong(controller.song.objectify(), controller.seek).then(function(player){
+		momoca.playSong(controller.song, controller.seek).then(function(player){
 			controller.mainControlFn = "stop"
 			controller.mainControl = "stop"
 			controller.stop = function(){
@@ -78,14 +78,14 @@ void function(controller){
 	}
 
 	controller.export = function(){
-		momoca.popOver(`<div class="text-center">Midi: <a href="${momoca.generateMidi(controller.song.objectify())}" download>Download.mid</a></div><div class="text-center">JSON: <a href="data:application/json;base64,${btoa(controller.song.stringify())}" download>Download.json</a></div>`)
+		momoca.popOver(`<div class="text-center">Midi: <a href="${momoca.generateMidi(controller.song)}" download>Download.mid</a></div><div class="text-center">JSON: <a href="data:application/json;base64,${btoa(controller.song.stringify())}" download>Download.json</a></div>`)
 	}
 
 	controller.addTrack = function(){
 		var popOverController = momoca.popOver(`<div class="text-center padding-0.5em"><div class="icon font-2em"><i class="loading"></i></div></div>`)
 		controller.song.tracks.push({
 			instrumentId: 0,
-			keyMap: momoca.presets[0].objectify(),
+			keyMap: momoca.linearClone(momoca.presets[0]),
 			preset: 0,
 			notes: utils.range(0, (controller.song.beats * controller.song.smallestNoteFraction) - 1).map(function(){
 				return utils.range(0, 15).map(function(){

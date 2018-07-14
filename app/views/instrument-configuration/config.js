@@ -27,8 +27,8 @@ new utils.xhr()
 					view.app.controlFn = "stubFn"
 					currentlyPlayerPromise.then(function(player){
 						player && player.stop()
-						var demoTrackNotes = view.app.notes.objectify()
-						var demoTrackData = view.app.instrument.objectify()
+						var demoTrackNotes = momoca.linearClone(view.app.notes)
+						var demoTrackData = momoca.linearClone(view.app.instrument)
 						demoTrackData.notes = demoTrackNotes
 
                         currentlyPlayerPromise = momoca.playSong({
