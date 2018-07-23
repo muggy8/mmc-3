@@ -63,7 +63,7 @@
                 <option value="{: this.app.instruments[this.instrumentIndex].number :}|{instruments}|">{: this.app.instruments[this.instrumentIndex].instrument :}|{instruments}|</option>
                 <!-- foreach: key.end() -->
             </select>
-            <button class="color-primary padding-0.25em bg-white-hover color-primary-light-hover {: this.app.home.newSong.tracks.length > 1 || ' hidden-state ' :}|{ home.newSong.tracks.length }|" onclick="this.app.home.newSong.tracks.splice(this.instrumentIndex, 1);" type="button">X</button>
+            <button class="color-primary padding-0.25em bg-white-hover color-primary-light-hover {: this.app.home.newSong.tracks.length > 1 || ' hidden-state ' :}|{ home.newSong.tracks }|" onclick="this.app.home.newSong.tracks.splice(this.instrumentIndex, 1);" type="button">X</button>
         </div>
         <!-- foreach: key.end() -->
         <div class="flex vcenter">
