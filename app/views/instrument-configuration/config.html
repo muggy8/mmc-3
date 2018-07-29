@@ -11,7 +11,7 @@
 			<span>Instrument:</span>
 			<select name="instrument.instrumentId" class="grow margin-h-0.5em marginless-right">
 				<!-- foreach: key("instrumentIndex").in(momoca.instruments) -->
-				<option value="{: momoca.instruments[this.instrumentIndex].number :}|{static}|">{: momoca.instruments[this.instrumentIndex].instrument :}|{static}|</option>
+				<option value="{: momoca.instruments[this.instrumentIndex].number :}">{: momoca.instruments[this.instrumentIndex].instrument :}</option>
 				<!-- foreach: key.end() -->
 			</select>
 		</label>
@@ -20,7 +20,7 @@
 			<span>Note Configuration:</span>
 			<select name="instrument.preset" class="grow margin-h-0.5em marginless-right">
 				<!-- foreach: key("presetIndex").in(momoca.presets)-->
-				<option value="{:this.presetIndex:}|{static}|">{:momoca.presets[this.presetIndex].preset:}|{static}|</option>
+				<option value="{:this.presetIndex:}">{:momoca.presets[this.presetIndex].preset:}</option>
 				<!-- foreach: key.end() -->
 			</select>
 			<!-- {:this.app.instrument.keyMap = momoca.linearClone(momoca.presets[(+this.app.instrument.preset || 0)].map):}|{instrument.preset}| -->
@@ -37,13 +37,13 @@
 			<!-- select for note -->
 			<select name="instrument.keyMap[this.rowIndex]">
 				<!-- foreach: key("note").in(this.app.possiableNotes) -->
-				<option value="{:this.app.possiableNotes[this.note]:}|{possiableNotes}|">{:this.app.possiableNotes[this.note]:}|{possiableNotes}|</option>
+				<option value="{:this.app.possiableNotes[this.note]:}">{:this.app.possiableNotes[this.note]:}</option>
 				<!-- foreach: key.end() -->
 			</select>
 			<!-- Input for note number -->
 			<select name="instrument.keyMap[this.rowIndex]">
 				<!-- foreach: key("note").in(this.app.possiableNotes) -->
-				<option value="{:this.app.possiableNotes[this.note]:}|{possiableNotes}|">{:this.note:}|{possiableNotes}|</option>
+				<option value="{:this.app.possiableNotes[this.note]:}">{:this.note:}</option>
 				<!-- foreach: key.end() -->
 			</select>
 		</span>
