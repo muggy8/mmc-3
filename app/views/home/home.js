@@ -47,7 +47,7 @@ void function(homeController){
 		songProperties.tracks.forEach(function(track){
 			track.notes = utils.range(0, (songProperties.beats * songProperties.smallestNoteFraction) - 1).map(function(){
 				return utils.range(0, 15).map(function(){
-					return false
+					return momoca.createNote()
 				})
 			})
 		})

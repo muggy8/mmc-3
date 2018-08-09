@@ -209,7 +209,7 @@ var mmcView = proxymity(document.querySelector("body"), {
 	},
 	createNote: function(state = 0, velocity = 127){
 		return {
-			state: state
+			state: state,
 			velocity: velocity
 		}
 	},
@@ -235,6 +235,7 @@ var mmcView = proxymity(document.querySelector("body"), {
 		}
 		noteClasses += " "
 		note.sel && (noteClasses += "seleceted")
+        return noteClasses
 	}
 })
 var momoca = mmcView.app
