@@ -16,9 +16,9 @@ new utils.xhr()
 			notes: utils.range(0, 15).map(function(i){
 				return utils.range(0, 15).map(function(j){
 					if (i === j){
-						return momoca.createNote()
+						return momoca.createNote(2)
 					}
-					return false
+					return momoca.createNote()
 				})
 			}),
 			watchAndPlayScale: function(id){

@@ -207,11 +207,12 @@ var mmcView = proxymity(document.querySelector("body"), {
 			targetedNote.state = 2
 		}
 	},
-	// createNote: function(velocity = 127){
-	// 	return {
-	// 		velocity: velocity
-	// 	}
-	// },
+	createNote: function(state = 0, velocity = 127){
+		return {
+			state: state
+			velocity: velocity
+		}
+	},
 	classOfNote: function(note){
 		// if (note && note.velocity){
 		// 	return "bg-secondary"
