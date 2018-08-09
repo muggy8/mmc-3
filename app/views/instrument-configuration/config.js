@@ -31,24 +31,24 @@ new utils.xhr()
 						var demoTrackData = momoca.linearClone(view.app.instrument)
 						demoTrackData.notes = demoTrackNotes
 
-                        currentlyPlayerPromise = momoca.playSong({
-                            tracks:[demoTrackData],
-                            bpm: momoca.home.newSong.bpm,
-                            smallestNoteFraction: momoca.home.newSong.smallestNoteFraction
-                        }).then(function(player){
-                            view.app.controlIcon = "stop"
-                            view.app.stop = function(){
-                                player.stop()
-                                view.app.controlIcon = "play"
-                                view.app.controlFn = "watchAndPlayScale"
-                            }
-                            view.app.controlFn = "stop"
+						currentlyPlayerPromise = momoca.playSong({
+							tracks:[demoTrackData],
+							bpm: momoca.home.newSong.bpm,
+							smallestNoteFraction: momoca.home.newSong.smallestNoteFraction
+						}).then(function(player){
+							view.app.controlIcon = "stop"
+							view.app.stop = function(){
+								player.stop()
+								view.app.controlIcon = "play"
+								view.app.controlFn = "watchAndPlayScale"
+							}
+							view.app.controlFn = "stop"
 
-                            player.on("endOfFile", function(){
-                                view.app.controlIcon = "play"
-                                view.app.controlFn = "watchAndPlayScale"
-                            })
-                        })
+							player.on("endOfFile", function(){
+								view.app.controlIcon = "play"
+								view.app.controlFn = "watchAndPlayScale"
+							})
+						})
 
 					})
 				}
@@ -75,7 +75,7 @@ new utils.xhr()
 						momoca.rout()
 						stopWatchingInstrument()
 						stopWatchingpreset()
-                        view.app.instrument = {}
+						view.app.instrument = {}
 					},
 					label: "Instrument Key Selector"
 				})
