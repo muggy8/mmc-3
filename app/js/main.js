@@ -42,7 +42,7 @@ var mmcView = proxymity(document.querySelector("body"), {
 				columnOfNotes.forEach(function(note, index){ // right to left = bottom to top or low to high
 					var noteName = jsonTrack.keyMap[index]
 
-					if (!note && trackBuildState[noteName]){
+					if (!note.state && trackBuildState[noteName]){
 						// we have detected that a note is currently falsey and there is a pending note in which case we need to turn it off
 						// console.log(trackBuildState.waitDuration, "stop", noteName)
 						track.addNoteOff(channel, noteName, trackBuildState.waitDuration)
@@ -50,7 +50,7 @@ var mmcView = proxymity(document.querySelector("body"), {
 						trackBuildState.waitDuration = 0
 					}
 
-					if (note && note.velocity){
+					if (note.state === 2){
 						// we have detected a new note to be struck
 
 						if (trackBuildState[noteName]){ // is the pervious note still going if so we want to stop it before striking again
@@ -214,13 +214,6 @@ var mmcView = proxymity(document.querySelector("body"), {
 		}
 	},
 	classOfNote: function(note){
-		// if (note && note.velocity){
-		// 	return "bg-secondary"
-		// }
-		// else if (note){
-		// 	return "bg-secondary-light"
-		// }
-		// return "bg-gray"
 		var noteClasses = ""
 		switch (note.state) {
 			case 2:
