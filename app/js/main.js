@@ -19,68 +19,68 @@ var mmcView = proxymity(document.querySelector("body"), {
 		return clone
 	},
 	state: document.location.pathname,
-    generateMidi: function(songJson){
-        var noteTicks = 128/songJson.smallestNoteFraction
+	generateMidi: function(songJson){
+		var noteTicks = 128/songJson.smallestNoteFraction
 
-        var song = new utils.midGen.File()
-        songJson.tracks.map(function(jsonTrack){
-            var track = new utils.midGen.Track()
-            track.setTempo(songJson.bpm)
+		var song = new utils.midGen.File()
+		songJson.tracks.map(function(jsonTrack){
+			var track = new utils.midGen.Track()
+			track.setTempo(songJson.bpm)
 
-            var channel = 0
-            if (+jsonTrack.instrumentId < 128){
-                track.setInstrument(channel, +jsonTrack.instrumentId)
-            }
-            else {
-                channel = 9
-            }
+			var channel = 0
+			if (+jsonTrack.instrumentId < 128){
+				track.setInstrument(channel, +jsonTrack.instrumentId)
+			}
+			else {
+				channel = 9
+			}
 
-            var trackBuildState = {
-                waitDuration: 0
-            }
-            var buildEventColumn = function(columnOfNotes){ // right to left = progression through time
-                columnOfNotes.forEach(function(note, index){ // right to left = bottom to top or low to high
-                    var noteName = jsonTrack.keyMap[index]
+			var trackBuildState = {
+				waitDuration: 0
+			}
+			var buildEventColumn = function(columnOfNotes){ // right to left = progression through time
+				columnOfNotes.forEach(function(note, index){ // right to left = bottom to top or low to high
+					var noteName = jsonTrack.keyMap[index]
 
-                    if (!note && trackBuildState[noteName]){
-                        // we have detected that a note is currently falsey and there is a pending note in which case we need to turn it off
-                        // console.log(trackBuildState.waitDuration, "stop", noteName)
-                        track.addNoteOff(channel, noteName, trackBuildState.waitDuration)
-                        trackBuildState[noteName] = false
-                        trackBuildState.waitDuration = 0
-                    }
-
-                    if (note && note.velocity){
-                        // we have detected a new note to be struck
-
-                        if (trackBuildState[noteName]){ // is the pervious note still going if so we want to stop it before striking again
-                            // console.log(trackBuildState.waitDuration, "stop", noteName)
-                            track.addNoteOff(channel, noteName, trackBuildState.waitDuration)
-                            trackBuildState[noteName] = false
-                            trackBuildState.waitDuration = 0
-                        }
-
-                        // ok we've handled the previous note thing lets strike the note now
-                        // console.log(trackBuildState.waitDuration, "start", noteName)
-                        track.addNoteOn(channel, noteName, trackBuildState.waitDuration, note.velocity)
-                        trackBuildState[noteName] = true
+					if (!note && trackBuildState[noteName]){
+						// we have detected that a note is currently falsey and there is a pending note in which case we need to turn it off
+						// console.log(trackBuildState.waitDuration, "stop", noteName)
+						track.addNoteOff(channel, noteName, trackBuildState.waitDuration)
+						trackBuildState[noteName] = false
 						trackBuildState.waitDuration = 0
-                    }
+					}
 
-                    // ok we're done with any changes that need to be made to no on and no off now we increment the wait time so the next round of setting can begin
-                })
-                trackBuildState.waitDuration += noteTicks
-            }
-            jsonTrack.notes.forEach(buildEventColumn)
-            buildEventColumn(utils.range(0, 15).map(function(){
-                return false
-            }))
-            return track
-        }).forEach(song.addTrack.bind(song))
+					if (note && note.velocity){
+						// we have detected a new note to be struck
 
-        var songB64 = "data:audio/midi;base64," + btoa(song.toBytes())
-        return songB64
-    },
+						if (trackBuildState[noteName]){ // is the pervious note still going if so we want to stop it before striking again
+							// console.log(trackBuildState.waitDuration, "stop", noteName)
+							track.addNoteOff(channel, noteName, trackBuildState.waitDuration)
+							trackBuildState[noteName] = false
+							trackBuildState.waitDuration = 0
+						}
+
+						// ok we've handled the previous note thing lets strike the note now
+						// console.log(trackBuildState.waitDuration, "start", noteName)
+						track.addNoteOn(channel, noteName, trackBuildState.waitDuration, note.velocity)
+						trackBuildState[noteName] = true
+						trackBuildState.waitDuration = 0
+					}
+
+					// ok we're done with any changes that need to be made to no on and no off now we increment the wait time so the next round of setting can begin
+				})
+				trackBuildState.waitDuration += noteTicks
+			}
+			jsonTrack.notes.forEach(buildEventColumn)
+			buildEventColumn(utils.range(0, 15).map(function(){
+				return false
+			}))
+			return track
+		}).forEach(song.addTrack.bind(song))
+
+		var songB64 = "data:audio/midi;base64," + btoa(song.toBytes())
+		return songB64
+	},
 	getInstrument: function(instrumentId){
 		var ac = momoca.getInstrument.audioContext ||  (momoca.getInstrument.audioContext = new AudioContext())
 		if (momoca.getInstrument[instrumentId]){
@@ -101,9 +101,9 @@ var mmcView = proxymity(document.querySelector("body"), {
 					// this is for the final time we get the instrument we just stick the instrument in our cache so in the future we dont have to ask the network for it
 					return momoca.getInstrument[instrumentId] = instrument
 				}, function(o3o){
-                    momoca.getInstrument[instrumentId] = false
-                    return Promise.reject(o3o)
-                })
+					momoca.getInstrument[instrumentId] = false
+					return Promise.reject(o3o)
+				})
 		}
 	},
 	playSong: function(songJson, start = 0){
@@ -111,7 +111,7 @@ var mmcView = proxymity(document.querySelector("body"), {
 			// console.log(event)
 			songEvents.triggerPlayerEvent(event.track + ":" + event.name, event)
 		})
-        songEvents.loadDataUri(momoca.generateMidi(songJson))
+		songEvents.loadDataUri(momoca.generateMidi(songJson))
 		songEvents.fileLoaded()
 
 		var instrumentLoadingQueue = songJson.tracks.map(function(trackJson, index){
@@ -133,7 +133,7 @@ var mmcView = proxymity(document.querySelector("body"), {
 						}
 					})
 				}, function(){
-					momoca.notify("Failed to laod Instrument ID: " + (+trackJson.instrumentId || 0))
+					momoca.notify("Failed to load Instrument ID: " + (+trackJson.instrumentId || 0))
 				})
 		})
 
@@ -152,28 +152,28 @@ var mmcView = proxymity(document.querySelector("body"), {
 		if (column + 1 < notesMatrix.length){
 			var nextNote = notesMatrix[column + 1][row]
 
-			if (nextNote && targetedNote.velocity){ // current note is the start of a note chain
-				notesMatrix[column + 1][row] = momoca.createNote() // make the next note the start of the note chain
+			if (nextNote && nextNote.state && targetedNote.state === 2){ // current note is the start of a note chain
+				nextNote.state = 2 // make the next note the start of the note chain
 			}
 
-			if (nextNote.velocity && !targetedNote){
-				notesMatrix[column][row] = nextNote
-				notesMatrix[column + 1][row] = true
+			if (nextNote.state === 2 && !targetedNote.state){
+				targetedNote.state = 2
+				nextNote.state = 1
 				return
 			}
 		}
 
-		if (!targetedNote && !previousNote){
-			notesMatrix[column][row] = momoca.createNote()
+		if (!targetedNote.state && (!previousNote || !previousNote.state)){
+			targetedNote.state = 2
 		}
-		else if (targetedNote.velocity){
-			notesMatrix[column][row] = false
+		else if (targetedNote.state === 2){
+			targetedNote.state = 0
 		}
-		else if (previousNote && targetedNote && !targetedNote.velocity){
-			notesMatrix[column][row] = momoca.createNote()
+		else if (previousNote && previousNote.state && targetedNote.state === 1){
+			targetedNote.state = 2
 		}
-		else if (previousNote && !targetedNote){
-			notesMatrix[column][row] = true
+		else if (previousNote && previousNote.state && !targetedNote.state){
+			targetedNote.state = 1
 		}
 	},
 	toggleNoteReverse: function(notesMatrix, column, row){
@@ -187,42 +187,53 @@ var mmcView = proxymity(document.querySelector("body"), {
 			var nextNote = notesMatrix[column + 1][row]
 		}
 
-		if (previousNote && targetedNote.velocity){
-			notesMatrix[column][row] = true
+		if (previousNote && previousNote.state && targetedNote.state === 2){
+			targetedNote.state = 1
 		}
-		else if (previousNote && targetedNote === true){
-			notesMatrix[column][row] = false
+		else if (previousNote && previousNote.state && targetedNote.state === 1){
+			targetedNote.state = 0
 		}
-		else if (previousNote && targetedNote === false){
-			notesMatrix[column][row] = momoca.createNote()
+		else if (previousNote && previousNote.state && !targetedNote.state){
+			targetedNote.state = 2
 		}
-		else if (!previousNote && targetedNote.velocity && !nextNote){
-			notesMatrix[column][row] = false
+		else if ((!previousNote && !previousNote.state) && targetedNote.state === 2 && (!nextNote || !nextNote.state) ){
+			targetedNote.state = 0
 		}
-		else if (!previousNote && targetedNote.velocity && nextNote === true){
-			notesMatrix[column + 1][row] = momoca.createNote()
-			notesMatrix[column][row] = false
+		else if ((!previousNote || !previousNote.state) && targetedNote.state === 2 && nextNote.state){
+			nextNote.state = 2
+			targetedNote.state = 0
 		}
-		else if (!previousNote && targetedNote.velocity && nextNote.velocity){
-			notesMatrix[column][row] = false
-		}
-		else if (!targetedNote){
-			notesMatrix[column][row] = momoca.createNote()
+		else if (!targetedNote.state){
+			targetedNote.state = 2
 		}
 	},
-	createNote: function(velocity = 127){
-		return {
-			velocity: velocity
-		}
-	},
+	// createNote: function(velocity = 127){
+	// 	return {
+	// 		velocity: velocity
+	// 	}
+	// },
 	classOfNote: function(note){
-		if (note && note.velocity){
-			return "bg-secondary"
+		// if (note && note.velocity){
+		// 	return "bg-secondary"
+		// }
+		// else if (note){
+		// 	return "bg-secondary-light"
+		// }
+		// return "bg-gray"
+		var noteClasses = ""
+		switch (note.state) {
+			case 2:
+				noteClasses += "bg-secondary"
+				break
+			case 1:
+				noteClasses += "bg-secondary-light"
+				break
+			default:
+				noteClasses += "bg-gray"
+				break
 		}
-		else if (note){
-			return "bg-secondary-light"
-		}
-		return "bg-gray"
+		noteClasses += " "
+		note.sel && (noteClasses += "seleceted")
 	}
 })
 var momoca = mmcView.app
