@@ -42,7 +42,7 @@ void function(controller){
 	controller.play = function(){
 		controller.mainControlFn = "stubFn"
 		controller.mainControl = "loading"
-        var originalSeek = controller.seek
+		var originalSeek = controller.seek
 		momoca.playSong(controller.song, controller.seek).then(function(player){
 			controller.mainControlFn = "stop"
 			controller.mainControl = "stop"
@@ -50,18 +50,18 @@ void function(controller){
 				player.stop()
 				controller.mainControl = "play"
 				controller.mainControlFn = "play"
-                controller.seek = originalSeek
+				controller.seek = originalSeek
 			}
-            player.on("endOfFile", function(){
-                controller.mainControl = "play"
-                controller.mainControlFn = "play"
-                controller.seek = originalSeek
-            })
-            var noteTicks = 128/controller.song.smallestNoteFraction
-            player.on("playing", function(){
-                controller.seek = Math.floor(player.getCurrentTick()/noteTicks)
-            })
-        })
+			player.on("endOfFile", function(){
+				controller.mainControl = "play"
+				controller.mainControlFn = "play"
+				controller.seek = originalSeek
+			})
+			var noteTicks = 128/controller.song.smallestNoteFraction
+			player.on("playing", function(){
+				controller.seek = Math.floor(player.getCurrentTick()/noteTicks)
+			})
+		})
 	}
 
 	controller.home = function(){
@@ -104,61 +104,72 @@ void function(controller){
 			toggleFn: function(ev, noteEle){
 				ev && ev.preventDefault && ev.preventDefault()
 				ev && ev.stopPropagation && ev.stopPropagation()
-				;(!ev.button) && momoca.toggleNote(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
+				!ev.button && momoca.toggleNote(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
 				;(ev.button === 2) && momoca.toggleNoteReverse(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
 			},
 			icon: "toggle"
 		},
 		{
-			toggleFn: function(ev, noteEle){
-				var targets = this.selectionPoints = this.selectionPoints || {}
-				var elePoints = noteEle.id.split("-").map(function(str){
-					return parseInt(str)
-				})
-				if ((ev.type === "mousedown" || ev.type === "touchstart") && !ev.button){
-					this.selectionPoints.track = elePoints[0]
-					this.selectionPoints.start = {
+			toggleFn: (function(){
+				var selectionState = {}
+				return function(ev, noteEle){
+					var targets = selectionState.selectionPoints = selectionState.selectionPoints || {}
+					var elePoints = noteEle.id.split("-").map(function(str){
+						return parseInt(str)
+					})
+
+					// initiate the selection if it's the first event
+					if ((ev.type === "mousedown" || ev.type === "touchstart") && !ev.button){
+						selectionState.selectionPoints.track = elePoints[0]
+						selectionState.selectionPoints.start = {
+							col: elePoints[1],
+							row: elePoints[2]
+						}
+					}
+
+					// all selections would include the end targets so this is not wrapped in an if
+					targets.end = {
 						col: elePoints[1],
 						row: elePoints[2]
 					}
-				}
 
-				targets.end = {
-					col: elePoints[1],
-					row: elePoints[2]
-				}
-
-				var selection = []
-				utils.range(targets.end.col, targets.start.col).forEach(function(colTarget){
-					utils.range(targets.end.row, targets.start.row).forEach(function(rowTarget){
-						selection.push(`${targets.track}-${colTarget}-${rowTarget}`)
+					// convert the start and end rectangle into a selection of items
+					var selection = []
+					utils.range(targets.end.col, targets.start.col).forEach(function(colTarget){
+						utils.range(targets.end.row, targets.start.row).forEach(function(rowTarget){
+							selection.push(`${targets.track}-${colTarget}-${rowTarget}`)
+						})
 					})
-				})
 
-				if (targets.previousSelection){
-					targets.previousSelection.filter(function(selectedId){
-						if (selection.indexOf(selectedId) === -1){
-							return true
+					// remove any previousely selected elements that are no longer selected now
+					targets.previousSelection && targets.previousSelection
+						.filter(function(selectedId){
+							if (selection.indexOf(selectedId) === -1){
+								return true
+							}
+							return false
+						})
+						.map(document.getElementById.bind(document))
+						.forEach(function(ele){
+							if (ele.dataset.proxyClasses){
+								ele.dataset.proxyClasses = ele.dataset.proxyClasses.replace(" selected", "")
+							}
+							ele.className = ele.className.replace(" selected", "")
+						})
+
+					// highlight the related element if not already
+					selection.map(document.getElementById.bind(document)).forEach(function(ele){
+						if (ele.className.indexOf("selected") === -1){
+							ele.dataset.proxyClasses += " selected"
+							ele.className += " selected"
 						}
-						return false
-					}).map(document.getElementById.bind(document)).forEach(function(ele){
-						if (ele.dataset.proxyClasses){
-							ele.dataset.proxyClasses = ele.dataset.proxyClasses.replace(" selected", "")
-						}
-						ele.className = ele.className.replace(" selected", "")
 					})
+
+					// save the current selection for the next iteration of this function
+					targets.previousSelection = selection
+
 				}
-
-				selection.map(document.getElementById.bind(document)).forEach(function(ele){
-					if (ele.className.indexOf("selected") === -1){
-						ele.dataset.proxyClasses += " selected"
-						ele.className += " selected"
-					}
-				})
-
-				targets.previousSelection = selection
-
-			}.bind({}),
+			})(),
 			icon: "select"
 		}
 	]
