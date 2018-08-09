@@ -51,7 +51,7 @@
 			<!-- foreach: key("colIndex").in(this.app.notes) -->
 			<div class="padding-0.5em margin-h-0.25em link {:
 				momoca.classOfNote(this.app.notes[this.colIndex][this.rowIndex])
-			:}|{notes[this.colIndex][this.rowIndex]}| " onclick="momoca.toggleNote(this.app.notes, this.colIndex, this.rowIndex)"></div>
+			:}|{notes[this.colIndex][this.rowIndex].state},{notes[this.colIndex][this.rowIndex].sel}| " onclick="momoca.toggleNote(this.app.notes, this.colIndex, this.rowIndex)" oncontextmenu="event.preventDefault(); momoca.toggleNoteReverse(this.app.notes, this.colIndex, this.rowIndex)"></div>
 			<!-- foreach: key.end() -->
 		</div>
 	</div>
