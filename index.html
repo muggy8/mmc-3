@@ -9,18 +9,18 @@
 	</head>
 	<body>
 		<header class="fixed col-2-2" style="top: 0;">
-            <div class="flex-big vhcenter wrap bg-primary">
-                <h1 class="text-center cell">
-                    Music Matrix Composer (V3)
-                </h1>
-            </div>
+			<div class="flex-big vhcenter wrap bg-primary">
+				<h1 class="text-center cell">
+					Music Matrix Composer (V3)
+				</h1>
+			</div>
 
 		</header>
 		<div style="height: {:
 			this.previousElementSibling.offsetHeight
 		:}|{nav.subNavSection},{screenSize}|px"></div>
 		<main class="relative"></main>
-        <div class="hidden-state break-point" data-script="{:
+		<div class="hidden-state break-point" data-script="{:
 			this.app.mediaState = window.getComputedStyle(this, ':before').getPropertyValue('content').replace(new RegExp('\\\W', 'g'), '')
 		:}|{screenSize}|"></div>
 
@@ -41,7 +41,7 @@
 		</script>
 
 		<!-- our main UI and what not dependencies -->
-		<script src="https://cdn.rawgit.com/muggy8/proxymity/fb85f8585ace23774ee5973ff7bd5e697217cac7/dist/proxymity.js"></script>
+		<script src="https://cdn.rawgit.com/muggy8/proxymity/98e2ccfcea964513b0981b01d9d447cbe91c4fdc/dist/proxymity.js"></script>
 		<script src="https://cdn.rawgit.com/muggy8/chainify/78236dde2fb5766ecb7436c86cd0b6388691bc74/chainify.min.js"></script>
 		<!-- <script src="//unpkg.com/aja@0.4.1/aja.min.js"></script> -->
 		<script src="//unpkg.com/jsmidgen@0.1.5/lib/jsmidgen.js"></script>
@@ -50,14 +50,14 @@
 
 		<!-- This is our app -->
 		<!-- <script src="/app/js/"></script> -->
-        <script>
-            new (chainify(XMLHttpRequest))()
-                .open("GET", "/app/assets.json")
-                .addEventListener("load", function(){
+		<script>
+			new (chainify(XMLHttpRequest))()
+				.open("GET", "/app/assets.json")
+				.addEventListener("load", function(){
 
-                    Promise.all(
+					Promise.all(
 						JSON.parse(this.responseText).js.map(function(path){
-	                        return new Promise(function(accept, reject) {
+							return new Promise(function(accept, reject) {
 								var xhr = new XMLHttpRequest()
 								xhr.addEventListener("load", function(){
 									accept(xhr)
@@ -68,7 +68,7 @@
 								xhr.open("GET", path)
 								xhr.send()
 							})
-	                    })
+						})
 					).then(function(set){
 						var s = document.createElement("script")
 						s.innerHTML = set.reduce(function(sum, xhr){
@@ -79,12 +79,12 @@
 						alert("Failed to load app. Please refresh the page at a later time.")
 					})
 
-                })
-                .addEventListener("error", function(){
-                    alert("failed to load app")
-                })
-                .send()
-        </script>
+				})
+				.addEventListener("error", function(){
+					alert("failed to load app")
+				})
+				.send()
+		</script>
 
 		<!-- This is our main stylings  -->
 		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
