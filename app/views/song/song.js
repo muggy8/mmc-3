@@ -137,32 +137,34 @@ void function(controller){
 					var selection = []
 					utils.range(targets.end.col, targets.start.col).forEach(function(colTarget){
 						utils.range(targets.end.row, targets.start.row).forEach(function(rowTarget){
-							selection.push(`${targets.track}-${colTarget}-${rowTarget}`)
+							selection.push(controller.song.tracks[targets.track].notes[colTarget][rowTarget])
 						})
 					})
 
 					// remove any previousely selected elements that are no longer selected now
 					targets.previousSelection && targets.previousSelection
-						.filter(function(selectedId){
-							if (selection.indexOf(selectedId) === -1){
+						.filter(function(previousNote){
+							if (selection.indexOf(previousNote) === -1){
 								return true
 							}
 							return false
 						})
-						.map(document.getElementById.bind(document))
-						.forEach(function(ele){
-							if (ele.dataset.proxyClasses){
-								ele.dataset.proxyClasses = ele.dataset.proxyClasses.replace(" selected", "")
-							}
-							ele.className = ele.className.replace(" selected", "")
+						// .map(document.getElementById.bind(document))
+						.forEach(function(note){
+							// if (ele.dataset.proxyClasses){
+							// 	ele.dataset.proxyClasses = ele.dataset.proxyClasses.replace(" selected", "")
+							// }
+							// ele.className = ele.className.replace(" selected", "")
+							note.sel = false
 						})
 
 					// highlight the related element if not already
-					selection.map(document.getElementById.bind(document)).forEach(function(ele){
-						if (ele.className.indexOf("selected") === -1){
-							ele.dataset.proxyClasses += " selected"
-							ele.className += " selected"
-						}
+					selection.forEach(function(note){
+						// if (ele.className.indexOf("selected") === -1){
+						// 	ele.dataset.proxyClasses += " selected"
+						// 	ele.className += " selected"
+						// }
+						!note.sel && (note.sel = true)
 					})
 
 					// save the current selection for the next iteration of this function
