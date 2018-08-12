@@ -163,9 +163,10 @@
 	right: -0.8em;
 	bottom: 0.6em;
 	top: 0;
-	border-top: solid 0.05em currentcolor;
-	border-right: solid 0.3em currentcolor;
-	border-bottom: solid 0.1em currentcolor;
+	border-top: solid 0.1em currentcolor;
+	border-right: solid 0.2em currentcolor;
+	border-left: solid 0.1em currentColor;
+	border-bottom: solid 0.05em currentcolor;
 }
 .icon .flopy:after {
 	left: 0.2em;
@@ -174,8 +175,8 @@
 	bottom: 0;
     /* box-shadow: inset -0.1em 0.05em 0 0.10em currentcolor; */
 	border-top: solid 0.15em currentcolor;
-	border-right: solid 0.15em currentcolor;
-	border-bottom: solid 0.05em currentcolor;
+    border-right: solid 0.15em currentcolor;
+    border-bottom: solid 0.1em currentcolor;
 }
 
 .icon .add:before,
