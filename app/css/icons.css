@@ -243,7 +243,7 @@
 	border-top: solid 0.35em rgba(0,0,0,0);
     border-right: solid 0 rgba(0,0,0,0);
     border-bottom: solid 0.15em rgba(0,0,0,0);
-    border-left: solid 0.35em currentcolor;
+    border-left: solid 0.35em currentColor;
 	top: 0.3em;
     left: 0.55em;
 }
@@ -255,3 +255,34 @@
 	left: 0.68em;
 	transform: rotate(-23.5deg);
 }
+
+.icon .copy {
+	border: solid 0.1em currentColor;
+	margin-left: 0.3em;
+	margin-bottom: 0.2em;
+	border-top-right-radius: 0.2em;
+	width: 0.7em;
+	height: 0.8em;
+}
+.icon .copy:before {
+	top: 0.1em;
+	left: 0.1em;
+	right: 0.1em;
+	height: 0.1em;
+	background-color: currentColor;
+    box-shadow:
+		0 0.15em 0 0 currentcolor,
+		0 0.3em 0 0 currentcolor;
+}
+.icon .copy:after {
+	border-left: solid 0.1em currentColor;
+	top: 0.2em;
+	right: 0.2em;
+	width: 0.7em;
+	height: 0.6em;
+	box-shadow:
+		0 0.1em 0 0 currentColor,
+		-0.25em -0.35em 0 -0.25em currentColor;
+}
+
+.icon .paste {}
