@@ -147,11 +147,11 @@
 }
 .icon .home:after {
 	bottom: -1em;
-	top: 0.8em;
-	left: -0.3em;
-	right: -0.3em;
-	border-right: solid 0.2em currentcolor;
-	border-left: solid 0.2em currentcolor;
+	top: 0.55em;
+	left: -0.35em;
+	right: -0.35em;
+	border-right: solid 0.25em currentcolor;
+	border-left: solid 0.25em currentcolor;
 }
 
 .icon .flopy {
