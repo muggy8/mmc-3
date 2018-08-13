@@ -1,6 +1,6 @@
 <div class="song-template" data-script="{:console.log('init here'):}">
 	<div class="fixed flex padding-0.5em paddingless-bot paddingless-right col-2-2 bg-white" id="song-navigation">
-		<!-- foreach: console.warn("init navButtonIndex"); key("navButtonIndex").in(this.app.editMode.buttons) -->
+		<!-- foreach: key("navButtonIndex").in(this.app.editMode.buttons) -->
 		<div class="island bubble-0.25 padding-0.5em bg-gray-light bg-gray-hover marginless-left" onclick="!this.app.mouseDown && this.app.editMode.buttons[this.navButtonIndex].click()">
 			<div class="icon font-2em">
 				<i class="{:this.app.editMode.buttons[this.navButtonIndex].icon:}|{editMode}| animate"></i>
@@ -68,8 +68,7 @@
 			<div class="block flex-mid">
 				<!-- foreach: key("col").in(this.app.song.tracks[this.trackIndex].notes) -->
 				<div class="flex column-reverse-mid">
-					<!-- foreach:
-					console.log(this.trackIndex, this.col); key("row").in(this.app.song.tracks[this.trackIndex].notes[this.col]) -->
+					<!-- foreach: key("row").in(this.app.song.tracks[this.trackIndex].notes[this.col]) -->
 					<div id="{:this.trackIndex + '-' + this.col + '-' + this.row :}|{song}|" class="padding-0.5em margin-0.25em marginless-right marginless-bot color-primary {:
 						momoca.classOfNote(this.app.song.tracks[this.trackIndex].notes[this.col][this.row])
 					:}|{song.tracks[this.trackIndex].notes[this.col][this.row].state},{song.tracks[this.trackIndex].notes[this.col][this.row].sel}| "></div>
