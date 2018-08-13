@@ -98,7 +98,7 @@ void function(controller){
 		})
 	}
 
-	controller.slideMode = 0
+	// controller.slideMode = 0
 	controller.slideStates = [
 		{
 			toggleFn: function(ev, noteEle){
@@ -107,7 +107,14 @@ void function(controller){
 				!ev.button && momoca.toggleNote(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
 				;(ev.button === 2) && momoca.toggleNoteReverse(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
 			},
-			icon: "toggle"
+			buttons: [
+				{
+					icon: "toggle",
+					click: function(){
+						controller.editMode = controller.slideStates[1]
+					}
+				}
+			]
 		},
 		{
 			toggleFn: (function(){
@@ -172,9 +179,19 @@ void function(controller){
 
 				}
 			})(),
-			icon: "select"
+			buttons: [
+				{
+					icon: "select",
+					click: function(){
+						controller.editMode = controller.slideStates[0]
+					}
+				}
+			]
 		}
 	]
+
+	controller.editMode = controller.slideStates[0]
+
 	controller.mouseDown = false
 	controller.prepNote = function(noteEle){
 		noteEle.addEventListener("mousedown", function(ev){
