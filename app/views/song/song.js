@@ -113,6 +113,12 @@ void function(controller){
 					click: function(){
 						controller.editMode = controller.slideStates[1]
 					}
+				},
+				{
+					icon: "paste",
+					click: function(){
+						console.log("clicked paste")
+					}
 				}
 			]
 		},
@@ -184,6 +190,12 @@ void function(controller){
 					icon: "select",
 					click: function(){
 						controller.editMode = controller.slideStates[0]
+					}
+				},
+				{
+					icon: "copy",
+					click: function(){
+						console.log("select copy")
 					}
 				}
 			]
