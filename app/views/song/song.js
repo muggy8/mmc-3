@@ -208,18 +208,18 @@ void function(controller){
 	controller.prepNote = function(noteEle){
 		noteEle.addEventListener("mousedown", function(ev){
 			controller.mouseDown = true
-			controller.slideStates[controller.slideMode].toggleFn(ev, noteEle)
+			controller.editMode.toggleFn(ev, noteEle)
 		})
 
 
 		noteEle.addEventListener("mouseenter", function(ev){
 			if (controller.mouseDown){
-				controller.slideStates[controller.slideMode].toggleFn(ev, noteEle)
+				controller.editMode.toggleFn(ev, noteEle)
 			}
 		})
 		noteEle.addEventListener("customtouchenter", function(ev){
 			// console.log(ev, noteEle)
-			controller.slideStates[controller.slideMode].toggleFn(ev, noteEle)
+			controller.editMode.toggleFn(ev, noteEle)
 		})
 	}
 
@@ -231,7 +231,7 @@ void function(controller){
 
 			Array.from(ev.touches).forEach(function(touch){
 				var ele = document.elementFromPoint(touch.clientX, touch.clientY)
-				controller.slideStates[controller.slideMode].toggleFn(ev, ele)
+				controller.editMode.toggleFn(ev, ele)
 			})
 		})
 
