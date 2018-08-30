@@ -25,7 +25,7 @@ void function(controller){
 				}
 				if (!destructableSouce[track]){
 					view.appendTo("main")
-					styleElement.parent.removeChild(styleElement)
+					styleElement.parentNode.removeChild(styleElement)
 					controller.inDom = true
 					return
 				}
