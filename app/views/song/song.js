@@ -9,6 +9,34 @@ void function(controller){
 			view = proxymity(this.responseText, controller).detach()
 
 			controller.inDom = false
+
+			function migrateTracksIncrementally(destructableSouce, target, totalColumnsToMigrate){
+				var track = 0
+				while (destructableSouce[track] && !destructableSouce[track].notes.length) {
+					track++
+				}
+				if (!destructableSouce[track]){
+					view.appendTo("main")
+					controller.inDom = true
+					return
+				}
+				if (!target[track]){
+					target[track] = {}
+					for(var key in destructableSouce[track]){
+						if (key === "notes"){
+							target[track][key] = []
+							continue
+						}
+						target[track][key] = destructableSouce[track][key]
+					}
+
+				}
+				Array.prototype.push.apply(target[track].notes, destructableSouce[track].notes.splice(0, 8))
+				view.when("renderend").then(function(){
+					migrateTracksIncrementally(destructableSouce, target, totalColumnsToMigrate)
+				})
+			}
+
 			momoca.rout = utils.extendFn(momoca.rout, function(superFn, payload){
 				var otherRoutsWorked = superFn(payload)
 				var routMatch = momoca.state.match(/^\/song/)
@@ -16,18 +44,23 @@ void function(controller){
 					if (!controller.inDom){
                         console.log("renderstart")
                         var startTime = new Date()
+						var sourceTracks = payload.tracks
+						payload.tracks = []
 						controller.song = payload
-						view.when("renderend").then(function(){
-							// view.appendTo("main")
-                            console.log("rendered", startTime.getTime() - Date.now())
-							controller.inDom = true
-						})
+						migrateTracksIncrementally(sourceTracks, payload.tracks, sourceTracks.reduce(function(sum, track){
+							return sum + track.notes.length
+						}, 0))
+						// view.when("renderend").then(function(){
+						// 	view.appendTo("main")
+                        //     console.log("rendered",  Date.now() - startTime.getTime())
+						// 	controller.inDom = true
+						// })
 					}
 					return true
 				}
 				else{
 					if (controller.inDom){
-						// view.detach()
+						view.detach()
                         console.log("unrendered")
 						controller.inDom = false
 					}
