@@ -10,7 +10,15 @@ void function(controller){
 
 			controller.inDom = false
 
-			function migrateTracksIncrementally(destructableSouce, target, totalColumnsToMigrate){
+			function migrateTracksIncrementally(destructableSouce, target, totalColumnsToMigrate, styleElement){
+				var migrated = target.reduce(function(sum, track){
+					return sum + track.notes.length
+				}, 0);
+				styleElement.innerHTML = `
+				main:empty::after {
+					content: "${migrated}/${totalColumnsToMigrate}";
+				}`
+
 				var track = 0
 				while (destructableSouce[track] && !destructableSouce[track].notes.length) {
 					track++
@@ -33,7 +41,7 @@ void function(controller){
 				}
 				Array.prototype.push.apply(target[track].notes, destructableSouce[track].notes.splice(0, 8))
 				view.when("renderend").then(function(){
-					migrateTracksIncrementally(destructableSouce, target, totalColumnsToMigrate)
+					migrateTracksIncrementally(destructableSouce, target, totalColumnsToMigrate, styleElement)
 				})
 			}
 
@@ -49,12 +57,7 @@ void function(controller){
 						controller.song = payload
 						migrateTracksIncrementally(sourceTracks, payload.tracks, sourceTracks.reduce(function(sum, track){
 							return sum + track.notes.length
-						}, 0))
-						// view.when("renderend").then(function(){
-						// 	view.appendTo("main")
-                        //     console.log("rendered",  Date.now() - startTime.getTime())
-						// 	controller.inDom = true
-						// })
+						}, 0), document.body.appendChild(document.createElement("style")))
 					}
 					return true
 				}
