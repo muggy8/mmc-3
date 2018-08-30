@@ -51,7 +51,6 @@ void function(controller){
 				var routMatch = momoca.state.match(/^\/song/)
 				if (!otherRoutsWorked && routMatch){
 					if (!controller.inDom){
-                        console.log("renderstart")
                         var startTime = new Date()
 						var sourceTracks = payload.tracks
 						payload.tracks = []
@@ -65,7 +64,6 @@ void function(controller){
 				else{
 					if (controller.inDom){
 						view.detach()
-                        console.log("unrendered")
 						controller.inDom = false
 					}
 					return otherRoutsWorked
