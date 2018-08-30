@@ -540,3 +540,16 @@ main:empty::before {
     -webkit-animation-iteration-count: infinite;
     animation-iteration-count: infinite;
 }
+main:empty::after {
+	content: " ";
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: -9.5em;
+
+	width: 9.5em;
+	height: 9.5em;
+}
