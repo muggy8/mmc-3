@@ -14,9 +14,12 @@ void function(controller){
 				var routMatch = momoca.state.match(/^\/song/)
 				if (!otherRoutsWorked && routMatch){
 					if (!controller.inDom){
+                        console.log("renderstart")
+                        var startTime = new Date()
 						controller.song = payload
 						view.when("renderend").then(function(){
-							view.appendTo("main")
+							// view.appendTo("main")
+                            console.log("rendered", startTime.getTime() - Date.now())
 							controller.inDom = true
 						})
 					}
@@ -24,7 +27,8 @@ void function(controller){
 				}
 				else{
 					if (controller.inDom){
-						view.detach()
+						// view.detach()
+                        console.log("unrendered")
 						controller.inDom = false
 					}
 					return otherRoutsWorked
