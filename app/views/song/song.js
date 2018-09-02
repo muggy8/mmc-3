@@ -40,8 +40,8 @@ void function(controller){
 					}
 
 				}
-				Array.prototype.push.apply(target[track].notes, destructableSouce[track].notes.splice(0, 8))
-				view.when("renderend").then(function(){
+				Array.prototype.push.apply(target[track].notes, destructableSouce[track].notes.splice(0, 64))
+				proxymity.on.renderend.then(function(){
 					migrateTracksIncrementally(destructableSouce, target, totalColumnsToMigrate, styleElement)
 				})
 			}
@@ -132,7 +132,7 @@ void function(controller){
 				})
 			})
 		})
-		view.when("renderend").then(function(){
+		proxymity.on.renderend.then(function(){
 			popOverController.close()
 		})
 	}
