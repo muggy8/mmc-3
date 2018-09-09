@@ -164,6 +164,9 @@ void function(controller){
 		{
 			toggleFn: (function(){
 				var selectionState = {}
+				controller.getSelection = function(){
+				    return momoca.linearClone(selectionState.selectionPoints)
+				}
 				return function(ev, noteEle){
 					var targets = selectionState.selectionPoints = selectionState.selectionPoints || {}
 					var elePoints = noteEle.id.split("-").map(function(str){
@@ -234,6 +237,8 @@ void function(controller){
 				{
 					icon: "copy",
 					click: function(){
+					    console.log(controller.getSelection())
+					    
 						console.log("select copy")
 					}
 				}
