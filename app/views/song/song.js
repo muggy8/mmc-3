@@ -165,7 +165,22 @@ void function(controller){
 			toggleFn: (function(){
 				var selectionState = {}
 				controller.getSelection = function(){
-				    return momoca.linearClone(selectionState.selectionPoints)
+                    var targets = selectionState.selectionPoints
+                    var selection = []
+                    if (targets && targets.end && targets.start){
+                        utils.range(targets.start.col, targets.end.col).forEach(function(colTarget){
+    						utils.range(targets.start.row, targets.end.row).forEach(function(rowTarget){
+    							if (controller.song.tracks[targets.track].notes[colTarget][rowTarget].state){
+                                    selection.push({
+                                        col: colTarget,
+                                        row: rowTarget
+                                    })
+                                }
+    						})
+    					})
+                    }
+                    return selection
+				    // return momoca.linearClone(selectionState.selectionPoints)
 				}
 				return function(ev, noteEle){
 					var targets = selectionState.selectionPoints = selectionState.selectionPoints || {}
@@ -238,7 +253,7 @@ void function(controller){
 					icon: "copy",
 					click: function(){
 					    console.log(controller.getSelection())
-					    
+
 						console.log("select copy")
 					}
 				}
