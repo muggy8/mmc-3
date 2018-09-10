@@ -178,6 +178,12 @@ void function(controller){
                                 }
     						})
     					})
+                        var colOffset = selection[0].col
+                        var rowOffset = selection[0].row
+                        selection.forEach(function(coord){
+                            coord.col -= colOffset
+                            coord.row -= rowOffset
+                        })
                     }
                     return selection
 				    // return momoca.linearClone(selectionState.selectionPoints)
