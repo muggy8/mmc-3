@@ -188,6 +188,17 @@ void function(controller){
                     return selection
 				    // return momoca.linearClone(selectionState.selectionPoints)
 				}
+                controller.clearSelection = function(){
+                    var targets = selectionState.selectionPoints
+                    if (targets && targets.end && targets.start){
+                        utils.range(targets.start.col, targets.end.col).forEach(function(colTarget){
+                            utils.range(targets.start.row, targets.end.row).forEach(function(rowTarget){
+                                controller.song.tracks[targets.track].notes[colTarget][rowTarget].sel = false
+                            })
+                        })
+                    }
+                    selectionState.selectionPoints = {}
+                }
 				return function(ev, noteEle){
 					var targets = selectionState.selectionPoints = selectionState.selectionPoints || {}
 					var elePoints = noteEle.id.split("-").map(function(str){
