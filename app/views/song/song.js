@@ -263,15 +263,23 @@ void function(controller){
 				{
 					icon: "select",
 					click: function(){
+                        controller.clearSelection()
 						controller.editMode = controller.slideStates[0]
 					}
 				},
 				{
 					icon: "copy",
 					click: function(){
-					    console.log(controller.getSelection())
-
-						console.log("select copy")
+                        controller.song.snippits = controller.song.snippits || []
+                        var selection = controller.getSelection()
+                        if (!selection.length){
+                            momoca.notify("Nothing Selected")
+                            controller.clearSelection()
+                            return;
+                        }
+                        controller.song.snippits.push(selection)
+                        momoca.notify("Snippit Added")
+                        controller.clearSelection()
 					}
 				}
 			]
