@@ -1,5 +1,6 @@
 void function(controller){
 	var view
+	var pasteView
 	new utils.xhr()
 		.open("GET", "/app/views/song/song.html")
 		.addEventListener("error", function(){
@@ -7,6 +8,12 @@ void function(controller){
 		})
 		.addEventListener("load", function(){
 			view = proxymity(this.responseText, controller).detach()
+			view.forEach(function(ele, index){
+				if (ele.className && ele.className.indexOf("paste-selection-template") > -1){
+					pasteView = ele
+					// view.splice(index, 1)
+				}
+			})
 
 			controller.inDom = false
 
@@ -157,6 +164,7 @@ void function(controller){
 					icon: "paste",
 					click: function(){
 						console.log("clicked paste")
+						momoca.popOver(pasteView)
 					}
 				}
 			]
@@ -277,7 +285,10 @@ void function(controller){
                             controller.clearSelection()
                             return;
                         }
-                        controller.song.snippits.push(selection)
+                        controller.song.snippits.push({
+							name: "",
+							patern: selection
+						})
                         momoca.notify("Snippit Added")
                         controller.clearSelection()
 					}

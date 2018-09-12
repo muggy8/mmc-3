@@ -82,3 +82,17 @@
 	</div>
 	<!-- foreach: key.end(this.app.trackTouch) -->
 </div>
+
+<div class="paste-selection-template">
+	<div class="island">
+		<ol>
+			<!-- foreach: {
+				this.app.song = this.app.song || {};
+				this.app.song.snippits = this.app.song.snippits || [];
+				key("snippitIndex").in(this.app.song.snippits);
+			} -->
+			<li>{:this.app.song.snippits[this.snippitIndex].name || "Snippit " + (this.snippitIndex + 1):}|{song.snippits[this.snippitIndex].name}|</li>
+			<!-- foreach: key.end() -->
+		</ol>
+	</div>
+</div>

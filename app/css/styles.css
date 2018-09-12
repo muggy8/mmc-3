@@ -1,3 +1,6 @@
+ol>li {
+	margin-left: 1em;
+}
 body.has-font {
 	font-family: "Source Sans Pro", sans-serif;
 }
