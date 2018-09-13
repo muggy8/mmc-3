@@ -91,7 +91,20 @@
 				this.app.song.snippits = this.app.song.snippits || [];
 				key("snippitIndex").in(this.app.song.snippits);
 			} -->
-			<li>{:this.app.song.snippits[this.snippitIndex].name || "Snippit " + (this.snippitIndex + 1):}|{song.snippits[this.snippitIndex].name}|</li>
+			<li>
+			    <label class="flex island vcenter input-row">
+			        <span 
+    			        class="{:+this.app.song.snippits[this.snippitIndex].edit ? 'hide' : '':}|{song.snippits[this.snippitIndex].edit}|" 
+    			        ondblclick="this.app.song.snippits[this.snippitIndex].edit = !+this.app.song.snippits[this.snippitIndex].edit"
+    			    >{:this.app.song.snippits[this.snippitIndex].name || "Snippit " + (this.snippitIndex + 1):}|{song.snippits[this.snippitIndex].name}|</span>
+    			    <input 
+    			        name="song.snippits[this.snippitIndex].name" 
+    			        type="text" 
+        		        placeholder="Snippit {:this.snippitIndex + 1:}"
+    			        class="grow padding-0.25em {:+this.app.song.snippits[this.snippitIndex].edit ? '' : 'hide':}|{song.snippits[this.snippitIndex].edit}|" 
+    			    />
+			    </label>
+			</li>
 			<!-- foreach: key.end() -->
 		</ol>
 	</div>
