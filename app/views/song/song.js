@@ -9,9 +9,7 @@ void function(controller){
 		.addEventListener("load", function(){
 			view = proxymity(this.responseText, controller).detach()
 			view.forEach(function(ele, index){
-			    ele.addEventListener("dblclick", function(){
-			        controller.song.snippits.forEach(item=>item.edit = false)
-			    })
+			    ele.addEventListener("dblclick", controller.exitSnippitRenane)
 				if (ele.className && ele.className.indexOf("paste-selection-template") > -1){
 					pasteView = ele
 					// view.splice(index, 1)
@@ -83,6 +81,9 @@ void function(controller){
 		})
 		.send()
 
+    controller.exitSnippitRenane = function(){
+        controller.song.snippits.forEach(item=>item.edit = false)
+    }
 
 	controller.mainControl = "play"
 	controller.mainControlFn = "play"

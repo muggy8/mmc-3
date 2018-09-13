@@ -83,7 +83,7 @@
 	<!-- foreach: key.end(this.app.trackTouch) -->
 </div>
 
-<div class="paste-selection-template" >
+<div class="paste-selection-template">
 	<div class="island">
 		<ol>
 			<!-- foreach: {
@@ -94,15 +94,19 @@
 			<li ondblclick="event.stopPropagation()">
 			    <label class="flex island vcenter input-row">
 			        <span 
-    			        class="{:+this.app.song.snippits[this.snippitIndex].edit ? 'hide' : '':}|{song.snippits[this.snippitIndex].edit}|" 
+    			        class="grow {:+this.app.song.snippits[this.snippitIndex].edit ? 'hide' : '':}|{song.snippits[this.snippitIndex].edit}|" 
     			        ondblclick="this.app.song.snippits[this.snippitIndex].edit = !+this.app.song.snippits[this.snippitIndex].edit;"
     			    >{:this.app.song.snippits[this.snippitIndex].name || "Snippit " + (this.snippitIndex + 1):}|{song.snippits[this.snippitIndex].name}|</span>
     			    <input 
     			        name="song.snippits[this.snippitIndex].name" 
     			        type="text" 
         		        placeholder="Snippit {:this.snippitIndex + 1:}"
+        		        onkeyup="event.keyCode === 13 && this.app.exitSnippitRenane()"
     			        class="grow padding-0.25em {:+this.app.song.snippits[this.snippitIndex].edit ? '' : 'hide':}|{song.snippits[this.snippitIndex].edit}|" 
     			    />
+    			    <button
+    			        class="color-primary padding-0.25em bg-light-hover color-primary-light-hover"
+    			    >Use</button>
 			    </label>
 			</li>
 			<!-- foreach: key.end() -->
