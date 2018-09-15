@@ -92,7 +92,11 @@
 				key("snippitIndex").in(this.app.song.snippits);
 			} -->
 			<li ondblclick="event.stopPropagation()">
-			    <label class="flex island vcenter input-row">
+			    <span class="flex island vcenter input-row">
+    			    <button
+    			        class="color-primary padding-0.25em bg-light-hover color-primary-light-hover"
+    			        onclick="this.app.selectedSnippit = this.app.song.snippits[this.snippitIndex].name"
+    			    >Use</button>
 			        <span 
     			        class="grow {:+this.app.song.snippits[this.snippitIndex].edit ? 'hide' : '':}|{song.snippits[this.snippitIndex].edit}|" 
     			        ondblclick="this.app.song.snippits[this.snippitIndex].edit = !+this.app.song.snippits[this.snippitIndex].edit;"
@@ -106,8 +110,9 @@
     			    />
     			    <button
     			        class="color-primary padding-0.25em bg-light-hover color-primary-light-hover"
-    			    >Use</button>
-			    </label>
+    			        onclick="this.app.song.snippits.splice(this.snippitIndex, 1)"
+    			    >X</button>
+			    </span>
 			</li>
 			<!-- foreach: key.end() -->
 		</ol>

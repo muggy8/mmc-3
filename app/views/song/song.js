@@ -12,7 +12,7 @@ void function(controller){
 			    ele.addEventListener("dblclick", controller.exitSnippitRenane)
 				if (ele.className && ele.className.indexOf("paste-selection-template") > -1){
 					pasteView = ele
-					// view.splice(index, 1)
+					view.splice(index, 1)
 				}
 			})
 
@@ -167,8 +167,15 @@ void function(controller){
 				{
 					icon: "paste",
 					click: function(){
-						console.log("clicked paste")
-						momoca.popOver(pasteView)
+					    controller.selectedSnippit = null
+						var popOverController = momoca.popOver(pasteView, {
+						    onclose: function(){
+						        unwatch()
+						    }
+						})
+						var unwatch = controller.watch("selectedSnippit", function(){
+						    popOverController.close()
+						})
 					}
 				}
 			]
