@@ -152,8 +152,15 @@ void function(controller){
 			toggleFn: function(ev, noteEle){
 				ev && ev.preventDefault && ev.preventDefault()
 				ev && ev.stopPropagation && ev.stopPropagation()
-				!ev.button && momoca.toggleNote(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
-				;(ev.button === 2) && momoca.toggleNoteReverse(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
+				if (!controller.selectedSnippit){
+				    !ev.button && momoca.toggleNote(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
+			    	;(ev.button === 2) && momoca.toggleNoteReverse(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
+				}
+				else{
+				    controller.selectedSnippit.patern.forEach(function(coord){
+				        controller.song.tracks[el.trackIndex].notes[coord.col][coord.row].hollow = true
+				    })
+				}
 			},
 			buttons: [
 				{
@@ -202,6 +209,7 @@ void function(controller){
                             coord.row -= rowOffset
                         })
                     }
+                    console.log(momoca.linearClone(selection))
                     return selection
 				    // return momoca.linearClone(selectionState.selectionPoints)
 				}
