@@ -228,8 +228,8 @@ var mmcView = proxymity(document.querySelector("body"), {
 				break
 		}
 		noteClasses += " "
-		note.sel && (noteClasses += "selected")
-		note.hollow && (noteClasses += "opacity-0.6")
+		+note.sel && (noteClasses += "selected")
+		+note.hollow && (noteClasses += "opacity-0.6")
         return noteClasses
 	}
 })
