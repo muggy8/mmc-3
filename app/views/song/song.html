@@ -71,7 +71,7 @@
 					<!-- foreach: key("row").in(this.app.song.tracks[this.trackIndex].notes[this.col]) -->
 					<div id="{:this.trackIndex + '-' + this.col + '-' + this.row :}|{song}|" class="padding-0.5em margin-0.25em marginless-right marginless-bot color-primary {:
 						momoca.classOfNote(this.app.song.tracks[this.trackIndex].notes[this.col][this.row])
-					:}|{song.tracks[this.trackIndex].notes[this.col][this.row].state},{song.tracks[this.trackIndex].notes[this.col][this.row].sel}| "></div>
+					:}|{song.tracks[this.trackIndex].notes[this.col][this.row].state},{song.tracks[this.trackIndex].notes[this.col][this.row].sel},{song.tracks[this.trackIndex].notes[this.col][this.row].hollow}| "></div>
 					<!-- foreach: key.end(this.app.prepNote) -->
 				</div>
 				<!-- foreach: key.end() -->
