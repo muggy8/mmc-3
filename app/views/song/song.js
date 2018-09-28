@@ -175,7 +175,7 @@ void function(controller){
                         })
                         return target
 				    })
-                    previousHighlight.forEach(function(note) {
+                    previousHighlight.forEach(function(note){
                         note.hollow = false
                     })
                     if (previousHighlight.length === highlighted.length){
