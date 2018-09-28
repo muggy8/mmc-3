@@ -152,7 +152,7 @@ var mmcView = proxymity(document.querySelector("body"), {
 		if (column + 1 < notesMatrix.length){
 			var nextNote = notesMatrix[column + 1][row]
 
-			if (nextNote && nextNote.state && targetedNote.state === 2){ // current note is the start of a note chain
+			if (nextNote.state && targetedNote.state === 2){ // current note is the start of a note chain
 				nextNote.state = 2 // make the next note the start of the note chain
 			}
 

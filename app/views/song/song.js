@@ -147,6 +147,7 @@ void function(controller){
 	}
 
 	// controller.slideMode = 0
+    var previousHighlight = []
 	controller.slideStates = [
 		{
 			toggleFn: function(ev, noteEle){
@@ -157,9 +158,48 @@ void function(controller){
 			    	;(ev.button === 2) && momoca.toggleNoteReverse(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
 				}
 				else{
-				    controller.selectedSnippit.patern.forEach(function(coord){
-				        controller.song.tracks[el.trackIndex].notes[coord.col][coord.row].hollow = true
+                    var toggledNotes = []
+				    var highlighted = controller.selectedSnippit.patern.map(function(coord){
+                        var targetCol = noteEle.col + coord.col
+                        var targetRow = noteEle.row + coord.row
+                        var target
+                        try {
+                            target = controller.song.tracks[noteEle.trackIndex].notes[targetCol][targetRow]
+                        }
+				        catch(uwu){
+                            // ¯\_(ツ)_/¯ whatever
+                        }
+                        toggledNotes.push({
+                            col: targetCol,
+                            row: targetRow
+                        })
+                        return target
 				    })
+                    previousHighlight.forEach(function(note) {
+                        note.hollow = false
+                    })
+                    if (previousHighlight.length === highlighted.length){
+                        var selectedSame = true
+                        for(var i = 0; i < previousHighlight.length; i++){
+                            if (previousHighlight[i] !== highlighted[i]){
+                                selectedSame = false
+                            }
+                        }
+                        if (selectedSame){
+                            toggledNotes.forEach(function(note){
+                                momoca.toggleNote(controller.song.tracks[noteEle.trackIndex].notes, note.col, note.row)
+                            })
+                            previousHighlight = []
+                            controller.selectedSnippit = undefined
+                            return
+                        }
+                    }
+
+                    highlighted.forEach(function(note){
+                        note.hollow = true
+                    })
+                    previousHighlight = highlighted
+
 				}
 			},
 			buttons: [
@@ -209,7 +249,6 @@ void function(controller){
                             coord.row -= rowOffset
                         })
                     }
-                    console.log(momoca.linearClone(selection))
                     return selection
 				    // return momoca.linearClone(selectionState.selectionPoints)
 				}
