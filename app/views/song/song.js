@@ -170,7 +170,6 @@ void function(controller){
 			}
 			catch(uwu){
 				// ¯\_(ツ)_/¯ whatever
-				console.warn(uwu)
 			}
 		})
 		return targets

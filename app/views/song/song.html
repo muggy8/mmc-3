@@ -69,9 +69,19 @@
 				<!-- foreach: key("col").in(this.app.song.tracks[this.trackIndex].notes) -->
 				<div class="flex column-reverse-mid">
 					<!-- foreach: key("row").in(this.app.song.tracks[this.trackIndex].notes[this.col]) -->
-					<div id="{:this.trackIndex + '-' + this.col + '-' + this.row :}|{song}|" class="padding-0.5em margin-0.25em marginless-right marginless-bot color-primary {:
+					<div
+						id="{:this.trackIndex + '-' + this.col + '-' + this.row :}|{song}|"
+						class="padding-0.5em margin-0.25em marginless-right marginless-bot color-primary {:
 						momoca.classOfNote(this.app.song.tracks[this.trackIndex].notes[this.col][this.row])
-					:}|{song.tracks[this.trackIndex].notes[this.col][this.row].state},{song.tracks[this.trackIndex].notes[this.col][this.row].sel},{song.tracks[this.trackIndex].notes[this.col][this.row].hollow}| "></div>
+						:}|{
+							song.tracks[this.trackIndex].notes[this.col][this.row].state
+						},{
+							song.tracks[this.trackIndex].notes[this.col][this.row].sel
+						},{
+							song.tracks[this.trackIndex].notes[this.col][this.row].hollow
+						}| "
+						onmouseenter="this.app.selectedSnippit && (this.app.unhighlightSnippit(), this.app.highlightSnippit(this.app.findHighlightedFrom(this.trackIndex, this.col, this.row)))"
+					></div>
 					<!-- foreach: key.end(this.app.prepNote) -->
 				</div>
 				<!-- foreach: key.end() -->
