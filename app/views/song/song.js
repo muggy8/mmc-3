@@ -148,6 +148,45 @@ void function(controller){
 
 	// controller.slideMode = 0
     var previousHighlight = []
+	controller.findHighlightedFrom = function(track, col, row){
+		var targets = []
+		targets.positions = []
+		controller.selectedSnippit.patern.forEach(function(coord){
+			var targetCol = col + coord.col
+			var targetRow = row + coord.row
+			try {
+				// this will fail if the targets are not in bounds
+
+				var target = controller.song.tracks[track].notes[targetCol][targetRow]
+
+				if(target){
+					targets.push(target)
+
+					targets.positions.push({
+						col: targetCol,
+						row: targetRow
+					})
+				}
+			}
+			catch(uwu){
+				// ¯\_(ツ)_/¯ whatever
+				console.warn(uwu)
+			}
+		})
+		return targets
+	}
+	controller.highlightSnippit = function(targeted){
+		targeted.forEach(function(note){
+			note.hollow = true
+		})
+		previousHighlight = targeted
+		return targeted
+	}
+	controller.unhighlightSnippit = function(){
+		previousHighlight.forEach(function(note){
+			note.hollow = false
+		})
+	}
 	controller.slideStates = [
 		{
 			toggleFn: function(ev, noteEle){
@@ -158,35 +197,19 @@ void function(controller){
 			    	;(ev.button === 2) && momoca.toggleNoteReverse(controller.song.tracks[noteEle.trackIndex].notes, noteEle.col, noteEle.row)
 				}
 				else{
-                    var toggledNotes = []
-				    var highlighted = controller.selectedSnippit.patern.map(function(coord){
-                        var targetCol = noteEle.col + coord.col
-                        var targetRow = noteEle.row + coord.row
-                        var target
-                        try {
-                            target = controller.song.tracks[noteEle.trackIndex].notes[targetCol][targetRow]
-                        }
-				        catch(uwu){
-                            // ¯\_(ツ)_/¯ whatever
-                        }
-                        toggledNotes.push({
-                            col: targetCol,
-                            row: targetRow
-                        })
-                        return target
-				    })
-                    previousHighlight.forEach(function(note){
-                        note.hollow = false
-                    })
-                    if (previousHighlight.length === highlighted.length){
+					var isMouseClick = ev.button === 0 && !ev.touches
+					var targeted = controller.findHighlightedFrom(noteEle.trackIndex, noteEle.col, noteEle.row)
+					controller.unhighlightSnippit()
+
+                    if (isMouseClick || previousHighlight.length === targeted.length){
                         var selectedSame = true
                         for(var i = 0; i < previousHighlight.length; i++){
-                            if (previousHighlight[i] !== highlighted[i]){
+                            if (previousHighlight[i] !== targeted[i]){
                                 selectedSame = false
                             }
                         }
-                        if (selectedSame){
-                            toggledNotes.forEach(function(note){
+                        if (isMouseClick || selectedSame){
+                            targeted.positions.forEach(function(note){
                                 momoca.toggleNote(controller.song.tracks[noteEle.trackIndex].notes, note.col, note.row)
                             })
                             previousHighlight = []
@@ -195,11 +218,7 @@ void function(controller){
                         }
                     }
 
-                    highlighted.forEach(function(note){
-                        note.hollow = true
-                    })
-                    previousHighlight = highlighted
-
+					controller.highlightSnippit(targeted)
 				}
 			},
 			buttons: [
@@ -413,6 +432,7 @@ void function(controller){
 				ele.dispatchEvent(new CustomEvent("customtouchleave"))
 			})
 			touchMoveTargets = []
+			controller.mouseDown = false
 		})
 	}
 }(momoca.songController = momoca.songController || {})
