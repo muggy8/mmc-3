@@ -1,75 +1,84 @@
-<div class="home-template island bg-gray-light bubble-0.25 col-1-4-big col-1-2-mid cell">
-    <strong class="cell">Create New Song</strong>
-    <form onsubmit="
-        this.app.home.createSong(momoca.linearClone(this.app.home.newSong));
-		delete this.app.home.newSong;
-        return false;
-    ">
-        <label class="flex island vcenter input-row">
-            Song Name:
-            <input name="home.newSong.name" type="text" class="grow margin-h-0.5em marginless-right  padding-0.25em" placeholder="New Song">
-        </label>
-        <label class="flex island vcenter input-row">
-            Song Length:
-            <input name="home.newSong.min" class="grow margin-h-0.5em marginless-right text-center padding-0.25em" placeholder="min" type="number" min="0" max="60">
-            :
-            <input name="home.newSong.sec" class="grow text-center margin-h-0.5em marginless-left padding-0.25em" placeholder="sec" type="number" min="0" max="59">
-			({:
-				this.app.home.newSong.beats =
-				Math.round((
-					(+this.app.home.newSong.min || 0) +
-					((+this.app.home.newSong.sec || 0) / 60)
-				) * (+this.app.home.newSong.bpm || 0))
-			:}|{home.newSong.min},{home.newSong.sec},{home.newSong.bpm}| Beats)
-        </label>
-        <label class="flex island vcenter input-row">
-            Beats per Minute:
-            <input name="home.newSong.bpm" class="grow margin-h-0.5em marginless-right padding-0.25em" type="number" min="32" max="512" step="2" data-script="{: +this.app.home.newSong.bpm || (this.app.home.newSong.bpm = 128) :}|{home.newSong.bpm}|">
-        </label>
-        <label class="flex island vcenter input-row">
-            Smallest Note
-			<select name="home.newSong.smallestNoteFraction" class="grow padding-0.25em" data-script="{: +this.app.home.newSong.smallestNoteFraction || (this.app.home.newSong.smallestNoteFraction = 4) :}|{home.newSong.smallestNoteFraction}|">
-				<!-- foreach: key("noteIndex").in(this.app.smallestNoteSet) -->
-				<option value="{: this.app.smallestNoteSet[this.noteIndex].fraction :}">{: this.app.smallestNoteSet[this.noteIndex].name :}</option>
-				<!-- foreach: key.end() -->
-			</select>
-        </label>
-        <div class="island">
-            Tracks:
+<div class="col-1-4-big col-1-2-mid">
+    <div class="home-template island bg-gray-light bubble-0.25 cell">
+        <strong class="cell">Create New Song</strong>
+        <form onsubmit="
+            this.app.home.createSong(momoca.linearClone(this.app.home.newSong));
+    		delete this.app.home.newSong;
+            return false;
+        ">
+            <label class="flex island vcenter input-row">
+                Song Name:
+                <input name="home.newSong.name" type="text" class="grow margin-h-0.5em marginless-right  padding-0.25em" placeholder="New Song">
+            </label>
+            <label class="flex island vcenter input-row">
+                Song Length:
+                <input name="home.newSong.min" class="grow margin-h-0.5em marginless-right text-center padding-0.25em" placeholder="min" type="number" min="0" max="60">
+                :
+                <input name="home.newSong.sec" class="grow text-center margin-h-0.5em marginless-left padding-0.25em" placeholder="sec" type="number" min="0" max="59">
+    			({:
+    				this.app.home.newSong.beats =
+    				Math.round((
+    					(+this.app.home.newSong.min || 0) +
+    					((+this.app.home.newSong.sec || 0) / 60)
+    				) * (+this.app.home.newSong.bpm || 0))
+    			:}|{home.newSong.min},{home.newSong.sec},{home.newSong.bpm}| Beats)
+            </label>
+            <label class="flex island vcenter input-row">
+                Beats per Minute:
+                <input name="home.newSong.bpm" class="grow margin-h-0.5em marginless-right padding-0.25em" type="number" min="32" max="512" step="2" data-script="{: +this.app.home.newSong.bpm || (this.app.home.newSong.bpm = 128) :}|{home.newSong.bpm}|">
+            </label>
+            <label class="flex island vcenter input-row">
+                Smallest Note
+    			<select name="home.newSong.smallestNoteFraction" class="grow padding-0.25em" data-script="{: +this.app.home.newSong.smallestNoteFraction || (this.app.home.newSong.smallestNoteFraction = 4) :}|{home.newSong.smallestNoteFraction}|">
+    				<!-- foreach: key("noteIndex").in(this.app.smallestNoteSet) -->
+    				<option value="{: this.app.smallestNoteSet[this.noteIndex].fraction :}">{: this.app.smallestNoteSet[this.noteIndex].name :}</option>
+    				<!-- foreach: key.end() -->
+    			</select>
+            </label>
+            <div class="island">
+                Tracks:
+            </div>
+            <!-- foreach: {
+    			this.app.home = this.app.home || {};
+    			this.app.home.newSong = this.app.home.newSong || {};
+                this.app.home.newSong.tracks = [momoca.linearClone(this.app.home.trackTemplate)];
+                key("instrumentIndex").in(this.app.home.newSong.tracks);
+            } -->
+            <div class="flex island vcenter input-row">
+                {: this.instrumentIndex + 1 :}:
+                <button class="margin-h-0.25em padding-0.25em bg-white-hover marginless-right color-primary color-primary-light-hover {: !!this.app.home.newSong.tracks[this.instrumentIndex].instrumentId.toString() || ' hidden-state ' :}|{home.newSong.tracks[this.instrumentIndex].instrumentId }|" onclick="this.app.home.configure(this.app.home.newSong.tracks[this.instrumentIndex])" type="button">Edit</button>
+                <select
+    				name="home.newSong.tracks[this.instrumentIndex].instrumentId"
+    				class="grow {:
+    					!!this.app.home.newSong.tracks[this.instrumentIndex].instrumentId.toString() || 'margin-h-0.25em marginless-right'
+    				:}|{
+    					home.newSong.tracks[this.instrumentIndex].instrumentId
+    				}| padding-0.25em"
+    				data-script="{:
+    					if (typeof this.app.home.newSong.tracks[this.instrumentIndex].instrumentId === 'number'){
+    						momoca.getInstrument(this.app.home.newSong.tracks[this.instrumentIndex].instrumentId)
+    					}
+    				:}|{home.newSong.tracks[this.instrumentIndex].instrumentId}|"
+    			>
+                    <!-- foreach: key("instrumentIndex").in(this.app.instruments) -->
+                    <option value="{: this.app.instruments[this.instrumentIndex].number :}">{: this.app.instruments[this.instrumentIndex].instrument :}</option>
+                    <!-- foreach: key.end() -->
+                </select>
+                <button class="color-primary padding-0.25em bg-white-hover color-primary-light-hover {: this.app.home.newSong.tracks.length > 1 || ' hidden-state ' :}|{ home.newSong.tracks }|" onclick="this.app.home.newSong.tracks.splice(this.instrumentIndex, 1);" type="button">X</button>
+            </div>
+            <!-- foreach: key.end() -->
+            <div class="flex vcenter">
+                <button class="island padding-0.25em bg-white-hover color-primary color-primary-light-hover" onclick="this.app.home.newSong.tracks.push(momoca.linearClone(this.app.home.trackTemplate))" type="button">Add Track</button>
+                <div class="grow"></div>
+                <input type="submit" value="Create Song" class="island padding-0.25em bg-white-hover color-primary color-primary-light-hover link">
+            </div>
+        </form>
+    </div>
+    
+    <div class="island bg-gray-light bubble-0.25 cell text-center flex vhcenter relative">
+        <div class="icon font-2em margin-1em">
+            <span class="import"></span>
         </div>
-        <!-- foreach: {
-			this.app.home = this.app.home || {};
-			this.app.home.newSong = this.app.home.newSong || {};
-            this.app.home.newSong.tracks = [momoca.linearClone(this.app.home.trackTemplate)];
-            key("instrumentIndex").in(this.app.home.newSong.tracks);
-        } -->
-        <div class="flex island vcenter input-row">
-            {: this.instrumentIndex + 1 :}:
-            <button class="margin-h-0.25em padding-0.25em bg-white-hover marginless-right color-primary color-primary-light-hover {: !!this.app.home.newSong.tracks[this.instrumentIndex].instrumentId.toString() || ' hidden-state ' :}|{home.newSong.tracks[this.instrumentIndex].instrumentId }|" onclick="this.app.home.configure(this.app.home.newSong.tracks[this.instrumentIndex])" type="button">Edit</button>
-            <select
-				name="home.newSong.tracks[this.instrumentIndex].instrumentId"
-				class="grow {:
-					!!this.app.home.newSong.tracks[this.instrumentIndex].instrumentId.toString() || 'margin-h-0.25em marginless-right'
-				:}|{
-					home.newSong.tracks[this.instrumentIndex].instrumentId
-				}| padding-0.25em"
-				data-script="{:
-					if (typeof this.app.home.newSong.tracks[this.instrumentIndex].instrumentId === 'number'){
-						momoca.getInstrument(this.app.home.newSong.tracks[this.instrumentIndex].instrumentId)
-					}
-				:}|{home.newSong.tracks[this.instrumentIndex].instrumentId}|"
-			>
-                <!-- foreach: key("instrumentIndex").in(this.app.instruments) -->
-                <option value="{: this.app.instruments[this.instrumentIndex].number :}">{: this.app.instruments[this.instrumentIndex].instrument :}</option>
-                <!-- foreach: key.end() -->
-            </select>
-            <button class="color-primary padding-0.25em bg-white-hover color-primary-light-hover {: this.app.home.newSong.tracks.length > 1 || ' hidden-state ' :}|{ home.newSong.tracks }|" onclick="this.app.home.newSong.tracks.splice(this.instrumentIndex, 1);" type="button">X</button>
-        </div>
-        <!-- foreach: key.end() -->
-        <div class="flex vcenter">
-            <button class="island padding-0.25em bg-white-hover color-primary color-primary-light-hover" onclick="this.app.home.newSong.tracks.push(momoca.linearClone(this.app.home.trackTemplate))" type="button">Add Track</button>
-            <div class="grow"></div>
-            <input type="submit" value="Create Song" class="island padding-0.25em bg-white-hover color-primary color-primary-light-hover link">
-        </div>
-    </form>
+        <input type="file" class="clickable-overlay" onchange="event.preventDefault(); console.log(event, this.files); this.app.home.import(this.files[0]); return false" multiple="false">
+    </div>
 </div>

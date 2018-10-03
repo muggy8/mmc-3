@@ -23,6 +23,14 @@ input[type=range][orient=vertical] {
 	content: "smol";
 	display: none;
 }
+.clickable-overlay {
+    position: absolute;
+    opacity: 0;
+    top: 0; 
+    left:0; 
+    bottom: 0;
+    right: 0;
+}
 
 /*the rest is our frameworky css*/
 [onclick],

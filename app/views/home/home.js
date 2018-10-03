@@ -51,7 +51,7 @@ void function(homeController){
 				})
 			})
 		})
-		songProperties.version = momoca.dataVersion
+		songProperties.version = songProperties.version || momoca.dataVersion
 		momoca.state = "/song"
 		momoca.rout(songProperties)
 		momoca.notify("Work in progress", {
@@ -69,5 +69,14 @@ void function(homeController){
 		instrumentId: 0,
 		keyMap: momoca.linearClone(momoca.presets[0].map),
 		preset: 0
+	}
+	
+	homeController.import = function(file){
+	    var reader = new FileReader()
+	    reader.onload = function(ev){
+	        var res = ev.target.result
+	        homeController.createSong(JSON.parse(res))
+	    }
+	    reader.readAsText(file)
 	}
 }(momoca.home = momoca.home || {})
