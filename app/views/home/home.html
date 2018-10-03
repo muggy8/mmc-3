@@ -79,6 +79,6 @@
         <div class="icon font-2em margin-1em">
             <span class="import"></span>
         </div>
-        <input type="file" class="clickable-overlay" onchange="event.preventDefault(); console.log(event, this.files); this.app.home.import(this.files[0]); return false" multiple="false">
+        <input type="file" class="clickable-overlay" onchange="event.preventDefault(); this.app.home.import(this.files[0]); return false" multiple="false">
     </div>
 </div>
