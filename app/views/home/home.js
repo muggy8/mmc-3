@@ -71,7 +71,7 @@ void function(homeController){
 		keyMap: momoca.linearClone(momoca.presets[0].map),
 		preset: 0
 	}
-	
+
 	homeController.import = function(file){
 	    var reader = new FileReader()
 	    reader.onload = function(ev){
@@ -80,4 +80,27 @@ void function(homeController){
 	    }
 	    reader.readAsText(file)
 	}
+
+    homeController.dragIconColor = ""
+    homeController.prepDragDropImport = function(el){
+        "drag dragstart dragend dragover dragenter dragleave drop".split(" ").forEach(function(evType){
+            el.addEventListener(evType, function(ev){
+                ev.preventDefault()
+                ev.stopPropagation()
+            })
+        })
+        "dragover dragenter".split(" ").forEach(function(evType){
+            el.addEventListener(evType, function(ev){
+                homeController.dragIconColor = "color-primary"
+            })
+        })
+        "dragleave dragend drop".split(" ").forEach(function(evType){
+            el.addEventListener(evType, function(ev){
+                homeController.dragIconColor = ""
+            })
+        })
+        el.addEventListener("drop", function(ev){
+            homeController.import(ev.dataTransfer.files[0])
+        })
+    }
 }(momoca.home = momoca.home || {})

@@ -74,11 +74,11 @@
             </div>
         </form>
     </div>
-    
-    <div class="island bg-gray-light bubble-0.25 cell text-center flex vhcenter relative">
+
+    <label class="island bg-gray-light bubble-0.25 cell text-center flex vhcenter relative color-primary-hover {:this.app.home.dragIconColor:}|{home.dragIconColor}|" data-script="{:this.app.home.prepDragDropImport(this):}">
         <div class="icon font-2em margin-1em">
             <span class="import"></span>
         </div>
         <input type="file" class="clickable-overlay" onchange="event.preventDefault(); this.app.home.import(this.files[0]); return false" multiple="false">
-    </div>
+    </label>
 </div>
