@@ -59,7 +59,7 @@ void function(controller){
 				var routMatch = momoca.state.match(/^\/song/)
 				if (!otherRoutsWorked && routMatch){
 					if (!controller.inDom){
-                        var startTime = new Date()
+					    momoca.updateData(payload.version, momoca.dataVersion, payload) 
 						var sourceTracks = payload.tracks
 						payload.tracks = []
 						controller.song = payload
@@ -169,7 +169,7 @@ void function(controller){
 				}
 			}
 			catch(uwu){
-				// ¯\_(ツ)_/¯ whatever
+				// Â¯\_(ãƒ„)_/Â¯ whatever
 			}
 		})
 		return targets

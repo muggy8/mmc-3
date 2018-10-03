@@ -230,6 +230,22 @@ var mmcView = proxymity(document.querySelector("body"), {
 		note.sel && (noteClasses += " selected")
 		;+note.hollow && (noteClasses += " opacity-0.6")
         return noteClasses
+	},
+	dataVersion: "0.0.1",
+	dataUpdaters: {
+	    "0.0.1": function(data){}
+	},
+	updateData: function(currentVersion, targetVersion, data){
+	    while(currentVersion !== targetVersion){
+	        if (momoca.dataUpdaters[currentVersion]){
+	            momoca.dataUpdaters[currentVersion](data)
+	            currentVersion = data.version
+	        }
+	        else{
+	            momoca.notify("Corupt Data")
+	            throw new Error("No Matching Updator Found for data")
+	        }
+	    }
 	}
 })
 var momoca = mmcView.app

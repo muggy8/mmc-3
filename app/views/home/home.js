@@ -51,6 +51,7 @@ void function(homeController){
 				})
 			})
 		})
+		songProperties.version = momoca.dataVersion
 		momoca.state = "/song"
 		momoca.rout(songProperties)
 		momoca.notify("Work in progress", {
