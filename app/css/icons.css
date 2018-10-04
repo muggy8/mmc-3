@@ -334,3 +334,31 @@
 .icon .shrink:after {
     transform: rotate(-45deg);
 }
+
+/* This method works but it results in less than stellar transition animations. another method is implemented below */
+/*.icon .expand {
+    background: 
+        linear-gradient(
+            45deg, 
+            currentColor 15%, rgba(0,0,0,0) 15%,
+            rgba(0,0,0,0) 85%, currentColor 85%
+        ),
+        linear-gradient(
+            -45deg, 
+            currentColor 15%, rgba(0,0,0,0) 15%,
+            rgba(0,0,0,0) 85%, currentColor 85%
+        );
+}*/
+
+.icon .expand {
+    overflow: hidden;
+}
+.icon .expand:after {
+    transform: rotate(45deg);
+    border: solid 0.25em currentColor;
+    
+	top: -0.25em;
+	left: -0.25em;
+	right: -0.25em;
+	bottom: -0.25em;
+}
