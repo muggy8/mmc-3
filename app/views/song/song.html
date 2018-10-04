@@ -40,7 +40,7 @@
 	</div>
 	<div style="height:{:this.previousElementSibling.offsetHeight:}|{inDom;momoca.screenSize},{inDom}|px"></div>
 </div>
-<div class="song-template" onmouseup="this.app.mouseDown = false;" oncontextmenu="event.preventDefault()">
+<div class="song-template float flex column" onmouseup="this.app.mouseDown = false;" oncontextmenu="event.preventDefault()">
 	<!-- foreach: {
 		this.app.song = this.app.song || {};
 		this.app.song.tracks = this.app.song.tracks || [];
@@ -49,23 +49,33 @@
 	<div class="island flex-mid track">
 		<div class="bg-primary flex row column-mid">
 			<!-- this is the tool bar -->
-
-			<div class="island bubble-0.25 padding-0.5em bg-gray-light bg-gray-hover" onclick="this.app.configTrack(this.app.song.tracks[this.trackIndex])">
+		
+		    <div class="island bubble-0.25 padding-0.5em bg-gray-light bg-gray-hover {: +this.app.song.tracks[this.trackIndex].collapsed && ' hidden-state ' :}|{song.tracks[this.trackIndex].collapsed}|" onclick="this.app.configTrack(this.app.song.tracks[this.trackIndex])">
 				<div class="icon font-2em">
 					<i class="gear"></i>
 				</div>
 			</div>
 
-			<div class="island bubble-0.25 padding-0.5em bg-gray-light bg-gray-hover {: (this.app.song.tracks.length == 1) && ' hidden-state ' :}|{song.tracks.length}|" onclick="this.app.song.tracks.splice(this.trackIndex, 1)">
+			<div class="island bubble-0.25 padding-0.5em bg-gray-light bg-gray-hover {: (+this.app.song.tracks[this.trackIndex].collapsed || this.app.song.tracks.length === 1) && ' hidden-state ' :}|{song.tracks[this.trackIndex].collapsed},{song.tracks}|" onclick="this.app.song.tracks.splice(this.trackIndex, 1)">
 				<div class="icon font-2em">
 					<i class="delete"></i>
 				</div>
 			</div>
+			
+			<div class="grow"></div>
+			
+			<div class="island bubble-0.25 padding-0.5em bg-gray-light bg-gray-hover {: this.app.song.tracks.length === 1 && ' hidden-state ' :}|{song.tracks}|">
+			    <div class="icon font-2em">
+					<i class="animate {: +this.app.song.tracks[this.trackIndex].collapsed ? 'expand' : 'shrink' :}|{song.tracks[this.trackIndex].collapsed}|" onclick="this.app.song.tracks[this.trackIndex].collapsed = !+this.app.song.tracks[this.trackIndex].collapsed"></i>
+				</div>
+			</div>
+    
+        	<!-- {:this.app.song.tracks.length === 1 && (this.app.song.tracks[this.trackIndex].collapsed = false) :}|{song.tracks}| -->
 
 		</div>
-		<div class="bg-black padding-0.25em paddingless-left paddingless-top flex row column-mid">
+		<div class="bg-black padding-0.25em paddingless-left paddingless-top flex row column-mid grow">
 			<!-- this is the main body -->
-			<div class="block flex-mid">
+			<div class="block flex-mid {: +this.app.song.tracks[this.trackIndex].collapsed && ' hidden-state ' :}|{song.tracks[this.trackIndex].collapsed}|">
 				<!-- foreach: key("col").in(this.app.song.tracks[this.trackIndex].notes) -->
 				<div class="flex column-reverse-mid">
 					<!-- foreach: key("row").in(this.app.song.tracks[this.trackIndex].notes[this.col]) -->
@@ -87,11 +97,12 @@
 				<!-- foreach: key.end() -->
 			</div>
 
-			<input class="grow-mid margin-0.5em marginless-right marginless-bot" name="seek" type="range" min="0" max="{: (this.app.song.beats * (+this.app.song.smallestNoteFraction)) - 1 :}|{song.beats},{song.smallestNoteFraction}|" orient="{: momoca.mediaState === 'smol' ? 'vertical' : 'horizontal' :}|{inDom;momoca.mediaState},{inDom}|">
+			<input class="grow-mid margin-0.5em marginless-right marginless-bot {: +this.app.song.tracks[this.trackIndex].collapsed && ' hidden-state ' :}|{song.tracks[this.trackIndex].collapsed}|" name="seek" type="range" min="0" max="{: (this.app.song.beats * (+this.app.song.smallestNoteFraction)) - 1 :}|{song.beats},{song.smallestNoteFraction}|" orient="{: momoca.mediaState === 'smol' ? 'vertical' : 'horizontal' :}|{inDom;momoca.mediaState},{inDom}|">
 		</div>
 	</div>
 	<!-- foreach: key.end(this.app.trackTouch) -->
 </div>
+<div class="clear"></div>
 
 <div class="paste-selection-template">
 	<div class="island">
