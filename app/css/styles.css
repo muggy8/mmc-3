@@ -14,6 +14,11 @@ input[type=range][orient=vertical] {
     transform: rotate(180deg);
 	width: 1.5em;
 }
+#song-navigation {
+    overflow: auto;
+    overflow-y: auto;
+    overflow-x: initial;
+}
 
 .selected {
 	box-shadow: 0 0 0 0.25em currentColor;
@@ -26,8 +31,8 @@ input[type=range][orient=vertical] {
 .clickable-overlay {
     position: absolute;
     opacity: 0;
-    top: 0; 
-    left:0; 
+    top: 0;
+    left:0;
     bottom: 0;
     right: 0;
 }
@@ -337,7 +342,7 @@ input[type=range][orient=vertical] {
 	.text-right-mid {
 		text-align: right;
 	}
-	
+
 	/* float stuff */
     .float-mid,
     .float-left-mid {
@@ -627,7 +632,7 @@ input[type=range][orient=vertical] {
 	.text-right-big {
 		text-align: right;
 	}
-	
+
 	/* float stuff */
     .float-big,
     .float-left-big {
