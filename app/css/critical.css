@@ -407,6 +407,26 @@ h5 {
 	text-align: right;
 }
 
+/*because we sometimes need float here's a set for us to use*/
+.float,
+.float-left,
+.float-smol,
+.float-left-smol {
+    float: left;
+}
+.float-right,
+.float-right-smol {
+    float: right;
+}
+.clear,
+.clearfix:after {
+    clear: both;
+}
+.clearfix:after {
+    display: block;
+    content: " ";
+}
+
 .bg-primary-light {
     background-color: #00DD00;
     color: #000;

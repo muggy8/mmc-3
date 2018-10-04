@@ -337,6 +337,15 @@ input[type=range][orient=vertical] {
 	.text-right-mid {
 		text-align: right;
 	}
+	
+	/* float stuff */
+    .float-mid,
+    .float-left-mid {
+        float: left;
+    }
+    .float-right-mid {
+        float: right;
+    }
 }
 
 /* a bit under the standard 1080 screen (some are 1060 for some reason) so if they are side ways, it still is in large mode */
@@ -618,6 +627,15 @@ input[type=range][orient=vertical] {
 	.text-right-big {
 		text-align: right;
 	}
+	
+	/* float stuff */
+    .float-big,
+    .float-left-big {
+        float: left;
+    }
+    .float-right-big {
+        float: right;
+    }
 }
 
 .bubble-1\.5 {
