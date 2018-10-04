@@ -44,7 +44,7 @@ void function(homeController){
 		if (!+songProperties.beats){
 			songProperties.beats = 4
 		}
-		songPropertiesHasVersion = !!songProperties.version.toString()
+		songPropertiesHasVersion = !!songProperties.version
 		!songPropertiesHasVersion && songProperties.tracks.forEach(function(track){
 			track.notes = utils.range(0, (songProperties.beats * songProperties.smallestNoteFraction) - 1).map(function(){
 				return utils.range(0, 15).map(function(){
