@@ -13,6 +13,11 @@
 				margin: 0.5em;
 				display: inline-block;
 			}
+            .animate-box {
+                font-size: 4rem;
+                width: 2em;
+                margin: auto;
+            }
 		</style>
 		<title>Testing Icons</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,6 +31,12 @@
 			<button onclick="document.querySelector('html').style.fontSize = '96px'">rem: 96px</button>
 			<button onclick="document.querySelector('html').style.fontSize = '128px'">rem: 128px</button>
 		</div>
+
+        <div class="animate-box">
+    		<div class="icon animate">
+    			<i class=""></i>
+    		</div>
+        </div>
 
 		<div class="icon">
 			<i class="play"></i>
@@ -95,12 +106,6 @@
 		<div class="icon">
 			<i class="wrench"></i>
 		</div>
-
-
-		<div class="icon animate">
-			<i class=""></i>
-		</div>
-
 
 		<script>
 			Array.from(document.querySelectorAll(".icon:not(.animate)")).forEach(function(ele){
