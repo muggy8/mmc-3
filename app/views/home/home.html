@@ -46,7 +46,12 @@
             } -->
             <div class="flex island vcenter input-row">
                 {: this.instrumentIndex + 1 :}:
-                <button class="margin-h-0.25em padding-0.25em bg-white-hover marginless-right color-primary color-primary-light-hover {: !!this.app.home.newSong.tracks[this.instrumentIndex].instrumentId.toString() || ' hidden-state ' :}|{home.newSong.tracks[this.instrumentIndex].instrumentId }|" onclick="this.app.home.configure(this.app.home.newSong.tracks[this.instrumentIndex])" type="button">Edit</button>
+                <button class="flex vcenter margin-h-0.25em padding-0.25em bg-white-hover marginless-right color-primary color-primary-light-hover {: !!this.app.home.newSong.tracks[this.instrumentIndex].instrumentId.toString() || ' hidden-state ' :}|{home.newSong.tracks[this.instrumentIndex].instrumentId }|" onclick="this.app.home.configure(this.app.home.newSong.tracks[this.instrumentIndex])" type="button">
+                    <span class="icon">
+                        <span class="wrench"></span>
+                    </span>
+                    <span class="margin-h-0.5em marginless-right">Edit</span>
+                </button>
                 <select
     				name="home.newSong.tracks[this.instrumentIndex].instrumentId"
     				class="grow {:
