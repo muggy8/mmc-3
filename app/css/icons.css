@@ -390,21 +390,3 @@
     height: 1em;
     background-color: currentColor;
 }
-/* .icon .wrench:before {
-    width: 0.6em;
-    height: 0.6em;
-    border: solid 0.2em currentColor;
-    border-radius: 0.2em;
-    border-top: none;
-    top: 0.05em;
-    right: 0.05em;
-    transform: rotate(45deg);
-}
-.icon .wrench:after {
-    top: 0.4em;
-    left: 0.1em;
-    transform: rotate(45deg);
-    width: 0.3em;
-    height: 0.7em;
-    background-color: currentColor;
-} */
