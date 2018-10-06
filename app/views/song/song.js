@@ -1,6 +1,7 @@
 void function(controller){
 	var view
 	var pasteView
+    var configsView
 	new utils.xhr()
 		.open("GET", "/app/views/song/song.html")
 		.addEventListener("error", function(){
@@ -8,13 +9,21 @@ void function(controller){
 		})
 		.addEventListener("load", function(){
 			view = proxymity(this.responseText, controller).detach()
-			view.forEach(function(ele, index){
+			// view.forEach(function(ele, index))
+            for(var index = view.length - 1; index >= 0; index--){
+                var ele = view[index]
 			    ele.addEventListener("dblclick", controller.exitSnippitRenane)
-				if (ele.className && ele.className.indexOf("paste-selection-template") > -1){
+
+                if (ele.className && ele.className.indexOf("paste-selection-template") > -1){
 					pasteView = ele
 					view.splice(index, 1)
 				}
-			})
+
+                if (ele.className && ele.className.indexOf("song-configs") > -1){
+					configsView = ele
+					view.splice(index, 1)
+				}
+			}
 
 			controller.inDom = false
 
@@ -59,7 +68,7 @@ void function(controller){
 				var routMatch = momoca.state.match(/^\/song/)
 				if (!otherRoutsWorked && routMatch){
 					if (!controller.inDom){
-					    momoca.updateData(payload.version, momoca.dataVersion, payload) 
+					    momoca.updateData(payload.version, momoca.dataVersion, payload)
 						var sourceTracks = payload.tracks
 						payload.tracks = []
 						controller.song = payload
@@ -145,6 +154,12 @@ void function(controller){
 			popOverController.close()
 		})
 	}
+
+    controller.configSong = function(){
+        console.log("clicked config")
+
+        momoca.popOver(configsView)
+    }
 
 	// controller.slideMode = 0
     var previousHighlight = []

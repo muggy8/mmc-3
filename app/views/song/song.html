@@ -22,11 +22,11 @@
 				<i class="add"></i>
 			</div>
 		</div>
-		<!-- <div class="island bubble-0.25 padding-0.5em bg-gray-light bg-gray-hover marginless-left">
+		<div class="island bubble-0.25 padding-0.5em bg-gray-light bg-gray-hover marginless-left" onclick="this.app.configSong()">
 			<div class="icon font-2em">
-				<i class="flopy"></i>
+				<i class="gear"></i>
 			</div>
-		</div> -->
+		</div>
 		<div class="island bubble-0.25 padding-0.5em bg-gray-light bg-gray-hover marginless-left" onclick="this.app.export()">
 			<div class="icon font-2em">
 				<i class="export"></i>
@@ -49,7 +49,7 @@
 	<div class="island flex-mid track">
 		<div class="bg-primary flex row column-mid">
 			<!-- this is the tool bar -->
-		
+
 		    <div class="island bubble-0.25 padding-0.5em bg-gray-light bg-gray-hover {: +this.app.song.tracks[this.trackIndex].collapsed && ' hidden-state ' :}|{song.tracks[this.trackIndex].collapsed}|" onclick="this.app.configTrack(this.app.song.tracks[this.trackIndex])">
 				<div class="icon font-2em">
 					<i class="wrench"></i>
@@ -61,15 +61,15 @@
 					<i class="delete"></i>
 				</div>
 			</div>
-			
+
 			<div class="grow"></div>
-			
+
 			<div class="island bubble-0.25 padding-0.5em bg-gray-light bg-gray-hover {: this.app.song.tracks.length === 1 && ' hidden-state ' :}|{song.tracks}|">
 			    <div class="icon font-2em">
 					<i class="animate {: +this.app.song.tracks[this.trackIndex].collapsed ? 'expand' : 'shrink' :}|{song.tracks[this.trackIndex].collapsed}|" onclick="this.app.song.tracks[this.trackIndex].collapsed = !+this.app.song.tracks[this.trackIndex].collapsed"></i>
 				</div>
 			</div>
-    
+
         	<!-- {:this.app.song.tracks.length === 1 && (this.app.song.tracks[this.trackIndex].collapsed = false) :}|{song.tracks}| -->
 
 		</div>
@@ -139,3 +139,16 @@
 		</ol>
 	</div>
 </div>
+
+<form class="song-configs">
+    <label class="flex island vcenter input-row">
+        Song Name:
+        <input name="song.name" type="text" class="grow margin-h-0.5em marginless-right  padding-0.25em" placeholder="New Song">
+    </label>
+    <label class="flex island vcenter input-row">
+        Song Length:
+        <input name="song.min" class="grow margin-h-0.5em marginless-right text-center padding-0.25em" placeholder="min" type="number" min="0" max="60">
+        :
+        <input name="song.sec" class="grow text-center margin-h-0.5em marginless-left padding-0.25em" placeholder="sec" type="number" min="0" max="59">
+    </label>
+</form>
