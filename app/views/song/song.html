@@ -140,27 +140,37 @@
 	</div>
 </div>
 
-<form class="song-configs" onsubmit="this.app.configSong.close() ;return false">
+<form class="song-configs {:+this.app.reconfigured.loading && ' hidden-state ':}|{reconfigured.loading}|" onsubmit="return false">
     <label class="flex island vcenter input-row">
         Song Name:
-        <input name="song.name" type="text" class="grow margin-h-0.5em marginless-right  padding-0.25em" placeholder="New Song">
+        <input name="reconfigured.name" type="text" class="grow margin-h-0.5em marginless-right  padding-0.25em" placeholder="New Song">
     </label>
     <label class="flex island vcenter input-row">
         Song Length:
-        <input name="song.min" class="grow margin-h-0.5em marginless-right text-center padding-0.25em" placeholder="min" type="number" min="0" max="60">
+        <input name="reconfigured.min" class="grow margin-h-0.5em marginless-right text-center padding-0.25em" placeholder="min" type="number" min="0" max="60">
         :
-        <input name="song.sec" class="grow text-center margin-h-0.5em marginless-left padding-0.25em" placeholder="sec" type="number" min="0" max="59">
+        <input name="reconfigured.sec" class="grow text-center margin-h-0.5em marginless-left padding-0.25em" placeholder="sec" type="number" min="0" max="59">
         ({:
-            this.app.song.beats =
+            this.app.reconfigured.beats =
             Math.round((
-                (+this.app.song.min || 0) +
-                ((+this.app.song.sec || 0) / 60)
+                (+this.app.reconfigured.min || 0) +
+                ((+this.app.reconfigured.sec || 0) / 60)
             ) * (+this.app.song.bpm || 0))
-        :}|{song.min},{song.sec},{song.bpm}| Beats)
+        :}|{reconfigured.min},{reconfigured.sec},{song.bpm}| Beats)
     </label>
 
     <div class="flex vcenter">
         <div class="grow"></div>
-        <input type="submit" value="Update" class="island padding-0.25em bg-white-hover color-primary color-primary-light-hover link">
+        <input type="submit" value="Update" class="island padding-0.25em bg-white-hover color-primary color-primary-light-hover link" onclick="
+			this.app.reconfigured.loading = true ;
+			proxymity.on.renderend
+				.then(()=>this.app.configSong.update())
+				.then(()=>this.app.configSong.close())
+		">
     </div>
 </form>
+<div class="text-center song-configs cell {:+this.app.reconfigured.loading || ' hidden-state ':}|{reconfigured.loading}|">
+	<div class="icon font-2em island">
+		<span class="loading"></span>
+	</div>
+</div>

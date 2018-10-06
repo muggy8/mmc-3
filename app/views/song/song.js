@@ -37,8 +37,8 @@ void function(controller){
     }
 
 	var view
-	var pasteView
-    var configsView
+	var pasteView = []
+    var configsView = []
 	new utils.xhr()
 		.open("GET", "/app/views/song/song.html")
 		.addEventListener("error", function(){
@@ -52,15 +52,23 @@ void function(controller){
 			    ele.addEventListener("dblclick", controller.exitSnippitRenane)
 
                 if (ele.className && ele.className.indexOf("paste-selection-template") > -1){
-					pasteView = ele
+					pasteView.unshift(ele)
 					view.splice(index, 1)
 				}
 
                 if (ele.className && ele.className.indexOf("song-configs") > -1){
-					configsView = ele
+					configsView.unshift(ele)
 					view.splice(index, 1)
 				}
 			}
+			pasteView = pasteView.reduce(function(parent, item){
+				parent.appendChild(item)
+				return parent
+			}, document.createElement("div"))
+			configsView = configsView.reduce(function(parent, item){
+				parent.appendChild(item)
+				return parent
+			}, document.createElement("div"))
 
 			controller.inDom = false
 
@@ -168,14 +176,57 @@ void function(controller){
 	}
 
     controller.configSong = function(){
+		controller.reconfigured = {
+			min: controller.song.min,
+			sec: controller.song.sec,
+			name: controller.song.name,
+			beats: controller.song.beats,
+		}
         var popOverController = momoca.popOver(configsView, {
-            onclose: function(){
-
-            }
-        })
+			onclose: controller.configSong.cancle
+		})
 
         controller.configSong.close = popOverController.close;
     }
+	controller.configSong.update = function(){
+		var durationNotes = controller.reconfigured.beats * controller.song.smallestNoteFraction
+		var waiting = proxymity.on.renderend
+
+		if (controller.song.tracks[0].notes.length > durationNotes){
+			waiting = waiting.then(function(){
+				controller.song.tracks.forEach(function(track){
+					track.notes.splice(durationNotes, track.notes.length - durationNotes)
+				})
+				return proxymity.on.renderend
+			})
+		}
+		else if (controller.song.tracks[0].notes.length < durationNotes){
+			waiting = waiting.then(function(){
+				var additionals = controller.song.tracks.map(function(track){
+					var trackNotesLength = track.notes.length
+					// var notes = []
+					for(var notes = []; notes.length + trackNotesLength !== durationNotes; notes.push(utils.range(0, 15).map(function(){
+						return momoca.createNote()
+					})));
+					return {
+						notes: notes
+					}
+				})
+
+				return migrateTracksIncrementally(additionals, controller.song.tracks)
+			})
+		}
+		return waiting.then(function(){
+			controller.song.min = controller.reconfigured.min
+			controller.song.sec = controller.reconfigured.sec
+			controller.song.name = controller.reconfigured.name
+			controller.song.beats = controller.reconfigured.beats
+		})
+	}
+
+	controller.configSong.cancle = function(){
+		controller.reconfigured = undefined;
+	}
 
 	// controller.slideMode = 0
     var previousHighlight = []
