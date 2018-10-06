@@ -30,9 +30,9 @@ void function(controller){
             }
 
         }
-        Array.prototype.push.apply(target[track].notes, destructableSouce[track].notes.splice(0, 64))
-        proxymity.on.renderend.then(function(){
-            migrateTracksIncrementally(destructableSouce, target, totalColumnsToMigrate, styleElement)
+        Array.prototype.push.apply(target[track].notes, destructableSouce[track].notes.splice(0, 32))
+        return proxymity.on.renderend.then(function(){
+            return migrateTracksIncrementally(destructableSouce, target, totalColumnsToMigrate, styleElement)
         })
     }
 
@@ -141,19 +141,30 @@ void function(controller){
 
 	controller.addTrack = function(){
 		var popOverController = momoca.popOver(`<div class="text-center padding-0.5em"><div class="icon font-2em"><i class="loading"></i></div></div>`)
-		controller.song.tracks.push({
+
+        var notes = utils.range(0, (controller.song.beats * controller.song.smallestNoteFraction) - 1).map(function(){
+			return utils.range(0, 15).map(function(){
+				return false
+			})
+		})
+		var newTrackIndex = -1 + controller.song.tracks.push({
 			instrumentId: 0,
 			keyMap: momoca.linearClone(momoca.presets[0]),
 			preset: 0,
-			notes: utils.range(0, (controller.song.beats * controller.song.smallestNoteFraction) - 1).map(function(){
-				return utils.range(0, 15).map(function(){
-					return false
-				})
-			})
+			notes: []
 		})
+        for(var i = newTrackIndex, psudoTracks = []; i >= 0; i--){
+            psudoTracks[i] = {
+                notes: []
+            }
+        }
+        psudoTracks[newTrackIndex].notes = notes
+
 		proxymity.on.renderend.then(function(){
-			popOverController.close()
-		})
+            return migrateTracksIncrementally(psudoTracks, controller.song.tracks)
+        }).then(function(){
+            popOverController.close()
+        })
 	}
 
     controller.configSong = function(){
