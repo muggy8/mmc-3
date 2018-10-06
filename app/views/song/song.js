@@ -1,4 +1,41 @@
 void function(controller){
+
+    function migrateTracksIncrementally(destructableSouce, target, totalColumnsToMigrate, styleElement){
+        var migrated = target.reduce(function(sum, track){
+            return sum + track.notes.length
+        }, 0)
+        styleElement && (styleElement.innerHTML = `
+        main:empty::after {
+            content: "${migrated}/${totalColumnsToMigrate}";
+        }`)
+
+        var track = 0
+        while (destructableSouce[track] && !destructableSouce[track].notes.length) {
+            track++
+        }
+        if (!destructableSouce[track]){
+            view.appendTo("main")
+            styleElement && styleElement.parentNode && styleElement.parentNode.removeChild(styleElement)
+            controller.inDom = true
+            return
+        }
+        if (!target[track]){
+            target[track] = {}
+            for(var key in destructableSouce[track]){
+                if (key === "notes"){
+                    target[track][key] = []
+                    continue
+                }
+                target[track][key] = destructableSouce[track][key]
+            }
+
+        }
+        Array.prototype.push.apply(target[track].notes, destructableSouce[track].notes.splice(0, 64))
+        proxymity.on.renderend.then(function(){
+            migrateTracksIncrementally(destructableSouce, target, totalColumnsToMigrate, styleElement)
+        })
+    }
+
 	var view
 	var pasteView
     var configsView
@@ -26,42 +63,6 @@ void function(controller){
 			}
 
 			controller.inDom = false
-
-			function migrateTracksIncrementally(destructableSouce, target, totalColumnsToMigrate, styleElement){
-				var migrated = target.reduce(function(sum, track){
-					return sum + track.notes.length
-				}, 0);
-				styleElement.innerHTML = `
-				main:empty::after {
-					content: "${migrated}/${totalColumnsToMigrate}";
-				}`
-
-				var track = 0
-				while (destructableSouce[track] && !destructableSouce[track].notes.length) {
-					track++
-				}
-				if (!destructableSouce[track]){
-					view.appendTo("main")
-					styleElement.parentNode.removeChild(styleElement)
-					controller.inDom = true
-					return
-				}
-				if (!target[track]){
-					target[track] = {}
-					for(var key in destructableSouce[track]){
-						if (key === "notes"){
-							target[track][key] = []
-							continue
-						}
-						target[track][key] = destructableSouce[track][key]
-					}
-
-				}
-				Array.prototype.push.apply(target[track].notes, destructableSouce[track].notes.splice(0, 64))
-				proxymity.on.renderend.then(function(){
-					migrateTracksIncrementally(destructableSouce, target, totalColumnsToMigrate, styleElement)
-				})
-			}
 
 			momoca.rout = utils.extendFn(momoca.rout, function(superFn, payload){
 				var otherRoutsWorked = superFn(payload)
