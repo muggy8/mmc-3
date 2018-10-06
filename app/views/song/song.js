@@ -156,9 +156,13 @@ void function(controller){
 	}
 
     controller.configSong = function(){
-        console.log("clicked config")
+        var popOverController = momoca.popOver(configsView, {
+            onclose: function(){
 
-        momoca.popOver(configsView)
+            }
+        })
+
+        controller.configSong.close = popOverController.close;
     }
 
 	// controller.slideMode = 0

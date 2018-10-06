@@ -140,7 +140,7 @@
 	</div>
 </div>
 
-<form class="song-configs" onsubmit="return false">
+<form class="song-configs" onsubmit="this.app.configSong.close() ;return false">
     <label class="flex island vcenter input-row">
         Song Name:
         <input name="song.name" type="text" class="grow margin-h-0.5em marginless-right  padding-0.25em" placeholder="New Song">
