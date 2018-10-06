@@ -43,6 +43,7 @@ void function(homeController){
 	homeController.createSong = function(songProperties){
 		if (!+songProperties.beats){
 			songProperties.beats = 4
+            songProperties.sec = 2
 		}
 		songPropertiesHasVersion = !!songProperties.version
 		!songPropertiesHasVersion && songProperties.tracks.forEach(function(track){

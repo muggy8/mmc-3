@@ -140,7 +140,7 @@
 	</div>
 </div>
 
-<form class="song-configs">
+<form class="song-configs" onsubmit="return false">
     <label class="flex island vcenter input-row">
         Song Name:
         <input name="song.name" type="text" class="grow margin-h-0.5em marginless-right  padding-0.25em" placeholder="New Song">
@@ -150,5 +150,17 @@
         <input name="song.min" class="grow margin-h-0.5em marginless-right text-center padding-0.25em" placeholder="min" type="number" min="0" max="60">
         :
         <input name="song.sec" class="grow text-center margin-h-0.5em marginless-left padding-0.25em" placeholder="sec" type="number" min="0" max="59">
+        ({:
+            this.app.song.beats =
+            Math.round((
+                (+this.app.song.min || 0) +
+                ((+this.app.song.sec || 0) / 60)
+            ) * (+this.app.song.bpm || 0))
+        :}|{song.min},{song.sec},{song.bpm}| Beats)
     </label>
+
+    <div class="flex vcenter">
+        <div class="grow"></div>
+        <input type="submit" value="Update" class="island padding-0.25em bg-white-hover color-primary color-primary-light-hover link">
+    </div>
 </form>
