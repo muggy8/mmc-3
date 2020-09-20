@@ -29,9 +29,9 @@
 		<script>document.location.hash.match(/debug/) && document.write('<script src="//unpkg.com/mobile-inspector">\<\/script\>')</script>
 
 		<!-- font loading -->
-		<script src="https://cdn.jsdelivr.net/gh/bramstein@fontfaceobserver@111670b895c338bed371ad5feb95d8573ce3d0c9/fontfaceobserver.standalone.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/fontfaceobserver@2.1.0/fontfaceobserver.standalone.js"></script>
 		<script>
-			new FontFaceObserver("Source Sans Pro")
+			(new FontFaceObserver("Source Sans Pro"))
 				.load()
 				.then(function(){
 					document.body.className += " has-font"
