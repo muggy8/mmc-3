@@ -183,7 +183,8 @@
 .icon .add:after,
 .icon .delete:before,
 .icon .delete:after,
-.icon .minus:before {
+.icon .minus:before,
+.icon .menu:before {
 	top: 0.4em;
 	bottom: 0.4em;
 	left: 0;
@@ -199,6 +200,9 @@
 }
 .icon .delete:after {
 	transform: rotate(45deg);
+}
+.icon .menu:before {
+	box-shadow: 0 -0.4em 0 0 currentcolor, 0 0.4em 0 0 currentcolor;
 }
 
 .icon .toggle {
